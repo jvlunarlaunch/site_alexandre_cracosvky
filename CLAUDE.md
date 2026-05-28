@@ -19,6 +19,8 @@ open index.html       # macOS
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which FTP-deploys the entire repo to `valuationma.com.br` (Hostinger). **There is no staging — every push to `main` goes live.** Secrets (`FTP_HOST`, `FTP_USER`, `FTP_PASS`) are stored in GitHub Actions secrets. The `.git*`, `.github/`, and `.gitignore` paths are excluded from the upload.
 
+The workflow uses `dangerous-clean-slate: true` — **on every deploy the entire `public_html` is wiped and re-uploaded from the repo.** This keeps the server as an exact mirror of `main`: files added, modified, or deleted in the repo are reflected on the server. Never upload files directly to the server via FTP or hPanel; they will be deleted on the next push.
+
 ## Architecture
 
 ### `index.html` — homepage
