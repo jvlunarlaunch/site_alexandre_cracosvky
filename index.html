@@ -120,7 +120,7 @@
 .newsletter-title{font-family:var(--cg);font-size:clamp(44px,5vw,68px);font-weight:300;color:#fff;line-height:1.1;margin:0 0 28px;}
 .newsletter-title em{font-style:italic;color:var(--gold3);}
 .newsletter-desc{font-family:var(--ep);font-size:19px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85;}
-.nl-form-card{background:var(--white);padding:52px;border:.5px solid var(--ruledark);border-radius:4px;box-shadow:0 8px 32px rgba(10,22,40,.06);}
+.nl-form-card{background:var(--white);padding:32px;border:.5px solid var(--ruledark);border-radius:4px;box-shadow:0 8px 32px rgba(10,22,40,.06);}
 .nl-field{margin-bottom:22px;}
 .nl-label{font-family:var(--mo);font-size:13px;color:var(--navy);letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:10px;opacity:.55;}
 .nl-input{width:100%;font-family:var(--ep);font-size:18px;font-weight:300;color:var(--navy);background:var(--ice);border:.5px solid var(--ice2);border-radius:2px;padding:16px 20px;outline:none;transition:border-color .2s,background .2s;}
@@ -129,6 +129,7 @@
 .nl-btn{width:100%;font-family:var(--ep);font-size:17px;font-weight:500;background:var(--navy);color:#fff;border:none;padding:18px 24px;border-radius:2px;cursor:pointer;letter-spacing:.07em;margin-top:6px;transition:background .2s;}
 .nl-btn:hover{background:var(--royal);}
 .nl-fine{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.28);letter-spacing:.08em;text-align:center;margin-top:20px;}
+.newsletter-section .eyebrow-bar{font-size:15px;}
 
 /* ─── Hero lux CTA button ─── */
 .hero-lux-cta-btn{
@@ -205,9 +206,9 @@
 .book-ed-tag{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--mo);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);border:.5px solid rgba(184,149,42,.45);
+  color:var(--navy);border:.5px solid rgba(10,22,40,.45);
   padding:6px 14px;border-radius:2px;margin-bottom:28px;
-  background:rgba(184,149,42,.12);
+  background:rgba(10,22,40,.12);
 }
 .book-ed-dot{
   width:5px;height:5px;border-radius:50%;background:var(--gold);
@@ -253,6 +254,71 @@
   .book-ed-ghost{display:none;}
 }
 
+/* ─── Contact CTA section ─── */
+.contact-cta-section{
+  background:var(--navy);
+  padding:140px clamp(32px,5vw,72px);
+  position:relative;overflow:hidden;text-align:center;
+}
+.contact-cta-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(184,149,42,.5) 25%,var(--gold2) 50%,rgba(184,149,42,.5) 75%,transparent 100%);
+}
+.contact-cta-section::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 65% at 50% 50%,rgba(27,58,122,.45) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-cta-bg{
+  position:absolute;font-family:var(--cg);font-size:clamp(160px,22vw,320px);
+  font-weight:700;font-style:italic;color:rgba(255,255,255,.025);
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  pointer-events:none;user-select:none;white-space:nowrap;z-index:0;
+}
+.contact-cta-inner{
+  position:relative;z-index:1;
+  max-width:680px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+}
+.contact-cta-rule{width:36px;height:2px;background:var(--gold);margin-bottom:32px;}
+.contact-cta-eyebrow{
+  font-family:var(--mo);font-size:11px;color:var(--gold2);
+  letter-spacing:.22em;text-transform:uppercase;margin-bottom:24px;opacity:.8;
+}
+.contact-cta-title{
+  font-family:var(--cg);font-size:clamp(48px,6vw,82px);
+  font-weight:300;color:#fff;line-height:1.06;margin:0 0 28px;
+}
+.contact-cta-title em{font-style:italic;color:var(--gold3);}
+.contact-cta-divider{
+  width:1px;height:40px;background:rgba(184,149,42,.3);margin-bottom:28px;
+}
+.contact-cta-desc{
+  font-family:var(--ep);font-size:18px;font-weight:300;
+  color:rgba(255,255,255,.42);line-height:1.85;max-width:480px;margin-bottom:52px;
+}
+.contact-cta-btn{
+  font-family:var(--ep);font-size:16px;font-weight:500;
+  background:var(--gold);color:var(--navy);
+  padding:18px 44px;border-radius:2px;letter-spacing:.08em;
+  display:inline-flex;align-items:center;gap:12px;
+  text-decoration:none;
+  transition:background .2s,transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s;
+}
+.contact-cta-btn:hover{
+  background:var(--gold2);transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(184,149,42,.28);
+}
+.contact-cta-btn svg{transition:transform .3s .04s;}
+.contact-cta-btn:hover svg{transform:translateX(4px);}
+.contact-cta-fine{
+  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.2);
+  letter-spacing:.14em;text-transform:uppercase;margin-top:24px;
+}
+@media(max-width:768px){
+  .contact-cta-section{padding:100px clamp(32px,5vw,48px);}
+}
+
 /* ─── Responsive ─── */
 @media(max-width:768px){
   .split-choice{flex-direction:column;min-height:auto;}
@@ -283,8 +349,35 @@
     <a href="./empreendedor.html" class="nav-link">Para empreendedores</a>
     <a href="./pre-lista-livro.html" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
   </div>
-  <a href="./empreendedor.html" class="nav-cta">Ver ferramentas</a>
+  <a href="./contato.html" class="nav-cta">Contato</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="./index.html#newsletter" class="nav-link">Newsletter</a>
+  <a href="./estudante.html" class="nav-link">Para estudantes</a>
+  <a href="./empreendedor.html" class="nav-link">Para empreendedores</a>
+  <a href="./pre-lista-livro.html" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+  <a href="./contato.html" class="nav-cta-mobile">Contato</a>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('nav-hamburger');
+  var menu=document.getElementById('nav-mobile-menu');
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)){
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+})();
+</script>
 <main class="page-main">
 
 <section class="hero-lux">
@@ -315,14 +408,6 @@
         <div class="hero-lux-stmeta">em 6 países</div>
       </div>
     </div>
-    <div class="hero-lux-tagrow">
-      <span class="hero-lux-tag">Valuation</span>
-      <span class="hero-lux-tag">M&amp;A</span>
-      <span class="hero-lux-tag">LBO Modeling</span>
-      <span class="hero-lux-tag">DCF</span>
-      <span class="hero-lux-tag">Due Diligence</span>
-      <span class="hero-lux-tag">WACC</span>
-    </div>
     <div style="margin-top:40px;">
       <a href="#escolha" class="hero-lux-cta-btn">Escolha seu perfil <span style="display:inline-block;transition:transform .3s;">↓</span></a>
     </div>
@@ -333,11 +418,9 @@
   <a href="./empreendedor.html" class="split-panel split-panel--empreendedor">
     <div class="split-panel-inner">
       <div class="split-rule"></div>
-      <div class="split-eyebrow">M&amp;A · Valuation · Estratégia</div>
       <h2 class="split-title">Sou<br><em>Empreendedor</em></h2>
       <p class="split-desc">Diagnostique sua empresa, calcule o valuation e prepare&#8209;se para vender ou crescer com ferramentas práticas de M&amp;A.</p>
       <div class="split-cta-btn">Acessar ferramentas <span class="split-arrow">→</span></div>
-      <div class="split-count">6 diagnósticos interativos</div>
     </div>
     <div class="split-bg-text" aria-hidden="true">M&amp;A</div>
   </a>
@@ -345,11 +428,9 @@
   <a href="./estudante.html" class="split-panel split-panel--estudante">
     <div class="split-panel-inner">
       <div class="split-rule"></div>
-      <div class="split-eyebrow">CFA · Valuation · Carreira</div>
       <h2 class="split-title">Sou<br><em>Estudante</em></h2>
       <p class="split-desc">Teste seus conhecimentos, descubra seu nível em valuation e prepare&#8209;se para o CFA e entrevistas de finanças corporativas.</p>
-      <div class="split-cta-btn">Fazer diagnóstico <span class="split-arrow">→</span></div>
-      <div class="split-count">3 quizzes + materiais PDF</div>
+      <div class="split-cta-btn">Acessar ferramentas <span class="split-arrow">→</span></div>
     </div>
     <div class="split-bg-text" aria-hidden="true">CFA</div>
   </a>
@@ -360,7 +441,6 @@
   <div class="section-inner bio-inner">
     <div>
       <div class="rule-bracket"></div>
-      <div class="bio-eyebrow">CFA Charterholder · Professor · M&amp;A Advisor</div>
       <h2 class="bio-name">Alexandre<br><em>Cracovsky</em></h2>
       <p class="bio-text">Com mais de 15 anos de experiência em M&amp;A, valuation e finanças corporativas, Alexandre Cracovsky forma profissionais que atuam nos principais fundos de private equity e bancos de investimento do Brasil.</p>
       <p class="bio-text">CFA Charterholder e especialista em M&amp;A, sua metodologia alia rigor técnico à clareza pedagógica — tornando acessíveis os conceitos mais sofisticados de valuation e avaliação de empresas.</p>
@@ -398,7 +478,6 @@
         Entrar na pré-lista
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <p class="book-ed-fine">Acesso antecipado · Preço especial</p>
     </div>
     <div class="book-ed-visual">
       <img src="./assets/livro secreto cracosky (1).png" alt="Novo livro — Alexandre Cracovsky, CFA" class="book-ed-img">
@@ -435,7 +514,6 @@
 <section class="section section-clean" id="canais">
   <div class="section-inner">
     <div class="channels-header">
-      <div class="eyebrow-bar eyebrow-bar-royal">Onde me encontrar</div>
       <h2 class="channels-title">Canais de<br><em>Comunicação</em></h2>
     </div>
     <div class="channels-grid">
@@ -490,11 +568,27 @@
   </div>
 </section>
 
+<!-- ─── Contact CTA ─── -->
+<section class="contact-cta-section">
+  <div class="contact-cta-bg" aria-hidden="true">Contato</div>
+  <div class="contact-cta-inner">
+    <div class="contact-cta-rule"></div>
+    <div class="contact-cta-eyebrow">Fale com Alexandre</div>
+    <h2 class="contact-cta-title">Pronto para dar<br>o próximo <em>passo?</em></h2>
+    <div class="contact-cta-divider"></div>
+    <p class="contact-cta-desc">Seja para uma consultoria, uma parceria ou para trocar uma ideia sobre M&amp;A e valuation — estou disponível.</p>
+    <a href="./contato.html" class="contact-cta-btn">
+      Entrar em contato
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
-    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+    <div class="footer-copy">© 2026 · PROFESSOR CFA</div>
   </div>
 </footer>
 <script>

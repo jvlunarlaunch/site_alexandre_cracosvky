@@ -15,6 +15,10 @@ xdg-open index.html   # Linux
 open index.html       # macOS
 ```
 
+## Deployment
+
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which FTP-deploys the entire repo to `valuationma.com.br` (Hostinger). **There is no staging — every push to `main` goes live.** Secrets (`FTP_HOST`, `FTP_USER`, `FTP_PASS`) are stored in GitHub Actions secrets. The `.git*`, `.github/`, and `.gitignore` paths are excluded from the upload.
+
 ## Architecture
 
 ### `index.html` — homepage
@@ -33,6 +37,10 @@ Inline `<style>` in `<head>` contains the split-screen CSS. Inline `<script>` ju
 ### `iscas/isca-N.html` — quiz pages
 
 Each quiz page embeds its config as a `const QUIZ_CONFIG = {...}` JSON object and initialises the engine with `QuizEngine.init(el, QUIZ_CONFIG)`. To change quiz content, edit the JSON directly in the file.
+
+### `pre-lista-livro.html` — book waitlist page
+
+Standalone root-level page for a book pre-order waitlist. Does **not** use `assets/design-system.css`; it has its own self-contained inline `<style>` with the same CSS variables and Google Fonts `<link>` tags baked in. Edit it independently from the rest of the site.
 
 ### `capturas/*.html` — lead-capture pages
 

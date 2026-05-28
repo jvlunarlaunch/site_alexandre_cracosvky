@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contato — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="./assets/design-system.css">
+<style>
+/* ── CONTACT SECTION ── */
+.contact-wrap{
+  min-height:calc(100vh - 64px);background:var(--navy);
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+
+/* Geometric background elements */
+.contact-wrap::before{
+  content:'';position:absolute;
+  top:-120px;right:-120px;
+  width:560px;height:560px;
+  border:1px solid rgba(184,149,42,.08);
+  border-radius:50%;pointer-events:none;
+}
+.contact-wrap::after{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:360px;height:360px;
+  border:1px solid rgba(184,149,42,.06);
+  border-radius:50%;pointer-events:none;
+}
+
+.contact-bg-text{
+  position:absolute;left:-32px;bottom:-48px;
+  font-family:var(--cg);font-size:clamp(160px,18vw,280px);
+  font-weight:700;font-style:italic;
+  color:rgba(184,149,42,.04);
+  line-height:1;pointer-events:none;user-select:none;
+  letter-spacing:-.02em;
+}
+
+.contact-inner{
+  flex:1;display:grid;
+  grid-template-columns:1fr 1fr;
+  max-width:1100px;margin:0 auto;width:100%;
+  padding:0 40px;
+  align-items:center;
+  min-height:calc(100vh - 128px);
+  gap:80px;
+}
+
+/* LEFT */
+.contact-left{position:relative;z-index:2;}
+.contact-rule{width:36px;height:2px;background:var(--gold);margin-bottom:28px;}
+.contact-eyebrow{
+  font-family:var(--mo);font-size:11px;color:var(--gold2);
+  letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;opacity:.85;
+}
+.contact-title{
+  font-family:var(--cg);font-size:clamp(52px,5.2vw,80px);
+  font-weight:300;color:#fff;line-height:1.0;margin:0 0 28px;
+}
+.contact-title em{font-style:italic;color:var(--gold3);display:block;}
+.contact-desc{
+  font-family:var(--ep);font-size:16px;font-weight:300;
+  color:rgba(255,255,255,.45);line-height:1.85;
+  max-width:360px;margin-bottom:48px;
+}
+
+.contact-info-list{display:flex;flex-direction:column;gap:20px;}
+.contact-info-item{display:flex;align-items:flex-start;gap:16px;}
+.contact-info-icon{
+  width:36px;height:36px;flex-shrink:0;
+  border:.5px solid rgba(184,149,42,.25);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mo);font-size:13px;color:var(--gold2);
+  margin-top:2px;
+}
+.contact-info-label{
+  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.3);
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;
+}
+.contact-info-val{
+  font-family:var(--ep);font-size:15px;font-weight:300;
+  color:rgba(255,255,255,.75);
+}
+
+/* Diagonal gold accent line */
+.contact-accent-line{
+  position:absolute;left:-40px;top:50%;
+  width:2px;height:120px;background:var(--gold);
+  transform:translateY(-50%);opacity:.35;
+}
+
+/* RIGHT — FORM */
+.contact-form-wrap{position:relative;z-index:2;}
+.contact-form-card{
+  background:rgba(255,255,255,.03);
+  border:.5px solid rgba(184,149,42,.15);
+  border-radius:4px;padding:44px 40px;
+  backdrop-filter:blur(4px);
+  position:relative;overflow:hidden;
+}
+.contact-form-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),transparent);
+}
+
+.cf-field{margin-bottom:28px;position:relative;}
+.cf-label{
+  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);
+  letter-spacing:.18em;text-transform:uppercase;
+  display:block;margin-bottom:10px;
+  transition:color .25s;
+}
+.cf-field:focus-within .cf-label{color:var(--gold2);}
+
+.cf-input,.cf-textarea{
+  width:100%;font-family:var(--ep);font-size:16px;font-weight:300;
+  color:#fff;
+  background:rgba(255,255,255,.04);
+  border:none;border-bottom:.5px solid rgba(255,255,255,.15);
+  padding:12px 8px;outline:none;
+  transition:border-color .3s;
+  border-radius:0;
+  -webkit-appearance:none;
+}
+.cf-input::placeholder,.cf-textarea::placeholder{
+  color:rgba(255,255,255,.18);
+}
+.cf-input:focus,.cf-textarea:focus{
+  border-bottom-color:var(--gold);
+}
+.cf-input:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 100px var(--navy) inset;
+  -webkit-text-fill-color:#fff;
+}
+.cf-textarea{
+  resize:none;height:96px;line-height:1.7;
+}
+
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+
+/* Select styled */
+.cf-select{
+  width:100%;font-family:var(--ep);font-size:16px;font-weight:300;
+  color:#fff;
+  background:rgba(255,255,255,.04);
+  border:none;border-bottom:.5px solid rgba(255,255,255,.15);
+  padding:12px 8px;outline:none;
+  transition:border-color .3s;
+  border-radius:0;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8952A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 4px center;
+  padding-right:24px;
+}
+.cf-select:focus{border-bottom-color:var(--gold);}
+.cf-select option{background:var(--navy);color:#fff;}
+
+/* Underline animation */
+.cf-underline{
+  position:absolute;bottom:0;left:0;
+  height:1px;width:0;background:var(--gold);
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+.cf-field:focus-within .cf-underline{width:100%;}
+
+.cf-btn{
+  width:100%;margin-top:8px;
+  font-family:var(--ep);font-size:16px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:transparent;
+  color:var(--gold2);
+  border:.5px solid var(--gold);
+  padding:18px 24px;border-radius:2px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:color .3s;
+}
+.cf-btn::before{
+  content:'';position:absolute;
+  inset:0;background:var(--gold);
+  transform:translateX(-101%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.cf-btn:hover::before{transform:translateX(0);}
+.cf-btn:hover{color:var(--navy);}
+.cf-btn-text{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;}
+
+.cf-disclaimer{
+  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.2);
+  letter-spacing:.1em;text-align:center;margin-top:16px;line-height:1.7;
+}
+
+/* ── SUCCESS STATE ── */
+.cf-success{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 24px;min-height:320px;
+}
+.cf-success.visible{display:flex;}
+.cf-success-icon{
+  width:56px;height:56px;border:.5px solid var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+  font-family:var(--mo);font-size:22px;color:var(--gold2);
+}
+.cf-success-title{
+  font-family:var(--cg);font-size:36px;font-weight:300;color:#fff;
+  margin-bottom:12px;
+}
+.cf-success-desc{
+  font-family:var(--ep);font-size:15px;font-weight:300;
+  color:rgba(255,255,255,.45);line-height:1.8;max-width:280px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:800px){
+  .contact-inner{
+    grid-template-columns:1fr;gap:48px;
+    padding:48px 28px;min-height:auto;
+  }
+  .contact-wrap{min-height:auto;}
+  .contact-title{font-size:clamp(44px,10vw,64px);}
+  .contact-desc{max-width:none;}
+  .contact-accent-line{display:none;}
+  .cf-row{grid-template-columns:1fr;}
+  .contact-form-card{padding:32px 24px;}
+}
+@media(max-width:480px){
+  .contact-inner{padding:36px 20px;}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="./index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="./index.html#newsletter" class="nav-link">Newsletter</a>
+    <a href="./estudante.html" class="nav-link">Para estudantes</a>
+    <a href="./empreendedor.html" class="nav-link">Para empreendedores</a>
+    <a href="./pre-lista-livro.html" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+  </div>
+  <a href="./contato.html" class="nav-cta active">Contato</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="./index.html#newsletter" class="nav-link">Newsletter</a>
+  <a href="./estudante.html" class="nav-link">Para estudantes</a>
+  <a href="./empreendedor.html" class="nav-link">Para empreendedores</a>
+  <a href="./pre-lista-livro.html" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+  <a href="./contato.html" class="nav-cta-mobile">Contato</a>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('nav-hamburger');
+  var menu=document.getElementById('nav-mobile-menu');
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+  });
+})();
+</script>
+
+<main class="page-main">
+<div class="contact-wrap">
+  <div class="contact-bg-text">Contato</div>
+
+  <div class="contact-inner">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+      <div class="contact-accent-line"></div>
+      <div class="contact-rule"></div>
+      <div class="contact-eyebrow">Fale comigo</div>
+      <h1 class="contact-title">Vamos<em>conversar.</em></h1>
+      <p class="contact-desc">Dúvidas sobre M&amp;A, valuation, materiais ou parcerias? Envie uma mensagem — responderei pessoalmente.</p>
+
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">@</div>
+          <div>
+            <div class="contact-info-label">E-mail</div>
+            <div class="contact-info-val">contato@valuationma.com.br</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">in</div>
+          <div>
+            <div class="contact-info-label">LinkedIn</div>
+            <div class="contact-info-val">Alexandre Cracovsky, CFA</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT — FORM -->
+    <div class="contact-form-wrap">
+      <div class="contact-form-card">
+
+        <form id="contact-form" novalidate>
+          <div class="cf-row">
+            <div class="cf-field">
+              <label class="cf-label" for="cf-nome">Nome</label>
+              <input class="cf-input" type="text" id="cf-nome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+              <div class="cf-underline"></div>
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="cf-email">E-mail</label>
+              <input class="cf-input" type="email" id="cf-email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+              <div class="cf-underline"></div>
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-assunto">Assunto</label>
+            <select class="cf-select" id="cf-assunto" name="assunto">
+              <option value="" disabled selected>Selecione um tema</option>
+              <option value="ma">M&amp;A e Valuation</option>
+              <option value="materiais">Materiais e PDFs</option>
+              <option value="consultoria">Consultoria</option>
+              <option value="parceria">Parceria</option>
+              <option value="outro">Outro</option>
+            </select>
+            <div class="cf-underline"></div>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-mensagem">Mensagem</label>
+            <textarea class="cf-textarea" id="cf-mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
+            <div class="cf-underline"></div>
+          </div>
+
+          <button type="submit" class="cf-btn">
+            <span class="cf-btn-text">
+              Enviar mensagem
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+
+          <p class="cf-disclaimer">Seus dados são confidenciais e não serão compartilhados.</p>
+        </form>
+
+        <div class="cf-success" id="cf-success">
+          <div class="cf-success-icon">✓</div>
+          <div class="cf-success-title">Mensagem enviada.</div>
+          <p class="cf-success-desc">Obrigado pelo contato. Responderei em até 2 dias úteis.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</main>
+
+<script>
+(function(){
+  var form = document.getElementById('contact-form');
+  var success = document.getElementById('cf-success');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nome = document.getElementById('cf-nome').value.trim();
+    var email = document.getElementById('cf-email').value.trim();
+    var mensagem = document.getElementById('cf-mensagem').value.trim();
+    if(!nome || !email || !mensagem) return;
+
+    form.style.transition = 'opacity .3s';
+    form.style.opacity = '0';
+    setTimeout(function(){
+      form.style.display = 'none';
+      success.classList.add('visible');
+    }, 300);
+  });
+})();
+</script>
+</body>
+</html>
