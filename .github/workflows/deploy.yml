@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           port: 21
           local-dir: ./
-          server-dir: /home/u191607503/domains/valuationma.com.br/public_html/
+          server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
