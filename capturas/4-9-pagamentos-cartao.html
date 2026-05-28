@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Como Funcionam os Pagamentos com Cartão — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<div class="capture-hero">
+  <div class="capture-inner">
+    <div class="capture-left">
+      <div class="eyebrow-bar">Fintech &nbsp;·&nbsp; Material Gratuito</div>
+      <h1 class="hero-h1" style="font-size:26px;">Como Funcionam os Pagamentos com Cartão</h1>
+      <p class="hero-sub">Da autorização ao settlement: toda a cadeia de pagamentos explicada com foco em finanças e oportunidades de M&A no setor.</p>
+      <div class="capture-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nome completo</label>
+            <input class="form-input" type="text" id="f-name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input class="form-input" type="email" id="f-email" placeholder="seu@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">WhatsApp</label>
+            <input class="form-input" type="tel" id="f-wa" placeholder="(11) 99999-9999">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Seu objetivo</label>
+            <select class="form-input form-select" id="f-obj">
+              <option value="">Selecione...</option>
+              <option>Aprender finanças corporativas</option>
+              <option>Crescer na carreira</option>
+              <option>Preparar para M&amp;A</option>
+              <option>Preparar para CFA</option>
+              <option>Empreender / vender empresa</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-gold btn-full" id="btn-submit" style="margin-top:8px;">
+          Quero receber gratuitamente →
+        </button>
+        <div id="form-success" style="display:none;margin-top:16px;font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;">
+          ✓ Recebemos seus dados! O material chegará no seu e-mail em breve.
+        </div>
+      </div>
+    </div>
+    <div class="capture-right">
+      <div class="cover-mockup" style="max-width:280px;">
+        <img src="../assets/covers/4-9-pagamentos-cartao.jpg" alt="Como Funcionam os Pagamentos com Cartão" style="width:100%;border-radius:3px;position:relative;z-index:2;box-shadow:0 8px 32px rgba(10,22,40,.2);">
+        <div style="position:absolute;top:12px;left:12px;right:-12px;bottom:-12px;background:var(--ice2);border-radius:4px;z-index:0;"></div>
+        <div style="position:absolute;top:6px;left:6px;right:-6px;bottom:-6px;background:var(--ice);border-radius:4px;z-index:1;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('btn-submit').addEventListener('click',function(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  if(!name||!email){alert('Por favor, informe nome e e-mail.');return;}
+  this.disabled=true;this.textContent='Enviando...';
+  setTimeout(function(){
+    document.getElementById('form-success').style.display='block';
+    document.getElementById('btn-submit').style.display='none';
+  },800);
+});
+</script>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

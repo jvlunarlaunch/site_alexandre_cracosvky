@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Os 7 pontos cegos que derrubam deals de M&amp;A — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 3,
+  "segment": "empreendedor",
+  "slug": "7-pontos-cegos-ma",
+  "title": "Os 7 pontos cegos que derrubam deals de M&amp;A",
+  "subtitle": "Calcule o seu Índice de Risco de Deal (IRD) e descubra quais blind spots podem comprometer sua negociação.",
+  "badge": "M&amp;A · Risco",
+  "estimatedTime": "3 min",
+  "icon": "⚠️",
+  "questions": [
+    {
+      "id": "pc1",
+      "text": "A empresa para se você sair por 3 meses?",
+      "dimension": "Dependência do fundador",
+      "type": "choice",
+      "weight": 3,
+      "maxVal": 2,
+      "shortLabel": "Dependência do fundador",
+      "options": [
+        {
+          "label": "Não, a empresa funcionaria normalmente",
+          "value": 0
+        },
+        {
+          "label": "Teria impacto moderado em algumas áreas",
+          "value": 1
+        },
+        {
+          "label": "Sim, a empresa dependeria diretamente de mim",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc2",
+      "text": "Seu maior cliente representa mais de 25% da receita?",
+      "dimension": "Concentração de clientes",
+      "type": "choice",
+      "weight": 3,
+      "maxVal": 2,
+      "shortLabel": "Concentração de clientes",
+      "options": [
+        {
+          "label": "Não, nenhum cliente ultrapassa 25%",
+          "value": 0
+        },
+        {
+          "label": "Um cliente está entre 20–25% da receita",
+          "value": 1
+        },
+        {
+          "label": "Sim, um cliente passa de 25% da receita",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc3",
+      "text": "Há processos trabalhistas, fiscais ou ambientais em andamento?",
+      "dimension": "Passivo oculto",
+      "type": "choice",
+      "weight": 2,
+      "maxVal": 2,
+      "shortLabel": "Passivo oculto",
+      "options": [
+        {
+          "label": "Não há contingências relevantes",
+          "value": 0
+        },
+        {
+          "label": "Há contingências de valor baixo e risco controlado",
+          "value": 1
+        },
+        {
+          "label": "Sim, com valor ou probabilidade relevante",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc4",
+      "text": "Acordos relevantes com clientes ou fornecedores existem apenas 'na palavra'?",
+      "dimension": "Contratos informais",
+      "type": "choice",
+      "weight": 2,
+      "maxVal": 2,
+      "shortLabel": "Contratos informais",
+      "options": [
+        {
+          "label": "Não, todos os acordos relevantes estão formalizados",
+          "value": 0
+        },
+        {
+          "label": "Alguns acordos secundários são informais",
+          "value": 1
+        },
+        {
+          "label": "Sim, acordos importantes são verbais ou informais",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc5",
+      "text": "Sua margem EBITDA inclui despesas pessoais do sócio lançadas na empresa?",
+      "dimension": "Qualidade do EBITDA",
+      "type": "choice",
+      "weight": 2,
+      "maxVal": 2,
+      "shortLabel": "Qualidade do EBITDA",
+      "options": [
+        {
+          "label": "Não, EBITDA limpo sem despesas pessoais",
+          "value": 0
+        },
+        {
+          "label": "Há ajustes pequenos e já identificados",
+          "value": 1
+        },
+        {
+          "label": "Sim, há despesas pessoais significativas misturadas",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc6",
+      "text": "Decisões financeiras relevantes dependem exclusivamente de você, sem alçadas formais?",
+      "dimension": "Governança fraca",
+      "type": "choice",
+      "weight": 1,
+      "maxVal": 2,
+      "shortLabel": "Governança",
+      "options": [
+        {
+          "label": "Não, há política de alçadas e delegação formal",
+          "value": 0
+        },
+        {
+          "label": "Parcialmente, algumas decisões têm alçada definida",
+          "value": 1
+        },
+        {
+          "label": "Sim, todas as decisões financeiras passam por mim",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pc7",
+      "text": "Você já preparou uma narrativa clara sobre por que está vendendo a empresa?",
+      "dimension": "Narrativa do vendedor",
+      "type": "choice",
+      "weight": 1,
+      "maxVal": 2,
+      "shortLabel": "Narrativa de venda",
+      "options": [
+        {
+          "label": "Sim, tenho discurso claro e convincente preparado",
+          "value": 0
+        },
+        {
+          "label": "Tenho uma explicação básica mas não estruturada",
+          "value": 1
+        },
+        {
+          "label": "Não preparei narrativa de venda formal",
+          "value": 2
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "weighted_sum",
+    "max": 14,
+    "scoreLabel": "Índice IRD",
+    "thresholds": [
+      {
+        "max": 4,
+        "label": "Risco Baixo",
+        "class": "success",
+        "description": "Seu deal apresenta riscos controlados. Os pontos identificados são gerenciáveis e não devem impactar significativamente a due diligence."
+      },
+      {
+        "max": 9,
+        "label": "Risco Médio",
+        "class": "warning",
+        "description": "Há blind spots que podem gerar renegociação ou ajustes de preço durante a due diligence. Identificamos as prioridades de correção."
+      },
+      {
+        "max": 14,
+        "label": "Risco Alto — deal em risco",
+        "class": "danger",
+        "description": "Empresas com IRD ≥ 10 têm 60% mais chance de ver o deal cair na due diligence. É essencial endereçar esses pontos antes de qualquer negociação."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "bar",
+      "title": "Score por ponto cego (0=baixo risco, 2=alto risco)",
+      "height": 260
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

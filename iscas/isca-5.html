@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Em qual estágio de maturidade M&amp;A sua empresa está? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 5,
+  "segment": "empreendedor",
+  "slug": "maturidade-ma",
+  "title": "Em qual estágio de maturidade M&amp;A sua empresa está?",
+  "subtitle": "Descubra em qual dos 5 estágios da jornada de M&A você se encontra e quanto tempo falta para estar pronto.",
+  "badge": "M&amp;A · Maturidade",
+  "estimatedTime": "3 min",
+  "icon": "📈",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Com que frequência você pensa em vender a empresa?",
+      "dimension": "Intenção",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Nunca ou raramente penso nisso",
+          "value": 0
+        },
+        {
+          "label": "Às vezes, mas sem urgência",
+          "value": 2
+        },
+        {
+          "label": "Frequentemente — é um objetivo concreto",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Suas demonstrações financeiras estão organizadas para apresentar a um comprador?",
+      "dimension": "Prontidão financeira",
+      "weight": 1.5,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Não, precisariam de trabalho significativo",
+          "value": 0
+        },
+        {
+          "label": "Parcialmente, temos dados mas sem auditoria",
+          "value": 2
+        },
+        {
+          "label": "Sim, estão auditadas e prontas para due diligence",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Você já conversou formalmente com assessores financeiros ou bancos de investimento?",
+      "dimension": "Assessoria",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Nunca tive essa conversa",
+          "value": 0
+        },
+        {
+          "label": "Conversas informais, sem engajamento formal",
+          "value": 2
+        },
+        {
+          "label": "Sim, já tive ou tenho assessor formal",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Você tem material de apresentação da empresa (Information Memorandum ou teaser) preparado?",
+      "dimension": "Material de venda",
+      "weight": 1.5,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Não tenho nada preparado",
+          "value": 0
+        },
+        {
+          "label": "Tenho esboço ou apresentação inicial",
+          "value": 2
+        },
+        {
+          "label": "Sim, IM completo e atualizado",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Há compradores potenciais que já demonstraram interesse na empresa?",
+      "dimension": "Pipeline de compradores",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Não há compradores mapeados",
+          "value": 0
+        },
+        {
+          "label": "Tivemos contatos informais sem avanço",
+          "value": 2
+        },
+        {
+          "label": "Estamos em negociação ativa com interessados",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "Você tem clareza sobre o valor mínimo que aceitaria pela empresa?",
+      "dimension": "Clareza de preço",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Não tenho ideia de quanto valeria",
+          "value": 0
+        },
+        {
+          "label": "Tenho uma estimativa baseada em percepção",
+          "value": 2
+        },
+        {
+          "label": "Sim, tenho floor price fundamentado",
+          "value": 4
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "maturity",
+    "scoreLabel": "Score de Maturidade",
+    "max": 24,
+    "stages": [
+      {
+        "min": 0,
+        "max": 5,
+        "label": "Pré-consciência",
+        "avgMonths": 60,
+        "description": "Você ainda não iniciou a jornada. O primeiro passo é entender o valuation atual e os fundamentos de M&A."
+      },
+      {
+        "min": 6,
+        "max": 10,
+        "label": "Curiosidade",
+        "avgMonths": 48,
+        "description": "Há interesse mas falta estrutura. Comece pela organização financeira e mapeamento de compradores potenciais."
+      },
+      {
+        "min": 11,
+        "max": 15,
+        "label": "Preparação",
+        "avgMonths": 24,
+        "description": "Você está se preparando ativamente. Foque em auditoria, documentação e construção do IM."
+      },
+      {
+        "min": 16,
+        "max": 20,
+        "label": "Posicionamento",
+        "avgMonths": 12,
+        "description": "A empresa está bem posicionada. O próximo passo é engajar um assessor e iniciar o processo formal."
+      },
+      {
+        "min": 21,
+        "max": 24,
+        "label": "Negociação ativa",
+        "avgMonths": 3,
+        "description": "Você está pronto para fechar. Foque na negociação dos termos e estruturação do contrato."
+      }
+    ],
+    "thresholds": [
+      {
+        "max": 5,
+        "label": "Estágio 1 — Pré-consciência",
+        "class": "warning",
+        "description": "Você ainda não iniciou a jornada de M&A. O primeiro passo é entender o valuation atual e os fundamentos para uma venda bem-sucedida."
+      },
+      {
+        "max": 10,
+        "label": "Estágio 2 — Curiosidade",
+        "class": "warning",
+        "description": "Há interesse, mas ainda falta estrutura. Organize as finanças e comece a mapear compradores potenciais."
+      },
+      {
+        "max": 15,
+        "label": "Estágio 3 — Preparação",
+        "class": "warning",
+        "description": "Você está se preparando ativamente. Foque em auditoria financeira, documentação legal e construção do Information Memorandum."
+      },
+      {
+        "max": 20,
+        "label": "Estágio 4 — Posicionamento",
+        "class": "success",
+        "description": "A empresa está bem posicionada para iniciar o processo. Engaje um assessor financeiro e formalize o pipeline de compradores."
+      },
+      {
+        "max": 24,
+        "label": "Estágio 5 — Negociação ativa",
+        "class": "success",
+        "description": "Você está pronto para fechar. Foque na negociação dos termos, LOI e estruturação do contrato de compra e venda."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "area",
+      "title": "Jornada M&A — tempo médio por estágio (meses)",
+      "height": 240
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

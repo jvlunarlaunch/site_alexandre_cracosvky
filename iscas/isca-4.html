@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qual perfil de comprador é ideal para sua empresa? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 4,
+  "segment": "empreendedor",
+  "slug": "perfil-comprador-ideal",
+  "title": "Qual perfil de comprador é ideal para sua empresa?",
+  "subtitle": "Descubra se sua empresa e seus objetivos se alinham melhor com PE, comprador estratégico, familiar ou consolidador.",
+  "badge": "M&amp;A · Estratégia",
+  "estimatedTime": "3 min",
+  "icon": "🎯",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Qual é o seu objetivo principal na venda da empresa?",
+      "dimension": "Objetivos do vendedor",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Maximizar o preço de venda",
+          "value": "preco",
+          "profiles": [
+            "PE",
+            "EST"
+          ]
+        },
+        {
+          "label": "Preservar a cultura e time da empresa",
+          "value": "cultura",
+          "profiles": [
+            "FAM"
+          ]
+        },
+        {
+          "label": "Velocidade no fechamento do deal",
+          "value": "velocidade",
+          "profiles": [
+            "CONC",
+            "FAM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Você quer sair completamente ou continuar como sócio minoritário?",
+      "dimension": "Participação pós-deal",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sair totalmente — liquidez total",
+          "value": "sair",
+          "profiles": [
+            "PE",
+            "FAM"
+          ]
+        },
+        {
+          "label": "Ficar como minoritário por alguns anos",
+          "value": "ficar",
+          "profiles": [
+            "EST"
+          ]
+        },
+        {
+          "label": "Manter papel operacional relevante",
+          "value": "manter",
+          "profiles": [
+            "CONC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "A empresa tem tecnologia ou modelo de negócio escalável para outros mercados?",
+      "dimension": "Escalabilidade",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, alta escalabilidade e potencial de expansão",
+          "value": "sim",
+          "profiles": [
+            "EST",
+            "PE"
+          ]
+        },
+        {
+          "label": "Parcialmente, escalável em alguns aspectos",
+          "value": "parcial",
+          "profiles": [
+            "PE"
+          ]
+        },
+        {
+          "label": "Não, negócio local ou de nicho específico",
+          "value": "nao",
+          "profiles": [
+            "FAM",
+            "CONC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Você prefere um processo rápido (6–12 meses) ou esperar pelo comprador ideal?",
+      "dimension": "Prazo",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Processo rápido — preciso de liquidez",
+          "value": "rapido",
+          "profiles": [
+            "CONC",
+            "FAM"
+          ]
+        },
+        {
+          "label": "Prefiro esperar pelo comprador com melhor fit",
+          "value": "esperar",
+          "profiles": [
+            "PE",
+            "EST"
+          ]
+        },
+        {
+          "label": "Indiferente, desde que o preço seja justo",
+          "value": "indiferente",
+          "profiles": [
+            "PE",
+            "EST",
+            "CONC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Teria conforto em ter um fundo de PE como sócio por 4–6 anos antes do exit final?",
+      "dimension": "Fit com PE",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, estou confortável com governança de PE",
+          "value": "sim",
+          "profiles": [
+            "PE"
+          ]
+        },
+        {
+          "label": "Não tenho certeza — depende dos termos",
+          "value": "talvez",
+          "profiles": [
+            "PE",
+            "EST"
+          ]
+        },
+        {
+          "label": "Não, prefiro um comprador final direto",
+          "value": "nao",
+          "profiles": [
+            "EST",
+            "FAM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "A empresa é líder em nicho regional que um player nacional poderia absorver?",
+      "dimension": "Potencial de consolidação",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, somos referência regional em nicho específico",
+          "value": "sim",
+          "profiles": [
+            "EST",
+            "CONC"
+          ]
+        },
+        {
+          "label": "Temos presença regional mas não somos líderes",
+          "value": "parcial",
+          "profiles": [
+            "PE",
+            "FAM"
+          ]
+        },
+        {
+          "label": "Não, atuamos em mercado amplo e competitivo",
+          "value": "nao",
+          "profiles": [
+            "PE",
+            "FAM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Há sócios familiares cujo bem-estar precisa ser considerado no estruturação do deal?",
+      "dimension": "Estrutura societária",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, há família envolvida e isso é prioritário",
+          "value": "sim",
+          "profiles": [
+            "FAM"
+          ]
+        },
+        {
+          "label": "Parcialmente, há sócios não familiares",
+          "value": "parcial",
+          "profiles": [
+            "FAM",
+            "PE"
+          ]
+        },
+        {
+          "label": "Não, estrutura puramente profissional",
+          "value": "nao",
+          "profiles": [
+            "PE",
+            "EST"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "O valuation máximo é mais importante do que quem vai comprar a empresa?",
+      "dimension": "Prioridade no deal",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, preço é minha prioridade principal",
+          "value": "sim",
+          "profiles": [
+            "PE",
+            "EST"
+          ]
+        },
+        {
+          "label": "Equilíbrio entre preço e fit cultural",
+          "value": "equilibrio",
+          "profiles": [
+            "EST",
+            "FAM"
+          ]
+        },
+        {
+          "label": "Não, quem compra importa mais que o preço",
+          "value": "nao",
+          "profiles": [
+            "FAM"
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "profile",
+    "profiles": [
+      "PE",
+      "EST",
+      "FAM",
+      "CONC"
+    ],
+    "scoreLabel": "Compatibilidade",
+    "thresholds": [
+      {
+        "max": 100,
+        "label": "Perfil identificado",
+        "class": "success",
+        "description": "O perfil de comprador mais compatível com seus objetivos e características foi identificado. Entender isso antes de iniciar o processo é decisivo para o sucesso do deal."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "donut",
+      "title": "Compatibilidade por perfil de comprador",
+      "height": 260
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

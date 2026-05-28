@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minha empresa está pronta para ser vendida? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 1,
+  "segment": "empreendedor",
+  "slug": "empresa-pronta-para-venda",
+  "title": "Minha empresa está pronta para ser vendida?",
+  "subtitle": "Descubra seu Índice de Prontidão para Venda (IPV) e os principais gaps antes de iniciar um processo de M&A.",
+  "badge": "M&amp;A · Diagnóstico",
+  "estimatedTime": "3 min",
+  "icon": "🏢",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "A empresa fatura sem depender da sua presença diária?",
+      "dimension": "Independência operacional",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, a operação funciona de forma autônoma",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, algumas áreas ainda dependem de mim",
+          "value": 1
+        },
+        {
+          "label": "Não, a empresa para se eu me ausentar",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Você tem pelo menos 3 anos de demonstrações financeiras auditadas ou revisadas?",
+      "dimension": "Qualidade financeira",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, auditadas externamente",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, apenas revisadas internamente",
+          "value": 1
+        },
+        {
+          "label": "Não temos demonstrações formais",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Nenhum cliente representa mais de 20% da receita?",
+      "dimension": "Concentração de receita",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, receita bem distribuída",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, um cliente está próximo de 20%",
+          "value": 1
+        },
+        {
+          "label": "Não, temos concentração relevante",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Contratos formalizados com fornecedores e clientes-chave existem?",
+      "dimension": "Solidez jurídica",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, todos os acordos estão formalizados",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, os principais estão formalizados",
+          "value": 1
+        },
+        {
+          "label": "Não, maioria é verbal ou informal",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Há um time de gestão que funcionaria sem você?",
+      "dimension": "Governança e sucessão",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, há gestores capazes em todas as áreas",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, algumas áreas têm gestores confiáveis",
+          "value": 1
+        },
+        {
+          "label": "Não, eu centralizo as decisões gerenciais",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "O EBITDA é positivo e crescente nos últimos 2 anos?",
+      "dimension": "Saúde financeira",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, crescimento consistente",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, positivo mas com variação",
+          "value": 1
+        },
+        {
+          "label": "Não, negativo ou decrescente",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Você conhece o valuation aproximado da sua empresa?",
+      "dimension": "Preparo do vendedor",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, tenho laudo ou estimativa fundamentada",
+          "value": 3
+        },
+        {
+          "label": "Tenho uma estimativa baseada em múltiplos",
+          "value": 1
+        },
+        {
+          "label": "Não tenho ideia do valor atual",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "Os processos operacionais estão documentados e são replicáveis?",
+      "dimension": "Escalabilidade",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, manuais e SOPs atualizados",
+          "value": 3
+        },
+        {
+          "label": "Parcialmente, áreas principais documentadas",
+          "value": 1
+        },
+        {
+          "label": "Não, conhecimento está nas pessoas",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "Não há passivos trabalhistas ou fiscais relevantes em aberto?",
+      "dimension": "Risco de passivo oculto",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Correto, não há passivos relevantes",
+          "value": 3
+        },
+        {
+          "label": "Há contingências pequenas em andamento",
+          "value": 1
+        },
+        {
+          "label": "Há passivos relevantes que podem impactar o deal",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "Você já definiu o que quer fazer depois da venda?",
+      "dimension": "Motivação do vendedor",
+      "type": "choice",
+      "options": [
+        {
+          "label": "Sim, tenho plano concreto para o pós-venda",
+          "value": 3
+        },
+        {
+          "label": "Tenho algumas ideias mas nada definido",
+          "value": 1
+        },
+        {
+          "label": "Não pensei nisso ainda",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "sum",
+    "max": 30,
+    "scoreLabel": "Índice IPV",
+    "thresholds": [
+      {
+        "max": 10,
+        "label": "Não está na hora",
+        "class": "danger",
+        "description": "Há pontos críticos que reduzem significativamente o valor da empresa. Um processo de M&A agora resultaria em múltiplos baixos e maior risco de o deal não fechar. Vamos trabalhar os gaps antes."
+      },
+      {
+        "max": 22,
+        "label": "Quase pronto",
+        "class": "warning",
+        "description": "Você está no caminho certo. Com ajustes específicos nos pontos identificados, é possível aumentar consideravelmente o múltiplo de saída nos próximos 12–24 meses."
+      },
+      {
+        "max": 30,
+        "label": "Empresa vendável",
+        "class": "success",
+        "description": "Sua empresa apresenta os fundamentos que compradores sérios buscam. Este é o momento ideal para estruturar um processo competitivo de M&A e maximizar o valor."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "radar",
+      "title": "Pontuação por dimensão",
+      "height": 280
+    },
+    {
+      "type": "bar",
+      "title": "Ranking de critérios",
+      "height": 240
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

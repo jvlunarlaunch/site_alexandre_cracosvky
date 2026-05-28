@@ -1,0 +1,14 @@
+# Development artifacts
+generator.py
+setup.sh
+design_system_v31_navy_gold.html
+
+# Downloaded files
+*.zip
+
+# Separate subproject (has its own repo)
+isca_modelo_de_diagnóstico/
+
+# OS
+.DS_Store
+Thumbs.db

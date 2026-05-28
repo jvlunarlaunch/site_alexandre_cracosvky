@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>O que destrói valor em uma empresa? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 13,
+  "segment": "empreendedor",
+  "slug": "destruidores-de-valor",
+  "title": "O que destrói valor em uma empresa?",
+  "subtitle": "7 cases reais. Identifique o destruidor de valor em cada situação e veja o impacto no EV.",
+  "badge": "Valuation · M&amp;A",
+  "estimatedTime": "5 min",
+  "icon": "💥",
+  "questions": [
+    {
+      "id": "c1",
+      "text": "Empresa dobrou a receita em 3 anos mas o FCF caiu 40%. Qual é o principal destruidor de valor?",
+      "dimension": "Crescimento",
+      "type": "choice",
+      "correct": "capex",
+      "destroyer": "Crescimento destruidor de caixa",
+      "discount": 0.2,
+      "category": "Eficiência",
+      "options": [
+        {
+          "label": "Queda nas margens operacionais",
+          "value": "margem"
+        },
+        {
+          "label": "Crescimento excessivo de capex e capital de giro",
+          "value": "capex"
+        },
+        {
+          "label": "Aumento das despesas com pessoal",
+          "value": "pessoal"
+        },
+        {
+          "label": "Dívida excessiva",
+          "value": "divida"
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Empresário recusou oferta de R$50M. Vendeu 3 anos depois por R$20M. O que destruiu valor?",
+      "dimension": "Concentração",
+      "type": "choice",
+      "correct": "conc_dep",
+      "destroyer": "Concentração + dependência",
+      "discount": 0.4,
+      "category": "Risco",
+      "options": [
+        {
+          "label": "Queda geral do mercado",
+          "value": "mercado"
+        },
+        {
+          "label": "Concentração em 1 cliente + dependência do fundador",
+          "value": "conc_dep"
+        },
+        {
+          "label": "Problema de gestão de pessoas",
+          "value": "gestao"
+        },
+        {
+          "label": "Produto desatualizado",
+          "value": "produto"
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Empresa com EBITDA de R$10M foi avaliada a 3× enquanto o setor pratica 6×. Por quê?",
+      "dimension": "Governança",
+      "type": "choice",
+      "correct": "governance",
+      "destroyer": "Governança + passivo oculto",
+      "discount": 0.5,
+      "category": "Governança",
+      "options": [
+        {
+          "label": "Setor em crise",
+          "value": "setor"
+        },
+        {
+          "label": "Governança fraca + passivo oculto + gestão não profissionalizada",
+          "value": "governance"
+        },
+        {
+          "label": "Avaliador usou metodologia errada",
+          "value": "metodo"
+        },
+        {
+          "label": "Tamanho pequeno da empresa",
+          "value": "tamanho"
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Fusão de empresas gerou sinergias no papel mas destruiu valor na prática. O que aconteceu?",
+      "dimension": "Integração",
+      "type": "choice",
+      "correct": "integracao",
+      "destroyer": "Falha de integração",
+      "discount": 0.3,
+      "category": "M&A",
+      "options": [
+        {
+          "label": "Preço pago foi alto demais",
+          "value": "preco"
+        },
+        {
+          "label": "Falha de integração cultural, perda de talentos e sistemas incompatíveis",
+          "value": "integracao"
+        },
+        {
+          "label": "Regulação antitrust bloqueou sinergias",
+          "value": "regulacao"
+        },
+        {
+          "label": "Mercado contraiu após a fusão",
+          "value": "mercado"
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "Empresa cresceu receita de R$30M para R$80M mas margem caiu de 30% para 8%. O principal problema é:",
+      "dimension": "Escalabilidade",
+      "type": "choice",
+      "correct": "escala",
+      "destroyer": "Crescimento sem escalabilidade",
+      "discount": 0.25,
+      "category": "Eficiência",
+      "options": [
+        {
+          "label": "Aumento do custo de matéria-prima",
+          "value": "materia"
+        },
+        {
+          "label": "Crescimento de receita sem escalabilidade de margem",
+          "value": "escala"
+        },
+        {
+          "label": "Perda de clientes mais lucrativos",
+          "value": "clientes"
+        },
+        {
+          "label": "Aumento de impostos",
+          "value": "impostos"
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "text": "Empresa com IP valioso foi vendida sem cláusula de non-compete do fundador. Resultado?",
+      "dimension": "Proteção de IP",
+      "type": "choice",
+      "correct": "noncompete",
+      "destroyer": "Erosão de vantagem competitiva",
+      "discount": 0.2,
+      "category": "Jurídico",
+      "options": [
+        {
+          "label": "Fundador criou empresa concorrente e levou clientes",
+          "value": "noncompete"
+        },
+        {
+          "label": "Comprador não soube explorar a tecnologia",
+          "value": "comprador"
+        },
+        {
+          "label": "IP ficou desatualizado rapidamente",
+          "value": "ip"
+        },
+        {
+          "label": "Custo de manutenção do IP foi subestimado",
+          "value": "custo"
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "text": "Negócio saudável perdeu 20% do valor durante due diligence. O vendedor havia anunciado a venda publicamente. O que causou isso?",
+      "dimension": "Key Person",
+      "type": "choice",
+      "correct": "keyperson",
+      "destroyer": "Perda de key person",
+      "discount": 0.15,
+      "category": "Risco",
+      "options": [
+        {
+          "label": "Erro contábil descoberto na due diligence",
+          "value": "contabil"
+        },
+        {
+          "label": "Perda de key persons após anúncio + clientes em alerta",
+          "value": "keyperson"
+        },
+        {
+          "label": "Valuation inicial estava inflado",
+          "value": "inflado"
+        },
+        {
+          "label": "Deterioração do mercado durante o processo",
+          "value": "mercado"
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "value_destroy",
+    "max": 7,
+    "scoreLabel": "Acertos",
+    "thresholds": [
+      {
+        "max": 3,
+        "label": "Muitos destruidores presentes",
+        "class": "danger",
+        "description": "Você identificou poucos destruidores de valor. Esses blind spots são exatamente os que mais aparecem em due diligences reais — e os mais caros de corrigir no último momento."
+      },
+      {
+        "max": 5,
+        "label": "Atenção seletiva",
+        "class": "warning",
+        "description": "Bom instinto nos casos principais. Mas há destruidores de valor que você ainda não reconhece — e o mercado os desconta automaticamente no múltiplo."
+      },
+      {
+        "max": 7,
+        "label": "Visão aguçada de valor",
+        "class": "success",
+        "description": "Você identifica os destruidores antes de qualquer comprador. Esse nível de diagnóstico é o que diferencia advisors de topo e analistas sênior de M&A."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "waterfall",
+      "title": "Impacto estimado dos destruidores no múltiplo EV",
+      "height": 280
+    },
+    {
+      "type": "donut",
+      "title": "Acertos vs. erros por categoria",
+      "height": 220
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Iscas Digitais — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="./assets/design-system.css">
+<style>
+/* ─── Split choice hero ─── */
+.split-choice{display:flex;min-height:100vh;position:relative;}
+.split-panel{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;text-decoration:none;
+  transition:flex .6s cubic-bezier(.4,0,.2,1);
+  padding:80px clamp(32px,5vw,72px);
+}
+.split-choice:hover .split-panel{flex:.68;}
+.split-choice:hover .split-panel:hover{flex:1.32;}
+.split-panel--empreendedor{background:var(--navy);}
+.split-panel--empreendedor::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(27,58,122,.55) 0%,transparent 70%);
+  pointer-events:none;
+}
+.split-panel--estudante{background:#132040;}
+.split-panel--estudante::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 20% 50%,rgba(42,82,168,.45) 0%,transparent 70%);
+  pointer-events:none;
+}
+.split-panel-inner{position:relative;z-index:2;max-width:420px;width:100%;}
+.split-rule{
+  width:36px;height:2px;background:var(--gold);margin-bottom:32px;
+  transition:width .45s .08s cubic-bezier(.4,0,.2,1);
+}
+.split-panel:hover .split-rule{width:68px;}
+.split-eyebrow{
+  font-family:var(--mo);font-size:11px;color:var(--gold2);
+  letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;opacity:.85;
+}
+.split-title{
+  font-family:var(--cg);font-size:clamp(52px,5.5vw,82px);
+  font-weight:300;color:#fff;line-height:1.0;margin:0 0 28px;
+}
+.split-title em{
+  font-style:italic;color:var(--gold3);display:block;
+  transition:letter-spacing .4s;
+}
+.split-panel:hover .split-title em{letter-spacing:.02em;}
+.split-desc{
+  font-family:var(--ep);font-size:15px;font-weight:300;
+  color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:44px;max-width:340px;
+}
+.split-cta-btn{
+  font-family:var(--ep);font-size:14px;font-weight:500;
+  background:var(--gold);color:var(--navy);
+  padding:14px 26px;border-radius:2px;letter-spacing:.07em;
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;
+  transition:background .2s,transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s;
+}
+.split-panel:hover .split-cta-btn{
+  background:var(--gold2);transform:translateX(8px);
+  box-shadow:0 8px 28px rgba(184,149,42,.25);
+}
+.split-arrow{transition:transform .3s .05s;}
+.split-panel:hover .split-arrow{transform:translateX(4px);}
+.split-count{font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.12em;}
+.split-bg-text{
+  position:absolute;font-family:var(--cg);font-size:clamp(180px,20vw,300px);
+  font-weight:700;font-style:italic;color:rgba(255,255,255,.035);
+  right:-16px;bottom:-24px;line-height:1;
+  pointer-events:none;user-select:none;
+  transition:transform .6s cubic-bezier(.4,0,.2,1),color .6s;
+}
+.split-panel:hover .split-bg-text{color:rgba(255,255,255,.06);transform:scale(1.1) translate(-12px,-10px);}
+
+/* ─── Bio section ─── */
+.bio-inner{display:grid;grid-template-columns:1fr .56fr;gap:72px;align-items:center;}
+.bio-rule{width:36px;height:2px;background:var(--royal);margin-bottom:28px;}
+.bio-eyebrow{font-family:var(--mo);font-size:11px;color:var(--royal);letter-spacing:.22em;text-transform:uppercase;margin-bottom:22px;opacity:.85;}
+.bio-name{font-family:var(--cg);font-size:clamp(48px,5.5vw,72px);font-weight:300;color:var(--navy);line-height:1.0;margin:0 0 32px;}
+.bio-name em{font-style:italic;color:var(--royal2);display:block;}
+.bio-text{font-family:var(--ep);font-size:17px;font-weight:300;color:rgba(10,22,40,.6);line-height:1.85;margin-bottom:22px;max-width:520px;}
+.bio-credentials{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.bio-cred{font-family:var(--mo);font-size:11px;color:var(--royal);background:var(--ice);padding:5px 12px;border-radius:2px;letter-spacing:.1em;}
+/* photo frame */
+.bio-photo-wrap{position:relative;padding:0 18px 18px 0;}
+.bio-photo-wrap::before{content:'';position:absolute;top:0;left:0;right:18px;height:2px;background:var(--gold);z-index:3;}
+.bio-photo-wrap::after{content:'';position:absolute;top:12px;left:12px;right:0;bottom:0;background:var(--ice2);border-radius:3px;z-index:0;}
+.bio-photo-img{position:relative;z-index:2;width:100%;height:auto;display:block;border-radius:2px;box-shadow:0 12px 40px rgba(10,22,40,.2);}
+.bio-photo-caption{display:flex;align-items:center;gap:10px;margin-top:4px;padding-right:18px;}
+.bio-photo-caption::before,.bio-photo-caption::after{content:'';flex:1;height:.5px;background:var(--ruledark);}
+.bio-photo-caption-text{font-family:var(--mo);font-size:9px;color:var(--slate);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;}
+/* stats */
+.bio-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ruledark);border:.5px solid var(--ruledark);border-radius:2px;overflow:hidden;margin-top:16px;}
+.bio-stat{background:var(--white);padding:22px 18px;position:relative;}
+.bio-stat:nth-child(-n+2)::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+.bio-stat-val{font-family:var(--cg);font-size:40px;font-weight:300;color:var(--navy);line-height:1;margin-bottom:6px;}
+.bio-stat-label{font-family:var(--mo);font-size:10px;color:var(--slate);letter-spacing:.1em;text-transform:uppercase;}
+
+/* ─── Channels section (clean) ─── */
+.channels-header{margin-bottom:56px;}
+.channels-rule{width:36px;height:2px;background:var(--royal);margin-bottom:24px;}
+.channels-title{font-family:var(--cg);font-size:clamp(36px,4.5vw,56px);font-weight:300;color:var(--navy);line-height:1.1;margin:0;}
+.channels-title em{font-style:italic;color:var(--royal2);}
+.channels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.section-clean{background:var(--ice);}
+.channel-card{background:var(--white);border:.5px solid rgba(10,22,40,.08);border-radius:4px;padding:32px 24px;display:flex;flex-direction:column;transition:background .3s,border-color .3s,transform .3s;}
+.channel-card:hover{background:var(--ice2);border-color:rgba(27,58,122,.2);transform:translateY(-3px);}
+.channel-icon-box{width:44px;height:44px;border:.5px solid rgba(27,58,122,.2);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-family:var(--mo);font-size:14px;font-weight:500;color:var(--royal);transition:border-color .3s;}
+.channel-card:hover .channel-icon-box{border-color:rgba(27,58,122,.55);}
+.channel-name{font-family:var(--ep);font-size:17px;font-weight:500;color:var(--navy);margin-bottom:10px;}
+.channel-desc{font-family:var(--ep);font-size:14px;font-weight:300;color:rgba(10,22,40,.45);line-height:1.65;flex:1;margin-bottom:24px;}
+.channel-cta{font-family:var(--mo);font-size:11px;color:var(--royal);letter-spacing:.14em;text-transform:uppercase;transition:letter-spacing .3s;}
+.channel-card:hover .channel-cta{letter-spacing:.2em;}
+
+/* ─── Newsletter section (dark) ─── */
+.newsletter-section{background:var(--navy);padding-top:160px;padding-bottom:160px;}
+.newsletter-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.newsletter-title{font-family:var(--cg);font-size:clamp(44px,5vw,68px);font-weight:300;color:#fff;line-height:1.1;margin:0 0 28px;}
+.newsletter-title em{font-style:italic;color:var(--gold3);}
+.newsletter-desc{font-family:var(--ep);font-size:19px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85;}
+.nl-form-card{background:var(--white);padding:52px;border:.5px solid var(--ruledark);border-radius:4px;box-shadow:0 8px 32px rgba(10,22,40,.06);}
+.nl-field{margin-bottom:22px;}
+.nl-label{font-family:var(--mo);font-size:13px;color:var(--navy);letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:10px;opacity:.55;}
+.nl-input{width:100%;font-family:var(--ep);font-size:18px;font-weight:300;color:var(--navy);background:var(--ice);border:.5px solid var(--ice2);border-radius:2px;padding:16px 20px;outline:none;transition:border-color .2s,background .2s;}
+.nl-input::placeholder{color:rgba(10,22,40,.28);}
+.nl-input:focus{border-color:rgba(184,149,42,.45);background:var(--white);}
+.nl-btn{width:100%;font-family:var(--ep);font-size:17px;font-weight:500;background:var(--navy);color:#fff;border:none;padding:18px 24px;border-radius:2px;cursor:pointer;letter-spacing:.07em;margin-top:6px;transition:background .2s;}
+.nl-btn:hover{background:var(--royal);}
+.nl-fine{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.28);letter-spacing:.08em;text-align:center;margin-top:20px;}
+
+/* ─── Hero lux CTA button ─── */
+.hero-lux-cta-btn{
+  font-family:var(--ep);font-size:16px;font-weight:500;
+  background:var(--navy);color:#fff;
+  padding:18px 36px;border-radius:2px;letter-spacing:.07em;
+  display:inline-flex;align-items:center;gap:12px;
+  text-decoration:none;
+  transition:background .2s,transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;
+}
+.hero-lux-cta-btn:hover{
+  background:var(--royal);transform:translateY(3px);
+  box-shadow:0 8px 24px rgba(10,22,40,.18);
+}
+.hero-lux-cta-btn:hover span{transform:translateY(3px);}
+
+/* ─── Hero lux ─── */
+.hero-lux{
+  background:#FFFFFF;min-height:100vh;
+  display:flex;align-items:center;
+  padding:0 clamp(32px,5vw,72px);
+  border-bottom:.5px solid rgba(0,0,0,.08);
+}
+.hero-lux-inner{max-width:1100px;margin:0 auto;width:100%;padding:100px 0;}
+.hero-lux-rule{width:40px;height:2px;background:var(--royal);margin-bottom:32px;}
+.hero-lux-h1{font-family:var(--cg);font-size:clamp(52px,6.5vw,88px);font-weight:300;color:var(--navy);line-height:1.08;margin-bottom:24px;letter-spacing:.01em;}
+.hero-lux-h1 em{font-style:italic;color:var(--royal);}
+.hero-lux-sub{font-family:var(--ep);font-size:19px;font-weight:300;color:var(--slate);line-height:1.8;max-width:560px;}
+.hero-lux-divider{height:.5px;background:rgba(0,0,0,.08);margin:44px 0;}
+.hero-lux-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;}
+.hero-lux-stat{padding:24px 36px 24px 0;border-right:.5px solid rgba(0,0,0,.08);}
+.hero-lux-stat:not(:first-child){padding-left:36px;}
+.hero-lux-stat:last-child{border-right:none;padding-right:0;}
+.hero-lux-stlabel{font-family:var(--ep);font-size:12px;font-weight:400;color:#9BA7B4;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.hero-lux-stval{font-family:var(--cg);font-size:clamp(36px,3.8vw,52px);font-weight:600;color:var(--navy);line-height:1;}
+.hero-lux-stmeta{font-family:var(--ep);font-size:13px;color:#9BA7B4;margin-top:6px;font-weight:300;}
+.hero-lux-tagrow{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap;}
+.hero-lux-tag{font-family:var(--ep);font-size:13px;font-weight:400;color:var(--royal);background:var(--ice);padding:7px 16px;border-radius:2px;letter-spacing:.04em;}
+@media(max-width:768px){
+  .hero-lux{min-height:100svh;align-items:flex-start;}
+  .hero-lux-inner{padding:64px 0 72px;}
+  .hero-lux-stats{grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(0,0,0,.08);}
+  .hero-lux-stat{background:#fff;padding:20px;}
+  .hero-lux-stat:not(:first-child){padding-left:20px;}
+}
+
+/* ─── Book editorial section ─── */
+.book-ed{
+  background:#EDE0C4;
+  padding:0 clamp(32px,5vw,72px);
+  position:relative;overflow:hidden;
+}
+.book-ed::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 50%,rgba(184,149,42,.1) 100%);
+  z-index:2;
+}
+.book-ed-ghost{
+  position:absolute;font-family:var(--cg);
+  font-size:clamp(200px,22vw,340px);
+  font-weight:700;font-style:italic;
+  color:rgba(10,22,40,.045);
+  right:-10px;top:50%;transform:translateY(-50%);
+  line-height:1;pointer-events:none;user-select:none;
+}
+.book-ed-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 380px;
+  gap:80px;align-items:center;
+  padding:100px 0;
+  position:relative;z-index:1;
+}
+.book-ed-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mo);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);border:.5px solid rgba(184,149,42,.45);
+  padding:6px 14px;border-radius:2px;margin-bottom:28px;
+  background:rgba(184,149,42,.12);
+}
+.book-ed-dot{
+  width:5px;height:5px;border-radius:50%;background:var(--gold);
+  animation:pulse 2s ease-in-out infinite;
+}
+.book-ed-h2{
+  font-family:var(--cg);font-size:clamp(40px,5vw,64px);
+  font-weight:300;color:var(--navy);line-height:1.1;margin:0 0 24px;
+}
+.book-ed-h2 em{font-style:italic;color:var(--royal);}
+.book-ed-divider{width:48px;height:2px;background:var(--gold);margin-bottom:24px;}
+.book-ed-sub{
+  font-family:var(--ep);font-size:17px;font-weight:300;
+  color:rgba(10,22,40,.62);line-height:1.8;max-width:460px;margin-bottom:36px;
+}
+.book-ed-cta{
+  font-family:var(--ep);font-size:15px;font-weight:500;
+  background:var(--navy);color:#fff;
+  padding:15px 30px;border-radius:2px;letter-spacing:.06em;
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;transition:background .2s,transform .2s,box-shadow .2s;
+}
+.book-ed-cta:hover{background:var(--royal);transform:translateX(4px);box-shadow:0 8px 24px rgba(10,22,40,.2);}
+.book-ed-fine{
+  font-family:var(--mo);font-size:10px;color:rgba(10,22,40,.35);
+  letter-spacing:.15em;text-transform:uppercase;margin-top:14px;
+}
+.book-ed-visual{
+  position:relative;
+  display:flex;justify-content:center;align-items:center;
+  padding:20px 0;
+}
+.book-ed-img{
+  width:100%;max-width:300px;
+  display:block;position:relative;z-index:1;
+  margin:0 auto;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+@media(max-width:768px){
+  .book-ed-inner{grid-template-columns:1fr;gap:40px;}
+  .book-ed-visual{order:-1;}
+  .book-ed-img{max-width:200px;}
+  .book-ed-ghost{display:none;}
+}
+
+/* ─── Responsive ─── */
+@media(max-width:768px){
+  .split-choice{flex-direction:column;min-height:auto;}
+  .split-panel{min-height:52vh;flex:1;padding:64px 32px;transition:flex .45s cubic-bezier(.4,0,.2,1);}
+  .split-choice:hover .split-panel,
+  .split-choice:hover .split-panel:hover{flex:1;}
+  .split-panel.is-tapped{flex:1.38;}
+  .split-panel.is-untapped{flex:.62;}
+
+  .split-bg-text{font-size:120px;}
+  .bio-inner{grid-template-columns:1fr;gap:48px;}
+  .bio-photo-wrap{padding:0 14px 14px 0;}
+  .bio-photo-caption{padding-right:14px;}
+  .channels-grid{grid-template-columns:repeat(2,1fr);}
+  .newsletter-inner{grid-template-columns:1fr;gap:40px;}
+}
+@media(max-width:480px){
+  .channels-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="./index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="./index.html#newsletter" class="nav-link">Newsletter</a>
+    <a href="./estudante.html" class="nav-link">Para estudantes</a>
+    <a href="./empreendedor.html" class="nav-link">Para empreendedores</a>
+    <a href="./pre-lista-livro.html" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+  </div>
+  <a href="./empreendedor.html" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+
+<section class="hero-lux">
+  <div class="hero-lux-inner">
+    <div class="hero-lux-rule"></div>
+    <h1 class="hero-lux-h1">Fusões que criam valor.<br><em>Não apenas transações.</em></h1>
+    <p class="hero-lux-sub">Metodologia proprietária desenvolvida ao longo de 15 anos e 83 deals. Ensino aplicado, não teórico.</p>
+    <div class="hero-lux-divider"></div>
+    <div class="hero-lux-stats">
+      <div class="hero-lux-stat">
+        <div class="hero-lux-stlabel">Deals</div>
+        <div class="hero-lux-stval">83</div>
+        <div class="hero-lux-stmeta">desde 2009</div>
+      </div>
+      <div class="hero-lux-stat">
+        <div class="hero-lux-stlabel">Volume</div>
+        <div class="hero-lux-stval">R$4.2B</div>
+        <div class="hero-lux-stmeta">transacionado</div>
+      </div>
+      <div class="hero-lux-stat">
+        <div class="hero-lux-stlabel">Conclusão</div>
+        <div class="hero-lux-stval">91%</div>
+        <div class="hero-lux-stmeta">taxa de fechamento</div>
+      </div>
+      <div class="hero-lux-stat">
+        <div class="hero-lux-stlabel">Alunos</div>
+        <div class="hero-lux-stval">2.400</div>
+        <div class="hero-lux-stmeta">em 6 países</div>
+      </div>
+    </div>
+    <div class="hero-lux-tagrow">
+      <span class="hero-lux-tag">Valuation</span>
+      <span class="hero-lux-tag">M&amp;A</span>
+      <span class="hero-lux-tag">LBO Modeling</span>
+      <span class="hero-lux-tag">DCF</span>
+      <span class="hero-lux-tag">Due Diligence</span>
+      <span class="hero-lux-tag">WACC</span>
+    </div>
+    <div style="margin-top:40px;">
+      <a href="#escolha" class="hero-lux-cta-btn">Escolha seu perfil <span style="display:inline-block;transition:transform .3s;">↓</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="split-choice" id="escolha">
+  <a href="./empreendedor.html" class="split-panel split-panel--empreendedor">
+    <div class="split-panel-inner">
+      <div class="split-rule"></div>
+      <div class="split-eyebrow">M&amp;A · Valuation · Estratégia</div>
+      <h2 class="split-title">Sou<br><em>Empreendedor</em></h2>
+      <p class="split-desc">Diagnostique sua empresa, calcule o valuation e prepare&#8209;se para vender ou crescer com ferramentas práticas de M&amp;A.</p>
+      <div class="split-cta-btn">Acessar ferramentas <span class="split-arrow">→</span></div>
+      <div class="split-count">6 diagnósticos interativos</div>
+    </div>
+    <div class="split-bg-text" aria-hidden="true">M&amp;A</div>
+  </a>
+
+  <a href="./estudante.html" class="split-panel split-panel--estudante">
+    <div class="split-panel-inner">
+      <div class="split-rule"></div>
+      <div class="split-eyebrow">CFA · Valuation · Carreira</div>
+      <h2 class="split-title">Sou<br><em>Estudante</em></h2>
+      <p class="split-desc">Teste seus conhecimentos, descubra seu nível em valuation e prepare&#8209;se para o CFA e entrevistas de finanças corporativas.</p>
+      <div class="split-cta-btn">Fazer diagnóstico <span class="split-arrow">→</span></div>
+      <div class="split-count">3 quizzes + materiais PDF</div>
+    </div>
+    <div class="split-bg-text" aria-hidden="true">CFA</div>
+  </a>
+</div>
+
+<!-- ─── Bio ─── -->
+<section class="section" id="sobre">
+  <div class="section-inner bio-inner">
+    <div>
+      <div class="rule-bracket"></div>
+      <div class="bio-eyebrow">CFA Charterholder · Professor · M&amp;A Advisor</div>
+      <h2 class="bio-name">Alexandre<br><em>Cracovsky</em></h2>
+      <p class="bio-text">Com mais de 15 anos de experiência em M&amp;A, valuation e finanças corporativas, Alexandre Cracovsky forma profissionais que atuam nos principais fundos de private equity e bancos de investimento do Brasil.</p>
+      <p class="bio-text">CFA Charterholder e especialista em M&amp;A, sua metodologia alia rigor técnico à clareza pedagógica — tornando acessíveis os conceitos mais sofisticados de valuation e avaliação de empresas.</p>
+      <div class="bio-credentials">
+        <span class="bio-cred">CFA Charterholder</span>
+        <span class="bio-cred">M&amp;A Advisor</span>
+        <span class="bio-cred">Valuation Expert</span>
+        <span class="bio-cred">Professor</span>
+      </div>
+    </div>
+    <div>
+      <div class="bio-photo-wrap">
+        <img class="bio-photo-img" src="./assets/foto_cracovsky.png" alt="Alexandre Cracovsky — CFA, M&A Advisor">
+      </div>
+      <div class="bio-photo-caption">
+        <span class="bio-photo-caption-text">Alexandre Cracovsky · CFA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Book editorial ─── -->
+<section class="book-ed" id="livro">
+  <div class="book-ed-ghost" aria-hidden="true">2026</div>
+  <div class="book-ed-inner">
+    <div>
+      <div class="book-ed-tag">
+        <span class="book-ed-dot"></span>
+        Pré-lançamento · 2026
+      </div>
+      <h2 class="book-ed-h2">O primeiro livro de<br>Alexandre Cracovsky<br><em>está chegando.</em></h2>
+      <div class="book-ed-divider"></div>
+      <p class="book-ed-sub">Um guia definitivo sobre valuation e M&amp;A — escrito para quem quer entender como empresas são avaliadas e negociadas de verdade. Entre na pré-lista e garanta acesso antecipado e preço especial.</p>
+      <a href="./pre-lista-livro.html" class="book-ed-cta">
+        Entrar na pré-lista
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="book-ed-fine">Acesso antecipado · Preço especial</p>
+    </div>
+    <div class="book-ed-visual">
+      <img src="./assets/livro secreto cracosky (1).png" alt="Novo livro — Alexandre Cracovsky, CFA" class="book-ed-img">
+    </div>
+  </div>
+</section>
+
+<!-- ─── Newsletter ─── -->
+<section class="section newsletter-section" id="newsletter">
+  <div class="section-inner newsletter-inner">
+    <div>
+      <div class="eyebrow-bar">Newsletter semanal</div>
+      <h2 class="newsletter-title">M&amp;A · Valuation<br><em>toda semana</em></h2>
+      <p class="newsletter-desc">Uma análise de M&amp;A, um conceito de valuation e uma dica para quem prepara o CFA — diretamente no seu e-mail, toda semana. Sem spam, sem enrolação.</p>
+    </div>
+    <div>
+      <div class="nl-form-card">
+        <div class="nl-field">
+          <label class="nl-label">Nome</label>
+          <input type="text" class="nl-input" placeholder="Seu nome completo">
+        </div>
+        <div class="nl-field">
+          <label class="nl-label">E-mail</label>
+          <input type="email" class="nl-input" placeholder="seu@email.com">
+        </div>
+        <button type="submit" class="nl-btn">Quero receber →</button>
+        <div class="nl-fine">Sem spam. Cancele a qualquer momento.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Channels ─── -->
+<section class="section section-clean" id="canais">
+  <div class="section-inner">
+    <div class="channels-header">
+      <div class="eyebrow-bar eyebrow-bar-royal">Onde me encontrar</div>
+      <h2 class="channels-title">Canais de<br><em>Comunicação</em></h2>
+    </div>
+    <div class="channels-grid">
+      <a href="#" class="channel-card">
+        <div class="channel-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.5 8C7.32843 8 8 7.32843 8 6.5C8 5.67157 7.32843 5 6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8Z" fill="currentColor"/>
+            <path d="M5 10C5 9.44772 5.44772 9 6 9H7C7.55228 9 8 9.44771 8 10V18C8 18.5523 7.55228 19 7 19H6C5.44772 19 5 18.5523 5 18V10Z" fill="currentColor"/>
+            <path d="M11 19H12C12.5523 19 13 18.5523 13 18V13.5C13 12 16 11 16 13V18.0004C16 18.5527 16.4477 19 17 19H18C18.5523 19 19 18.5523 19 18V12C19 10 17.5 9 15.5 9C13.5 9 13 10.5 13 10.5V10C13 9.44771 12.5523 9 12 9H11C10.4477 9 10 9.44772 10 10V18C10 18.5523 10.4477 19 11 19Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="channel-name">LinkedIn</div>
+        <div class="channel-desc">Artigos, análises e conteúdo exclusivo sobre M&amp;A, valuation e mercado de capitais.</div>
+        <div class="channel-cta">Seguir →</div>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.49614 7.13176C9.18664 6.9549 8.80639 6.95617 8.49807 7.13509C8.18976 7.31401 8 7.64353 8 8V16C8 16.3565 8.18976 16.686 8.49807 16.8649C8.80639 17.0438 9.18664 17.0451 9.49614 16.8682L16.4961 12.8682C16.8077 12.6902 17 12.3589 17 12C17 11.6411 16.8077 11.3098 16.4961 11.1318L9.49614 7.13176ZM13.9844 12L10 14.2768V9.72318L13.9844 12Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 12C0 8.25027 0 6.3754 0.954915 5.06107C1.26331 4.6366 1.6366 4.26331 2.06107 3.95491C3.3754 3 5.25027 3 9 3H15C18.7497 3 20.6246 3 21.9389 3.95491C22.3634 4.26331 22.7367 4.6366 23.0451 5.06107C24 6.3754 24 8.25027 24 12C24 15.7497 24 17.6246 23.0451 18.9389C22.7367 19.3634 22.3634 19.7367 21.9389 20.0451C20.6246 21 18.7497 21 15 21H9C5.25027 21 3.3754 21 2.06107 20.0451C1.6366 19.7367 1.26331 19.3634 0.954915 18.9389C0 17.6246 0 15.7497 0 12ZM9 5H15C16.9194 5 18.1983 5.00275 19.1673 5.10773C20.0989 5.20866 20.504 5.38448 20.7634 5.57295C21.018 5.75799 21.242 5.98196 21.4271 6.23664C21.6155 6.49605 21.7913 6.90113 21.8923 7.83269C21.9973 8.80167 22 10.0806 22 12C22 13.9194 21.9973 15.1983 21.8923 16.1673C21.7913 17.0989 21.6155 17.504 21.4271 17.7634C21.242 18.018 21.018 18.242 20.7634 18.4271C20.504 18.6155 20.0989 18.7913 19.1673 18.8923C18.1983 18.9973 16.9194 19 15 19H9C7.08058 19 5.80167 18.9973 4.83269 18.8923C3.90113 18.7913 3.49605 18.6155 3.23664 18.4271C2.98196 18.242 2.75799 18.018 2.57295 17.7634C2.38448 17.504 2.20866 17.0989 2.10773 16.1673C2.00275 15.1983 2 13.9194 2 12C2 10.0806 2.00275 8.80167 2.10773 7.83269C2.20866 6.90113 2.38448 6.49605 2.57295 6.23664C2.75799 5.98196 2.98196 5.75799 3.23664 5.57295C3.49605 5.38448 3.90113 5.20866 4.83269 5.10773C5.80167 5.00275 7.08058 5 9 5Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="channel-name">YouTube</div>
+        <div class="channel-desc">Aulas gratuitas, cases reais e masterclasses de valuation e M&amp;A.</div>
+        <div class="channel-cta">Inscrever-se →</div>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="currentColor"/>
+            <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="channel-name">Instagram</div>
+        <div class="channel-desc">Insights diários, termos técnicos de M&amp;A e bastidores do mercado financeiro.</div>
+        <div class="channel-cta">Seguir →</div>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.014 8.00613C6.12827 7.1024 7.30277 5.87414 8.23488 6.01043L8.23339 6.00894C9.14051 6.18132 9.85859 7.74261 10.2635 8.44465C10.5504 8.95402 10.3641 9.4701 10.0965 9.68787C9.7355 9.97883 9.17099 10.3803 9.28943 10.7834C9.5 11.5 12 14 13.2296 14.7107C13.695 14.9797 14.0325 14.2702 14.3207 13.9067C14.5301 13.6271 15.0466 13.46 15.5548 13.736C16.3138 14.178 17.0288 14.6917 17.69 15.27C18.0202 15.546 18.0977 15.9539 17.8689 16.385C17.4659 17.1443 16.3003 18.1456 15.4542 17.9421C13.9764 17.5868 8 15.27 6.08033 8.55801C5.97237 8.24048 5.99955 8.12044 6.014 8.00613Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C10.7764 23 10.0994 22.8687 9 22.5L6.89443 23.5528C5.56462 24.2177 4 23.2507 4 21.7639V19.5C1.84655 17.492 1 15.1767 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM6 18.6303L5.36395 18.0372C3.69087 16.4772 3 14.7331 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C11.0143 21 10.552 20.911 9.63595 20.6038L8.84847 20.3397L6 21.7639V18.6303Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="channel-name">WhatsApp</div>
+        <div class="channel-desc">Comunidade exclusiva com conteúdos, avisos de aulas e materiais em primeira mão.</div>
+        <div class="channel-cta">Entrar →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+<script>
+(function(){
+  if(!('ontouchstart' in window) && !navigator.maxTouchPoints) return;
+  var panels = document.querySelectorAll('.split-panel');
+  panels.forEach(function(panel){
+    panel.addEventListener('click', function(e){
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      panels.forEach(function(p){
+        p.classList.toggle('is-tapped',   p === panel);
+        p.classList.toggle('is-untapped', p !== panel);
+      });
+      setTimeout(function(){ window.location.href = href; }, 430);
+    });
+  });
+})();
+</script>
+</body>
+</html>

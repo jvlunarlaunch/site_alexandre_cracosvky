@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pré-Lista — Novo Livro · Alexandre Cracovsky, CFA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Epilogue:wght@200;300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0A1628;--royal:#1B3A7A;--royal2:#2A52A8;
+  --ice:#EEF2F9;--ice2:#D8E3F4;
+  --gold:#B8952A;--gold2:#D4AE50;--gold3:#F0D078;--goldpale:#FAF3DC;
+  --white:#FFFFFF;--slate:#6B7A8D;--slate2:#4A576A;
+  --rule:rgba(10,22,40,.12);--ruledark:rgba(10,22,40,.22);
+  --cg:'Cormorant Garamond',Georgia,serif;
+  --ep:'Epilogue',sans-serif;
+  --mo:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:#fff;font-family:var(--ep);font-size:18px;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* ── TOP RIBBON ── */
+.ribbon{
+  background:var(--gold);color:var(--navy);
+  font-family:var(--mo);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  text-align:center;padding:9px 16px;position:relative;z-index:10;
+}
+.ribbon strong{font-weight:500;}
+
+/* ── NAV ── */
+.nav{
+  padding:0 40px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,22,40,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:.5px solid rgba(255,255,255,.06);
+}
+.nav-logo{font-family:var(--cg);font-size:21px;font-weight:600;color:#fff;letter-spacing:.04em;text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--gold2);}
+.nav-back{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:6px;}
+.nav-back:hover{color:rgba(255,255,255,.7);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:80px 40px 72px;position:relative;overflow:hidden;
+}
+.hero-grid{
+  max-width:1040px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center;
+}
+.hero-left{position:relative;z-index:2;}
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;}
+
+/* bg accents */
+.hero::after{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(27,58,122,.35) 0%, transparent 70%);
+  top:-100px;right:-100px;pointer-events:none;
+}
+.hero-diag{
+  position:absolute;bottom:-2px;left:0;right:0;height:120px;
+  background:linear-gradient(to bottom right, transparent 49.5%, var(--white) 50%);
+  pointer-events:none;z-index:1;
+}
+
+/* eyebrow */
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mo);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold2);border:.5px solid rgba(184,149,42,.3);
+  padding:7px 14px;border-radius:2px;margin-bottom:28px;
+  background:rgba(184,149,42,.06);
+}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+
+.hero-h1{
+  font-family:var(--cg);font-size:64px;font-weight:300;color:#fff;
+  line-height:1.1;margin-bottom:22px;
+}
+.hero-h1 em{font-style:italic;color:var(--gold3);}
+.hero-h1 .reveal{
+  position:relative;display:inline-block;
+  background:linear-gradient(90deg, var(--gold3), var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.hero-sub{
+  font-family:var(--ep);font-size:18px;font-weight:300;
+  color:rgba(255,255,255,.5);line-height:1.8;max-width:480px;
+  margin-bottom:36px;
+}
+
+/* counter badge */
+.counter-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.45);
+  margin-bottom:32px;padding:10px 16px;
+  border:.5px solid rgba(255,255,255,.08);border-radius:2px;
+  background:rgba(255,255,255,.03);
+}
+.counter-num{font-family:var(--cg);font-size:22px;font-weight:600;color:var(--gold2);line-height:1;margin-right:2px;}
+
+/* form */
+.hero-form{max-width:440px;}
+.form-group{margin-bottom:14px;}
+.form-label{font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:7px;}
+.form-input{
+  width:100%;font-family:var(--ep);font-size:16px;font-weight:300;
+  background:rgba(255,255,255,.05);color:#fff;
+  border:.5px solid rgba(255,255,255,.12);border-radius:2px;
+  padding:13px 16px;outline:none;transition:border-color .2s,background .2s;
+}
+.form-input::placeholder{color:rgba(255,255,255,.22);}
+.form-input:focus{border-color:rgba(184,149,42,.5);background:rgba(255,255,255,.08);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-submit{
+  width:100%;font-family:var(--ep);font-size:15px;font-weight:500;letter-spacing:.06em;
+  background:var(--gold);color:var(--navy);
+  border:none;border-radius:2px;padding:15px 24px;cursor:pointer;
+  transition:background .2s,transform .1s;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-submit:hover{background:var(--gold2);}
+.btn-submit:active{transform:scale(.99);}
+.form-disclaimer{font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.22);letter-spacing:.06em;text-align:center;margin-top:12px;line-height:1.6;}
+.form-success{
+  display:none;margin-top:16px;padding:16px;
+  border:.5px solid rgba(184,149,42,.3);border-radius:2px;
+  background:rgba(184,149,42,.06);
+  font-family:var(--mo);font-size:12px;color:var(--gold2);letter-spacing:.08em;line-height:1.7;
+}
+
+/* ── BOOK MOCKUP ── */
+.book-wrap{
+  position:relative;width:360px;
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(-1deg);}
+  50%{transform:translateY(-12px) rotate(1deg);}
+}
+.book-wrap img{
+  width:100%;display:block;
+}
+
+/* ── DIVIDER ── */
+.section-divider{
+  height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.08) 20%, rgba(255,255,255,.08) 80%, transparent);
+  margin:0;
+}
+
+/* ── WHY SECTION ── */
+.why{background:var(--white);padding:80px 40px;position:relative;}
+.why-inner{max-width:960px;margin:0 auto;}
+.sect-label{
+  font-family:var(--mo);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--slate);padding:0 0 36px;display:flex;align-items:center;gap:12px;
+}
+.sect-label::after{content:'';flex:1;height:.5px;background:var(--ruledark);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:56px;}
+.why-card{padding:28px 24px;border:.5px solid var(--ruledark);border-radius:4px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s;}
+.why-card:hover{box-shadow:0 8px 32px rgba(10,22,40,.08);transform:translateY(-2px);}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+.why-num{font-family:var(--cg);font-size:48px;font-weight:600;font-style:italic;color:rgba(10,22,40,.05);line-height:1;margin-bottom:16px;}
+.why-title{font-family:var(--cg);font-size:24px;font-weight:400;color:var(--navy);line-height:1.3;margin-bottom:10px;}
+.why-desc{font-family:var(--ep);font-size:15px;font-weight:300;color:var(--slate2);line-height:1.7;}
+
+/* ── FOR WHOM ── */
+.for-whom{background:var(--ice);padding:72px 40px;}
+.for-whom-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.for-whom-left{}
+.for-whom-h2{font-family:var(--cg);font-size:44px;font-weight:300;color:var(--navy);line-height:1.2;margin-bottom:20px;}
+.for-whom-h2 em{font-style:italic;color:var(--royal);}
+.for-whom-sub{font-family:var(--ep);font-size:17px;font-weight:300;color:var(--slate2);line-height:1.8;margin-bottom:32px;}
+.profile-list{display:flex;flex-direction:column;gap:12px;}
+.profile-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px;background:var(--white);border-radius:3px;
+  border:.5px solid var(--ruledark);
+}
+.profile-icon{
+  width:36px;height:36px;flex-shrink:0;border-radius:2px;
+  background:var(--navy);display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+}
+.profile-text{}
+.profile-title{font-family:var(--ep);font-size:15px;font-weight:500;color:var(--navy);margin-bottom:2px;}
+.profile-desc{font-family:var(--ep);font-size:14px;font-weight:300;color:var(--slate);line-height:1.5;}
+
+/* ── TEASER TABLE ── */
+.teaser-table{border:.5px solid var(--ruledark);border-radius:4px;overflow:hidden;}
+.teaser-header{background:var(--navy);padding:18px 20px;display:flex;align-items:center;gap:10px;}
+.teaser-header-title{font-family:var(--mo);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);}
+.teaser-row{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:.5px solid var(--ruledark);background:var(--white);}
+.teaser-row:last-child{border-bottom:none;}
+.teaser-row:hover{background:var(--ice);}
+.teaser-check{width:20px;height:20px;border-radius:50%;background:var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);}
+.teaser-row-text{font-family:var(--ep);font-size:15px;font-weight:300;color:var(--navy);}
+.teaser-row-blur{filter:blur(4px);opacity:.4;user-select:none;}
+
+/* ── AUTHOR ── */
+.author{background:var(--navy);padding:80px 40px;position:relative;overflow:hidden;}
+.author::before{
+  content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);
+  width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle, rgba(27,58,122,.4) 0%, transparent 65%);
+}
+.author-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;position:relative;z-index:1;}
+.author-photo-wrap{position:relative;}
+.author-photo{
+  width:200px;height:200px;border-radius:3px;object-fit:cover;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);display:block;
+  border:.5px solid rgba(184,149,42,.2);
+}
+.author-photo-label{
+  position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:var(--navy);
+  font-family:var(--mo);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:1px;white-space:nowrap;
+}
+.author-right{}
+.author-eyebrow{font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;}
+.author-name{font-family:var(--cg);font-size:42px;font-weight:300;color:#fff;line-height:1.15;margin-bottom:6px;}
+.author-name em{font-style:italic;color:var(--gold3);}
+.author-title{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:20px;}
+.author-bio{font-family:var(--ep);font-size:16px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:24px;max-width:520px;}
+.author-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.author-stat{}
+.author-stat-val{font-family:var(--cg);font-size:30px;font-weight:600;color:var(--gold2);line-height:1;}
+.author-stat-label{font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.1em;margin-top:3px;}
+
+/* ── FINAL CTA ── */
+.final-cta{background:var(--white);padding:80px 40px;}
+.final-cta-inner{max-width:640px;margin:0 auto;text-align:center;}
+.final-rule{width:32px;height:2px;background:var(--gold);margin:0 auto 24px;}
+.final-h2{font-family:var(--cg);font-size:48px;font-weight:300;color:var(--navy);line-height:1.15;margin-bottom:16px;}
+.final-h2 em{font-style:italic;color:var(--royal);}
+.final-sub{font-family:var(--ep);font-size:17px;font-weight:300;color:var(--slate2);line-height:1.75;margin-bottom:40px;}
+.final-form{text-align:left;}
+
+/* ── FOOTER ── */
+.footer{background:var(--navy);padding:32px 40px;border-top:.5px solid rgba(255,255,255,.06);}
+.footer-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:var(--cg);font-size:17px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.04em;}
+.footer-logo em{font-style:italic;color:var(--gold2);}
+.footer-copy{font-family:var(--mo);font-size:12px;color:rgba(255,255,255,.2);letter-spacing:.08em;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:48px;}
+  .hero-right{order:-1;}
+  .book-wrap{width:264px;}
+  .hero-h1{font-size:48px;}
+  .why-grid{grid-template-columns:1fr;}
+  .for-whom-inner{grid-template-columns:1fr;}
+  .author-inner{grid-template-columns:1fr;text-align:center;}
+  .author-stats{justify-content:center;}
+  .author-photo-wrap{display:flex;justify-content:center;}
+  .final-h2{font-size:36px;}
+}
+@media(max-width:640px){
+  .hero{padding:60px 20px 56px;}
+  .why{padding:56px 20px;}
+  .for-whom{padding:56px 20px;}
+  .author{padding:56px 20px;}
+  .final-cta{padding:60px 20px;}
+  .footer{padding:24px 20px;}
+  .nav{padding:0 20px;}
+  .hero-h1{font-size:38px;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-diag{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- RIBBON -->
+<div class="ribbon">
+  <strong>Pré-lançamento</strong> &nbsp;·&nbsp; Inscrições abertas para acesso antecipado
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Voltar ao início
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        Pré-lista &nbsp;·&nbsp; Lançamento 2025
+      </div>
+
+      <h1 class="hero-h1">
+        O livro que vai<br>
+        redefinir como você<br>
+        <em>avalia e negocia</em><br>
+        <span class="reveal">empresas.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Alexandre Cracovsky, CFA, está finalizando seu primeiro livro — um guia definitivo para quem quer dominar valuation e M&A com profundidade real. Entre na lista e seja o primeiro a saber.
+      </p>
+
+      <div class="counter-badge">
+        <span class="counter-num" id="counter">1.247</span>
+        <span>pessoas já na pré-lista</span>
+      </div>
+
+      <div class="hero-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="h-name">Nome</label>
+            <input class="form-input" type="text" id="h-name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="h-email">E-mail</label>
+            <input class="form-input" type="email" id="h-email" placeholder="seu@email.com">
+          </div>
+        </div>
+        <button class="btn-submit" id="hero-btn">
+          Entrar na pré-lista
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="form-success" id="hero-success">
+          ✓ &nbsp;Você está na lista. Avisaremos assim que o livro for lançado.
+        </div>
+        <p class="form-disclaimer">Sem spam. Só avisamos quando houver novidade sobre o livro.</p>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="book-wrap">
+        <img src="assets/livro secreto cracosky (1).png" alt="Novo livro de Alexandre Cracovsky — em breve">
+      </div>
+    </div>
+  </div>
+  <div class="hero-diag"></div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="why-inner">
+    <div class="sect-label"><span>O que esperar</span></div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3 class="why-title">Valuation na prática real</h3>
+        <p class="why-desc">Não teoria de sala de aula. Metodologias aplicadas a transações reais — do DCF ao múltiplo de mercado, com os ajustes que banqueiros de verdade fazem.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3 class="why-title">A lógica de M&amp;A destrinchada</h3>
+        <p class="why-desc">Como deals são estruturados, onde o valor é criado (e destruído), e o que separa uma aquisição bem-sucedida de um erro de bilhões.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3 class="why-title">Escrito para quem decide</h3>
+        <p class="why-desc">Linguagem direta para empreendedores, executivos e analistas que precisam entender valuation para negociar — não apenas para passar numa prova.</p>
+      </div>
+    </div>
+
+    <!-- Teaser table -->
+    <div class="teaser-table">
+      <div class="teaser-header">
+        <div class="teaser-header-title">Prévia dos capítulos</div>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check">✓</div>
+        <span class="teaser-row-text">Os fundamentos de valuation que ninguém ensina nas universidades</span>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check">✓</div>
+        <span class="teaser-row-text">Como estruturar um DCF sem iludir compradores nem vendedores</span>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check">✓</div>
+        <span class="teaser-row-text">Análise de múltiplos: o que os dados de mercado realmente dizem</span>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check" style="background:var(--ice2);color:var(--slate);">?</div>
+        <span class="teaser-row-text teaser-row-blur">A metodologia proprietária de precificação em deals complexos</span>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check" style="background:var(--ice2);color:var(--slate);">?</div>
+        <span class="teaser-row-text teaser-row-blur">Negociação, earnouts e proteções contratuais em M&A</span>
+      </div>
+      <div class="teaser-row">
+        <div class="teaser-check" style="background:var(--ice2);color:var(--slate);">?</div>
+        <span class="teaser-row-text teaser-row-blur">Como avaliar uma empresa que ainda não tem lucro</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="for-whom">
+  <div class="for-whom-inner">
+    <div class="for-whom-left">
+      <div class="sect-label"><span>Para quem é</span></div>
+      <h2 class="for-whom-h2">Feito para quem está<br><em>dentro da transação</em></h2>
+      <p class="for-whom-sub">Este livro não foi escrito para o torcedor de fora. Foi escrito para quem senta à mesa — e precisa entender o que aqueles números realmente significam.</p>
+      <div class="profile-list">
+        <div class="profile-item">
+          <div class="profile-icon">🏢</div>
+          <div class="profile-text">
+            <div class="profile-title">Empreendedores e sócios</div>
+            <div class="profile-desc">Que pensam em vender, captar ou se fundir e querem entrar na negociação sabendo quanto vale o que construíram.</div>
+          </div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">📊</div>
+          <div class="profile-text">
+            <div class="profile-title">Analistas e executivos de finanças</div>
+            <div class="profile-desc">Que fazem valuation no dia a dia e querem solidificar o raciocínio por trás dos modelos.</div>
+          </div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">🎓</div>
+          <div class="profile-text">
+            <div class="profile-title">Estudantes de CFA e finanças corporativas</div>
+            <div class="profile-desc">Que querem um livro que une teoria e prática sem sacrificar nenhuma das duas.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="for-whom-right">
+      <div style="background:var(--navy);border-radius:4px;padding:32px;border:.5px solid rgba(10,22,40,.15);">
+        <div style="font-family:var(--mo);font-size:11px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;">Benefícios da pré-lista</div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;height:40px;background:var(--gold);flex-shrink:0;margin-top:3px;"></div>
+            <div>
+              <div style="font-family:var(--ep);font-size:15px;font-weight:500;color:#fff;margin-bottom:4px;">Acesso antecipado</div>
+              <div style="font-family:var(--ep);font-size:14px;font-weight:300;color:rgba(255,255,255,.4);line-height:1.6;">Você recebe antes de todo mundo, no dia do lançamento.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;height:40px;background:var(--gold);flex-shrink:0;margin-top:3px;"></div>
+            <div>
+              <div style="font-family:var(--ep);font-size:15px;font-weight:500;color:#fff;margin-bottom:4px;">Preço especial de pré-venda</div>
+              <div style="font-family:var(--ep);font-size:14px;font-weight:300;color:rgba(255,255,255,.4);line-height:1.6;">Desconto exclusivo disponível apenas para quem está na lista.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;height:40px;background:var(--gold);flex-shrink:0;margin-top:3px;"></div>
+            <div>
+              <div style="font-family:var(--ep);font-size:15px;font-weight:500;color:#fff;margin-bottom:4px;">Conteúdo extra exclusivo</div>
+              <div style="font-family:var(--ep);font-size:14px;font-weight:300;color:rgba(255,255,255,.4);line-height:1.6;">Material bônus enviado só para quem se inscreveu antes do lançamento.</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:.5px;background:rgba(255,255,255,.08);margin:24px 0;"></div>
+        <div style="font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-align:center;">Inscrição gratuita · Sem compromisso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author">
+  <div class="author-inner">
+    <div class="author-photo-wrap">
+      <img src="assets/foto_cracovsky.png" alt="Alexandre Cracovsky" class="author-photo">
+      <div class="author-photo-label">CFA Charterholder</div>
+    </div>
+    <div class="author-right">
+      <div class="author-eyebrow">O autor</div>
+      <h2 class="author-name">Alexandre Cracovsky, <em>CFA</em></h2>
+      <div class="author-title">Professor · Analista de Investimentos · M&A Advisor</div>
+      <p class="author-bio">
+        Alexandre Cracovsky é CFA Charterholder, professor de Valuation e M&A, e um dos criadores de conteúdo financeiro mais relevantes do Brasil. Ao longo da carreira, trabalhou em estruturação de transações, avaliação de empresas e formação de profissionais que hoje atuam nos principais bancos e fundos do país.
+      </p>
+      <div class="author-stats">
+        <div class="author-stat">
+          <div class="author-stat-val">+150k</div>
+          <div class="author-stat-label">Seguidores</div>
+        </div>
+        <div class="author-stat">
+          <div class="author-stat-val">CFA</div>
+          <div class="author-stat-label">Charterholder</div>
+        </div>
+        <div class="author-stat">
+          <div class="author-stat-val">+10 anos</div>
+          <div class="author-stat-label">em M&A e Valuation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div class="final-rule"></div>
+    <h2 class="final-h2">Garanta seu lugar<br><em>na lista</em></h2>
+    <p class="final-sub">O livro ainda está sendo finalizado. Mas os que se inscreverem agora terão vantagem no lançamento — em preço, acesso e conteúdo.</p>
+    <div class="final-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-name" style="color:var(--slate);">Nome</label>
+          <input class="form-input" type="text" id="f-name" placeholder="Seu nome"
+            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-email" style="color:var(--slate);">E-mail</label>
+          <input class="form-input" type="email" id="f-email" placeholder="seu@email.com"
+            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+        </div>
+      </div>
+      <button class="btn-submit" id="final-btn" style="background:var(--navy);color:#fff;">
+        Quero ser avisado no lançamento
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="form-success" id="final-success" style="color:var(--royal);border-color:rgba(27,58,122,.3);background:var(--ice);">
+        ✓ &nbsp;Você está na lista. Avisaremos assim que o livro for lançado.
+      </div>
+      <p class="form-disclaimer" style="color:var(--slate);">Sem spam. Você pode cancelar a inscrição a qualquer momento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function handleForm(nameId, emailId, btnId, successId){
+    var btn = document.getElementById(btnId);
+    var success = document.getElementById(successId);
+    btn.addEventListener('click', function(){
+      var name = document.getElementById(nameId).value.trim();
+      var email = document.getElementById(emailId).value.trim();
+      if(!name || !email){ alert('Por favor, informe nome e e-mail.'); return; }
+      if(!/\S+@\S+\.\S+/.test(email)){ alert('Por favor, informe um e-mail válido.'); return; }
+      btn.disabled = true;
+      btn.style.opacity = '.6';
+      btn.innerHTML = 'Registrando&hellip;';
+      setTimeout(function(){
+        success.style.display = 'block';
+        btn.style.display = 'none';
+        // animate counter up
+        var el = document.getElementById('counter');
+        if(el){
+          var cur = parseInt(el.textContent.replace(/\D/g,''));
+          el.textContent = (cur + 1).toLocaleString('pt-BR');
+        }
+      }, 800);
+    });
+  }
+
+  handleForm('h-name','h-email','hero-btn','hero-success');
+  handleForm('f-name','f-email','final-btn','final-success');
+
+  // Animate counter on page load
+  var counterEl = document.getElementById('counter');
+  if(counterEl){
+    var target = 1247;
+    var start = 1180;
+    var duration = 1400;
+    var startTime = null;
+    function animateCount(ts){
+      if(!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var cur = Math.floor(start + (target - start) * eased);
+      counterEl.textContent = cur.toLocaleString('pt-BR');
+      if(progress < 1) requestAnimationFrame(animateCount);
+    }
+    requestAnimationFrame(animateCount);
+  }
+
+  // Sync both forms — if user fills hero form and scrolls to bottom, prefill
+  var hName = document.getElementById('h-name');
+  var hEmail = document.getElementById('h-email');
+  var fName = document.getElementById('f-name');
+  var fEmail = document.getElementById('f-email');
+  function syncDown(){
+    if(hName.value && !fName.value) fName.value = hName.value;
+    if(hEmail.value && !fEmail.value) fEmail.value = hEmail.value;
+  }
+  hName.addEventListener('blur', syncDown);
+  hEmail.addEventListener('blur', syncDown);
+
+  // Staggered entry animation
+  var style = document.createElement('style');
+  style.textContent = `
+    .hero-tag, .hero-h1, .hero-sub, .counter-badge, .hero-form {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp .6s ease forwards;
+    }
+    .hero-tag   { animation-delay: .1s; }
+    .hero-h1    { animation-delay: .25s; }
+    .hero-sub   { animation-delay: .4s; }
+    .counter-badge { animation-delay: .5s; }
+    .hero-form  { animation-delay: .6s; }
+    .book-wrap  { opacity: 0; animation: fadeIn .8s ease .3s forwards; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+</body>
+</html>

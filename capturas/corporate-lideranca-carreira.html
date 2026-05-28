@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coleção Completa — Corporate, Liderança e Carreira — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+<style>
+/* ---- hero authority badge ---- */
+.authority-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:14px;
+  padding:8px 14px;
+  background:rgba(184,149,42,.10);
+  border:1px solid rgba(184,149,42,.30);
+  border-radius:3px;
+  font-family:var(--mo);
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--gold2);
+  text-transform:uppercase;
+}
+.authority-badge::before {
+  content:'';
+  display:block;
+  width:6px;
+  height:6px;
+  background:var(--gold);
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+/* ---- pdf stack mockup ---- */
+.pdf-stack-wrap {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:32px 0;
+}
+.pdf-stack {
+  position:relative;
+  width:240px;
+  height:300px;
+}
+.pdf-layer {
+  position:absolute;
+  inset:0;
+  border-radius:6px;
+  box-shadow:0 8px 32px rgba(10,22,40,.22);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:24px 20px;
+  text-align:center;
+}
+.pdf-layer-4 {
+  background:var(--ice2);
+  transform:rotate(-5deg) translate(-18px, 14px);
+}
+.pdf-layer-3 {
+  background:var(--ice);
+  transform:rotate(-2.5deg) translate(-9px, 7px);
+}
+.pdf-layer-2 {
+  background:#dce6f5;
+  transform:rotate(1.5deg) translate(5px, 3px);
+}
+.pdf-layer-1 {
+  background:var(--navy);
+  border:1px solid rgba(184,149,42,.25);
+  transform:rotate(0deg);
+  z-index:10;
+}
+.pdf-spine {
+  width:36px;
+  height:3px;
+  background:var(--gold);
+  border-radius:2px;
+  margin-bottom:18px;
+}
+.pdf-title-text {
+  font-family:var(--cg);
+  font-size:15px;
+  font-weight:600;
+  color:var(--ice);
+  line-height:1.4;
+  margin-bottom:12px;
+}
+.pdf-count-badge {
+  font-family:var(--mo);
+  font-size:10px;
+  letter-spacing:.1em;
+  color:var(--gold2);
+  text-transform:uppercase;
+  padding:4px 10px;
+  border:1px solid rgba(184,149,42,.4);
+  border-radius:20px;
+}
+
+/* ---- stats bar ---- */
+.stats-bar {
+  display:flex;
+  gap:0;
+  border-top:1px solid var(--ruledark);
+  border-bottom:1px solid var(--ruledark);
+  margin:0;
+}
+.stat-item {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px 16px;
+  border-right:1px solid var(--ruledark);
+  text-align:center;
+}
+.stat-item:last-child { border-right:none; }
+.stat-value {
+  font-family:var(--cg);
+  font-size:28px;
+  font-weight:700;
+  color:var(--navy);
+  line-height:1;
+  margin-bottom:4px;
+}
+.stat-desc {
+  font-family:var(--mo);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--slate);
+}
+
+/* ---- what's inside section ---- */
+.materials-section {
+  padding:56px 0;
+  background:var(--ice);
+}
+.materials-inner {
+  max-width:960px;
+  margin:0 auto;
+  padding:0 24px;
+}
+.materials-eyebrow {
+  font-family:var(--mo);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+.materials-heading {
+  font-family:var(--cg);
+  font-size:32px;
+  font-weight:600;
+  color:var(--navy);
+  margin-bottom:40px;
+  line-height:1.2;
+}
+.category-block {
+  margin-bottom:36px;
+}
+.category-label {
+  font-family:var(--mo);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--slate);
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--ruledark);
+}
+.materials-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.material-item {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px 14px;
+  background:#fff;
+  border-left:3px solid var(--gold);
+  border-radius:2px;
+  box-shadow:0 1px 4px rgba(10,22,40,.06);
+}
+.material-item-icon {
+  font-size:13px;
+  line-height:1;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.material-item-title {
+  font-family:var(--ep);
+  font-size:13px;
+  color:var(--navy);
+  line-height:1.35;
+}
+
+/* ---- second cta section ---- */
+.cta-section {
+  background:var(--navy);
+  padding:64px 24px;
+  text-align:center;
+}
+.cta-section-eyebrow {
+  font-family:var(--mo);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+.cta-section-heading {
+  font-family:var(--cg);
+  font-size:36px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:10px;
+  line-height:1.2;
+}
+.cta-section-sub {
+  font-family:var(--ep);
+  font-size:15px;
+  color:rgba(238,242,249,.65);
+  margin-bottom:28px;
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.cta-section-btn {
+  display:inline-block;
+  padding:14px 36px;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:var(--mo);
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border-radius:3px;
+  text-decoration:none;
+  font-weight:700;
+  transition:background .2s;
+}
+.cta-section-btn:hover { background:var(--gold2); }
+
+/* ---- hero full-height override ---- */
+.capture-hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-left:20%;
+  padding-right:20%;
+}
+.capture-hero .capture-inner {
+  align-items:center;
+  max-width:none;
+  margin:0;
+  width:100%;
+}
+.capture-right  { align-items:center; }
+
+/* ---- responsive ---- */
+@media(max-width:640px){
+  .stats-bar { flex-wrap:wrap; }
+  .stat-item { flex:1 1 33%; border-right:none; border-bottom:1px solid var(--ruledark); }
+  .materials-grid { grid-template-columns:1fr 1fr; }
+  .materials-heading { font-size:24px; }
+  .cta-section-heading { font-size:26px; }
+  .pdf-stack { width:180px; height:220px; }
+}
+@media(max-width:400px){
+  .materials-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+
+<main class="page-main">
+
+  <!-- HERO -->
+  <div class="capture-hero" id="captura">
+    <div class="capture-inner">
+      <div class="capture-left">
+        <div class="eyebrow-bar">19 Materiais &nbsp;·&nbsp; Material Gratuito</div>
+        <h1 class="hero-h1" style="font-size:58px;line-height:1.1;">Coleção Completa — Corporate, Liderança e Carreira</h1>
+        <p class="hero-sub">19 guias selecionados do canal do Professor CFA em um único acesso: do Manual do CFO a CFA vs. MBA, passando por liderança, carreira nas Big 4, habilidades modernas, atalhos de Excel e muito mais.</p>
+        <div class="capture-form" style="margin-top:24px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nome completo</label>
+              <input class="form-input" type="text" id="f-name" placeholder="Seu nome">
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-mail</label>
+              <input class="form-input" type="email" id="f-email" placeholder="seu@email.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input class="form-input" type="tel" id="f-wa" placeholder="(11) 99999-9999">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Seu objetivo</label>
+              <select class="form-input form-select" id="f-obj">
+                <option value="">Selecione...</option>
+                <option>Aprender finanças corporativas</option>
+                <option>Crescer na carreira</option>
+                <option>Preparar para M&amp;A</option>
+                <option>Preparar para CFA</option>
+                <option>Empreender / vender empresa</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-gold btn-full" id="btn-submit" style="margin-top:8px;">
+            Quero receber gratuitamente →
+          </button>
+          <div id="form-success" style="display:none;margin-top:16px;font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;">
+            ✓ Recebemos seus dados! A coleção chegará no seu e-mail em breve.
+          </div>
+        </div>
+      </div>
+      <div class="capture-right">
+        <div class="pdf-stack-wrap">
+          <div class="pdf-stack">
+            <div class="pdf-layer pdf-layer-4"></div>
+            <div class="pdf-layer pdf-layer-3"></div>
+            <div class="pdf-layer pdf-layer-2"></div>
+            <div class="pdf-layer pdf-layer-1">
+              <div class="pdf-spine"></div>
+              <div class="pdf-title-text">Corporate,<br>Liderança<br>&amp; Carreira</div>
+              <div class="pdf-count-badge">19 materiais</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div style="max-width:960px;margin:0 auto;padding:0 24px;">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value">19</div>
+        <div class="stat-desc">Materiais incluídos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">CFA</div>
+        <div class="stat-desc">Professor Charterholder</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">PDF</div>
+        <div class="stat-desc">Acesso imediato</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-desc">Gratuito</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE ESTÁ INCLUÍDO -->
+  <section class="materials-section">
+    <div class="materials-inner">
+      <div class="materials-eyebrow">O que você vai receber</div>
+      <h2 class="materials-heading">19 materiais em um único acesso</h2>
+
+      <div class="category-block">
+        <div class="category-label">Corporate &amp; Estratégia</div>
+        <div class="materials-grid">
+          <div class="material-item"><span class="material-item-icon">📘</span><span class="material-item-title">Manual do CFO — Parte 1</span></div>
+          <div class="material-item"><span class="material-item-icon">📘</span><span class="material-item-title">Manual do CFO — Parte 2</span></div>
+          <div class="material-item"><span class="material-item-icon">📘</span><span class="material-item-title">Manual do CFO — Parte 3</span></div>
+          <div class="material-item"><span class="material-item-icon">📋</span><span class="material-item-title">CEO, CFO e COO: diferenças que importam</span></div>
+          <div class="material-item"><span class="material-item-icon">📋</span><span class="material-item-title">35 Cargos no mercado financeiro</span></div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Liderança &amp; Comportamento</div>
+        <div class="materials-grid">
+          <div class="material-item"><span class="material-item-icon">💡</span><span class="material-item-title">07 Lições de Charlie Munger sobre o Erro Humano</span></div>
+          <div class="material-item"><span class="material-item-icon">💡</span><span class="material-item-title">Timidez no trabalho: como superar</span></div>
+          <div class="material-item"><span class="material-item-icon">💡</span><span class="material-item-title">Alto Desempenho: hábitos e mentalidade</span></div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Carreira</div>
+        <div class="materials-grid">
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">Carreira em Finanças: o mapa completo</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">O Trabalho Real nas Finanças</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">Big 4: vale a pena entrar?</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">Certificações: qual escolher?</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">Habilidades Modernas para Profissionais de Finanças</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">CFA vs. MBA: qual escolher?</span></div>
+          <div class="material-item"><span class="material-item-icon">🎯</span><span class="material-item-title">10 Lições para a Carreira</span></div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Ferramentas</div>
+        <div class="materials-grid">
+          <div class="material-item"><span class="material-item-icon">⚡</span><span class="material-item-title">Atalhos de Excel — Versão Brasil</span></div>
+          <div class="material-item"><span class="material-item-icon">⚡</span><span class="material-item-title">Atalhos de Excel — Versão EUA</span></div>
+          <div class="material-item"><span class="material-item-icon">⚡</span><span class="material-item-title">Ferramentas de Excel para Finanças</span></div>
+          <div class="material-item"><span class="material-item-icon">⚡</span><span class="material-item-title">Pagamentos com Cartão: guia prático</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEGUNDO CTA -->
+  <section class="cta-section">
+    <div class="cta-section-eyebrow">Acesso gratuito e imediato</div>
+    <h2 class="cta-section-heading">Receba os 19 materiais agora</h2>
+    <p class="cta-section-sub">Preencha o formulário acima e a coleção completa chega direto no seu e-mail.</p>
+    <a href="#captura" class="cta-section-btn">Quero receber gratuitamente →</a>
+  </section>
+
+</main>
+
+<script>
+document.getElementById('btn-submit').addEventListener('click',function(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  if(!name||!email){alert('Por favor, informe nome e e-mail.');return;}
+  this.disabled=true;this.textContent='Enviando...';
+  setTimeout(function(){
+    document.getElementById('form-success').style.display='block';
+    document.getElementById('btn-submit').style.display='none';
+  },800);
+});
+</script>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>

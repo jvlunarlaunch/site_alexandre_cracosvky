@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Em qual nível de valuation você está? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <div class="nav-links">
+    <a href="../index.html#diagnosticos" class="nav-link">Diagnósticos</a>
+    <a href="../index.html#materiais" class="nav-link">Materiais</a>
+  </div>
+  <a href="../index.html#diagnosticos" class="nav-cta">Ver ferramentas</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 8,
+  "segment": "estudante",
+  "slug": "nivel-valuation",
+  "title": "Em qual nível de valuation você está?",
+  "subtitle": "Auto-avalie suas 10 competências core de valuation e descubra seu Índice de Maturidade (IMV).",
+  "badge": "Valuation · Auto-avaliação",
+  "estimatedTime": "4 min",
+  "icon": "📊",
+  "questions": [
+    {
+      "id": "c1",
+      "text": "Calcular o WACC do zero para uma empresa de capital aberto",
+      "dimension": "WACC",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c2",
+      "text": "Ajustar o EBITDA para remover itens não recorrentes (normalização)",
+      "dimension": "EBITDA Normalizado",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c3",
+      "text": "Distinguir Enterprise Value de Equity Value e fazer o bridge corretamente",
+      "dimension": "EV vs. Equity",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c4",
+      "text": "Escolher entre EV/EBITDA, P/L e P/BV conforme o setor e contexto",
+      "dimension": "Seleção de múltiplos",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c5",
+      "text": "Construir um DCF completo em planilha sem usar template pronto",
+      "dimension": "DCF",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c6",
+      "text": "Calcular terminal value pelos métodos Gordon Growth e Exit Multiple",
+      "dimension": "Terminal Value",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c7",
+      "text": "Entender como alavancagem financeira impacta o retorno em uma estrutura LBO",
+      "dimension": "LBO",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c8",
+      "text": "Selecionar empresas comparáveis e ajustá-las por diferenças operacionais",
+      "dimension": "Trading Comps",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c9",
+      "text": "Aplicar metodologias especiais para bancos, mineração ou seguradoras",
+      "dimension": "Setores especiais",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    },
+    {
+      "id": "c10",
+      "text": "Defender um valuation com lógica clara em um case de entrevista de PE ou M&A",
+      "dimension": "Comunicação",
+      "type": "scale",
+      "min": 1,
+      "max": 5,
+      "minLabel": "Nunca fiz",
+      "maxLabel": "Domino completamente"
+    }
+  ],
+  "scoring": {
+    "type": "imv",
+    "max": 5,
+    "scoreLabel": "IMV",
+    "thresholds": [
+      {
+        "max": 2.4,
+        "label": "Nível Iniciante",
+        "class": "danger",
+        "description": "Você está nos fundamentos. Há competências core a construir antes de encarar modelagem avançada. O caminho começa pelo DCF e múltiplos básicos."
+      },
+      {
+        "max": 3.7,
+        "label": "Nível Intermediário",
+        "class": "warning",
+        "description": "Bom domínio dos fundamentos. Os gaps identificados são exatamente os que separam analistas júnior de pleno. Foco em LBO, trading comps e setores especiais."
+      },
+      {
+        "max": 5,
+        "label": "Nível Avançado",
+        "class": "success",
+        "description": "Domínio sólido das competências de valuation. Você está no nível esperado de um analista sênior. Diferenciação agora vem de casos complexos e comunicação."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "radar",
+      "title": "Perfil de competências em valuation",
+      "height": 300
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre Cracovsky, <em>CFA</em></div>
+    <div class="footer-copy">© 2025 · ISCAS DIGITAIS · PROFESSOR CFA</div>
+  </div>
+</footer>
+</body>
+</html>
