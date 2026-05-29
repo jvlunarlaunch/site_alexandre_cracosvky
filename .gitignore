@@ -12,3 +12,9 @@ isca_modelo_de_diagnóstico/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code session files
+.claude/
+
+# Extracted text (dev tool output)
+texto_extraido/
