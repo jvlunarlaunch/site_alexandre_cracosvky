@@ -27,33 +27,37 @@
       <div class="capture-form">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Nome completo</label>
-            <input class="form-input" type="text" id="f-name" placeholder="Seu nome">
+            <label class="form-label">Nome Completo</label>
+            <input class="form-input" type="text" id="f-name" placeholder="Seu nome completo">
           </div>
           <div class="form-group">
-            <label class="form-label">E-mail</label>
+            <label class="form-label">Seu melhor E-mail</label>
             <input class="form-input" type="email" id="f-email" placeholder="seu@email.com">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">WhatsApp</label>
-            <input class="form-input" type="tel" id="f-wa" placeholder="(11) 99999-9999">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Seu objetivo</label>
-            <select class="form-input form-select" id="f-obj">
-              <option value="">Selecione...</option>
-              <option>Aprender finanças corporativas</option>
-              <option>Crescer na carreira</option>
-              <option>Preparar para M&amp;A</option>
-              <option>Preparar para CFA</option>
-              <option>Empreender / vender empresa</option>
-              <option>Outro</option>
-            </select>
+        <div class="form-group">
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" type="tel" id="f-wa" placeholder="(11) 99999-9999">
+        </div>
+        <div class="form-group" style="margin-top:4px;">
+          <label class="form-label">Qual é o seu nível atual de conhecimento em Valuation?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="f-nivel" value="iniciante"> <strong>Iniciante:</strong> Sei o conceito básico, mas nunca montei um modelo de fluxo de caixa descontado (FCD).</label>
+            <label class="radio-option"><input type="radio" name="f-nivel" value="intermediario"> <strong>Intermediário:</strong> Entendo a teoria e já faço projeções básicas, mas tenho dúvidas em premissas (WACC, perpetuidade, etc.).</label>
+            <label class="radio-option"><input type="radio" name="f-nivel" value="avancado"> <strong>Avançado:</strong> Já faço valuations na prática e quero refinar e avançar minhas análises.</label>
           </div>
         </div>
-        <button class="btn-gold btn-full" id="btn-submit" style="margin-top:8px;">
+        <div class="form-group" style="margin-top:4px;">
+          <label class="form-label">Qual é o seu maior objetivo ao aprender Valuation hoje?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="f-obj" value="mercado"> Conquistar uma vaga no mercado financeiro (M&amp;A, Equity Research, Investment Banking, etc.).</label>
+            <label class="radio-option"><input type="radio" name="f-obj" value="certificacao"> Estudar para passar em uma certificação do mercado financeiro (CFA, CNPI, etc.).</label>
+            <label class="radio-option"><input type="radio" name="f-obj" value="investimentos"> Utilizar para analisar e escolher ações/investimentos por conta própria.</label>
+            <label class="radio-option"><input type="radio" name="f-obj" value="empresa"> Aplicar no meu próprio negócio ou na empresa onde já trabalho.</label>
+            <label class="radio-option"><input type="radio" name="f-obj" value="faculdade"> Passar em disciplinas da faculdade ou entregar um TCC/projeto.</label>
+          </div>
+        </div>
+        <button class="btn-gold btn-full" id="btn-submit" style="margin-top:12px;">
           Quero receber gratuitamente →
         </button>
         <div id="form-success" style="display:none;margin-top:16px;font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;">
@@ -70,16 +74,15 @@
     </div>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
 <script>
 document.getElementById('btn-submit').addEventListener('click',function(){
-  var name=document.getElementById('f-name').value.trim();
-  var email=document.getElementById('f-email').value.trim();
+  var btn=this,name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim();
   if(!name||!email){alert('Por favor, informe nome e e-mail.');return;}
-  this.disabled=true;this.textContent='Enviando...';
-  setTimeout(function(){
-    document.getElementById('form-success').style.display='block';
-    document.getElementById('btn-submit').style.display='none';
-  },800);
+  btn.disabled=true;btn.textContent='Enviando...';
+  if(window._sb){window._sb.from('certificacoes_alexandre_cracovsky').insert({nome:name,email:email,whatsapp:document.getElementById('f-wa').value,nivel:(document.querySelector('input[name="f-nivel"]:checked')||{}).value||null,objetivo:(document.querySelector('input[name="f-obj"]:checked')||{}).value||null});}
+  setTimeout(function(){document.getElementById('form-success').style.display='block';btn.style.display='none';},800);
 });
 </script>
 <footer class="footer">

@@ -193,6 +193,10 @@ a{text-decoration:none;color:inherit;}
 .form-select option{background:var(--navy);color:#fff;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+.radio-group{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+.radio-option{display:flex;align-items:flex-start;gap:10px;font-family:var(--ep);font-size:15px;font-weight:300;color:rgba(255,255,255,.85);cursor:pointer;line-height:1.5;}
+.radio-option input[type="radio"]{margin-top:4px;flex-shrink:0;accent-color:var(--gold);width:15px;height:15px;cursor:pointer;}
+.radio-option strong{font-weight:500;color:#fff;}
 
 /* ── QUIZ APP SCREENS ── */
 .quiz-app{max-width:720px;margin:0 auto;padding:56px 24px;}

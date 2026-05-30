@@ -538,6 +538,9 @@ body::before{
       btn.disabled = true;
       btn.style.opacity = '.6';
       btn.innerHTML = 'Registrando&hellip;';
+      if(window._sb){
+        window._sb.from('lista_livro_alexandre_cracovsky').insert({nome:name,email:email});
+      }
       setTimeout(function(){
         success.style.display = 'block';
         btn.style.display = 'none';
@@ -608,5 +611,7 @@ body::before{
   document.head.appendChild(style);
 })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./assets/supabase-client.js"></script>
 </body>
 </html>

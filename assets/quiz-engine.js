@@ -169,13 +169,15 @@ const QuizEngine = (() => {
   // ─── CAPTURE ──────────────────────────────────────────────────────────────
   function renderCapture() {
     const d = div('quiz-screen active');
+    const isEmp = cfg.segment === 'empreendedor';
     d.innerHTML = `
       <div class="quiz-capture">
         <h2>${cfg.captureTitle||'Seu resultado está pronto.'} <em>Onde enviamos?</em></h2>
         <p>Preencha os dados abaixo para receber seu diagnóstico completo e recomendações personalizadas.</p>
+        ${isEmp ? `
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Nome</label>
+            <label class="form-label">Nome Completo</label>
             <input class="form-input" id="cap-name" type="text" placeholder="Seu nome completo">
           </div>
           <div class="form-group">
@@ -185,22 +187,82 @@ const QuizEngine = (() => {
         </div>
         <div class="form-row">
           <div class="form-group">
+            <label class="form-label">Nome da Empresa</label>
+            <input class="form-input" id="cap-empresa" type="text" placeholder="Nome da empresa">
+          </div>
+          <div class="form-group">
             <label class="form-label">WhatsApp</label>
             <input class="form-input" id="cap-wa" type="tel" placeholder="(11) 99999-9999">
           </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">O que deseja com M&amp;A (Fusões e Aquisições)?</label>
+          <select class="form-input form-select" id="cap-obj">
+            <option value="">Selecione...</option>
+            <option>Quero vender o meu controle total ou majoritário (Sell-side)</option>
+            <option>Procuro um sócio estratégico ou investidor minoritário</option>
+            <option>Quero comprar outra empresa ou expandir mercado (Buy-side)</option>
+            <option>Busco fusão com outra operação complementar</option>
+            <option>Preciso de Reestruturação Financeira ou Operacional</option>
+            <option>Ainda estou avaliando alternativas estratégicas</option>
+          </select>
+        </div>
+        <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Seu objetivo</label>
-            <select class="form-input form-select" id="cap-obj">
+            <label class="form-label">Tamanho da Empresa (Funcionários)</label>
+            <select class="form-input form-select" id="cap-tam">
               <option value="">Selecione...</option>
-              <option>Vender minha empresa</option>
-              <option>Preparar para M&A</option>
-              <option>Aprender valuation</option>
-              <option>Preparar para CFA</option>
-              <option>Crescer na carreira</option>
-              <option>Outro</option>
+              <option>Até 20 funcionários</option>
+              <option>21 a 100 funcionários</option>
+              <option>101 a 500 funcionários</option>
+              <option>Mais de 500 funcionários</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Faturamento Médio Anual</label>
+            <select class="form-input form-select" id="cap-fat">
+              <option value="">Selecione...</option>
+              <option>Até R$ 50 Milhões</option>
+              <option>De R$ 50 Milhões a R$ 100 Milhões</option>
+              <option>De R$ 100 Milhões a R$ 500 Milhões</option>
+              <option>Acima de R$ 500 Milhões</option>
             </select>
           </div>
         </div>
+        ` : `
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nome Completo</label>
+            <input class="form-input" id="cap-name" type="text" placeholder="Seu nome completo">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Seu melhor E-mail</label>
+            <input class="form-input" id="cap-email" type="email" placeholder="seu@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" id="cap-wa" type="tel" placeholder="(11) 99999-9999">
+        </div>
+        <div class="form-group" style="margin-top:4px;">
+          <label class="form-label">Qual é o seu nível atual de conhecimento em Valuation?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="cap-nivel" value="iniciante"> <strong>Iniciante:</strong> Sei o conceito básico, mas nunca montei um modelo de fluxo de caixa descontado (FCD).</label>
+            <label class="radio-option"><input type="radio" name="cap-nivel" value="intermediario"> <strong>Intermediário:</strong> Entendo a teoria e já faço projeções básicas, mas tenho dúvidas em premissas (WACC, perpetuidade, etc.).</label>
+            <label class="radio-option"><input type="radio" name="cap-nivel" value="avancado"> <strong>Avançado:</strong> Já faço valuations na prática e quero refinar e avançar minhas análises.</label>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:4px;">
+          <label class="form-label">Qual é o seu maior objetivo ao aprender Valuation hoje?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="cap-obj" value="mercado"> Conquistar uma vaga no mercado financeiro (M&amp;A, Equity Research, Investment Banking, etc.).</label>
+            <label class="radio-option"><input type="radio" name="cap-obj" value="certificacao"> Estudar para passar em uma certificação do mercado financeiro (CFA, CNPI, etc.).</label>
+            <label class="radio-option"><input type="radio" name="cap-obj" value="investimentos"> Utilizar para analisar e escolher ações/investimentos por conta própria.</label>
+            <label class="radio-option"><input type="radio" name="cap-obj" value="empresa"> Aplicar no meu próprio negócio ou na empresa onde já trabalho.</label>
+            <label class="radio-option"><input type="radio" name="cap-obj" value="faculdade"> Passar em disciplinas da faculdade ou entregar um TCC/projeto.</label>
+          </div>
+        </div>
+        `}
         <button class="btn-gold btn-full mt-sm" id="btn-capture">Ver meu resultado →</button>
       </div>
     `;
@@ -209,8 +271,25 @@ const QuizEngine = (() => {
       const name = d.querySelector('#cap-name').value.trim();
       const email = d.querySelector('#cap-email').value.trim();
       if (!name || !email) { alert('Por favor, informe nome e e-mail.'); return; }
+      const lead = { name, email, wa: d.querySelector('#cap-wa')?.value };
+      if (isEmp) {
+        lead.empresa = d.querySelector('#cap-empresa')?.value;
+        lead.obj = d.querySelector('#cap-obj')?.value;
+        lead.tam = d.querySelector('#cap-tam')?.value;
+        lead.fat = d.querySelector('#cap-fat')?.value;
+      } else {
+        lead.nivel = d.querySelector('input[name="cap-nivel"]:checked')?.value;
+        lead.obj = d.querySelector('input[name="cap-obj"]:checked')?.value;
+      }
+      if (window._sb) {
+        const scores = calcScores();
+        const payload = { nome: lead.name, email: lead.email, whatsapp: lead.wa, objetivo: lead.obj, respostas: state.answers, score: scores.main };
+        if (isEmp) { payload.empresa = lead.empresa; payload.tamanho = lead.tam; payload.faturamento = lead.fat; }
+        else { payload.nivel = lead.nivel; }
+        window._sb.from('isca_' + cfg.id + '_alexandre_cracovsky').insert(payload);
+      }
       state.captured = true;
-      state.lead = { name, email, wa: d.querySelector('#cap-wa').value, obj: d.querySelector('#cap-obj').value };
+      state.lead = lead;
       state.screen = 'result';
       render();
     };
