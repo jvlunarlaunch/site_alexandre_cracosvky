@@ -343,8 +343,9 @@
           <button class="btn-gold btn-full" id="btn-submit" style="margin-top:12px;">
             Quero receber gratuitamente →
           </button>
-          <div id="form-success" style="display:none;margin-top:16px;font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;">
-            ✓ Recebemos seus dados! O material chegará no seu e-mail em breve.
+          <div id="form-success" style="display:none;margin-top:20px;">
+            <p style="font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;margin:0 0 14px;">✓ Dados recebidos! O download começou automaticamente.</p>
+            <a id="btn-download" href="../assets/corporate-lideranca-carreira.pdf" download="Corporate-Lideranca-Carreira-Alexandre-Cracovsky.pdf" style="display:inline-block;background:var(--gold);color:#fff;font-family:var(--ep);font-weight:700;font-size:14px;padding:12px 24px;border-radius:4px;text-decoration:none;letter-spacing:.04em;">⬇ Baixar agora (caso não tenha iniciado)</a>
           </div>
         </div>
       </div>
@@ -430,7 +431,7 @@
   <section class="cta-section">
     <div class="cta-section-eyebrow">Gratuito e imediato</div>
     <h2 class="cta-section-heading">Preencha e receba agora</h2>
-    <p class="cta-section-sub">Preencha o formulário acima e acesse a coleção completa.</p>
+    <p class="cta-section-sub">Preencha o formulário acima e baixe a coleção completa na hora.</p>
     <a href="#captura" class="cta-section-btn">Quero receber gratuitamente →</a>
   </section>
 
@@ -444,7 +445,14 @@ document.getElementById('btn-submit').addEventListener('click',function(){
   if(!name||!email){alert('Por favor, informe nome e e-mail.');return;}
   btn.disabled=true;btn.textContent='Enviando...';
   if(window._sb){window._sb.from('corporate_lideranca_carreira_alexandre_cracovsky').insert({nome:name,email:email,whatsapp:document.getElementById('f-wa').value,nivel:(document.querySelector('input[name="f-nivel"]:checked')||{}).value||null,objetivo:(document.querySelector('input[name="f-obj"]:checked')||{}).value||null});}
-  setTimeout(function(){document.getElementById('form-success').style.display='block';btn.style.display='none';},800);
+  setTimeout(function(){
+    document.getElementById('form-success').style.display='block';
+    btn.style.display='none';
+    var a=document.createElement('a');
+    a.href='../assets/corporate-lideranca-carreira.pdf';
+    a.download='Corporate-Lideranca-Carreira-Alexandre-Cracovsky.pdf';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+  },800);
 });
 </script>
 
