@@ -23,3 +23,43 @@ texto_extraido/
 supabase-schema.sql
 .env.deploy
 backups/
+
+# ─── Adicionado por deploy-ftp-github skill ──────────────────────────────────
+
+# Credenciais e ambiente
+.env
+.env.local
+.env.production
+*.pem
+*.key
+*.p12
+
+# Deploy e backups
+deploy-history.json
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# Dependências
+node_modules/
+vendor/
+
+# Logs e cache
+*.log
+npm-debug.log*
+.cache/
+.parcel-cache/
+
+# Sistema operativo
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+
+# Testes
+coverage/
+.nyc_output/
