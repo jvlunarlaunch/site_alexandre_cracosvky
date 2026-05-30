@@ -166,133 +166,308 @@ const QuizEngine = (() => {
     el.appendChild(ul);
   }
 
-  // ─── CAPTURE ──────────────────────────────────────────────────────────────
+  // ─── CAPTURE (step-by-step) ───────────────────────────────────────────────
   function renderCapture() {
-    const d = div('quiz-screen active');
+    const d    = div('quiz-screen active');
     const isEmp = cfg.segment === 'empreendedor';
-    d.innerHTML = `
-      <div class="quiz-capture">
-        <h2>${cfg.captureTitle||'Seu resultado está pronto.'} <em>Onde enviamos?</em></h2>
-        <p>Preencha os dados abaixo para receber seu diagnóstico completo e recomendações personalizadas.</p>
-        ${isEmp ? `
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nome Completo</label>
-            <input class="form-input" id="cap-name" type="text" placeholder="Seu nome completo">
-          </div>
-          <div class="form-group">
-            <label class="form-label">E-mail</label>
-            <input class="form-input" id="cap-email" type="email" placeholder="seu@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nome da Empresa</label>
-            <input class="form-input" id="cap-empresa" type="text" placeholder="Nome da empresa">
-          </div>
-          <div class="form-group">
-            <label class="form-label">WhatsApp</label>
-            <input class="form-input" id="cap-wa" type="tel" placeholder="(11) 99999-9999">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">O que deseja com M&amp;A (Fusões e Aquisições)?</label>
-          <select class="form-input form-select" id="cap-obj">
-            <option value="">Selecione...</option>
-            <option>Quero vender o meu controle total ou majoritário (Sell-side)</option>
-            <option>Procuro um sócio estratégico ou investidor minoritário</option>
-            <option>Quero comprar outra empresa ou expandir mercado (Buy-side)</option>
-            <option>Busco fusão com outra operação complementar</option>
-            <option>Preciso de Reestruturação Financeira ou Operacional</option>
-            <option>Ainda estou avaliando alternativas estratégicas</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Tamanho da Empresa (Funcionários)</label>
-            <select class="form-input form-select" id="cap-tam">
-              <option value="">Selecione...</option>
-              <option>Até 20 funcionários</option>
-              <option>21 a 100 funcionários</option>
-              <option>101 a 500 funcionários</option>
-              <option>Mais de 500 funcionários</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Faturamento Médio Anual</label>
-            <select class="form-input form-select" id="cap-fat">
-              <option value="">Selecione...</option>
-              <option>Até R$ 50 Milhões</option>
-              <option>De R$ 50 Milhões a R$ 100 Milhões</option>
-              <option>De R$ 100 Milhões a R$ 500 Milhões</option>
-              <option>Acima de R$ 500 Milhões</option>
-            </select>
-          </div>
-        </div>
-        ` : `
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nome Completo</label>
-            <input class="form-input" id="cap-name" type="text" placeholder="Seu nome completo">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Seu melhor E-mail</label>
-            <input class="form-input" id="cap-email" type="email" placeholder="seu@email.com">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">WhatsApp</label>
-          <input class="form-input" id="cap-wa" type="tel" placeholder="(11) 99999-9999">
-        </div>
-        <div class="form-group" style="margin-top:4px;">
-          <label class="form-label">Qual é o seu nível atual de conhecimento em Valuation?</label>
-          <div class="radio-group">
-            <label class="radio-option"><input type="radio" name="cap-nivel" value="iniciante"> <strong>Iniciante:</strong> Sei o conceito básico, mas nunca montei um modelo de fluxo de caixa descontado (FCD).</label>
-            <label class="radio-option"><input type="radio" name="cap-nivel" value="intermediario"> <strong>Intermediário:</strong> Entendo a teoria e já faço projeções básicas, mas tenho dúvidas em premissas (WACC, perpetuidade, etc.).</label>
-            <label class="radio-option"><input type="radio" name="cap-nivel" value="avancado"> <strong>Avançado:</strong> Já faço valuations na prática e quero refinar e avançar minhas análises.</label>
-          </div>
-        </div>
-        <div class="form-group" style="margin-top:4px;">
-          <label class="form-label">Qual é o seu maior objetivo ao aprender Valuation hoje?</label>
-          <div class="radio-group">
-            <label class="radio-option"><input type="radio" name="cap-obj" value="mercado"> Conquistar uma vaga no mercado financeiro (M&amp;A, Equity Research, Investment Banking, etc.).</label>
-            <label class="radio-option"><input type="radio" name="cap-obj" value="certificacao"> Estudar para passar em uma certificação do mercado financeiro (CFA, CNPI, etc.).</label>
-            <label class="radio-option"><input type="radio" name="cap-obj" value="investimentos"> Utilizar para analisar e escolher ações/investimentos por conta própria.</label>
-            <label class="radio-option"><input type="radio" name="cap-obj" value="empresa"> Aplicar no meu próprio negócio ou na empresa onde já trabalho.</label>
-            <label class="radio-option"><input type="radio" name="cap-obj" value="faculdade"> Passar em disciplinas da faculdade ou entregar um TCC/projeto.</label>
-          </div>
-        </div>
-        `}
-        <button class="btn-gold btn-full mt-sm" id="btn-capture">Ver meu resultado →</button>
-      </div>
-    `;
+    const steps = isEmp ? capStepsEmp() : capStepsEst();
+    const total = steps.length;
+    let ci = 0;
+    const cdata = {};
+
+    // Wrap in .quiz-capture for navy background + padding
+    const wrap = div('quiz-capture');
+    d.appendChild(wrap);
+
+    // Progress bar (reuses quiz progress styles)
+    const prog = div('quiz-progress');
+    prog.innerHTML = '<div class="progress-meta"><span class="progress-label" id="cp-lbl"></span><span class="progress-count" id="cp-cnt"></span></div><div class="progress-bar"><div class="progress-fill" id="cp-fill" style="width:0%"></div></div>';
+    wrap.appendChild(prog);
+
+    const slot = div('');
+    slot.style.cssText = 'position:relative;overflow:hidden;min-height:280px;';
+    wrap.appendChild(slot);
+
     root.appendChild(d);
-    d.querySelector('#btn-capture').onclick = () => {
-      const name = d.querySelector('#cap-name').value.trim();
-      const email = d.querySelector('#cap-email').value.trim();
-      if (!name || !email) { alert('Por favor, informe nome e e-mail.'); return; }
-      const lead = { name, email, wa: d.querySelector('#cap-wa')?.value };
-      if (isEmp) {
-        lead.empresa = d.querySelector('#cap-empresa')?.value;
-        lead.obj = d.querySelector('#cap-obj')?.value;
-        lead.tam = d.querySelector('#cap-tam')?.value;
-        lead.fat = d.querySelector('#cap-fat')?.value;
-      } else {
-        lead.nivel = d.querySelector('input[name="cap-nivel"]:checked')?.value;
-        lead.obj = d.querySelector('input[name="cap-obj"]:checked')?.value;
+
+    function setProg(idx) {
+      const f = d.querySelector('#cp-fill');
+      const c = d.querySelector('#cp-cnt');
+      if (f) f.style.width = Math.round((idx / total) * 100) + '%';
+      if (c) c.textContent = (idx + 1) + ' / ' + total;
+    }
+
+    function showCapStep(idx, dir) {
+      const step = steps[idx];
+      const old  = slot.querySelector('.cap-step');
+      const el   = document.createElement('div');
+      el.className = 'cap-step';
+
+      buildCapStep(step, idx, el);
+
+      el.style.cssText = 'opacity:0;transform:translateX(' + (dir >= 0 ? '32px' : '-32px') + ')';
+
+      if (old) {
+        const h = old.offsetHeight;
+        slot.style.minHeight = h + 'px';
+        old.style.position   = 'absolute';
+        old.style.top = '0'; old.style.left = '0'; old.style.right = '0';
+        old.style.zIndex = '1'; old.style.pointerEvents = 'none';
+        const o = old;
+        requestAnimationFrame(() => {
+          o.style.transition = 'opacity .22s ease,transform .22s ease';
+          o.style.opacity = '0';
+          o.style.transform = 'translateX(' + (dir >= 0 ? '-32px' : '32px') + ')';
+        });
+        setTimeout(() => { if (o.parentNode) o.parentNode.removeChild(o); slot.style.minHeight = ''; }, 260);
       }
+
+      slot.appendChild(el);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          el.style.transition = 'opacity .28s ease,transform .28s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateX(0)';
+          const inp = el.querySelector('input:not([type=radio]),textarea');
+          if (inp) setTimeout(() => { try { inp.focus(); } catch(e){} }, 310);
+        });
+      });
+
+      setProg(idx);
+    }
+
+    function buildCapStep(step, idx, el) {
+      // Back button
+      if (idx > 0) {
+        const back = document.createElement('button');
+        back.className = 'btn-outline btn-back';
+        back.type = 'button';
+        back.style.cssText = 'font-size:11px;padding:8px 16px;color:var(--slate);border-color:var(--ruledark);margin-bottom:14px;display:inline-block;';
+        back.textContent = '← Voltar';
+        back.onclick = () => { ci = idx - 1; showCapStep(ci, -1); };
+        el.appendChild(back);
+      } else {
+        const back = document.createElement('button');
+        back.className = 'btn-outline btn-back';
+        back.type = 'button';
+        back.style.cssText = 'font-size:11px;padding:8px 16px;color:var(--slate);border-color:var(--ruledark);margin-bottom:14px;display:inline-block;';
+        back.textContent = '← Voltar ao quiz';
+        back.onclick = () => { state.qi = cfg.questions.length - 1; state.screen = 'question'; render(); };
+        el.appendChild(back);
+      }
+
+      // Step counter
+      const ctr = document.createElement('div');
+      ctr.style.cssText = 'font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;opacity:.75;';
+      ctr.textContent = (idx + 1) + ' / ' + total;
+      el.appendChild(ctr);
+
+      // Question
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'font-family:var(--cg);font-size:clamp(1.6rem,3.5vw,2.1rem);font-weight:300;color:#fff;line-height:1.18;margin-bottom:24px;';
+      qEl.textContent = step.question;
+      el.appendChild(qEl);
+
+      if (step.type === 'radio') {
+        buildCapRadio(step, el, idx);
+      } else {
+        buildCapText(step, el, idx);
+      }
+    }
+
+    function buildCapText(step, parent, idx) {
+      const inp = document.createElement('input');
+      inp.type        = step.type || 'text';
+      inp.className   = 'form-input';
+      inp.placeholder = step.placeholder || '';
+      if (cdata[step.id]) inp.value = cdata[step.id];
+      parent.appendChild(inp);
+
+      const hint = document.createElement('div');
+      hint.style.cssText = 'font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;';
+      hint.textContent = 'Pressione Enter ↵';
+      parent.appendChild(hint);
+
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); capAdvance(step, inp.value, idx); }
+      });
+
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:20px;';
+
+      const btn = document.createElement('button');
+      btn.className   = 'btn-gold';
+      btn.type        = 'button';
+      btn.textContent = idx === total - 1 ? 'Ver meu resultado →' : 'Continuar →';
+      btn.onclick = () => capAdvance(step, inp.value, idx);
+      row.appendChild(btn);
+
+      if (step.optional) {
+        const skip = document.createElement('button');
+        skip.type = 'button';
+        skip.style.cssText = 'background:none;border:none;cursor:pointer;font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);text-decoration:underline;text-underline-offset:3px;padding:4px 0;min-height:44px;';
+        skip.textContent = step.skipLabel || 'Pular';
+        skip.onclick = () => { cdata[step.id] = null; capGoNext(idx); };
+        row.appendChild(skip);
+      }
+
+      parent.appendChild(row);
+    }
+
+    function buildCapRadio(step, parent, idx) {
+      const list = document.createElement('div');
+      list.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+
+      step.choices.forEach(choice => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.style.cssText = 'width:100%;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:13px 16px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent;min-height:44px;';
+
+        if (cdata[step.id] === choice.value) {
+          card.style.borderColor = 'var(--gold)';
+          card.style.background  = 'rgba(184,149,42,.1)';
+        }
+
+        const lbl = document.createElement('span');
+        lbl.style.cssText   = 'font-family:var(--ep);font-size:14px;font-weight:500;color:rgba(255,255,255,.9);pointer-events:none;';
+        lbl.textContent     = choice.label;
+        card.appendChild(lbl);
+
+        if (choice.desc) {
+          const desc = document.createElement('span');
+          desc.style.cssText = 'font-family:var(--ep);font-size:12px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.5;pointer-events:none;';
+          desc.textContent   = choice.desc;
+          card.appendChild(desc);
+        }
+
+        card.addEventListener('mouseover', () => {
+          if (cdata[step.id] !== choice.value) { card.style.borderColor = 'rgba(184,149,42,.4)'; card.style.background = 'rgba(255,255,255,.07)'; }
+        });
+        card.addEventListener('mouseout', () => {
+          if (cdata[step.id] !== choice.value) { card.style.borderColor = 'rgba(255,255,255,.1)'; card.style.background = 'rgba(255,255,255,.04)'; }
+        });
+
+        card.onclick = () => {
+          list.querySelectorAll('button').forEach(c => {
+            c.style.borderColor = 'rgba(255,255,255,.1)';
+            c.style.background  = 'rgba(255,255,255,.04)';
+          });
+          card.style.borderColor = 'var(--gold)';
+          card.style.background  = 'rgba(184,149,42,.1)';
+          cdata[step.id] = choice.value;
+          setTimeout(() => capGoNext(idx), 280);
+        };
+
+        list.appendChild(card);
+      });
+
+      parent.appendChild(list);
+    }
+
+    function capAdvance(step, value, idx) {
+      const v = typeof value === 'string' ? value.trim() : value;
+      if (step.required && !v) {
+        const inp = slot.querySelector('.form-input');
+        if (inp) {
+          inp.style.borderBottomColor = 'var(--danger)';
+          try { inp.focus(); } catch(e){}
+          setTimeout(() => { inp.style.borderBottomColor = ''; }, 1200);
+        }
+        return;
+      }
+      cdata[step.id] = v || null;
+      capGoNext(idx);
+    }
+
+    function capGoNext(idx) {
+      if (idx >= total - 1) {
+        capSubmit();
+      } else {
+        ci = idx + 1;
+        showCapStep(ci, 1);
+      }
+    }
+
+    function capSubmit() {
+      const btn = slot.querySelector('.btn-gold');
+      if (btn) { btn.disabled = true; btn.textContent = 'Calculando...'; }
+
+      const lead = { name: cdata.nome, email: cdata.email, wa: cdata.whatsapp, empresa: cdata.empresa, obj: cdata.objetivo, tam: cdata.tamanho, fat: cdata.faturamento, nivel: cdata.nivel };
+
       if (window._sb) {
-        const scores = calcScores();
+        const scores  = calcScores();
         const payload = { nome: lead.name, email: lead.email, whatsapp: lead.wa, objetivo: lead.obj, respostas: state.answers, score: scores.main };
         if (isEmp) { payload.empresa = lead.empresa; payload.tamanho = lead.tam; payload.faturamento = lead.fat; }
         else { payload.nivel = lead.nivel; }
         window._sb.from('isca_' + cfg.id + '_alexandre_cracovsky').insert(payload);
       }
+
       state.captured = true;
-      state.lead = lead;
-      state.screen = 'result';
+      state.lead     = lead;
+      state.screen   = 'result';
       render();
-    };
+    }
+
+    function capStepsEst() {
+      return [
+        { id:'nome',      type:'text',  question:'Como posso te chamar?',           placeholder:'Seu nome completo',    required:true },
+        { id:'email',     type:'email', question:'Qual é o seu melhor e-mail?',      placeholder:'voce@email.com',       required:true },
+        { id:'whatsapp',  type:'tel',   question:'Qual é o seu WhatsApp?',           placeholder:'(11) 99999-9999',      optional:true, skipLabel:'Pular' },
+        { id:'nivel',     type:'radio', question:'Qual é o seu nível em Valuation?',
+          choices:[
+            { value:'iniciante',    label:'Iniciante',    desc:'Sei o conceito básico, mas nunca montei um FCD.' },
+            { value:'intermediario',label:'Intermediário', desc:'Entendo a teoria, mas tenho dúvidas em WACC, perpetuidade, etc.' },
+            { value:'avancado',     label:'Avançado',      desc:'Já faço valuations na prática e quero refinar minhas análises.' }
+          ]
+        },
+        { id:'objetivo', type:'radio', question:'Qual é o seu maior objetivo ao aprender Valuation?',
+          choices:[
+            { value:'mercado',      label:'Mercado financeiro',   desc:'Conquistar uma vaga em M&A, Equity Research, Investment Banking.' },
+            { value:'certificacao', label:'Certificação',         desc:'Estudar para CFA, CNPI, ou outra certificação.' },
+            { value:'investimentos',label:'Investimentos pessoais',desc:'Analisar e escolher ações/investimentos por conta própria.' },
+            { value:'empresa',      label:'Meu negócio',          desc:'Aplicar no meu próprio negócio ou empresa.' },
+            { value:'faculdade',    label:'Faculdade',            desc:'Passar em disciplinas ou entregar um TCC/projeto.' }
+          ]
+        }
+      ];
+    }
+
+    function capStepsEmp() {
+      return [
+        { id:'nome',      type:'text',  question:'Como posso te chamar?',           placeholder:'Seu nome completo',  required:true },
+        { id:'email',     type:'email', question:'Qual é o seu melhor e-mail?',      placeholder:'voce@email.com',     required:true },
+        { id:'empresa',   type:'text',  question:'Qual é o nome da sua empresa?',    placeholder:'Nome da empresa',    optional:true, skipLabel:'Pular' },
+        { id:'whatsapp',  type:'tel',   question:'Qual é o seu WhatsApp?',           placeholder:'(11) 99999-9999',    optional:true, skipLabel:'Pular' },
+        { id:'objetivo',  type:'radio', question:'O que você deseja com M&A?',
+          choices:[
+            { value:'Quero vender o meu controle total ou majoritário (Sell-side)', label:'Vender minha empresa',  desc:'Sell-side: venda de controle total ou majoritário.' },
+            { value:'Procuro um sócio estratégico ou investidor minoritário',       label:'Sócio ou investidor',  desc:'Entrada de capital com participação minoritária.' },
+            { value:'Quero comprar outra empresa ou expandir mercado (Buy-side)',   label:'Comprar / expandir',   desc:'Buy-side: aquisição ou expansão de mercado.' },
+            { value:'Busco fusão com outra operação complementar',                  label:'Fusão estratégica',    desc:'Unir operações com empresa complementar.' },
+            { value:'Preciso de Reestruturação Financeira ou Operacional',          label:'Reestruturação',       desc:'Reestruturação financeira ou operacional.' },
+            { value:'Ainda estou avaliando alternativas estratégicas',              label:'Avaliando opções',     desc:'Explorando alternativas estratégicas.' }
+          ]
+        },
+        { id:'tamanho', type:'radio', question:'Qual é o tamanho da sua empresa?',
+          choices:[
+            { value:'Até 20 funcionários',      label:'Até 20 funcionários' },
+            { value:'21 a 100 funcionários',    label:'21 a 100 funcionários' },
+            { value:'101 a 500 funcionários',   label:'101 a 500 funcionários' },
+            { value:'Mais de 500 funcionários', label:'Mais de 500 funcionários' }
+          ]
+        },
+        { id:'faturamento', type:'radio', question:'Qual é o faturamento médio anual?',
+          choices:[
+            { value:'Até R$ 50 Milhões',                  label:'Até R$ 50M' },
+            { value:'De R$ 50 Milhões a R$ 100 Milhões',  label:'R$ 50M – R$ 100M' },
+            { value:'De R$ 100 Milhões a R$ 500 Milhões', label:'R$ 100M – R$ 500M' },
+            { value:'Acima de R$ 500 Milhões',            label:'Acima de R$ 500M' }
+          ]
+        }
+      ];
+    }
+
+    showCapStep(0, 1);
   }
 
   // ─── RESULT ───────────────────────────────────────────────────────────────

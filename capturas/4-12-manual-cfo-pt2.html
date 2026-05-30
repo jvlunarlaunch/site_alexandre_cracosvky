@@ -25,66 +25,7 @@
       <h1 class="hero-h1" style="font-size:26px;">Manual do CFO — Parte II</h1>
       <p class="hero-sub">M&A, estrutura de capital, dividendos e decisões de financiamento pelo olhar do Chief Financial Officer.</p>
       <div class="capture-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nome Completo</label>
-            <input class="form-input" type="text" id="f-name" placeholder="Seu nome completo">
-          </div>
-          <div class="form-group">
-            <label class="form-label">E-mail</label>
-            <input class="form-input" type="email" id="f-email" placeholder="seu@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nome da Empresa</label>
-            <input class="form-input" type="text" id="f-empresa" placeholder="Nome da empresa">
-          </div>
-          <div class="form-group">
-            <label class="form-label">WhatsApp</label>
-            <input class="form-input" type="tel" id="f-wa" placeholder="(11) 99999-9999">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">O que deseja com M&amp;A (Fusões e Aquisições)?</label>
-          <select class="form-input form-select" id="f-obj">
-            <option value="">Selecione...</option>
-            <option>Quero vender o meu controle total ou majoritário (Sell-side)</option>
-            <option>Procuro um sócio estratégico ou investidor minoritário</option>
-            <option>Quero comprar outra empresa ou expandir mercado (Buy-side)</option>
-            <option>Busco fusão com outra operação complementar</option>
-            <option>Preciso de Reestruturação Financeira ou Operacional</option>
-            <option>Ainda estou avaliando alternativas estratégicas</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Tamanho da Empresa (Funcionários)</label>
-          <select class="form-input form-select" id="f-tam">
-            <option value="">Selecione...</option>
-            <option>Até 20 funcionários</option>
-            <option>21 a 100 funcionários</option>
-            <option>101 a 500 funcionários</option>
-            <option>Mais de 500 funcionários</option>
-          </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Faturamento Médio Anual</label>
-          <select class="form-input form-select" id="f-fat">
-            <option value="">Selecione...</option>
-            <option>Até R$ 50 Milhões</option>
-            <option>De R$ 50 Milhões a R$ 100 Milhões</option>
-            <option>De R$ 100 Milhões a R$ 500 Milhões</option>
-            <option>Acima de R$ 500 Milhões</option>
-          </select>
-          </div>
-        </div>
-        <button class="btn-gold btn-full" id="btn-submit" style="margin-top:8px;">
-          Quero receber gratuitamente →
-        </button>
-        <div id="form-success" style="display:none;margin-top:16px;font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.08em;">
-          ✓ Recebemos seus dados! O material chegará no seu e-mail em breve.
-        </div>
+        <div id="sf-root"></div>
       </div>
     </div>
     <div class="capture-right">
@@ -98,14 +39,18 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="../assets/supabase-client.js"></script>
+<script src="../assets/step-form.js"></script>
 <script>
-document.getElementById('btn-submit').addEventListener('click',function(){
-  var btn=this,name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim();
-  if(!name||!email){alert('Por favor, informe nome e e-mail.');return;}
-  btn.disabled=true;btn.textContent='Enviando...';
-  if(window._sb){window._sb.from('manual_cfo_pt2_alexandre_cracovsky').insert({nome:name,email:email,empresa:document.getElementById('f-empresa').value,whatsapp:document.getElementById('f-wa').value,objetivo:document.getElementById('f-obj').value,tamanho:document.getElementById('f-tam').value,faturamento:document.getElementById('f-fat').value});}
-  setTimeout(function(){document.getElementById('form-success').style.display='block';btn.style.display='none';},800);
-});
+(function(){
+  StepForm.init(document.getElementById('sf-root'), {
+    steps: StepForm.CAPTURAS_STEPS_EMP,
+    submitLabel: 'Quero receber gratuitamente →',
+    onSubmit: function(data, done) {
+      if (window._sb) { window._sb.from('manual_cfo_pt2_alexandre_cracovsky').insert({nome:data.nome,email:data.email,empresa:data.empresa||null,whatsapp:data.whatsapp||null,objetivo:data.objetivo||null,tamanho:data.tamanho||null,faturamento:data.faturamento||null}); }
+      done();
+    }
+  });
+})();
 </script>
 <footer class="footer">
   <div class="footer-inner">

@@ -290,49 +290,7 @@
     <div class="contact-form-wrap">
       <div class="contact-form-card">
 
-        <form id="contact-form" novalidate>
-          <div class="cf-row">
-            <div class="cf-field">
-              <label class="cf-label" for="cf-nome">Nome</label>
-              <input class="cf-input" type="text" id="cf-nome" name="nome" placeholder="Seu nome" autocomplete="name" required>
-              <div class="cf-underline"></div>
-            </div>
-            <div class="cf-field">
-              <label class="cf-label" for="cf-email">E-mail</label>
-              <input class="cf-input" type="email" id="cf-email" name="email" placeholder="seu@email.com" autocomplete="email" required>
-              <div class="cf-underline"></div>
-            </div>
-          </div>
-
-          <div class="cf-field">
-            <label class="cf-label" for="cf-assunto">Assunto</label>
-            <input class="cf-input" type="text" id="cf-assunto" name="assunto" placeholder="Assunto da mensagem" autocomplete="off">
-            <div class="cf-underline"></div>
-          </div>
-
-          <div class="cf-field">
-            <label class="cf-label" for="cf-mensagem">Mensagem</label>
-            <textarea class="cf-textarea" id="cf-mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
-            <div class="cf-underline"></div>
-          </div>
-
-          <button type="submit" class="cf-btn">
-            <span class="cf-btn-text">
-              Enviar mensagem
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </button>
-
-          <p class="cf-disclaimer">Seus dados são confidenciais e não serão compartilhados.</p>
-        </form>
-
-        <div class="cf-success" id="cf-success">
-          <div class="cf-success-icon">✓</div>
-          <div class="cf-success-title">Mensagem enviada.</div>
-          <p class="cf-success-desc">Obrigado pelo contato. Responderei em até 2 dias úteis.</p>
-        </div>
+        <div id="sf-root"></div>
 
       </div>
     </div>
@@ -343,29 +301,25 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="./assets/supabase-client.js"></script>
+<script src="./assets/step-form.js"></script>
 <script>
 (function(){
-  var form = document.getElementById('contact-form');
-  var success = document.getElementById('cf-success');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var nome = document.getElementById('cf-nome').value.trim();
-    var email = document.getElementById('cf-email').value.trim();
-    var assunto = document.getElementById('cf-assunto').value;
-    var mensagem = document.getElementById('cf-mensagem').value.trim();
-    if(!nome || !email || !mensagem) return;
-
-    if(window._sb){
-      window._sb.from('contato_alexandre_cracovsky').insert({nome:nome,email:email,assunto:assunto,mensagem:mensagem});
+  StepForm.init(document.getElementById('sf-root'), {
+    steps: [
+      { id:'nome',     type:'text',     question:'Como você se chama?',             placeholder:'Seu nome',                 required:true },
+      { id:'email',    type:'email',    question:'Qual é o seu e-mail?',             placeholder:'voce@email.com',           required:true },
+      { id:'assunto',  type:'text',     question:'Qual é o assunto?',               placeholder:'Assunto da mensagem',      required:false, optional:true, skipLabel:'Pular' },
+      { id:'mensagem', type:'textarea', question:'O que você gostaria de nos dizer?',placeholder:'Escreva sua mensagem...', required:true }
+    ],
+    submitLabel: 'Enviar mensagem →',
+    successTitle: 'Mensagem enviada.',
+    successDesc: 'Obrigado pelo contato. Responderei em até 2 dias úteis.',
+    onSubmit: function(data, done) {
+      if (window._sb) {
+        window._sb.from('contato_alexandre_cracovsky').insert({nome:data.nome,email:data.email,assunto:data.assunto||null,mensagem:data.mensagem});
+      }
+      done();
     }
-
-    form.style.transition = 'opacity .3s';
-    form.style.opacity = '0';
-    setTimeout(function(){
-      form.style.display = 'none';
-      success.classList.add('visible');
-    }, 300);
   });
 })();
 </script>
