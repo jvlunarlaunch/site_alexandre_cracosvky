@@ -346,7 +346,8 @@ input[type=range]{width:100%;accent-color:var(--gold);height:4px;cursor:pointer;
 
 /* ── SMALL MOBILE (≤480px) ── */
 @media(max-width:480px){
-  .quiz-app{padding:36px 20px;}
+  .quiz-app{padding:36px 8px;}
+  .quiz-capture{padding:24px 20px;}
   .result-score-val{font-size:44px;}
   .result-ctas{flex-direction:column;}
   .result-ctas > *{width:100%;text-align:center;}

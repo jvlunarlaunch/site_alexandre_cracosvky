@@ -283,10 +283,12 @@ const QuizEngine = (() => {
       if (cdata[step.id]) inp.value = cdata[step.id];
       parent.appendChild(inp);
 
-      const hint = document.createElement('div');
-      hint.style.cssText = 'font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;';
-      hint.textContent = 'Pressione Enter ↵';
-      parent.appendChild(hint);
+      if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        const hint = document.createElement('div');
+        hint.style.cssText = 'font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;';
+        hint.textContent = 'Pressione Enter ↵';
+        parent.appendChild(hint);
+      }
 
       inp.addEventListener('keydown', e => {
         if (e.key === 'Enter') { e.preventDefault(); capAdvance(step, inp.value, idx); }

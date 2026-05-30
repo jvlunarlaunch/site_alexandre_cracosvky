@@ -303,9 +303,12 @@
       parent.appendChild(inp);
 
       if (step.type !== 'textarea') {
-        var hint = mk('div', 'sf-enter-hint');
-        hint.innerHTML = 'Pressione <kbd>Enter ↵</kbd>';
-        parent.appendChild(hint);
+        var isMobile = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        if (!isMobile) {
+          var hint = mk('div', 'sf-enter-hint');
+          hint.innerHTML = 'Pressione <kbd>Enter ↵</kbd>';
+          parent.appendChild(hint);
+        }
         inp.addEventListener('keydown', function (e) {
           if (e.key === 'Enter') { e.preventDefault(); advance(step, inp.value, idx); }
         });
