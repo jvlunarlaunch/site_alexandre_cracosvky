@@ -108,7 +108,7 @@
 
 .cf-field{margin-bottom:28px;position:relative;}
 .cf-label{
-  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);
+  font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.4);
   letter-spacing:.18em;text-transform:uppercase;
   display:block;margin-bottom:10px;
   transition:color .25s;
@@ -118,25 +118,26 @@
 .cf-input,.cf-textarea{
   width:100%;font-family:var(--ep);font-size:16px;font-weight:300;
   color:#fff;
-  background:rgba(255,255,255,.04);
-  border:none;border-bottom:.5px solid rgba(255,255,255,.15);
-  padding:12px 8px;outline:none;
-  transition:border-color .3s;
+  background:rgba(255,255,255,.05);
+  border:none;border-bottom:1px solid rgba(255,255,255,.2);
+  padding:14px 10px;outline:none;
+  transition:border-color .3s,background .3s;
   border-radius:0;
   -webkit-appearance:none;
 }
 .cf-input::placeholder,.cf-textarea::placeholder{
-  color:rgba(255,255,255,.18);
+  color:rgba(255,255,255,.28);
 }
 .cf-input:focus,.cf-textarea:focus{
   border-bottom-color:var(--gold);
+  background:rgba(255,255,255,.06);
 }
 .cf-input:-webkit-autofill{
   -webkit-box-shadow:0 0 0 100px var(--navy) inset;
   -webkit-text-fill-color:#fff;
 }
 .cf-textarea{
-  resize:none;height:96px;line-height:1.7;
+  resize:none;height:100px;line-height:1.7;
 }
 
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -156,11 +157,12 @@
   letter-spacing:.1em;text-transform:uppercase;
   background:transparent;
   color:var(--gold2);
-  border:.5px solid var(--gold);
+  border:1px solid var(--gold);
   padding:18px 24px;border-radius:2px;
   cursor:pointer;
   position:relative;overflow:hidden;
   transition:color .3s;
+  -webkit-tap-highlight-color:transparent;
 }
 .cf-btn::before{
   content:'';position:absolute;
@@ -170,10 +172,12 @@
 }
 .cf-btn:hover::before{transform:translateX(0);}
 .cf-btn:hover{color:var(--navy);}
+.cf-btn:active::before{transform:translateX(0);}
+.cf-btn:active{color:var(--navy);}
 .cf-btn-text{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;}
 
 .cf-disclaimer{
-  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.2);
+  font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);
   letter-spacing:.1em;text-align:center;margin-top:16px;line-height:1.7;
 }
 
@@ -268,16 +272,16 @@
           <div class="contact-info-icon">@</div>
           <div>
             <div class="contact-info-label">E-mail</div>
-            <div class="contact-info-val">contato@valuationma.com.br</div>
+            <div class="contact-info-val">alexandre.cracovsky.finance@gmail.com</div>
           </div>
         </div>
-        <div class="contact-info-item">
+        <a href="https://br.linkedin.com/in/alexandre-cracovsky" target="_blank" rel="noopener" class="contact-info-item" style="text-decoration:none;color:inherit;">
           <div class="contact-info-icon">in</div>
           <div>
             <div class="contact-info-label">LinkedIn</div>
             <div class="contact-info-val">Alexandre Cracovsky, CFA</div>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>

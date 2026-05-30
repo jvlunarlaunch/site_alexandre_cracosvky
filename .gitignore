@@ -18,3 +18,8 @@ Thumbs.db
 
 # Extracted text (dev tool output)
 texto_extraido/
+
+# Dev/infra artifacts (not for production)
+supabase-schema.sql
+.env.deploy
+backups/
