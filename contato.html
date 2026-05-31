@@ -231,12 +231,12 @@
 </head>
 <body>
 <nav class="nav">
-  <a href="/" class="nav-logo">Alexandre Cracovsky, <em>CFA</em></a>
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky</em> CFA</a>
   <div class="nav-links">
     <a href="/#newsletter" class="nav-link">Newsletter</a>
-    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
     <a href="/empreendedor" class="nav-link">Para empresários</a>
-    <a href="/pre-lista-livro" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
   </div>
   <a href="/contato" class="nav-cta active">Contato</a>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu">
@@ -247,7 +247,7 @@
   <a href="/#newsletter" class="nav-link">Newsletter</a>
   <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
   <a href="/empreendedor" class="nav-link">Para empresários</a>
-  <a href="/pre-lista-livro" class="nav-link" style="color:var(--gold2);">Receba o livro antecipadamente</a>
+  <a href="/pre-lista-livro" class="nav-link">Livro</a>
   <a href="/contato" class="nav-cta-mobile">Contato</a>
 </div>
 <script>
@@ -274,7 +274,7 @@
       <div class="contact-rule"></div>
       <div class="contact-eyebrow">Fale comigo</div>
       <h1 class="contact-title">Vamos<em>conversar.</em></h1>
-      <p class="contact-desc">Dúvidas sobre M&amp;A, valuation, materiais ou parcerias? Envie uma mensagem — quero te ouvir.</p>
+      <p class="contact-desc">Uma dúvida, uma decisão de venda, uma transação, uma palestra, um projeto ou uma mensagem. Se o assunto envolve valuation e M&amp;A, me escreva. Respondo pessoalmente.</p>
 
       <div class="contact-info-list">
         <div class="contact-info-item">
@@ -322,7 +322,7 @@
     ],
     submitLabel: 'Enviar mensagem →',
     successTitle: 'Mensagem enviada.',
-    successDesc: 'Obrigado pelo contato. Responderei em até 2 dias úteis.',
+    successDesc: 'Obrigado pelo contato.',
     onSubmit: function(data, done) {
       if (window._sb) {
         window._sb.from('contato_alexandre_cracovsky').insert({nome:data.nome,email:data.email,assunto:data.assunto||null,mensagem:data.mensagem});
