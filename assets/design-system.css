@@ -39,7 +39,7 @@ a{text-decoration:none;color:inherit;}
   position:sticky;top:0;z-index:100;
 }
 .nav-logo{font-family:var(--cg);font-size:22px;font-weight:600;color:#fff;letter-spacing:.04em;}
-.nav-logo em{font-style:italic;color:var(--gold2);}
+.nav-logo em,.nav-logo span{font-style:italic;color:var(--gold2);}
 .nav-links{display:flex;gap:28px;align-items:center;}
 .nav-link{font-family:var(--ep);font-size:15px;font-weight:300;color:rgba(255,255,255,.45);letter-spacing:.04em;transition:color .2s;}
 .nav-link:hover,.nav-link.active{color:rgba(255,255,255,.9);}
@@ -315,7 +315,7 @@ input[type=range]{width:100%;accent-color:var(--gold);height:4px;cursor:pointer;
 .footer{background:var(--navy);padding:36px 32px;border-top:.5px solid rgba(255,255,255,.08);}
 .footer-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
 .footer-logo{font-family:var(--cg);font-size:18px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.04em;}
-.footer-logo em{font-style:italic;color:var(--gold2);}
+.footer-logo em,.footer-logo span{font-style:italic;color:var(--gold2);}
 .footer-copy{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.25);letter-spacing:.08em;}
 .footer-copy a{color:rgba(255,255,255,.35);text-decoration:none;border-bottom:.5px solid rgba(255,255,255,.12);transition:color .2s,border-color .2s;}
 .footer-copy a:hover{color:var(--gold2);border-color:rgba(184,149,42,.4);}
