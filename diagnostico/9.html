@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qual é o seu perfil de carreira em finanças? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+<style>
+  .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; }
+  .quiz-welcome { text-align: center; padding: 2rem 0 1rem; }
+  .quiz-badge { display: inline-block; background: var(--ice); color: var(--royal); font-size: .75rem; font-family: var(--mo); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .8rem; border-radius: 999px; margin-bottom: 1rem; }
+  .quiz-title { font-family: var(--cg); font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.2; margin-bottom: .75rem; }
+  .quiz-sub { color: var(--royal); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.6; }
+  .quiz-intro { background: var(--ice); border-radius: 12px; padding: 1.25rem 1.5rem; font-size: .92rem; color: var(--navy); line-height: 1.65; margin-bottom: 2rem; text-align: left; }
+  .progress-bar { height: 4px; background: var(--ice); border-radius: 2px; margin-bottom: 2.5rem; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width .4s ease; }
+  .progress-label { font-family: var(--mo); font-size: .75rem; color: #6b7280; text-align: right; margin-bottom: .4rem; }
+  .question-block { animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .question-num { font-family: var(--mo); font-size: .75rem; color: var(--gold); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; }
+  .question-text { font-size: 1.15rem; color: var(--navy); font-weight: 600; line-height: 1.5; margin-bottom: 1.75rem; }
+  .scale-wrap { display: flex; flex-direction: column; gap: .5rem; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: .78rem; color: #6b7280; font-family: var(--mo); margin-bottom: .25rem; }
+  .scale-options { display: flex; gap: .6rem; justify-content: center; }
+  .scale-btn { width: 48px; height: 48px; border-radius: 8px; border: 2px solid var(--ice); background: white; font-family: var(--mo); font-size: .95rem; font-weight: 700; color: var(--navy); cursor: pointer; transition: all .2s; flex-shrink: 0; }
+  .scale-btn:hover { border-color: var(--royal); background: var(--ice); }
+  .scale-btn.selected { border-color: var(--gold); background: var(--gold); color: white; }
+  .nav-btns { display: flex; gap: 1rem; margin-top: 2rem; }
+  .btn-back { background: transparent; border: 2px solid var(--ice); color: var(--navy); padding: .65rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: .9rem; transition: all .2s; }
+  .btn-back:hover { border-color: var(--royal); }
+  .btn-next { background: var(--navy); color: white; border: none; padding: .65rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: .95rem; transition: background .2s; margin-left: auto; }
+  .btn-next:hover { background: var(--royal); }
+  .btn-next:disabled { background: #d1d5db; cursor: not-allowed; }
+  .result-block { animation: fadeIn .4s ease; }
+  .result-quadrant { text-align: center; padding: 2rem 0 1rem; }
+  .quadrant-label { font-family: var(--cg); font-size: 1.1rem; color: var(--gold); font-weight: 700; letter-spacing: .04em; margin-bottom: .4rem; }
+  .quadrant-title { font-family: var(--cg); font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--navy); margin-bottom: 1rem; line-height: 1.2; }
+  .quadrant-desc { color: #374151; line-height: 1.7; font-size: 1rem; margin-bottom: 1.5rem; }
+  .axis-bars { display: flex; flex-direction: column; gap: .75rem; margin: 1.5rem 0; }
+  .axis-bar-row { display: flex; align-items: center; gap: .75rem; font-size: .85rem; }
+  .axis-bar-label { width: 80px; text-align: right; font-family: var(--mo); font-size: .75rem; color: #6b7280; }
+  .axis-bar-track { flex: 1; height: 8px; background: var(--ice); border-radius: 4px; position: relative; }
+  .axis-bar-fill { height: 100%; border-radius: 4px; background: var(--gold); position: absolute; }
+  .axis-bar-label-r { width: 80px; font-family: var(--mo); font-size: .75rem; color: #6b7280; }
+  #chart-container { border-radius: 12px; overflow: hidden; margin: 1.5rem 0; }
+  .careers-block { background: var(--ice); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+  .careers-block h3 { font-family: var(--cg); font-size: 1.1rem; color: var(--navy); margin-bottom: .75rem; }
+  .careers-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .career-tag { background: white; border: 1px solid #e5e7eb; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; color: var(--royal); font-weight: 600; }
+  .cert-tag { background: var(--navy); color: white; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; font-weight: 600; }
+  .ressalva { font-size: .85rem; color: #6b7280; line-height: 1.65; border-top: 1px solid var(--ice); padding-top: 1rem; margin-top: 1rem; }
+  .cta-box { background: var(--navy); color: white; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem; }
+  .cta-box p { color: #c7d2fe; font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+  .cta-btn { display: inline-block; background: var(--gold); color: white; font-weight: 700; padding: .8rem 2rem; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background .2s; }
+  .cta-btn:hover { background: var(--gold2); }
+  @media (max-width: 520px) {
+    .scale-options { gap: .35rem; }
+    .scale-btn { width: 40px; height: 40px; font-size: .85rem; }
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/#newsletter" class="nav-link">Newsletter</a>
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+<main class="page-main">
+<div class="section">
+<div class="quiz-wrap" id="quiz-app">
+
+  <!-- WELCOME SCREEN -->
+  <div id="screen-welcome">
+    <div class="quiz-welcome">
+      <span class="quiz-badge">Carreira · Orientação</span>
+      <h1 class="quiz-title">Qual é o seu perfil de carreira em finanças?</h1>
+      <p class="quiz-sub">8 perguntas, uma escala de 0 a 5 em cada, e um mapa que mostra as áreas, as certificações e as competências em que você tende a ir melhor.</p>
+    </div>
+    <div class="quiz-intro">
+      Responda pensando em como você é hoje, não em como acha que deveria ser. Quem responde alto nos dois extremos de um eixo cai no centro — o que também é um perfil válido e bastante versátil.
+    </div>
+    <div style="text-align:center">
+      <button class="btn-next" style="margin:0 auto;display:inline-block;padding:.8rem 2.5rem;font-size:1rem" onclick="startQuiz()">Começar →</button>
+    </div>
+    <p style="text-align:center;font-size:.8rem;color:#9ca3af;margin-top:1rem;font-family:var(--mo)">⏱ 3 min · Gratuito</p>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div id="screen-question" style="display:none">
+    <div class="progress-label"><span id="q-count"></span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="question-block" id="q-block">
+      <div class="question-num" id="q-num"></div>
+      <div class="question-text" id="q-text"></div>
+      <div class="scale-wrap">
+        <div class="scale-labels">
+          <span>0 — Discordo totalmente</span>
+          <span>5 — Concordo totalmente</span>
+        </div>
+        <div class="scale-options" id="scale-options"></div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" id="btn-back" onclick="prevQ()">← Voltar</button>
+      <button class="btn-next" id="btn-next" disabled onclick="nextQ()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="screen-result" style="display:none"></div>
+
+</div>
+</div>
+
+<script src="../highcharts.js"></script>
+<script>
+const QUESTIONS = [
+  { id: 'p1', text: 'Me energiza estar com clientes, entender o que precisam e construir relações de confiança.', axis: 'Y', pole: '+' },
+  { id: 'p2', text: 'Sinto prazer em mergulhar em dados, planilhas e modelos até chegar à resposta certa.', axis: 'Y', pole: '-' },
+  { id: 'p3', text: 'Levo jeito para negociar, convencer e defender uma ideia diante de outras pessoas.', axis: 'Y', pole: '+' },
+  { id: 'p4', text: 'Prefiro embasar decisões em números e evidências a confiar na leitura de pessoas.', axis: 'Y', pole: '-' },
+  { id: 'p5', text: 'Tenho orgulho de saber de um assunto coisas que quase ninguém sabe.', axis: 'X', pole: '-' },
+  { id: 'p6', text: 'Gosto de transitar por áreas e funções diferentes e reunir competências variadas.', axis: 'X', pole: '+' },
+  { id: 'p7', text: 'Prefiro um problema difícil dentro do meu campo a um problema fácil em um campo novo.', axis: 'X', pole: '-' },
+  { id: 'p8', text: 'Me imagino mudando de departamento algumas vezes ao longo da carreira.', axis: 'X', pole: '+' }
+];
+
+const QUADRANTS = {
+  'comercial_vertical': {
+    label: 'Comercial + Vertical',
+    title: 'Você é o especialista que fecha',
+    desc: 'Você se energiza no relacionamento e na originação, mas dentro de uma especialidade que domina a fundo. É o perfil de quem constrói confiança e fecha negócios sendo a referência técnica de um assunto.',
+    careers: ['Investment Banking', 'ECM', 'DCM', 'Relationship Manager', 'Assessor de investimentos (AAI)'],
+    certs: ['AAI (ANCORD)', 'CFA', 'CAIA'],
+    hardSkills: 'Estruturação de operações, valuation de deals, capital markets',
+    softSkills: 'Persuasão, relacionamento, resiliência sob pressão, negociação'
+  },
+  'comercial_horizontal': {
+    label: 'Comercial + Horizontal',
+    title: 'Você é o conector que faz a roda girar',
+    desc: 'Você se energiza com pessoas e negócios, e gosta de transitar por áreas e produtos diferentes. É o perfil de quem lidera, conecta e faz a roda girar com visão ampla do mercado.',
+    careers: ['Trader de câmbio', 'Gerente de agência', 'Gerente de produtos'],
+    certs: ['C-Pro R (ANBIMA)', 'PQO (ANCORD/B3)', 'CFA'],
+    hardSkills: 'Produtos de investimento, pricing, plataformas de negociação',
+    softSkills: 'Comunicação, adaptabilidade, visão de negócio, gestão de clientes'
+  },
+  'analitico_vertical': {
+    label: 'Analítico + Vertical',
+    title: 'Você é o especialista que vai fundo',
+    desc: 'Você se energiza mais com análise e profundidade do que com relacionamento, e prefere se especializar a transitar por muitas áreas. É o terreno de quem gosta de destrinchar um problema até o fim.',
+    careers: ['M&A', 'Private Equity', 'Equity Research', 'Gestor de portfólio', 'Project Finance', 'Planejador financeiro'],
+    certs: ['CFA', 'CNPI (APIMEC)', 'CGA', 'CFP', 'CAIA'],
+    hardSkills: 'Modelagem (DCF, LBO), valuation, contabilidade avançada, análise setorial',
+    softSkills: 'Rigor analítico, atenção ao detalhe, pensamento crítico, curiosidade'
+  },
+  'analitico_horizontal': {
+    label: 'Analítico + Horizontal',
+    title: 'Você é o analista com visão de sistema',
+    desc: 'Você gosta de analisar, mas com visão de conjunto: prefere entender como as peças do negócio se conectam a mergulhar em um único tema. É o perfil de quem enxerga o risco e o sistema inteiro, não só uma parte.',
+    careers: ['Analista de crédito', 'Compliance', 'Especialista em investimentos'],
+    certs: ['FRM', 'C-Pro R (ANBIMA)', 'CFA'],
+    hardSkills: 'Análise de crédito, estatística e quant, gestão de risco, regulação',
+    softSkills: 'Visão sistêmica, julgamento, organização, comunicação de risco'
+  },
+  'centro': {
+    label: 'Perfil Versátil',
+    title: 'Você tem perfil equilibrado',
+    desc: 'Você transita bem entre análise e relacionamento, e entre especialidade e versatilidade. Perfis equilibrados costumam se dar bem nas carreiras sobre os eixos, como Project Finance, Relationship Manager e especialista em investimentos.',
+    careers: ['Project Finance', 'Relationship Manager', 'Especialista em investimentos', 'Equity Research', 'M&A'],
+    certs: ['CFA', 'CFP', 'CNPI (APIMEC)'],
+    hardSkills: 'Valuation, estruturação de operações, análise financeira',
+    softSkills: 'Adaptabilidade, comunicação, análise e relacionamento'
+  }
+};
+
+let answers = {};
+let currentQ = 0;
+
+function startQuiz() {
+  document.getElementById('screen-welcome').style.display = 'none';
+  document.getElementById('screen-question').style.display = 'block';
+  renderQuestion(0);
+}
+
+function renderQuestion(idx) {
+  currentQ = idx;
+  const q = QUESTIONS[idx];
+  const total = QUESTIONS.length;
+
+  document.getElementById('q-count').textContent = `Pergunta ${idx + 1} de ${total}`;
+  document.getElementById('progress-fill').style.width = `${((idx) / total) * 100}%`;
+  document.getElementById('q-num').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const container = document.getElementById('scale-options');
+  container.innerHTML = '';
+  for (let v = 0; v <= 5; v++) {
+    const btn = document.createElement('button');
+    btn.className = 'scale-btn' + (answers[q.id] === v ? ' selected' : '');
+    btn.textContent = v;
+    btn.onclick = () => selectAnswer(q.id, v);
+    container.appendChild(btn);
+  }
+
+  const btnNext = document.getElementById('btn-next');
+  btnNext.disabled = answers[q.id] === undefined;
+  btnNext.textContent = idx === total - 1 ? 'Ver resultado →' : 'Próxima →';
+
+  document.getElementById('btn-back').style.visibility = idx === 0 ? 'hidden' : 'visible';
+
+  // re-animate
+  const block = document.getElementById('q-block');
+  block.style.animation = 'none';
+  void block.offsetWidth;
+  block.style.animation = '';
+}
+
+function selectAnswer(id, value) {
+  answers[id] = value;
+  document.querySelectorAll('.scale-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === value);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQ() {
+  if (currentQ < QUESTIONS.length - 1) {
+    renderQuestion(currentQ + 1);
+  } else {
+    showResult();
+  }
+}
+
+function prevQ() {
+  if (currentQ > 0) renderQuestion(currentQ - 1);
+}
+
+function showResult() {
+  const p = id => answers[id] || 0;
+  const Y = (p('p1') + p('p3')) - (p('p2') + p('p4'));
+  const X = (p('p6') + p('p8')) - (p('p5') + p('p7'));
+
+  let quadrantKey;
+  const threshold = 3;
+  if (Math.abs(X) < threshold && Math.abs(Y) < threshold) {
+    quadrantKey = 'centro';
+  } else if (Y >= 0 && X < 0) {
+    quadrantKey = 'comercial_vertical';
+  } else if (Y >= 0 && X >= 0) {
+    quadrantKey = 'comercial_horizontal';
+  } else if (Y < 0 && X < 0) {
+    quadrantKey = 'analitico_vertical';
+  } else {
+    quadrantKey = 'analitico_horizontal';
+  }
+
+  const q = QUADRANTS[quadrantKey];
+
+  document.getElementById('screen-question').style.display = 'none';
+  const resultEl = document.getElementById('screen-result');
+  resultEl.style.display = 'block';
+
+  const careerTags = q.careers.map(c => `<span class="career-tag">${c}</span>`).join('');
+  const certTags = q.certs.map(c => `<span class="cert-tag">${c}</span>`).join('');
+
+  resultEl.innerHTML = `
+    <div class="result-block">
+      <div class="result-quadrant">
+        <div class="quadrant-label">${q.label}</div>
+        <h2 class="quiz-title">${q.title}</h2>
+        <p class="quadrant-desc">${q.desc}</p>
+      </div>
+
+      <div class="axis-bars">
+        <div class="axis-bar-row">
+          <div class="axis-bar-label">Analítico</div>
+          <div class="axis-bar-track">
+            ${renderAxisBar(Y, 'Y')}
+          </div>
+          <div class="axis-bar-label-r">Comercial</div>
+        </div>
+        <div class="axis-bar-row">
+          <div class="axis-bar-label">Vertical</div>
+          <div class="axis-bar-track">
+            ${renderAxisBar(X, 'X')}
+          </div>
+          <div class="axis-bar-label-r">Horizontal</div>
+        </div>
+      </div>
+
+      <div id="chart-container" style="height:320px"></div>
+
+      <div class="careers-block">
+        <h3>Áreas com mais afinidade</h3>
+        <div class="careers-list">${careerTags}</div>
+      </div>
+
+      <div class="careers-block">
+        <h3>Certificações relevantes</h3>
+        <div class="careers-list">${certTags}</div>
+      </div>
+
+      <div class="careers-block">
+        <h3>Hard skills do seu perfil</h3>
+        <p style="font-size:.9rem;color:#374151;margin:0">${q.hardSkills}</p>
+      </div>
+
+      <div class="careers-block">
+        <h3>Soft skills do seu perfil</h3>
+        <p style="font-size:.9rem;color:#374151;margin:0">${q.softSkills}</p>
+      </div>
+
+      <div class="ressalva">
+        Este é um direcionamento exploratório, não um veredito. Ele reflete preferências que você declarou hoje e que mudam com a experiência. Quase ninguém é 100% de um lado só, e perfis equilibrados costumam se dar bem nas carreiras sobre os eixos, como Project Finance, Relationship Manager e especialista em investimentos. O melhor teste é conversar com profissionais de cada área e experimentar o job to be done.
+      </div>
+
+      <div class="cta-box">
+        <p>Um deal real analisado e um one-pager prático de negócios, finanças e M&A para quem quer tomar decisões melhores. 4 minutos de leitura, toda semana direto na sua caixa de e-mail.</p>
+        <a href="/#newsletter" class="cta-btn">Assinar a newsletter →</a>
+        <p style="margin-top:.75rem;font-size:.8rem;color:#6366f1">Por Alexandre Cracovsky, CFA</p>
+      </div>
+    </div>
+  `;
+
+  renderChart(X, Y);
+}
+
+function renderAxisBar(val, axis) {
+  const pct = ((val + 10) / 20) * 100;
+  const clampedPct = Math.max(0, Math.min(100, pct));
+  const color = '#B8952A';
+  return `<div class="axis-bar-fill" style="left:${Math.min(50, clampedPct)}%;width:${Math.abs(clampedPct - 50)}%;background:${color}"></div>
+          <div style="position:absolute;top:-2px;left:50%;width:2px;height:12px;background:#e5e7eb"></div>`;
+}
+
+function renderChart(X, Y) {
+  Highcharts.chart('chart-container', {
+    chart: {
+      type: 'scatter',
+      backgroundColor: '#F8F9FC',
+      margin: [40, 20, 40, 20],
+      style: { fontFamily: 'Epilogue, sans-serif' }
+    },
+    title: { text: 'Seu posicionamento no mapa de perfis', style: { color: '#0A1628', fontSize: '13px', fontWeight: '600' } },
+    credits: { enabled: false },
+    legend: { enabled: false },
+    xAxis: {
+      min: -10, max: 10,
+      title: { text: '← Vertical  ·  Horizontal →', style: { color: '#6b7280', fontSize: '11px' } },
+      tickInterval: 5,
+      plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
+      plotBands: [
+        { from: -10, to: 0, color: 'rgba(27,58,122,.04)' },
+        { from: 0, to: 10, color: 'rgba(184,149,42,.04)' }
+      ],
+      gridLineColor: '#e5e7eb',
+      lineColor: '#e5e7eb'
+    },
+    yAxis: {
+      min: -10, max: 10,
+      title: { text: '← Analítico  ·  Comercial →', style: { color: '#6b7280', fontSize: '11px' } },
+      tickInterval: 5,
+      plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
+      plotBands: [
+        { from: -10, to: 0, color: 'rgba(27,58,122,.04)' },
+        { from: 0, to: 10, color: 'rgba(13,110,110,.04)' }
+      ],
+      gridLineColor: '#e5e7eb'
+    },
+    tooltip: {
+      formatter: function() {
+        return `<b>Seu perfil</b><br>Comercial/Analítico: <b>${this.y > 0 ? '+' : ''}${this.y}</b><br>Horizontal/Vertical: <b>${this.x > 0 ? '+' : ''}${this.x}</b>`;
+      }
+    },
+    series: [
+      {
+        name: 'Você',
+        data: [[X, Y]],
+        marker: { radius: 10, fillColor: '#B8952A', lineColor: 'white', lineWidth: 2 },
+        dataLabels: { enabled: true, format: 'Você', style: { color: '#0A1628', fontWeight: '700', fontSize: '11px' }, y: -16 }
+      }
+    ]
+  });
+}
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>

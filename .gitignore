@@ -63,3 +63,7 @@ desktop.ini
 # Testes
 coverage/
 .nyc_output/
+
+# Specs e materiais de trabalho (não vão ao servidor)
+alterações_que_ele_me_passou/
+quizes_alexandre_cracovsky.docx

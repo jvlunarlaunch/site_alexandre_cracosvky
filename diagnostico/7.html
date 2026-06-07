@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Você passaria no CFA Nível I? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/#newsletter" class="nav-link">Newsletter</a>
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 7,
+  "segment": "estudante",
+  "slug": "simulado-cfa-nivel-1",
+  "title": "Você passaria no CFA® Nível I?",
+  "subtitle": "10 questões cobrindo os principais tópicos do CFA Level I. Veja sua nota simulada e onde estudar mais.",
+  "badge": "CFA · Simulado",
+  "estimatedTime": "8 min",
+  "icon": "🎓",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Uma gestora recebe de um cliente, satisfeito com o resultado do ano, uma viagem internacional de presente. A conduta mais apropriada, segundo as Normas de Conduta, é:",
+      "dimension": "Ética",
+      "category": "Ética e Normas Profissionais",
+      "correct": "divulgar",
+      "type": "choice",
+      "explanation": "Presentes de clientes ligados a desempenho passado devem ser divulgados ao empregador (Normas I-B, Independência e Objetividade, e IV-B, Remuneração Adicional). Arranjos prospectivos exigiriam consentimento por escrito.",
+      "options": [
+        { "label": "A) Recusar, pois presentes de clientes são vedados", "value": "recusar" },
+        { "label": "B) Aceitar e divulgar ao empregador, por se referir a desempenho passado", "value": "divulgar" },
+        { "label": "C) Aceitar sem divulgar, por vir de cliente e não de terceiro", "value": "aceitar_sem" }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "A regressão dos retornos de um fundo contra os do mercado apresenta R² de 0,64. A interpretação mais correta é:",
+      "dimension": "Quantitativa",
+      "category": "Métodos Quantitativos",
+      "correct": "r2_explicado",
+      "type": "choice",
+      "explanation": "O R² é a fração da variação da variável dependente explicada pelo modelo. A correlação seria a raiz de 0,64, ou 0,80; o beta é o coeficiente de inclinação, não o R².",
+      "options": [
+        { "label": "A) A correlação entre fundo e mercado é 0,64", "value": "correlacao" },
+        { "label": "B) 64% da variação dos retornos do fundo é explicada pelo mercado", "value": "r2_explicado" },
+        { "label": "C) O beta do fundo é 0,64", "value": "beta" }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "A taxa de juros real é 3% e a inflação esperada é 5%. Pela relação de Fisher exata, a taxa nominal é aproximadamente:",
+      "dimension": "Economia",
+      "category": "Economia",
+      "correct": "fisher_815",
+      "type": "choice",
+      "explanation": "Fisher exata: (1 + real) × (1 + inflação) − 1 = 1,03 × 1,05 − 1 = 8,15%. A soma simples (8,00%) é apenas a aproximação; 2,00% confunde com a taxa real.",
+      "options": [
+        { "label": "A) 8,00%", "value": "fisher_800" },
+        { "label": "B) 8,15%", "value": "fisher_815" },
+        { "label": "C) 2,00%", "value": "fisher_200" }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Sob as normas IFRS, os juros pagos por uma empresa podem ser classificados na demonstração de fluxos de caixa como atividade:",
+      "dimension": "DFP",
+      "category": "Demonstrações Financeiras",
+      "correct": "op_ou_fin",
+      "type": "choice",
+      "explanation": "No IFRS, juros pagos podem ser operacionais ou de financiamento. No US GAAP, são sempre operacionais. A questão cobra essa distinção entre os dois regimes.",
+      "options": [
+        { "label": "A) Apenas operacional", "value": "apenas_op" },
+        { "label": "B) Operacional ou de financiamento", "value": "op_ou_fin" },
+        { "label": "C) Apenas de investimento", "value": "apenas_inv" }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Dois projetos mutuamente excludentes têm o mesmo investimento inicial. O Projeto A tem VPL de R$ 8 milhões e TIR de 19%; o Projeto B, VPL de R$ 11 milhões e TIR de 15%. A decisão correta é:",
+      "dimension": "Finanças Corporativas",
+      "category": "Corporate Issuers",
+      "correct": "vpl_b",
+      "type": "choice",
+      "explanation": "Em projetos mutuamente excludentes, quando VPL e TIR conflitam, prevalece o VPL, porque mede a criação de valor em termos absolutos. Escolhe-se o maior VPL (Projeto B).",
+      "options": [
+        { "label": "A) Escolher A, por ter a maior TIR", "value": "tir_a" },
+        { "label": "B) Escolher B, por ter o maior VPL", "value": "vpl_b" },
+        { "label": "C) Aceitar ambos, pois têm VPL positivo", "value": "ambos" }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "Uma ação pagará dividendo de R$ 2,00 daqui a um ano (D₁). O custo do capital próprio é 10% e o crescimento perpétuo dos dividendos é 4%. Pelo modelo de Gordon, o valor intrínseco da ação é:",
+      "dimension": "Renda Variável",
+      "category": "Renda Variável",
+      "correct": "gordon_3333",
+      "type": "choice",
+      "explanation": "Gordon: P = D₁ ÷ (Ke − g) = 2 ÷ (0,10 − 0,04) = 33,33. Dividir por Ke (R$ 20,00) ignora o crescimento; dividir por g (R$ 50,00) é erro de fórmula.",
+      "options": [
+        { "label": "A) R$ 20,00", "value": "gordon_2000" },
+        { "label": "B) R$ 33,33", "value": "gordon_3333" },
+        { "label": "C) R$ 50,00", "value": "gordon_5000" }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Um título tem duration modificada de 6,0. Para um aumento de 50 pontos-base no rendimento, a variação aproximada de preço é:",
+      "dimension": "Renda Fixa",
+      "category": "Renda Fixa",
+      "correct": "dur_300",
+      "type": "choice",
+      "explanation": "Variação de preço ≈ − duration modificada × variação na taxa = −6,0 × 0,005 = −3,0%.",
+      "options": [
+        { "label": "A) −0,50%", "value": "dur_050" },
+        { "label": "B) −3,00%", "value": "dur_300" },
+        { "label": "C) −6,00%", "value": "dur_600" }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "Uma ação que não paga dividendos custa R$ 100 à vista, com taxa livre de risco de 5% ao ano. O preço a termo (forward) para entrega em um ano é:",
+      "dimension": "Derivativos",
+      "category": "Derivativos",
+      "correct": "forward_105",
+      "type": "choice",
+      "explanation": "Sem dividendos, o preço a termo é o spot capitalizado pela taxa livre de risco: 100 × 1,05 = 105.",
+      "options": [
+        { "label": "A) R$ 95,00", "value": "forward_95" },
+        { "label": "B) R$ 100,00", "value": "forward_100" },
+        { "label": "C) R$ 105,00", "value": "forward_105" }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "Um portfólio rendeu 12%, com taxa livre de risco de 4% e desvio padrão de 16%. O Índice de Sharpe é:",
+      "dimension": "Gestão de Portfólios",
+      "category": "Gestão de Portfólios",
+      "correct": "sharpe_050",
+      "type": "choice",
+      "explanation": "Sharpe = (retorno do portfólio − taxa livre de risco) ÷ desvio padrão = (12% − 4%) ÷ 16% = 0,50. Usar o retorno total no numerador (12 ÷ 16) gera o erro de 0,75.",
+      "options": [
+        { "label": "A) 0,25", "value": "sharpe_025" },
+        { "label": "B) 0,50", "value": "sharpe_050" },
+        { "label": "C) 0,75", "value": "sharpe_075" }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "Qual característica é a menos provável de descrever um hedge fund?",
+      "dimension": "Ativos Alternativos",
+      "category": "Ativos Alternativos",
+      "correct": "hf_liquidez",
+      "type": "choice",
+      "explanation": "Hedge funds costumam ter baixa liquidez, com lock-ups e janelas de resgate. Liquidez diária garantida é o que menos os descreve; alavancagem e restrições de resgate são típicas.",
+      "options": [
+        { "label": "A) Uso de alavancagem", "value": "hf_alavancagem" },
+        { "label": "B) Liquidez diária garantida ao investidor", "value": "hf_liquidez" },
+        { "label": "C) Períodos de lock-up e restrições de resgate", "value": "hf_lockup" }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "correct_count",
+    "max": 10,
+    "scoreLabel": "Nota simulada",
+    "thresholds": [
+      {
+        "max": 5,
+        "label": "Zona de risco — abaixo de 60%",
+        "class": "danger",
+        "description": "Sua nota simulada está abaixo do mínimo histórico de aprovação (~60%). Há tópicos importantes para revisar antes de encarar o exame real."
+      },
+      {
+        "max": 7,
+        "label": "Em transição — próximo ao corte",
+        "class": "warning",
+        "description": "Você está na zona de transição. Com estudo focado nos tópicos com erros, é possível chegar à zona de aprovação."
+      },
+      {
+        "max": 10,
+        "label": "Aprovado no simulado!",
+        "class": "success",
+        "description": "Excelente performance! Sua nota simulada está na zona de aprovação do CFA Level I. Continue com o estudo sistemático para manter esse nível."
+      }
+    ],
+    "cta": {
+      "label": "Assinar a newsletter",
+      "href": "/#newsletter",
+      "description": "Um deal real analisado e um one-pager prático de negócios, finanças e M&A para quem quer tomar decisões melhores. 4 minutos de leitura, toda semana direto na sua caixa de e-mail. Por Alexandre Cracovsky, CFA."
+    }
+  },
+  "charts": [
+    {
+      "type": "column",
+      "title": "Acertos por tópico CFA",
+      "height": 260
+    },
+    {
+      "type": "donut",
+      "title": "Nota geral vs. mínimo de aprovação",
+      "height": 220
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>

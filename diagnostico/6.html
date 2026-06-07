@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qual método de valuation usar em cada caso? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/#newsletter" class="nav-link">Newsletter</a>
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 6,
+  "segment": "estudante",
+  "slug": "quiz-metodo-valuation",
+  "title": "Qual método de valuation usar em cada caso?",
+  "subtitle": "8 mini-cases reais para testar se você escolheria o método correto — do DCF ao VC Method.",
+  "badge": "Valuation · Quiz",
+  "estimatedTime": "5 min",
+  "icon": "📐",
+  "questions": [
+    {
+      "id": "c1",
+      "text": "Uma SaaS B2B faturou R$ 80 milhões no último ano, cresce 80% ao ano e tem retenção líquida de receita acima de 120%. Para sustentar esse ritmo, reinveste tudo em vendas e marketing e segue no prejuízo. O comitê precisa de um valuation para a próxima rodada.",
+      "dimension": "Múltiplo de receita",
+      "type": "choice",
+      "correct": "ev_receita",
+      "category": "Múltiplos",
+      "explanation": "Com prejuízo, múltiplos de lucro não funcionam e o DCF fica muito sensível a premissas nessa fase. O padrão de mercado para SaaS de alto crescimento é o múltiplo de receita (EV/Receita ou EV/ARR).",
+      "options": [
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "DCF baseado em fluxo futuro", "value": "dcf" },
+        { "label": "LBO model", "value": "lbo" },
+        { "label": "EV/Receita de comparáveis", "value": "ev_receita" }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Uma holding controla quatro empresas em setores que não conversam entre si: software, varejo, transporte e geração de energia. Cada uma tem margem, múltiplo e risco próprios, e o investidor quer saber quanto vale o grupo inteiro.",
+      "dimension": "SOTP",
+      "type": "choice",
+      "correct": "sotp",
+      "category": "Situações especiais",
+      "explanation": "Negócios sem relação entre si têm dinâmicas distintas. Avalia-se cada um pelo seu método e soma-se (SOTP). Um múltiplo único ou DCF consolidado misturaria realidades diferentes.",
+      "options": [
+        { "label": "DCF consolidado", "value": "dcf" },
+        { "label": "EV/EBITDA de holding comparável", "value": "ev_ebitda" },
+        { "label": "P/BV", "value": "pbv" },
+        { "label": "Soma das partes (SOTP)", "value": "sotp" }
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Um fundo de private equity avalia comprar uma distribuidora de caixa forte e baixa volatilidade. O plano é financiar boa parte da compra com dívida, amortizar com o próprio caixa do negócio e revender em cinco anos.",
+      "dimension": "LBO",
+      "type": "choice",
+      "correct": "lbo",
+      "category": "Situações especiais",
+      "explanation": "O retorno de uma compra alavancada depende da estrutura de dívida e do desinvestimento. Só o LBO model captura a TIR para o acionista sob essa alavancagem.",
+      "options": [
+        { "label": "DCF com WACC ajustado", "value": "dcf" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "Soma das partes", "value": "sotp" },
+        { "label": "LBO model com análise de retorno", "value": "lbo" }
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Dois bancos regionais anunciam fusão. O analista precisa comparar as duas instituições e definir uma relação de troca justa entre as ações.",
+      "dimension": "Múltiplo de instituição financeira",
+      "type": "choice",
+      "correct": "pbv",
+      "category": "Múltiplos",
+      "explanation": "Em banco, a dívida é matéria-prima do negócio, não estrutura de capital, então múltiplos de Enterprise Value não se aplicam. Usam-se múltiplos de patrimônio, com o P/BV à frente, lido junto do ROE.",
+      "options": [
+        { "label": "EV/EBITDA", "value": "ev_ebitda" },
+        { "label": "EV/EBIT", "value": "ev_ebit" },
+        { "label": "EV/Revenue", "value": "ev_rev" },
+        { "label": "P/BV", "value": "pbv" }
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "Uma startup em estágio seed ainda não gerou receita: tem um produto em testes, um time pequeno e um mercado potencial grande. Um investidor-anjo precisa definir quanto a empresa vale antes de aportar.",
+      "dimension": "VC Method / Scorecard",
+      "type": "choice",
+      "correct": "scorecard",
+      "category": "Situações especiais",
+      "explanation": "Sem receita, lucro ou comparável direto, não há base para múltiplos nem DCF confiável. O VC Method parte de um valor de saída futuro e do retorno exigido pelo investidor; o Scorecard pondera fatores qualitativos.",
+      "options": [
+        { "label": "DCF com projeção de 5 anos", "value": "dcf" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "Net Asset Value", "value": "nav" },
+        { "label": "Scorecard Method", "value": "scorecard" }
+      ]
+    },
+    {
+      "id": "c6",
+      "text": "Uma fabricante de autopeças opera há décadas, com receita estável, margem previsível e vários concorrentes de porte parecido negociados em bolsa. O analista precisa de um valor de referência para embasar uma oferta.",
+      "dimension": "Múltiplos de comparáveis",
+      "type": "choice",
+      "correct": "ev_ebitda",
+      "category": "Múltiplos",
+      "explanation": "Negócio maduro e lucrativo com muitos pares listados é o caso ideal de múltiplos de comparáveis, e o EV/EBITDA é o mais direto e defensável.",
+      "options": [
+        { "label": "Valor de liquidação", "value": "liquidacao" },
+        { "label": "LBO model", "value": "lbo" },
+        { "label": "EV/Receita", "value": "ev_receita" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" }
+      ]
+    },
+    {
+      "id": "c7",
+      "text": "Uma empresa tem como principal ativo um grande portfólio de imóveis comerciais e aufere alguma receita de aluguel sobre parte deles. Um interessado precisa avaliar quanto o negócio vale.",
+      "dimension": "NAV",
+      "type": "choice",
+      "correct": "nav",
+      "category": "Múltiplos",
+      "explanation": "Quando o valor está nos ativos, e não no resultado, o NAV (ativos a valor de mercado menos passivos) captura melhor que múltiplos de lucro, que subavaliam o patrimônio.",
+      "options": [
+        { "label": "DCF", "value": "dcf" },
+        { "label": "P/L", "value": "pl" },
+        { "label": "EV/EBITDA", "value": "ev_ebitda" },
+        { "label": "NAV", "value": "nav" }
+      ]
+    },
+    {
+      "id": "c8",
+      "text": "Uma empresa de capital fechado tem crescimento moderado, histórico financeiro consistente e nenhum par comparável listado em bolsa. O avaliador precisa chegar a um valor justo para uma negociação privada.",
+      "dimension": "DCF ajustado",
+      "type": "choice",
+      "correct": "dcf_dlom",
+      "category": "DCF",
+      "explanation": "Sem comparáveis listados, o DCF é o caminho. Como a empresa é fechada e suas ações são ilíquidas, aplica-se um desconto de liquidez (DLOM) sobre o valor encontrado.",
+      "options": [
+        { "label": "EV/EBITDA de setor", "value": "ev_ebitda" },
+        { "label": "DCF com prêmio de controle", "value": "dcf_controle" },
+        { "label": "Soma das partes", "value": "sotp" },
+        { "label": "DCF com desconto de liquidez", "value": "dcf_dlom" }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "correct_count",
+    "max": 8,
+    "scoreLabel": "Acertos",
+    "thresholds": [
+      {
+        "max": 3,
+        "label": "Iniciante em Valuation",
+        "class": "danger",
+        "description": "Há lacunas importantes nos fundamentos de valuation. Os cursos de Análise Financeira e Valuation são o próximo passo."
+      },
+      {
+        "max": 5,
+        "label": "Conhecimento Intermediário",
+        "class": "warning",
+        "description": "Você domina os métodos principais mas tem gaps em situações especiais (LBO, SOTP, Scorecard). Vale aprofundar esses tópicos."
+      },
+      {
+        "max": 8,
+        "label": "Conhecimento Avançado",
+        "class": "success",
+        "description": "Excelente! Você identifica corretamente o método mais adequado para cada situação. Esse é o diferencial de um analista sênior."
+      }
+    ],
+    "cta": {
+      "label": "Assinar a newsletter",
+      "href": "/#newsletter",
+      "description": "Um deal real analisado e um one-pager prático de negócios, finanças e M&A para quem quer tomar decisões melhores. 4 minutos de leitura, toda semana direto na sua caixa de e-mail. Por Alexandre Cracovsky, CFA."
+    }
+  },
+  "charts": [
+    {
+      "type": "column",
+      "title": "Acertos por categoria de método",
+      "height": 240
+    },
+    {
+      "type": "donut",
+      "title": "Performance geral",
+      "height": 220
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>

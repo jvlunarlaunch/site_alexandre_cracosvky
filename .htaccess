@@ -4,6 +4,17 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
 
+# 301 redirects: old /iscas/isca-N → new /diagnostico/N
+RewriteRule ^iscas/isca-1$ /diagnostico/1 [R=301,L]
+RewriteRule ^iscas/isca-2$ /diagnostico/2 [R=301,L]
+RewriteRule ^iscas/isca-3$ /diagnostico/3 [R=301,L]
+RewriteRule ^iscas/isca-4$ /diagnostico/4 [R=301,L]
+RewriteRule ^iscas/isca-5$ /diagnostico/5 [R=301,L]
+RewriteRule ^iscas/isca-6$ /diagnostico/6 [R=301,L]
+RewriteRule ^iscas/isca-7$ /diagnostico/7 [R=301,L]
+RewriteRule ^iscas/isca-8$ /diagnostico/8 [R=301,L]
+RewriteRule ^iscas/isca-13$ /diagnostico/13 [R=301,L]
+
 # Serve the .html file for extensionless requests
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quanto vale a minha empresa agora? — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/#newsletter" class="nav-link">Newsletter</a>
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+<main class="page-main">
+<div class="section">
+  <div id="quiz-app"></div>
+</div>
+<script src="../highcharts.js"></script>
+<script src="../highcharts-more.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/quiz-engine.js"></script>
+<script>
+const QUIZ_CONFIG = {
+  "id": 2,
+  "segment": "empreendedor",
+  "slug": "calculadora-valuation",
+  "title": "Quanto vale a minha empresa agora?",
+  "subtitle": "Estime o Enterprise Value da sua empresa com múltiplos de EBITDA ajustados por setor, porte e riscos — sempre em faixa, nunca em número único.",
+  "badge": "Valuation · Calculadora",
+  "estimatedTime": "4 min",
+  "icon": "💰",
+  "questions": [
+    {
+      "id": "receita",
+      "text": "Qual é a receita líquida anual da empresa? (em R$)",
+      "type": "number",
+      "placeholder": "Ex: 5000000",
+      "min": 0,
+      "dimension": "Financeiro"
+    },
+    {
+      "id": "margem",
+      "text": "Qual é a margem EBITDA aproximada? (%)",
+      "type": "number",
+      "placeholder": "Ex: 20",
+      "min": 0,
+      "dimension": "Financeiro"
+    },
+    {
+      "id": "divida_liquida",
+      "text": "Dívida líquida da empresa — Dívida total menos caixa disponível (R$, opcional)",
+      "type": "number",
+      "placeholder": "Ex: 1000000 (ou 0 se sem dívidas)",
+      "min": 0,
+      "dimension": "Financeiro",
+      "optional": true
+    },
+    {
+      "id": "setor",
+      "text": "Em qual setor a empresa atua?",
+      "type": "select",
+      "dimension": "Setor",
+      "options": [
+        { "label": "Agro (Grãos/Trading)", "value": "agro_graos", "liquidity": "baixa", "multipleMin": 3.5, "multipleMax": 5.5 },
+        { "label": "Agro (Proteínas)", "value": "agro_proteinas", "liquidity": "media", "multipleMin": 4, "multipleMax": 6 },
+        { "label": "Alimentos & Bebidas", "value": "alimentos_bebidas", "liquidity": "alta", "multipleMin": 5.5, "multipleMax": 8 },
+        { "label": "Beleza", "value": "beleza", "liquidity": "media", "multipleMin": 6, "multipleMax": 9 },
+        { "label": "Bens de Consumo", "value": "bens_consumo", "liquidity": "media", "multipleMin": 5.5, "multipleMax": 8 },
+        { "label": "E-commerce", "value": "ecommerce", "liquidity": "media", "multipleMin": 5, "multipleMax": 8 },
+        { "label": "Varejo (Alimentar/Supermercado)", "value": "varejo_alimentar", "liquidity": "alta", "multipleMin": 4.5, "multipleMax": 6.5 },
+        { "label": "Varejo (Farmácia)", "value": "varejo_farmacia", "liquidity": "media", "multipleMin": 5.5, "multipleMax": 8 },
+        { "label": "Varejo (Moda/Vestuário)", "value": "varejo_moda", "liquidity": "media", "multipleMin": 4, "multipleMax": 6 },
+        { "label": "Construtoras", "value": "construtoras", "liquidity": "baixa", "multipleMin": 3.5, "multipleMax": 5.5 },
+        { "label": "Construção (Materiais)", "value": "construcao_materiais", "liquidity": "media", "multipleMin": 4.5, "multipleMax": 6.5 },
+        { "label": "Infraestrutura", "value": "infraestrutura", "liquidity": "baixa", "multipleMin": 6, "multipleMax": 9 },
+        { "label": "Saneamento", "value": "saneamento", "liquidity": "alta", "multipleMin": 5.5, "multipleMax": 10 },
+        { "label": "Indústria (Autopeças)", "value": "industria_autopecas", "liquidity": "media", "multipleMin": 4.5, "multipleMax": 6.5 },
+        { "label": "Indústria (Outros)", "value": "industria_outros", "liquidity": "media", "multipleMin": 5, "multipleMax": 7 },
+        { "label": "Químicos & Embalagens", "value": "quimicos_embalagens", "liquidity": "media", "multipleMin": 5, "multipleMax": 7 },
+        { "label": "Farmacêutica", "value": "farmaceutica", "liquidity": "alta", "multipleMin": 7, "multipleMax": 10 },
+        { "label": "Saúde (Clínicas)", "value": "saude_clinicas", "liquidity": "alta", "multipleMin": 6, "multipleMax": 9 },
+        { "label": "Saúde (Hospitais)", "value": "saude_hospitais", "liquidity": "alta", "multipleMin": 7, "multipleMax": 10 },
+        { "label": "Saúde (Planos de saúde)", "value": "saude_planos", "liquidity": "media", "multipleMin": 7, "multipleMax": 10 },
+        { "label": "Tech (Hardware)", "value": "tech_hardware", "liquidity": "baixa", "multipleMin": 5, "multipleMax": 7 },
+        { "label": "Tech (AI/SaaS)", "value": "tech_ai_saas", "liquidity": "alta", "multipleMin": 8, "multipleMax": 13 },
+        { "label": "Tech (Serviços TI)", "value": "tech_servicos_ti", "liquidity": "alta", "multipleMin": 6, "multipleMax": 9 },
+        { "label": "Telecom (ISPs)", "value": "telecom_isps", "liquidity": "alta", "multipleMin": 4, "multipleMax": 7 },
+        { "label": "Meios de Pagamento", "value": "meios_pagamento", "liquidity": "alta", "multipleMin": 8, "multipleMax": 12 },
+        { "label": "Educação", "value": "educacao", "liquidity": "alta", "multipleMin": 6, "multipleMax": 9 },
+        { "label": "Marketing & Mídia & Entretenimento", "value": "marketing_midia", "liquidity": "media", "multipleMin": 5.5, "multipleMax": 8 },
+        { "label": "Seguros", "value": "seguros", "liquidity": "media", "multipleMin": 6, "multipleMax": 8 },
+        { "label": "Serviços/Facilities", "value": "servicos_facilities", "liquidity": "alta", "multipleMin": 5, "multipleMax": 7 },
+        { "label": "Logística", "value": "logistica", "liquidity": "alta", "multipleMin": 5, "multipleMax": 7.5 },
+        { "label": "Turismo / Hotelaria", "value": "turismo_hotelaria", "liquidity": "media", "multipleMin": 5, "multipleMax": 7.5 },
+        { "label": "Renováveis", "value": "renovaveis", "liquidity": "alta", "multipleMin": 8, "multipleMax": 11 }
+      ]
+    },
+    {
+      "id": "regiao",
+      "text": "Região principal de operação da empresa",
+      "type": "select",
+      "dimension": "Região",
+      "options": [
+        { "label": "Sudeste (SE)", "value": "SE", "discount": 0 },
+        { "label": "Sul (S)", "value": "S", "discount": 0.02 },
+        { "label": "Centro-Oeste (CO)", "value": "CO", "discount": 0.03 },
+        { "label": "Nordeste (NE)", "value": "NE", "discount": 0.05 },
+        { "label": "Norte (N)", "value": "N", "discount": 0.05 }
+      ]
+    },
+    {
+      "id": "risks",
+      "text": "Selecione os fatores de risco presentes na empresa (pode marcar vários):",
+      "type": "multichoice",
+      "dimension": "Fatores de Risco",
+      "options": [
+        { "label": "Dependência do sócio", "value": "founder_dep", "discount": 0.03 },
+        { "label": "Concentração de cliente com >20% do faturamento", "value": "client_conc", "discount": 0.03 },
+        { "label": "Sem auditoria financeira/proforma", "value": "no_audit", "discount": 0.04 },
+        { "label": "Sem revisão das exposições a contingências (cíveis, fiscais/tributárias, trabalhistas, ambientais e regulatórias)", "value": "no_contingencia", "discount": 0.03 },
+        { "label": "Crescimento médio de receita dos últimos dois anos abaixo de 10% a.a.", "value": "low_growth", "discount": 0.04 },
+        { "label": "Nenhum dos acima", "value": "none", "discount": 0 }
+      ]
+    }
+  ],
+  "scoring": {
+    "type": "valuation_v2",
+    "scoreLabel": "EV Estimado",
+    "porteDiscounts": {
+      "above_400m": 0,
+      "200m_400m": 0.04,
+      "100m_200m": 0.07,
+      "50m_100m": 0.10,
+      "20m_50m": 0.12,
+      "below_20m": 0.15
+    },
+    "liquidityDiscounts": {
+      "alta": 0.03,
+      "media": 0.05,
+      "baixa": 0.07
+    },
+    "attractivenessThresholds": {
+      "high": 0.85,
+      "medium": 0.70
+    },
+    "thresholds": [
+      {
+        "max": 1000000000000.0,
+        "label": "Empresa Avaliada",
+        "class": "success",
+        "description": "Valuation estimado com base em múltiplos de EBITDA do benchmark do seu setor, descontado por porte, liquidez, riscos e região. O valuation real exige a análise do fluxo de caixa por trás dele."
+      }
+    ]
+  },
+  "charts": [
+    {
+      "type": "columnrange",
+      "title": "Faixa de valuation — football field (R$ milhões)",
+      "height": 240
+    },
+    {
+      "type": "donut",
+      "title": "Impacto dos descontos sobre o benchmark",
+      "height": 240
+    }
+  ]
+};
+QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
+</script>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>
