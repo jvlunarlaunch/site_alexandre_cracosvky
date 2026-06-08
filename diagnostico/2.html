@@ -50,8 +50,8 @@ const QUIZ_CONFIG = {
     {
       "id": "receita",
       "text": "Qual é a receita líquida anual da empresa? (em R$)",
-      "type": "text",
-      "placeholder": "Ex: 5.000.000",
+      "type": "number",
+      "placeholder": "Ex: 5000000",
       "min": 0,
       "dimension": "Financeiro"
     },
@@ -229,31 +229,20 @@ QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
 <script>
 (function() {
   var app = document.getElementById('quiz-app');
-  var receitaInput = null;
   var obs = new MutationObserver(function() {
-    var inp = app.querySelector('input[placeholder="Ex: 5.000.000"]');
+    var inp = app.querySelector('input[placeholder="Ex: 5000000"]');
     if (inp && !inp._fmtAttached) {
       inp._fmtAttached = true;
-      receitaInput = inp;
+      var display = document.createElement('div');
+      display.style.cssText = 'font-family:var(--mo);font-size:13px;color:var(--gold2);margin-top:8px;letter-spacing:.02em;min-height:20px;';
+      inp.parentNode.insertBefore(display, inp.nextSibling);
       inp.addEventListener('input', function() {
-        var raw = inp.value.replace(/\D/g, '');
-        inp.value = raw ? parseInt(raw, 10).toLocaleString('pt-BR') : '';
+        var val = parseInt(inp.value, 10);
+        display.textContent = isNaN(val) || inp.value === '' ? '' : 'R$ ' + val.toLocaleString('pt-BR');
       });
-    } else if (!inp) {
-      receitaInput = null;
     }
   });
   obs.observe(app, { childList: true, subtree: true });
-  function stripFmt(e) {
-    if (!receitaInput || !document.body.contains(receitaInput)) return;
-    var isBtn = e.type === 'click' && (e.target.id === 'btn-next' || e.target.classList.contains('btn-gold'));
-    var isEnter = e.type === 'keydown' && e.key === 'Enter';
-    if (!isBtn && !isEnter) return;
-    var raw = receitaInput.value.replace(/\D/g, '');
-    if (raw) receitaInput.value = raw;
-  }
-  document.addEventListener('click', stripFmt, true);
-  document.addEventListener('keydown', stripFmt, true);
 })();
 </script>
 </main>
