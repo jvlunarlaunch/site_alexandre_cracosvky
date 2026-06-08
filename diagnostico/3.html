@@ -206,7 +206,7 @@ const QUIZ_CONFIG = {
     }
   ],
   "scoring": {
-    "type": "blindspots",
+    "type": "sum",
     "max": 24,
     "scoreLabel": "Índice geral",
     "scoreFormula": "sum_div_24_x100",
@@ -242,19 +242,19 @@ const QUIZ_CONFIG = {
     },
     "thresholds": [
       {
-        "max": 44,
+        "max": 10,
         "label": "Alto risco de não fechar",
         "class": "danger",
         "description": "Vários pontos cegos ativos; ir ao mercado assim tende a terminar em frustração e valor perdido."
       },
       {
-        "max": 74,
+        "max": 17,
         "label": "Zona de risco",
         "class": "warning",
         "description": "Há pontos cegos relevantes que podem travar o processo ou derrubar o preço na mesa."
       },
       {
-        "max": 100,
+        "max": 24,
         "label": "Deal defensável",
         "class": "success",
         "description": "Poucos pontos cegos; você chega ao mercado com a casa arrumada."

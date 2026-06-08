@@ -217,7 +217,7 @@ const QUIZ_CONFIG = {
     }
   ],
   "scoring": {
-    "type": "ipv",
+    "type": "sum",
     "max": 36,
     "scoreLabel": "IPV",
     "scoreFormula": "sum_div_36_x100",
@@ -250,19 +250,19 @@ const QUIZ_CONFIG = {
     ],
     "thresholds": [
       {
-        "max": 39,
+        "max": 14,
         "label": "Ainda não é a hora",
         "class": "danger",
         "description": "Há pontos críticos que reduzem o valor da empresa e aumentam o risco de o deal não fechar. Vender agora significaria múltiplo baixo. Vale estruturar a maximização de valor antes de ir ao mercado."
       },
       {
-        "max": 74,
+        "max": 26,
         "label": "Quase pronto",
         "class": "warning",
         "description": "Você está no caminho. Com ajustes específicos nos pontos identificados, dá para elevar consideravelmente o múltiplo de saída em 12 a 24 meses."
       },
       {
-        "max": 100,
+        "max": 36,
         "label": "Pronta para vender",
         "class": "success",
         "description": "A empresa reúne os fundamentos que compradores sérios buscam. É o momento de estruturar um processo competitivo e maximizar o valor."
