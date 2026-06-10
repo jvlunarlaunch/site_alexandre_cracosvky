@@ -56,10 +56,10 @@ const QUIZ_CONFIG = {
       "category": "Múltiplos",
       "explanation": "Com prejuízo, múltiplos de lucro não funcionam e o DCF fica muito sensível a premissas nessa fase. O padrão de mercado para SaaS de alto crescimento é o múltiplo de receita (EV/Receita ou EV/ARR).",
       "options": [
+        { "label": "EV/Receita de comparáveis", "value": "ev_receita" },
         { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
         { "label": "DCF baseado em fluxo futuro", "value": "dcf" },
-        { "label": "LBO model", "value": "lbo" },
-        { "label": "EV/Receita de comparáveis", "value": "ev_receita" }
+        { "label": "LBO model", "value": "lbo" }
       ]
     },
     {
@@ -68,13 +68,13 @@ const QUIZ_CONFIG = {
       "dimension": "SOTP",
       "type": "choice",
       "correct": "sotp",
-      "category": "Situações especiais",
+      "category": "DCF",
       "explanation": "Negócios sem relação entre si têm dinâmicas distintas. Avalia-se cada um pelo seu método e soma-se (SOTP). Um múltiplo único ou DCF consolidado misturaria realidades diferentes.",
       "options": [
         { "label": "DCF consolidado", "value": "dcf" },
+        { "label": "Soma das partes (SOTP)", "value": "sotp" },
         { "label": "EV/EBITDA de holding comparável", "value": "ev_ebitda" },
-        { "label": "P/BV", "value": "pbv" },
-        { "label": "Soma das partes (SOTP)", "value": "sotp" }
+        { "label": "P/BV", "value": "pbv" }
       ]
     },
     {
@@ -83,13 +83,13 @@ const QUIZ_CONFIG = {
       "dimension": "LBO",
       "type": "choice",
       "correct": "lbo",
-      "category": "Situações especiais",
+      "category": "Especiais",
       "explanation": "O retorno de uma compra alavancada depende da estrutura de dívida e do desinvestimento. Só o LBO model captura a TIR para o acionista sob essa alavancagem.",
       "options": [
         { "label": "DCF com WACC ajustado", "value": "dcf" },
         { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
-        { "label": "Soma das partes", "value": "sotp" },
-        { "label": "LBO model com análise de retorno", "value": "lbo" }
+        { "label": "LBO model com análise de retorno", "value": "lbo" },
+        { "label": "Soma das partes", "value": "sotp" }
       ]
     },
     {
@@ -101,10 +101,10 @@ const QUIZ_CONFIG = {
       "category": "Múltiplos",
       "explanation": "Em banco, a dívida é matéria-prima do negócio, não estrutura de capital, então múltiplos de Enterprise Value não se aplicam. Usam-se múltiplos de patrimônio, com o P/BV à frente, lido junto do ROE.",
       "options": [
+        { "label": "P/BV", "value": "pbv" },
         { "label": "EV/EBITDA", "value": "ev_ebitda" },
         { "label": "EV/EBIT", "value": "ev_ebit" },
-        { "label": "EV/Revenue", "value": "ev_rev" },
-        { "label": "P/BV", "value": "pbv" }
+        { "label": "EV/Revenue", "value": "ev_rev" }
       ]
     },
     {
@@ -113,13 +113,13 @@ const QUIZ_CONFIG = {
       "dimension": "VC Method / Scorecard",
       "type": "choice",
       "correct": "scorecard",
-      "category": "Situações especiais",
+      "category": "Especiais",
       "explanation": "Sem receita, lucro ou comparável direto, não há base para múltiplos nem DCF confiável. O VC Method parte de um valor de saída futuro e do retorno exigido pelo investidor; o Scorecard pondera fatores qualitativos.",
       "options": [
+        { "label": "Scorecard Method", "value": "scorecard" },
         { "label": "DCF com projeção de 5 anos", "value": "dcf" },
         { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
-        { "label": "Net Asset Value", "value": "nav" },
-        { "label": "Scorecard Method", "value": "scorecard" }
+        { "label": "Net Asset Value", "value": "nav" }
       ]
     },
     {
@@ -132,9 +132,9 @@ const QUIZ_CONFIG = {
       "explanation": "Negócio maduro e lucrativo com muitos pares listados é o caso ideal de múltiplos de comparáveis, e o EV/EBITDA é o mais direto e defensável.",
       "options": [
         { "label": "Valor de liquidação", "value": "liquidacao" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
         { "label": "LBO model", "value": "lbo" },
-        { "label": "EV/Receita", "value": "ev_receita" },
-        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" }
+        { "label": "EV/Receita", "value": "ev_receita" }
       ]
     },
     {
@@ -143,13 +143,13 @@ const QUIZ_CONFIG = {
       "dimension": "NAV",
       "type": "choice",
       "correct": "nav",
-      "category": "Múltiplos",
+      "category": "Especiais",
       "explanation": "Quando o valor está nos ativos, e não no resultado, o NAV (ativos a valor de mercado menos passivos) captura melhor que múltiplos de lucro, que subavaliam o patrimônio.",
       "options": [
         { "label": "DCF", "value": "dcf" },
         { "label": "P/L", "value": "pl" },
-        { "label": "EV/EBITDA", "value": "ev_ebitda" },
-        { "label": "NAV", "value": "nav" }
+        { "label": "NAV", "value": "nav" },
+        { "label": "EV/EBITDA", "value": "ev_ebitda" }
       ]
     },
     {
@@ -174,14 +174,14 @@ const QUIZ_CONFIG = {
     "scoreLabel": "Acertos",
     "thresholds": [
       {
-        "max": 3,
-        "label": "Começando na jornada",
+        "max": 5,
+        "label": "Começo de conversa",
         "class": "danger",
         "description": "Você está construindo a base. Vale firmar os fundamentos de análise financeira e valuation antes de avançar para os casos especiais."
       },
       {
-        "max": 5,
-        "label": "No caminho certo",
+        "max": 6,
+        "label": "No caminho",
         "class": "warning",
         "description": "Você domina os métodos principais. É exatamente o que separa o júnior do pleno."
       },
