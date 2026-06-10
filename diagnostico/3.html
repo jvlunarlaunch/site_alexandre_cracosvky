@@ -206,16 +206,15 @@ const QUIZ_CONFIG = {
     }
   ],
   "scoring": {
-    "type": "sum",
+    "type": "blindspots",
     "max": 24,
     "scoreLabel": "Índice geral",
-    "scoreFormula": "sum_div_24_x100",
     "blindspots": [
       {
         "id": 1,
         "label": "Expectativa de valor",
         "questions": ["pc1_1","pc1_2","pc1_3"],
-        "action": "Faça uma referência de valuation por método antes de formar expectativa e ancore o número no que vale hoje, não no pico nem no caso do vizinho."
+        "action": "Faça uma referência de valuation por método antes de formar expectativa e ancore o número no que o mercado paga hoje, não no pico de anos atrás nem no caso do vizinho."
       },
       {
         "id": 2,
@@ -251,7 +250,7 @@ const QUIZ_CONFIG = {
         "max": 17,
         "label": "Zona de risco",
         "class": "warning",
-        "description": "Há pontos cegos relevantes que podem travar o processo ou derrubar o preço na mesa."
+        "description": "Há pontos cegos relevantes que podem travar o processo ou derrubar o preço na mesa. Ir ao mercado sem resolvê-los aumenta muito a chance de o deal não fechar."
       },
       {
         "max": 24,
@@ -260,19 +259,24 @@ const QUIZ_CONFIG = {
         "description": "Poucos pontos cegos; você chega ao mercado com a casa arrumada."
       }
     ],
-    "resultText": "O seu maior risco hoje está em [ponto cego de menor score]. E isso não é detalhe. Segundo o Exit Planning Institute, 55% dos deals que falham morrem por expectativa de valor desalinhada, 22% porque o dono recua na última hora e 20% por falta de prontidão e falhas na due diligence.",
+    "resultText": "E isso não é detalhe. Segundo o Exit Planning Institute, 55% dos deals que falham morrem por expectativa de valor desalinhada, 22% porque o dono recua na última hora e 20% por falta de prontidão e falhas na due diligence. Por trás desses números há quase sempre um bloqueio estrutural: a dependência do fundador e a concentração de receita, que impedem o comprador de replicar e escalar o negócio. A maioria desses pontos cegos poderia ter sido resolvida antes de o comprador chegar.",
+    "callout": "O atraso que esses pontos cegos provocam não é só tempo perdido, é erosão de valor: a liderança se distrai do negócio, gente-chave fica insegura e pede para sair, e o mercado lê a demora como problema. A diferença entre fechar e frustrar costuma estar no preparo feito com antecedência e boa assessoria, que transforma ponto cego em ponto resolvido antes da due diligence. É exatamente esse trabalho que conduzo na ADVISIA Investimentos ao lado do empresário.",
+    "journey": {
+      "stages": [
+        { "label": "Pré-consciência", "months": 36, "minPct": 0 },
+        { "label": "Curiosidade",      "months": 30, "minPct": 25 },
+        { "label": "Preparação",       "months": 24, "minPct": 45 },
+        { "label": "Posicionamento",   "months": 12, "minPct": 75 },
+        { "label": "Negociação ativa", "months": 6,  "minPct": 90 }
+      ],
+      "text": "Empresas começam a pensar em vender anos antes de fechar. Pelo seu diagnóstico, você está por volta da fase de {stage}, a cerca de {months} meses de um deal. Cada ponto cego que você resolve encurta esse caminho."
+    },
     "cta": {
-      "label": "Quero blindar o meu processo de M&A",
+      "label": "Quero blindar o meu processo de M&amp;A",
       "href": "/contato"
     }
   },
-  "charts": [
-    {
-      "type": "bar",
-      "title": "Score por ponto cego (% de 6 pontos possíveis)",
-      "height": 240
-    }
-  ]
+  "charts": []
 };
 QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
 </script>

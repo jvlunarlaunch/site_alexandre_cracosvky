@@ -56,6 +56,9 @@
   .careers-list { display: flex; flex-wrap: wrap; gap: .5rem; }
   .career-tag { background: white; border: 1px solid #e5e7eb; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; color: var(--royal); font-weight: 600; }
   .cert-tag { background: var(--navy); color: white; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; font-weight: 600; }
+  .axis-legend { background: var(--ice); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: .5rem; }
+  .axis-legend-item { font-size: .83rem; color: #374151; line-height: 1.55; }
+  .axis-legend-term { font-family: var(--mo); font-weight: 700; color: var(--navy); margin-right: .35rem; }
   .ressalva { font-size: .85rem; color: #6b7280; line-height: 1.65; border-top: 1px solid var(--ice); padding-top: 1rem; margin-top: 1rem; }
   .cta-box { background: var(--navy); color: white; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem; }
   .cta-box p { color: #c7d2fe; font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
@@ -90,7 +93,7 @@
       <p class="quiz-sub">8 perguntas, uma escala de 0 a 5 em cada, e um mapa que mostra as áreas, as certificações e as competências em que você tende a ir melhor.</p>
     </div>
     <div class="quiz-intro">
-      Responda pensando em como você é hoje, não em como acha que deveria ser. Quem responde alto nos dois extremos de um eixo cai no centro — o que também é um perfil válido e bastante versátil.
+      Responda pensando em como você é hoje, não em como acha que deveria ser.
     </div>
     <div style="text-align:center">
       <button class="btn-next" style="margin:0 auto;display:inline-block;padding:.8rem 2.5rem;font-size:1rem" onclick="startQuiz()">Começar →</button>
@@ -254,7 +257,7 @@ function showResult() {
   const X = (p('p6') + p('p8')) - (p('p5') + p('p7'));
 
   let quadrantKey;
-  const threshold = 3;
+  const threshold = 2;
   if (Math.abs(X) < threshold && Math.abs(Y) < threshold) {
     quadrantKey = 'centro';
   } else if (Y >= 0 && X < 0) {
@@ -301,7 +304,14 @@ function showResult() {
         </div>
       </div>
 
-      <div id="chart-container" style="height:320px"></div>
+      <div id="chart-container" style="height:480px"></div>
+
+      <div class="axis-legend">
+        <div class="axis-legend-item"><span class="axis-legend-term">Comercial</span> Trabalha voltado para pessoas e negócios: prospecção, relacionamento com clientes, negociação e fechamento.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Analítico</span> Trabalha voltado para dados e modelagem: análise, valuation, pesquisa e decisão baseada em números.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Vertical (carreira)</span> Especialista. Aprofunda em um único campo e vira referência no assunto.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Horizontal (carreira)</span> Generalista. Transita por áreas e funções diferentes e acumula competências variadas.</div>
+      </div>
 
       <div class="careers-block">
         <h3>Áreas com mais afinidade</h3>
@@ -335,7 +345,7 @@ function showResult() {
     </div>
   `;
 
-  renderChart(X, Y);
+  renderChart(X, Y, quadrantKey);
 }
 
 function renderAxisBar(val, axis) {
@@ -346,12 +356,46 @@ function renderAxisBar(val, axis) {
           <div style="position:absolute;top:-2px;left:50%;width:2px;height:12px;background:#e5e7eb"></div>`;
 }
 
-function renderChart(X, Y) {
+function renderChart(rawX, rawY, quadrantKey) {
+  // Ensure the dot doesn't land exactly on an axis midline
+  let X = rawX;
+  let Y = rawY;
+  if (X === 0) {
+    X = (quadrantKey === 'comercial_vertical' || quadrantKey === 'analitico_vertical') ? -0.9 :
+        (quadrantKey === 'comercial_horizontal' || quadrantKey === 'analitico_horizontal') ? 0.9 :
+        0.6;
+  }
+  if (Y === 0) {
+    Y = (quadrantKey === 'comercial_vertical' || quadrantKey === 'comercial_horizontal') ? 0.9 :
+        (quadrantKey === 'analitico_vertical' || quadrantKey === 'analitico_horizontal') ? -0.9 :
+        0.6;
+  }
+
+  const careers = [
+    { name: 'Investment Banking', x: -7,   y: 5    },
+    { name: 'ECM',                x: -5,   y: 7.5  },
+    { name: 'AAI',                x: -2,   y: 8.5  },
+    { name: 'DCM',                x: -5.5, y: 3    },
+    { name: 'Trader de câmbio',   x: 5,    y: 7    },
+    { name: 'Gerente de agência', x: 7.5,  y: 4    },
+    { name: 'Gerente de produtos',x: 5.5,  y: 2    },
+    { name: 'Private Equity',     x: -7,   y: -4   },
+    { name: 'M&A',                x: -7.5, y: -6   },
+    { name: 'Planejador Financeiro', x: -3.5, y: -5 },
+    { name: 'Gestor de Portfólio',x: -5,   y: -7.5 },
+    { name: 'Analista de Crédito',x: 5.5,  y: -4   },
+    { name: 'Especialista em investimentos', x: 4, y: -6 },
+    { name: 'Compliance',         x: 7,    y: -7   },
+    { name: 'Equity Research',    x: 0.5,  y: -8.5 },
+    { name: 'Project Finance',    x: 2,    y: -3   },
+    { name: 'Relationship Manager', x: -2,   y: 6.5 },
+  ];
+
   Highcharts.chart('chart-container', {
     chart: {
       type: 'scatter',
       backgroundColor: '#F8F9FC',
-      margin: [40, 20, 40, 20],
+      margin: [50, 30, 50, 30],
       style: { fontFamily: 'Epilogue, sans-serif' }
     },
     title: { text: 'Seu posicionamento no mapa de perfis', style: { color: '#0A1628', fontSize: '13px', fontWeight: '600' } },
@@ -382,10 +426,23 @@ function renderChart(X, Y) {
     },
     tooltip: {
       formatter: function() {
+        if (this.series.name === 'Carreiras') return false;
         return `<b>Seu perfil</b><br>Comercial/Analítico: <b>${this.y > 0 ? '+' : ''}${this.y}</b><br>Horizontal/Vertical: <b>${this.x > 0 ? '+' : ''}${this.x}</b>`;
       }
     },
     series: [
+      {
+        name: 'Carreiras',
+        data: careers.map(c => ({ x: c.x, y: c.y, name: c.name })),
+        marker: { enabled: false },
+        enableMouseTracking: false,
+        dataLabels: {
+          enabled: true,
+          formatter: function() { return this.point.name; },
+          style: { color: '#1B3A7A', fontSize: '9px', fontWeight: '400', textOutline: 'none' },
+          allowOverlap: true
+        }
+      },
       {
         name: 'Você',
         data: [[X, Y]],

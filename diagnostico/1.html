@@ -168,7 +168,7 @@ const QUIZ_CONFIG = {
       "stage": "Fechamento",
       "type": "choice",
       "options": [
-        { "label": "Sim, teaser e CIM atualizados", "value": 3 },
+        { "label": "Sim, teaser, CIM e modelo financeiro atualizados", "value": 3 },
         { "label": "Esboço ou apresentação inicial", "value": 2 },
         { "label": "Não temos material preparado", "value": 0 }
       ]
@@ -189,7 +189,7 @@ const QUIZ_CONFIG = {
     },
     {
       "id": "q11",
-      "text": "Você tem clareza entre crescer (buy-and-build) e vender agora, com um plano de saída ativo?",
+      "text": "Você tem clareza entre crescer (buy-or-build) e vender agora, com um plano de saída ativo?",
       "dimension": "Decisão crescer x vender",
       "subgroup": "3.2",
       "subgroupLabel": "Decisão e narrativa",
@@ -218,16 +218,17 @@ const QUIZ_CONFIG = {
   ],
   "scoring": {
     "type": "sum",
+    "normalize": true,
     "max": 36,
-    "scoreLabel": "IPV",
+    "scoreLabel": "SEU ÍNDICE DE PRONTIDÃO PARA VENDA",
     "scoreFormula": "sum_div_36_x100",
     "subgroups": [
-      { "id": "1.1", "label": "Clareza de valor e objetivos", "stage": "Estratégia", "questions": ["q1","q2"] },
-      { "id": "1.2", "label": "Qualidade financeira", "stage": "Estratégia", "questions": ["q3","q4"] },
-      { "id": "2.1", "label": "Solidez interna", "stage": "Implementação", "questions": ["q5","q6"] },
-      { "id": "2.2", "label": "Riscos e contingências", "stage": "Implementação", "questions": ["q7","q8"] },
-      { "id": "3.1", "label": "Prontidão do processo", "stage": "Fechamento", "questions": ["q9","q10"] },
-      { "id": "3.2", "label": "Decisão e narrativa", "stage": "Fechamento", "questions": ["q11","q12"] }
+      { "id": "1.1", "label": "Clareza de valor e objetivos", "shortLabel": "Clareza de valor", "stage": "Estratégia", "questions": ["q1","q2"] },
+      { "id": "1.2", "label": "Qualidade financeira", "shortLabel": "Qualidade financeira", "stage": "Estratégia", "questions": ["q3","q4"] },
+      { "id": "2.1", "label": "Solidez interna", "shortLabel": "Solidez interna", "stage": "Implementação", "questions": ["q5","q6"] },
+      { "id": "2.2", "label": "Riscos e contingências", "shortLabel": "Riscos e contingências", "stage": "Implementação", "questions": ["q7","q8"] },
+      { "id": "3.1", "label": "Prontidão do processo", "shortLabel": "Prontidão do processo", "stage": "Fechamento", "questions": ["q9","q10"] },
+      { "id": "3.2", "label": "Decisão e narrativa", "shortLabel": "Decisão e narrativa", "stage": "Fechamento", "questions": ["q11","q12"] }
     ],
     "stages": [
       { "id": "Estratégia", "label": "Estratégia", "color": "#1B3A7A", "subgroups": ["1.1","1.2"] },
@@ -235,34 +236,34 @@ const QUIZ_CONFIG = {
       { "id": "Fechamento", "label": "Fechamento", "color": "#B8952A", "subgroups": ["3.1","3.2"] }
     ],
     "actionPlan": [
-      { "priority": 1, "questionId": "q4", "dimension": "EBITDA", "action": "Reconstrua o EBITDA separando investimento de despesa, retirando itens não recorrentes e ajustando o efeito de contratações PJ que deveriam ser CLT. Bem documentados, esses ajustes sustentam um múltiplo maior; mal explicados, viram argumento para o comprador puxar o preço para baixo." },
-      { "priority": 2, "questionId": "q8", "dimension": "Contingências", "action": "Conduza uma vendor due diligence para levantar as exposições fiscais, trabalhistas, ambientais, cíveis e regulatórias, atribuir valor e probabilidade a cada uma e definir o tratamento de cada risco. Chegar à negociação com esse mapa na mão é o que evita o desconto de preço que aparece quando o comprador encontra o passivo antes de você." },
-      { "priority": 3, "questionId": "q5", "dimension": "Independência e sócios", "action": "Distribua decisões e alçadas para que a operação não pare na sua ausência e revise o acordo de sócios cobrindo saída, sucessão e resolução de conflitos. Comprador desconta empresa que depende do dono e desiste de empresa cujos sócios não se entendem sobre o deal." },
-      { "priority": 4, "questionId": "q1", "dimension": "Valuation", "action": "Faça um valuation fundamentado e use o resultado para enxergar onde o valor está e onde está sendo deixado na mesa. Priorize as iniciativas de maior retorno sobre o capital investido e garanta que os diferenciais do negócio estejam refletidos no múltiplo." },
-      { "priority": 5, "questionId": "q7", "dimension": "Concentração de receita", "action": "Reduza a exposição ao cliente concentrado por dois caminhos ao mesmo tempo: amplie a base e feche contratos de longo prazo com os principais, com cláusulas que dificultam a troca de fornecedor. Receita contratada e previsível vale mais no múltiplo do que faturamento que pode evaporar com a perda de uma conta." },
-      { "priority": 6, "questionId": "q3", "dimension": "Base financeira", "action": "Monte um proforma dos últimos dois anos a partir do razão, revisando toda a alocação de custos e despesas, ou contrate um quality of earnings. A meta é apresentar um resultado que se sustenta linha a linha, sem depender de uma auditoria completa de três anos." },
-      { "priority": 7, "questionId": "q6", "dimension": "Alavancas de performance", "action": "Trate a empresa como um projeto de criação de valor antes de levá-la ao mercado, com análise ativa de redução de custos, revisão da política de preços e recuperação de créditos tributários não aproveitados. Cada ponto de EBITDA recuperado entra multiplicado no valuation." },
-      { "priority": 8, "questionId": "q10", "dimension": "Compradores", "action": "Mapeie o universo de compradores possíveis, entre estratégicos, fundos e players internacionais, e qualifique quem tem tese, caixa e apetite para o seu ativo. Um processo com vários interessados disputando é o que mais move o preço para cima." },
-      { "priority": 9, "questionId": "q9", "dimension": "Material de venda", "action": "Prepare o teaser e o CIM com a tese de investimento, os números organizados e os diferenciais do negócio bem contados. É o material que permite conduzir um processo estruturado e competitivo em vez de reagir a uma abordagem oportunista." },
-      { "priority": 10, "questionId": "q11", "dimension": "Decisão crescer x vender", "action": "Defina a rota entre crescer via buy-and-build e vender agora e mantenha um plano de exit permanente, com assessores e relacionamento ativo com potenciais compradores. Assim você captura a janela certa quando surge uma proposta favorável." },
-      { "priority": 11, "questionId": "q2", "dimension": "Objetivos dos sócios", "action": "Coloque na mesa o que cada sócio espera em patrimônio, liquidez e papel após a venda e alinhe isso à estratégia de saída. Objetivo desalinhado entre sócios é uma das causas mais comuns de deal que trava no meio do caminho." },
-      { "priority": 12, "questionId": "q12", "dimension": "Narrativa de venda", "action": "Construa a tese de venda respondendo por que vender, por que agora e qual o potencial que o comprador vai capturar daqui para frente. É essa narrativa que separa um ativo que está apenas à venda de uma oportunidade pela qual o mercado se dispõe a pagar prêmio." }
+      { "priority": 1, "questionId": "q8", "dimension": "Contingências", "title": "Contingências não mapeadas são desconto na hora do deal", "action": "Conduza uma vendor due diligence para levantar as exposições fiscais, trabalhistas, ambientais, cíveis e regulatórias, atribuir valor e probabilidade a cada uma e definir o tratamento de cada risco. Chegar à negociação com esse mapa na mão é o que evita o desconto de preço que aparece quando o comprador encontra o passivo antes de você." },
+      { "priority": 2, "questionId": "q5", "dimension": "Independência e sócios", "title": "A empresa depende demais de você ou do alinhamento entre sócios", "action": "Distribua decisões e alçadas para que a operação não pare na sua ausência e revise o acordo de sócios cobrindo saída, sucessão e resolução de conflitos. Comprador desconta empresa que depende do dono e desiste de empresa cujos sócios não se entendem sobre o deal." },
+      { "priority": 3, "questionId": "q4", "dimension": "EBITDA", "title": "O EBITDA apresentado não vai resistir ao escrutínio do comprador", "action": "Reconstrua o EBITDA separando investimento de despesa, retirando itens não recorrentes e ajustando o efeito de contratações PJ que deveriam ser CLT. Bem documentados, esses ajustes sustentam um múltiplo maior; mal explicados, viram argumento para o comprador puxar o preço para baixo." },
+      { "priority": 4, "questionId": "q7", "dimension": "Concentração de receita", "title": "Concentração de receita reduz o múltiplo e o apetite do comprador", "action": "Reduza a exposição ao cliente concentrado por dois caminhos ao mesmo tempo: amplie a base e feche contratos de longo prazo com os principais, com cláusulas que dificultem a troca de fornecedor. Receita contratada e previsível vale mais no múltiplo do que faturamento que pode evaporar com a perda de uma conta." },
+      { "priority": 5, "questionId": "q3", "dimension": "Base financeira", "title": "A base financeira não sustenta o resultado apresentado", "action": "Monte um proforma dos últimos dois anos a partir do razão, revisando toda a alocação de custos e despesas, ou contrate um quality of earnings. A meta é apresentar um resultado que se sustenta linha a linha, sem depender de uma auditoria completa de três anos que o middle market raramente tem." },
+      { "priority": 6, "questionId": "q6", "dimension": "Alavancas de performance", "title": "Falta um plano ativo de criação de valor antes da venda", "action": "Trate a empresa como um projeto de criação de valor antes de levá-la ao mercado, com análise ativa de redução de custos, revisão da política de preços e recuperação de créditos tributários não aproveitados. Cada ponto de EBITDA recuperado entra multiplicado no valuation, então esse trabalho costuma pagar muitas vezes o próprio custo." },
+      { "priority": 7, "questionId": "q1", "dimension": "Valuation", "title": "Você não sabe quanto a empresa vale com método fundamentado", "action": "Faça um valuation fundamentado e use o resultado para enxergar onde o valor está e onde está sendo deixado na mesa. Priorize as iniciativas de maior retorno sobre o capital investido e garanta que os diferenciais do negócio estejam refletidos no múltiplo, e não apenas na sua percepção." },
+      { "priority": 8, "questionId": "q10", "dimension": "Compradores", "title": "Não há compradores mapeados para conduzir um processo competitivo", "action": "Mapeie o universo de compradores possíveis, entre estratégicos, fundos e players internacionais, e qualifique quem tem tese, caixa e apetite para o seu ativo. Um processo com vários interessados disputando é o que mais move o preço para cima; uma conversa isolada com um único comprador raramente entrega o melhor valor." },
+      { "priority": 9, "questionId": "q9", "dimension": "Material de venda", "title": "Falta material de venda para estruturar um processo", "action": "Prepare o teaser, o CIM e o modelo financeiro com a tese de investimento, os números organizados e os diferenciais do negócio bem contados. É o material que permite conduzir um processo estruturado e competitivo em vez de reagir a uma abordagem oportunista." },
+      { "priority": 10, "questionId": "q11", "dimension": "Decisão crescer x vender", "title": "A decisão entre crescer e vender não está clara", "action": "Defina a rota entre crescer via buy-or-build e vender agora e mantenha um plano de exit permanente, com assessores e relacionamento ativo com potenciais compradores. Assim você captura a janela certa quando surge uma proposta favorável, em vez de começar a se organizar depois que ela chega." },
+      { "priority": 11, "questionId": "q2", "dimension": "Objetivos dos sócios", "title": "Os sócios não têm clareza do que querem com a venda", "action": "Coloque na mesa o que cada sócio espera em patrimônio, liquidez e papel após a venda e alinhe isso à estratégia de saída. Objetivo desalinhado entre sócios é uma das causas mais comuns de deal que trava no meio do caminho." },
+      { "priority": 12, "questionId": "q12", "dimension": "Narrativa de venda", "title": "Falta uma narrativa de venda estruturada", "action": "Construa a tese de venda respondendo por que vender, por que agora e qual o potencial que o comprador vai capturar daqui para frente. É essa narrativa que separa um ativo que está apenas à venda de uma oportunidade pela qual o mercado se dispõe a pagar prêmio." }
     ],
     "thresholds": [
       {
-        "max": 14,
+        "max": 39,
         "label": "Ainda não é a hora",
         "class": "danger",
         "description": "Há pontos críticos que reduzem o valor da empresa e aumentam o risco de o deal não fechar. Vender agora significaria múltiplo baixo. Vale estruturar a maximização de valor antes de ir ao mercado."
       },
       {
-        "max": 26,
+        "max": 72,
         "label": "Quase pronto",
         "class": "warning",
         "description": "Você está no caminho. Com ajustes específicos nos pontos identificados, dá para elevar consideravelmente o múltiplo de saída em 12 a 24 meses."
       },
       {
-        "max": 36,
+        "max": 100,
         "label": "Pronta para vender",
         "class": "success",
         "description": "A empresa reúne os fundamentos que compradores sérios buscam. É o momento de estruturar um processo competitivo e maximizar o valor."
@@ -277,7 +278,8 @@ const QUIZ_CONFIG = {
     {
       "type": "radar",
       "title": "Prontidão por subgrupo (IPV)",
-      "height": 300
+      "height": 300,
+      "yMax": 100
     }
   ]
 };

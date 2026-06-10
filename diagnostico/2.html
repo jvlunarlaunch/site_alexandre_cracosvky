@@ -185,14 +185,14 @@ const QUIZ_CONFIG = {
       "low_growth":      0.10,
       "none":            0.00
     },
-    "porteDiscounts": {
-      "above_400m": 0,
-      "200m_400m": 0.04,
-      "100m_200m": 0.07,
-      "50m_100m": 0.10,
-      "20m_50m": 0.12,
-      "below_20m": 0.15
-    },
+    "porteRanges": [
+      { "band": "micro",   "maxReceita": 20000000,  "discount": 0.15 },
+      { "band": "micro",   "maxReceita": 50000000,  "discount": 0.12 },
+      { "band": "pequeno", "maxReceita": 100000000, "discount": 0.10 },
+      { "band": "medio",   "maxReceita": 200000000, "discount": 0.07 },
+      { "band": "medio",   "maxReceita": 400000000, "discount": 0.04 },
+      { "band": "grande",  "maxReceita": 1e15,       "discount": 0.00 }
+    ],
     "liquidityDiscounts": {
       "alta": 0.03,
       "media": 0.05,
