@@ -207,7 +207,15 @@ const QUIZ_CONFIG = {
     {
       "type": "donut",
       "title": "Performance geral",
-      "height": 220
+      "height": 220,
+      "dataFn": function(result) {
+        var c = result.main || 0;
+        var w = (result.max || 8) - c;
+        return [
+          { name: 'Acertos', y: c, color: '#1B3A7A' },
+          { name: 'Erros', y: w, color: '#EEF2F9' }
+        ];
+      }
     }
   ]
 };
