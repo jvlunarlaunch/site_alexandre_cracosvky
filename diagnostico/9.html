@@ -178,15 +178,6 @@ const QUADRANTS = {
     hardSkills: 'Análise de crédito, estatística e quant, gestão de risco, regulação',
     softSkills: 'Visão sistêmica, julgamento, organização, comunicação de risco'
   },
-  'centro': {
-    label: 'Perfil Versátil',
-    title: 'Você tem perfil equilibrado',
-    desc: 'Você transita bem entre análise e relacionamento, e entre especialidade e versatilidade. Perfis equilibrados costumam se dar bem nas carreiras sobre os eixos, como Project Finance, Relationship Manager e especialista em investimentos.',
-    careers: ['Project Finance', 'Relationship Manager', 'Especialista em investimentos', 'Equity Research', 'M&A'],
-    certs: ['CFA', 'CFP', 'CNPI (APIMEC)'],
-    hardSkills: 'Valuation, estruturação de operações, análise financeira',
-    softSkills: 'Adaptabilidade, comunicação, análise e relacionamento'
-  }
 };
 
 let answers = {};
@@ -253,14 +244,11 @@ function prevQ() {
 
 function showResult() {
   const p = id => answers[id] || 0;
-  const Y = (p('p1') + p('p3')) - (p('p2') + p('p4'));
-  const X = (p('p6') + p('p8')) - (p('p5') + p('p7'));
+  const Y = Math.max(-6, Math.min(6, (p('p1') + p('p3')) - (p('p2') + p('p4'))));
+  const X = Math.max(-6, Math.min(6, (p('p6') + p('p8')) - (p('p5') + p('p7'))));
 
   let quadrantKey;
-  const threshold = 2;
-  if (Math.abs(X) < threshold && Math.abs(Y) < threshold) {
-    quadrantKey = 'centro';
-  } else if (Y >= 0 && X < 0) {
+  if (Y >= 0 && X < 0) {
     quadrantKey = 'comercial_vertical';
   } else if (Y >= 0 && X >= 0) {
     quadrantKey = 'comercial_horizontal';
@@ -307,10 +295,10 @@ function showResult() {
       <div id="chart-container" style="height:480px"></div>
 
       <div class="axis-legend">
-        <div class="axis-legend-item"><span class="axis-legend-term">Comercial</span> Trabalha voltado para pessoas e negócios: prospecção, relacionamento com clientes, negociação e fechamento.</div>
-        <div class="axis-legend-item"><span class="axis-legend-term">Analítico</span> Trabalha voltado para dados e modelagem: análise, valuation, pesquisa e decisão baseada em números.</div>
-        <div class="axis-legend-item"><span class="axis-legend-term">Vertical (carreira)</span> Especialista. Aprofunda em um único campo e vira referência no assunto.</div>
-        <div class="axis-legend-item"><span class="axis-legend-term">Horizontal (carreira)</span> Generalista. Transita por áreas e funções diferentes e acumula competências variadas.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Comercial:</span> Trabalha voltado para pessoas e negócios: prospecção, relacionamento com clientes, negociação e fechamento.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Analítico:</span> Trabalha voltado para dados e modelagem: análise, valuation, pesquisa e decisão baseada em números.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Vertical (carreira):</span> Especialista. Aprofunda em um único campo e vira referência no assunto.</div>
+        <div class="axis-legend-item"><span class="axis-legend-term">Horizontal (carreira):</span> Generalista. Transita por áreas e funções diferentes e acumula competências variadas.</div>
       </div>
 
       <div class="careers-block">
@@ -361,14 +349,10 @@ function renderChart(rawX, rawY, quadrantKey) {
   let X = rawX;
   let Y = rawY;
   if (X === 0) {
-    X = (quadrantKey === 'comercial_vertical' || quadrantKey === 'analitico_vertical') ? -0.9 :
-        (quadrantKey === 'comercial_horizontal' || quadrantKey === 'analitico_horizontal') ? 0.9 :
-        0.6;
+    X = (quadrantKey === 'comercial_vertical' || quadrantKey === 'analitico_vertical') ? -0.9 : 0.9;
   }
   if (Y === 0) {
-    Y = (quadrantKey === 'comercial_vertical' || quadrantKey === 'comercial_horizontal') ? 0.9 :
-        (quadrantKey === 'analitico_vertical' || quadrantKey === 'analitico_horizontal') ? -0.9 :
-        0.6;
+    Y = (quadrantKey === 'comercial_vertical' || quadrantKey === 'comercial_horizontal') ? 0.9 : -0.9;
   }
 
   const careers = [
