@@ -317,6 +317,7 @@
     steps: [
       { id:'nome',     type:'text',     question:'Como você se chama?',             placeholder:'Seu nome',                 required:true },
       { id:'email',    type:'email',    question:'Qual é o seu e-mail?',             placeholder:'voce@email.com',           required:true },
+      { id:'whatsapp', type:'tel',      question:'Qual é o seu WhatsApp?',           placeholder:'(11) 99999-9999',          required:false, optional:true, skipLabel:'Pular' },
       { id:'assunto',  type:'text',     question:'Qual é o assunto?',               placeholder:'Assunto da mensagem',      required:false, optional:true, skipLabel:'Pular' },
       { id:'mensagem', type:'textarea', question:'O que você gostaria de nos dizer?',placeholder:'Escreva sua mensagem...', required:true }
     ],
@@ -325,7 +326,13 @@
     successDesc: 'Obrigado pelo contato.',
     onSubmit: function(data, done) {
       if (window._sb) {
-        window._sb.from('contato_alexandre_cracovsky').insert({nome:data.nome,email:data.email,assunto:data.assunto||null,mensagem:data.mensagem});
+        window._sb.from('contato_alexandre_cracovsky').insert({
+          nome: data.nome,
+          email: data.email,
+          whatsapp: data.whatsapp || null,
+          assunto: data.assunto || null,
+          mensagem: data.mensagem
+        });
       }
       done();
     }

@@ -135,7 +135,13 @@ body::before{
 }
 .form-input::placeholder{color:rgba(255,255,255,.3);}
 .form-input:focus{border-color:rgba(184,149,42,.65);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(184,149,42,.12);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-row{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;}
+@media(max-width:800px){
+  .form-row{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .form-row{grid-template-columns:1fr;}
+}
 .btn-submit{
   width:100%;font-family:var(--ep);font-size:15px;font-weight:500;letter-spacing:.06em;
   background:var(--gold);color:var(--navy);
@@ -503,7 +509,6 @@ body::before{
     <div class="final-rule"></div>
     <h2 class="final-h2">Garanta seu lugar<br><em>na lista</em></h2>
     <p class="final-sub">Os que se inscreverem agora têm acesso em primeira mão — antes do lançamento público, com preço e condições que não estarão disponíveis depois.</p>
-    <div class="final-form">
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-name" style="color:var(--slate);">Nome</label>
@@ -513,6 +518,11 @@ body::before{
         <div class="form-group">
           <label class="form-label" for="f-email" style="color:var(--slate);">E-mail</label>
           <input class="form-input" type="email" id="f-email" placeholder="seu@email.com"
+            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-whatsapp" style="color:var(--slate);">WhatsApp</label>
+          <input class="form-input" type="tel" id="f-whatsapp" placeholder="(11) 99999-9999"
             style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
         </div>
       </div>
@@ -621,6 +631,13 @@ body::before{
     }
   `;
   document.head.appendChild(style);
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./assets/supabase-client.js"></script>
+</body>
+</html>
+hild(style);
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
