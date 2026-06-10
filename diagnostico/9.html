@@ -337,7 +337,7 @@ function showResult() {
 }
 
 function renderAxisBar(val, axis) {
-  const pct = ((val + 10) / 20) * 100;
+  const pct = ((val + 6) / 12) * 100;
   const clampedPct = Math.max(0, Math.min(100, pct));
   const color = '#B8952A';
   return `<div class="axis-bar-fill" style="left:${Math.min(50, clampedPct)}%;width:${Math.abs(clampedPct - 50)}%;background:${color}"></div>
@@ -386,25 +386,25 @@ function renderChart(rawX, rawY, quadrantKey) {
     credits: { enabled: false },
     legend: { enabled: false },
     xAxis: {
-      min: -10, max: 10,
+      min: -6, max: 6,
       title: { text: '← Vertical  ·  Horizontal →', style: { color: '#6b7280', fontSize: '11px' } },
-      tickInterval: 5,
+      tickInterval: 3,
       plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
       plotBands: [
-        { from: -10, to: 0, color: 'rgba(27,58,122,.04)' },
-        { from: 0, to: 10, color: 'rgba(184,149,42,.04)' }
+        { from: -6, to: 0, color: 'rgba(27,58,122,.04)' },
+        { from: 0, to: 6, color: 'rgba(184,149,42,.04)' }
       ],
       gridLineColor: '#e5e7eb',
       lineColor: '#e5e7eb'
     },
     yAxis: {
-      min: -10, max: 10,
+      min: -6, max: 6,
       title: { text: '← Analítico  ·  Comercial →', style: { color: '#6b7280', fontSize: '11px' } },
-      tickInterval: 5,
+      tickInterval: 3,
       plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
       plotBands: [
-        { from: -10, to: 0, color: 'rgba(27,58,122,.04)' },
-        { from: 0, to: 10, color: 'rgba(13,110,110,.04)' }
+        { from: -6, to: 0, color: 'rgba(27,58,122,.04)' },
+        { from: 0, to: 6, color: 'rgba(13,110,110,.04)' }
       ],
       gridLineColor: '#e5e7eb'
     },
