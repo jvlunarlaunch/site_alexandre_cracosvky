@@ -13,6 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Carimba ?v=<sha> nas referências locais de JS/CSS para furar o cache
+      # do CDN (Cloudflare/Hostinger) e dos navegadores a cada deploy.
+      # URLs externas (contêm ":") não são alteradas.
+      - name: Cache-bust de assets JS/CSS
+        run: |
+          VERSION="${GITHUB_SHA::8}"
+          find . -name '*.html' -not -path './.git/*' \
+            -exec sed -i -E "s/(src|href)=\"([^\":]*\.(js|css))\"/\1=\"\2?v=${VERSION}\"/g" {} +
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
