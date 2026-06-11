@@ -64,6 +64,10 @@
   .cta-box p { color: #c7d2fe; font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
   .cta-btn { display: inline-block; background: var(--gold); color: white; font-weight: 700; padding: .8rem 2rem; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background .2s; }
   .cta-btn:hover { background: var(--gold2); }
+  .binary-option { width: 100%; text-align: left; padding: 1rem 1.25rem; border-radius: 8px; border: 2px solid var(--ice); background: white; font-size: .95rem; color: var(--navy); cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: .75rem; line-height: 1.45; }
+  .binary-option:hover { border-color: var(--royal); background: var(--ice); }
+  .binary-option.selected { border-color: var(--gold); background: rgba(184,149,42,.07); }
+  .binary-label { font-family: var(--mo); font-weight: 700; font-size: .95rem; color: var(--gold); min-width: 1.4rem; flex-shrink: 0; }
   @media (max-width: 520px) {
     .scale-options { gap: .35rem; }
     .scale-btn { width: 40px; height: 40px; font-size: .85rem; }
@@ -90,7 +94,7 @@
     <div class="quiz-welcome">
       <span class="quiz-badge">Carreira · Orientação</span>
       <h1 class="quiz-title">Qual é o seu perfil de carreira em finanças?</h1>
-      <p class="quiz-sub">8 perguntas, uma escala de 0 a 5 em cada, e um mapa que mostra as áreas, as certificações e as competências em que você tende a ir melhor.</p>
+      <p class="quiz-sub">10 perguntas — 8 numa escala de 0 a 5 e 2 de escolha direta — e um mapa que mostra as áreas, as certificações e as competências em que você tende a ir melhor.</p>
     </div>
     <div class="quiz-intro">
       Responda pensando em como você é hoje, não em como acha que deveria ser.
@@ -98,7 +102,7 @@
     <div style="text-align:center">
       <button class="btn-next" style="margin:0 auto;display:inline-block;padding:.8rem 2.5rem;font-size:1rem" onclick="startQuiz()">Começar →</button>
     </div>
-    <p style="text-align:center;font-size:.8rem;color:#9ca3af;margin-top:1rem;font-family:var(--mo)">⏱ 3 min · Gratuito</p>
+    <p style="text-align:center;font-size:.8rem;color:#9ca3af;margin-top:1rem;font-family:var(--mo)">⏱ 4 min · Gratuito</p>
   </div>
 
   <!-- QUESTION SCREEN -->
@@ -109,7 +113,7 @@
       <div class="question-num" id="q-num"></div>
       <div class="question-text" id="q-text"></div>
       <div class="scale-wrap">
-        <div class="scale-labels">
+        <div class="scale-labels" id="scale-labels">
           <span>0 — Discordo totalmente</span>
           <span>5 — Concordo totalmente</span>
         </div>
@@ -138,7 +142,19 @@ const QUESTIONS = [
   { id: 'p5', text: 'Tenho orgulho de saber de um assunto coisas que quase ninguém sabe.', axis: 'X', pole: '-' },
   { id: 'p6', text: 'Gosto de transitar por áreas e funções diferentes e reunir competências variadas.', axis: 'X', pole: '+' },
   { id: 'p7', text: 'Prefiro um problema difícil dentro do meu campo a um problema fácil em um campo novo.', axis: 'X', pole: '-' },
-  { id: 'p8', text: 'Me imagino mudando de departamento algumas vezes ao longo da carreira.', axis: 'X', pole: '+' }
+  { id: 'p8', text: 'Me imagino mudando de departamento algumas vezes ao longo da carreira.', axis: 'X', pole: '+' },
+  { id: 'p9', text: 'Num trabalho em equipe, você prefere ficar com:', type: 'binary',
+    options: [
+      { label: 'A apresentação para o cliente', value: 1.7 },
+      { label: 'A análise por trás dela', value: -1.7 }
+    ]
+  },
+  { id: 'p10', text: 'Ainda nesse projeto, você prefere:', type: 'binary',
+    options: [
+      { label: 'Ficar responsável por uma parte e fazê-la a fundo', value: -1.7 },
+      { label: 'Ajudar um pouco em todas as partes', value: 1.7 }
+    ]
+  }
 ];
 
 const QUADRANTS = {
@@ -200,13 +216,31 @@ function renderQuestion(idx) {
   document.getElementById('q-text').textContent = q.text;
 
   const container = document.getElementById('scale-options');
+  const scaleLabels = document.getElementById('scale-labels');
   container.innerHTML = '';
-  for (let v = 0; v <= 5; v++) {
-    const btn = document.createElement('button');
-    btn.className = 'scale-btn' + (answers[q.id] === v ? ' selected' : '');
-    btn.textContent = v;
-    btn.onclick = () => selectAnswer(q.id, v);
-    container.appendChild(btn);
+
+  if (q.type === 'binary') {
+    scaleLabels.style.display = 'none';
+    container.style.flexDirection = 'column';
+    const letters = ['A', 'B'];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'binary-option' + (answers[q.id] === opt.value ? ' selected' : '');
+      btn.dataset.value = opt.value;
+      btn.innerHTML = `<span class="binary-label">${letters[i]})</span>${opt.label}`;
+      btn.onclick = () => selectBinary(q.id, opt.value);
+      container.appendChild(btn);
+    });
+  } else {
+    scaleLabels.style.display = '';
+    container.style.flexDirection = '';
+    for (let v = 0; v <= 5; v++) {
+      const btn = document.createElement('button');
+      btn.className = 'scale-btn' + (answers[q.id] === v ? ' selected' : '');
+      btn.textContent = v;
+      btn.onclick = () => selectAnswer(q.id, v);
+      container.appendChild(btn);
+    }
   }
 
   const btnNext = document.getElementById('btn-next');
@@ -230,6 +264,14 @@ function selectAnswer(id, value) {
   document.getElementById('btn-next').disabled = false;
 }
 
+function selectBinary(id, value) {
+  answers[id] = value;
+  document.querySelectorAll('.binary-option').forEach(btn => {
+    btn.classList.toggle('selected', parseFloat(btn.dataset.value) === value);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
 function nextQ() {
   if (currentQ < QUESTIONS.length - 1) {
     renderQuestion(currentQ + 1);
@@ -244,8 +286,8 @@ function prevQ() {
 
 function showResult() {
   const p = id => answers[id] || 0;
-  const Y = Math.max(-6, Math.min(6, (p('p1') + p('p3')) - (p('p2') + p('p4'))));
-  const X = Math.max(-6, Math.min(6, (p('p6') + p('p8')) - (p('p5') + p('p7'))));
+  const Y = Math.max(-6, Math.min(6, (p('p1') + p('p3')) - (p('p2') + p('p4')) + (answers['p9'] || 0)));
+  const X = Math.max(-6, Math.min(6, (p('p6') + p('p8')) - (p('p5') + p('p7')) + (answers['p10'] || 0)));
 
   let quadrantKey;
   if (Y >= 0 && X < 0) {

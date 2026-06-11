@@ -44,65 +44,38 @@ $$
 
 ## Isca 2 — Calculadora: quanto vale minha empresa agora?
 
-**Lógica do resultado:** valuation por múltiplo de EBITDA ajustado por setor e porte, entregando uma faixa mínima–máxima.
+**Lógica do resultado:** valuation por múltiplo de EBITDA do benchmark do setor, aplicando descontos multiplicativos por porte, liquidez, riscos e região.
 
 $$
-EV_{min} = EBITDA \times M_{min}(setor, porte)
-$$
-
-$$
-EV_{max} = EBITDA \times M_{max}(setor, porte)
+M_{aplicado} = M_{setor} \times (1 - d_{porte}) \times (1 - d_{liquidez}) \times (1 - d_{riscos}) \times (1 - d_{regiao})
 $$
 
 $$
-EV_{central} = EBITDA \times \frac{M_{min} + M_{max}}{2}
-$$
-
-**Tabela de múltiplos de referência por setor e porte:**
-
-| Setor | Micro | Pequeno | Médio | Grande |
-|---|---|---|---|---|
-| Tecnologia / SaaS | 4–6× | 6–10× | 8–14× | 12–20× |
-| Serviços B2B | 3–5× | 4–7× | 5–8× | 7–12× |
-| Varejo | 2–4× | 3–5× | 4–6× | 5–8× |
-| Indústria | 3–5× | 4–6× | 5–8× | 6–10× |
-| Saúde | 4–6× | 5–8× | 7–11× | 10–15× |
-| Agronegócio | 3–5× | 4–7× | 5–9× | 7–12× |
-
-**EBITDA calculado a partir dos inputs:**
-
-$$
-EBITDA = Receita_{bruta} \times Margem_{EBITDA}(\%)
-$$
-
-**Ajuste de desconto por fatores de risco identificados no quiz:**
-
-$$
-EV_{ajustado} = EV_{central} \times (1 - \delta)
+EV = EBITDA \times M_{aplicado}
 $$
 
 $$
-\delta = \sum_{j} d_j \quad \text{onde cada fator de risco } d_j \in \{0.05, 0.10, 0.15\}
+Equity\ Value = EV_{central} - Dívida\ líquida
 $$
 
-| Fator de risco | Desconto aplicado |
-|---|---|
-| Dependência do fundador | −15% |
-| Concentração de clientes >30% | −10% |
-| Sem auditoria financeira | −10% |
-| Passivo fiscal/trabalhista | −15% |
-| EBITDA decrescente | −10% |
+**Descontos aplicados:**
+- **Porte (por Receita):** >R$400M: 0% · R$200–400M: −2% · R$100–200M: −4% · R$50–100M: −6% · R$20–50M: −8% · <R$20M: −10%
+- **Company-specific (soma de riscos):** Dependência do sócio (−2%), Concentração de clientes (−2%), Sem auditoria (−2%), Contingências não mapeadas (−2%), Crescimento baixo (−2%). (Máximo −10% somado).
+- **Região:** SE (0%), S (−1%), CO (−2%), NE (−3%), N (−3%).
+- **Liquidez:** Definida por setor (−1%, −2% ou −3%).
 
-### Inputs e o que representam na fórmula
+**Múltiplos de benchmark por setor (exemplos):**
+- **Agro (Grãos/Trading):** 3,5–5,5x (Liquidez -3%)
+- **Tech (AI/SaaS):** 8–13x (Liquidez -1%)
+- **Saúde (Hospitais):** 7–10x (Liquidez -1%)
+(Ver config completa para os 32 setores)
 
-| Input | Variável | Papel na fórmula |
-|---|---|---|
-| Receita bruta anual | $R$ | Base para cálculo do EBITDA quando a margem é informada |
-| EBITDA ou margem EBITDA | $EBITDA$ | Numerador do múltiplo — principal driver do valuation |
-| Setor | $M(setor)$ | Define o intervalo de múltiplo aplicável |
-| Porte | $M(porte)$ | Ajusta o múltiplo dentro do intervalo do setor |
+**Potencial com preparo (3ª barra):**
+- EBITDA aumentado em 10%.
+- Remoção do desconto de fatores de risco (company-specific).
+- Múltiplo recalculado sem os riscos.
 
-**Gráficos Highcharts:** Bullet chart (faixa mín–máx com marcador central) + Column agrupado (empresa vs. benchmark do setor) + Pie/donut (composição do valor)
+**Gráficos Highcharts:** Football field (3 faixas: empresa hoje, benchmark setor, potencial com preparo) + Donut (impacto dos descontos: valor retido, porte, liquidez, riscos, região).
 
 ---
 
