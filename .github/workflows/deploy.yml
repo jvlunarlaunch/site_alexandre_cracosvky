@@ -36,4 +36,5 @@ jobs:
             **/.git*/**
             **/.github/**
             **/node_modules/**
+            **/assets/src/**
             .gitignore
