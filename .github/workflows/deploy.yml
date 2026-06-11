@@ -22,13 +22,41 @@ jobs:
           find . -name '*.html' -not -path './.git/*' \
             -exec sed -i -E "s/(src|href)=\"([^\":]*\.(js|css))\"/\1=\"\2?v=${VERSION}\"/g" {} +
 
+      # O FTP da Hostinger sofre timeouts intermitentes de conexão;
+      # timeout maior + retry automático evitam deploys perdidos em silêncio.
       - name: Deploy via FTP
+        id: ftp1
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           port: 21
+          timeout: 120000
+          local-dir: ./
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/assets/src/**
+            .gitignore
+
+      - name: Aguardar antes do retry
+        if: steps.ftp1.outcome == 'failure'
+        run: sleep 90
+
+      - name: Deploy via FTP (retry)
+        if: steps.ftp1.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          port: 21
+          timeout: 120000
           local-dir: ./
           server-dir: /
           exclude: |
