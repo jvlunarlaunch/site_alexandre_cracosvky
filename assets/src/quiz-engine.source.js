@@ -624,197 +624,157 @@ const QuizEngine = ((() => {
         const _0x2ffbc9 = a0_0x526a,
             _0x4ef337 = _0x240737(_0x5f3b63),
             _0x300d0d = _0x5f3b63["pct"],
-            _0x470275 = _0xdd5eb9('quiz-screen\x20active'),
-            _0x219d12 = {
-                'green': {
-                    'label': "Protegido",
-                    'color': '#2D6A0A',
-                    'barColor': "#2D6A0A"
-                },
-                'yellow': {
-                    'label': 'Atenção',
-                    'color': '#8A5C00',
-                    'barColor': "#D97706"
-                },
-                'red': {
-                    'label': 'Risco\x20alto',
-                    'color': "#9A2020",
-                    'barColor': "#9A2020"
-                }
-            },
-            _0x44149b = {
-                'danger': {
-                    'bg': '#FEF2F2',
-                    'color': "#9A2020"
-                },
-                'warning': {
-                    'bg': "#FFFBEB",
-                    'color': "#8A5C00"
-                },
-                'success': {
-                    'bg': "#F0FDF4",
-                    'color': "#2D6A0A"
-                }
-            } [_0x4ef337["class"]] || {
-                'bg': '#EEF2F9',
-                'color': "#1B3A7A"
-            },
-            _0x5efb36 = {
-                'danger': "#9A2020",
-                'warning': "#D97706",
-                'success': "#2D6A0A"
-            } [_0x4ef337["class"]] || '#D97706',
-            _0x50731f = _0x18181a["scoring"]["journey"] || {},
-            _0x45a612 = _0x50731f["stages"] || [];
-        let _0x250eee = _0x45a612[0x0] || {
-            'label': '',
-            'months': 0x18
+            _0x470275 = _0xdd5eb9('quiz-screen active');
+        const _0x219d12 = {
+            'green': { label: 'Protegido', dot: '#1E7A4B', bar: '#1E7A4B', text: '#1E7A4B' },
+            'yellow': { label: 'Atenção', dot: '#B8932F', bar: '#B8932F', text: '#9A7A1F' },
+            'red': { label: 'Risco alto', dot: '#B23A2E', bar: '#B23A2E', text: '#B23A2E' }
         };
+        const _0x44149b = ({
+            'danger': { bg: '#FAEEDA', color: '#854F0B' },
+            'warning': { bg: '#FAEEDA', color: '#854F0B' },
+            'success': { bg: '#EDF7F0', color: '#1E7A4B' }
+        })[_0x4ef337["class"]] || { bg: '#FAEEDA', color: '#854F0B' };
+        const _0x5efb36 = ({
+            'danger': '#B23A2E', 'warning': '#B8932F', 'success': '#1E7A4B'
+        })[_0x4ef337["class"]] || '#B8932F';
+        const _0x50731f = _0x18181a["scoring"]["journey"] || {},
+            _0x45a612 = _0x50731f["stages"] || [];
+        let _0x250eee = _0x45a612[0x0] || { 'label': '', 'months': 0x18 };
         for (const _0x1f120f of _0x45a612) {
             if (_0x300d0d >= _0x1f120f["minPct"]) _0x250eee = _0x1f120f;
         }
-        const _0x5d85b5 = (_0x50731f["text"] || '')["replace"]('{stage}', "<strong style=\"color:var(--gold2)\">" + _0x250eee["label"] + "</strong>")["replace"]("{months}", _0x250eee['months']),
+        const _0x5d85b5 = (_0x50731f["text"] || '')["replace"]('{stage}', '<strong style="color:#B8932F">' + _0x250eee["label"] + '</strong>')["replace"]("{months}", _0x250eee['months']),
             _0x2c5d2b = _0x5f3b63['worst'] || {},
             _0x282b25 = _0x219d12[_0x2c5d2b["signal"]] || _0x219d12["red"];
+        const bsRows = (_0x5f3b63["blindspots"] || [])["map"](function(bs) {
+            const sig = _0x219d12[bs['signal']] || _0x219d12['red'],
+                w = Math["round"](bs['pct'] * 0x64);
+            return '<div class="bs-row">' +
+                '<span class="bs-dot" style="background:' + sig.dot + '"></span>' +
+                '<span class="bs-name">' + bs['label'] + '</span>' +
+                '<div class="bs-bar"><span style="width:' + w + '%;background:' + sig.bar + '"></span></div>' +
+                '<span class="bs-status" style="color:' + sig.text + '">' + sig.label + '</span>' +
+                '</div>';
+        })["join"]('');
+        const svgJourney = (function() {
+            if (!_0x45a612["length"]) return '';
+            const n = _0x45a612["length"],
+                x0 = 60, x1 = 560, y0 = 30, y1 = 210,
+                maxM = Math["max"]["apply"](null, _0x45a612["map"](function(s) { return s['months']; })),
+                xs = _0x45a612["map"](function(_, i) { return Math["round"](x0 + (x1 - x0) / (n - 1) * i); }),
+                ys = _0x45a612["map"](function(s) { return Math["round"](y1 - (s['months'] / maxM) * (y1 - y0)); }),
+                curIdx = _0x45a612["indexOf"](_0x250eee),
+                polyPoints = xs["map"](function(x, i) { return x + ',' + ys[i]; })["join"](' '),
+                areaPath = 'M' + xs["map"](function(x, i) { return x + ',' + ys[i]; })["join"](' L') + ' L' + xs[n - 1] + ',' + y1 + ' L' + xs[0] + ',' + y1 + ' Z',
+                yStep = (y1 - y0) / 4,
+                monthStep = maxM / 4;
+            const gridLines = [1, 2, 3, 4]["map"](function(i) {
+                const yy = Math["round"](y1 - i * yStep);
+                return '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy + '"/>';
+            })["join"]('');
+            const yLabels = [0, 1, 2, 3, 4]["map"](function(i) {
+                return '<text x="52" y="' + Math["round"](y1 - i * yStep + 4) + '" text-anchor="end" font-size="9" fill="#8A887F">' + Math["round"](i * monthStep) + '</text>';
+            })["join"]('');
+            const circles = xs["map"](function(x, i) {
+                if (i === curIdx) return '<circle cx="' + x + '" cy="' + ys[i] + '" r="5.5" fill="#B8932F" stroke="#FFFFFF" stroke-width="1.5"/>';
+                return '<circle cx="' + x + '" cy="' + ys[i] + '" r="3" fill="#1A2A52"/>';
+            })["join"]('');
+            const cursorLine = curIdx >= 0 ? (
+                '<line x1="' + xs[curIdx] + '" y1="' + ys[curIdx] + '" x2="' + xs[curIdx] + '" y2="' + y1 + '" stroke="#B8932F" stroke-width="1.5" stroke-dasharray="4 3"/>' +
+                '<text x="' + xs[curIdx] + '" y="' + (ys[curIdx] - 10) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#854F0B">você está aqui</text>'
+            ) : '';
+            const stageLabels = _0x45a612["map"](function(s, i) {
+                const isCur = i === curIdx;
+                return '<text x="' + xs[i] + '" y="228" text-anchor="middle" font-size="9" ' +
+                    (isCur ? 'font-weight="700" fill="#854F0B"' : 'fill="#8A887F"') + '>' + s['label'] + '</text>';
+            })["join"]('');
+            return '<svg viewBox="0 0 600 270" width="100%" role="img" aria-label="Jornada M&amp;A · tempo médio por estágio">' +
+                '<text x="300" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1A2A52">Jornada M&amp;A · tempo médio por estágio (meses)</text>' +
+                '<g stroke="#E7E5DC" stroke-width="0.8">' + gridLines + '</g>' +
+                '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
+                '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
+                yLabels +
+                '<text x="20" y="120" text-anchor="middle" font-size="9.5" fill="#5F5E5A" transform="rotate(-90 20 120)">Meses médios</text>' +
+                '<path d="' + areaPath + '" fill="#1A2A52" opacity="0.08"/>' +
+                '<polyline points="' + polyPoints + '" fill="none" stroke="#1A2A52" stroke-width="2.4"/>' +
+                circles + cursorLine + stageLabels + '</svg>';
+        })();
+        const calloutHTML = _0x18181a["scoring"]["callout"] ?
+            '<div class="bs-inaction"><p>' + _0x18181a["scoring"]["callout"] + '</p></div>' : '';
+        const ctaCfg = _0x18181a["scoring"]["cta"];
+        const ctaHTML = ctaCfg ?
+            '<a href="' + ctaCfg["href"] + '" class="bs-cta">' + ctaCfg["label"] + '</a>' : '';
+        if (!document["getElementById"]('bs-result-styles')) {
+            const _0x5a1a9f = document["createElement"]('style');
+            _0x5a1a9f["id"] = 'bs-result-styles';
+            _0x5a1a9f["textContent"] = [
+                '.bs-wrap{display:flex;flex-direction:column;gap:16px;padding:24px 0 56px}',
+                '.bs-card{background:#fff;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px}',
+                '.bs-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-score{font-family:Georgia,serif;font-weight:700;color:#1A2A52;font-size:52px;line-height:1;margin:0;display:inline}',
+                '.bs-badge{display:inline-block;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-track{background:#EFEDE6;border-radius:6px;height:11px;overflow:hidden;margin:16px 0 0}',
+                '.bs-fill{height:11px;border-radius:6px}',
+                '.bs-lead{font-size:14px;color:#5F5E5A;margin:14px 0 0;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
+                '.bs-section-h{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A887F;font-weight:700;margin:0 0 18px;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}',
+                '.bs-row:last-child{margin-bottom:0}',
+                '.bs-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}',
+                '.bs-name{width:172px;flex:0 0 auto;font-size:13.5px;color:#5F5E5A;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-bar{flex:1;background:#EFEDE6;border-radius:5px;height:18px;overflow:hidden}',
+                '.bs-bar>span{display:block;height:18px;border-radius:5px}',
+                '.bs-status{width:82px;flex:0 0 auto;text-align:right;font-size:12.5px;font-weight:600;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-journey-title{font-size:15px;font-weight:600;color:#2C2C2A;margin:0 0 4px;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-journey-lead{font-size:13.5px;color:#5F5E5A;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
+                '.bs-journey-cap{font-size:11.5px;color:#8A887F;margin:8px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-risk-h{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#2C2C2A;margin:0 0 12px}',
+                '.bs-risk-p{font-size:14px;color:#5F5E5A;margin:0 0 16px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.65}',
+                '.bs-next{background:#F1F6F4;border-left:4px solid #0F6E56;border-radius:8px;padding:14px 16px}',
+                '.bs-next-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#0F6E56;font-weight:700;margin:0 0 5px;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-next-text{font-size:13.5px;color:#5F5E5A;margin:0;line-height:1.55;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-inaction{background:#FAEEDA;border-radius:16px;padding:20px 24px}',
+                '.bs-inaction p{font-size:13.5px;color:#6E4309;margin:0;line-height:1.65;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '.bs-cta{display:block;width:100%;background:#B8932F;color:#2C2C2A;text-decoration:none;text-align:center;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;box-sizing:border-box}',
+                '.bs-cta:hover{background:#A8841F}',
+                '.bs-foot{text-align:center;font-size:11.5px;color:#8A887F;margin:4px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
+                '@media(max-width:520px){.bs-card{padding:20px 18px}.bs-score{font-size:42px}.bs-name{width:118px;font-size:12.5px}.bs-status{width:66px;font-size:11.5px}}'
+            ]["join"]('');
+            document["head"]["appendChild"](_0x5a1a9f);
+        }
+        _0x470275["innerHTML"] = '<div class="bs-wrap">' +
+            '<div class="bs-card">' +
+            '<p class="bs-eyebrow">Seu diagnóstico de pontos cegos</p>' +
+            '<div><span class="bs-score">' + _0x300d0d + '%</span>' +
+            '<span class="bs-badge" style="background:' + _0x44149b['bg'] + ';color:' + _0x44149b['color'] + '">' + _0x4ef337['label'] + '</span></div>' +
+            '<div class="bs-track"><div class="bs-fill" style="width:' + _0x300d0d + '%;background:' + _0x5efb36 + '"></div></div>' +
+            '<p class="bs-lead">' + _0x4ef337['description'] + '</p>' +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<h2 class="bs-section-h">Onde está o seu risco</h2>' +
+            bsRows +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<p class="bs-journey-title">Onde você está na jornada</p>' +
+            '<p class="bs-journey-lead">' + _0x5d85b5 + '</p>' +
+            svgJourney +
+            '<p class="bs-journey-cap">Tempo médio até o fechamento conforme a maturidade do vendedor. A posição acompanha o seu score: quanto mais alto, mais perto da negociação.</p>' +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<p class="bs-risk-h">O seu maior risco hoje está em <span style="color:' + _0x282b25['text'] + '">' + (_0x2c5d2b['label'] || '') + '</span></p>' +
+            '<p class="bs-risk-p">' + (_0x18181a["scoring"]["resultText"] || '') + '</p>' +
+            '<div class="bs-next"><p class="bs-next-label">Próximo passo</p>' +
+            '<p class="bs-next-text">' + (_0x2c5d2b['action'] || '') + '</p></div>' +
+            '</div>' +
+            calloutHTML + ctaHTML +
+            '<p class="bs-foot">ADVISIA Investimentos · ' + _0x18181a['title'] + '</p>' +
+            '<div style="text-align:center"><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
+            '</div>';
         _0x3a5033["appendChild"](_0x470275);
-        const _0x3554b2 = _0xdd5eb9("result-header " + _0x4ef337["class"]);
-        _0x3554b2['innerHTML'] = '\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22result-score-label\x22>SEU\x20DIAGNÓSTICO\x20DE\x20PONTOS\x20CEGOS</div>\x0a\x20\x20\x20\x20\x20\x20<div\x20style=\x22display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22result-score-val\x22>' + _0x300d0d + "%</div>\n        <span style=\"background:" + _0x44149b['bg'] + ";color:" + _0x44149b['color'] + ";padding:5px 14px;border-radius:4px;font-family:var(--mo);font-size:12px;letter-spacing:.08em;font-weight:500;\">" + _0x4ef337['label'] + "</span>\n      </div>\n      <div class=\"progress-bar\" style=\"height:4px;margin-bottom:14px;\">\n        <div class=\"progress-fill\" style=\"width:" + _0x300d0d + "%;background:" + _0x5efb36 + ";\"></div>\n      </div>\n      <p class=\"result-desc\" style=\"margin:0;\">" + _0x4ef337["description"] + "</p>\n    ", _0x470275["appendChild"](_0x3554b2);
-        const _0x3bff29 = _0xdd5eb9('chart-wrapper');
-        _0x3bff29['innerHTML'] = "<div class=\"chart-title\">ONDE ESTÁ O SEU RISCO</div>", (_0x5f3b63["blindspots"] || [])["forEach"](_0x2f340a => {
-            const _0x46a741 = _0x2ffbc9,
-                _0x3d758a = _0x219d12[_0x2f340a['signal']] || _0x219d12["red"],
-                _0x24d602 = Math["round"](_0x2f340a["pct"] * 0x64),
-                _0x13807a = document["createElement"]('div');
-            _0x13807a["style"]['cssText'] = 'display:grid;grid-template-columns:1fr\x202fr\x20auto;align-items:center;gap:12px;margin-bottom:12px;';
-            const _0x5ddb3a = document['createElement']("div");
-            _0x5ddb3a["style"]["cssText"] = "display:flex;align-items:center;gap:8px;", _0x5ddb3a["innerHTML"] = "<span style=\"width:10px;height:10px;border-radius:50%;background:" + _0x3d758a["barColor"] + ";flex-shrink:0;display:inline-block;\"></span><span style=\"font-family:var(--ep);font-size:13px;color:var(--navy);line-height:1.3;\">" + _0x2f340a["label"] + '</span>';
-            const _0x49f3ce = document["createElement"]('div');
-            _0x49f3ce["style"]['cssText'] = "height:10px;background:#EEF2F9;border-radius:3px;overflow:hidden;", _0x49f3ce["innerHTML"] = "<div style=\"width:" + _0x24d602 + "%;height:100%;background:" + _0x3d758a["barColor"] + ";border-radius:3px;\"></div>";
-            const _0x5215a1 = document['createElement']("span");
-            _0x5215a1["style"]['cssText'] = "font-family:var(--mo);font-size:11px;color:" + _0x3d758a["color"] + ';text-align:right;white-space:nowrap;', _0x5215a1["textContent"] = _0x3d758a['label'], _0x13807a['appendChild'](_0x5ddb3a), _0x13807a["appendChild"](_0x49f3ce), _0x13807a['appendChild'](_0x5215a1), _0x3bff29["appendChild"](_0x13807a);
-        }), _0x470275["appendChild"](_0x3bff29);
-        const _0x4ae2b0 = _0xdd5eb9("chart-wrapper");
-        _0x4ae2b0['innerHTML'] = "\n      <div class=\"chart-title\">ONDE VOCÊ ESTÁ NA JORNADA</div>\n      <p style=\"font-family:var(--ep);font-size:14px;color:var(--slate);line-height:1.6;margin:0 0 16px;\">" + _0x5d85b5 + "</p>\n      <div id=\"qe-journey-chart\" style=\"height:220px;\"></div>\n      <p style=\"font-family:var(--mo);font-size:10px;color:var(--slate);margin:8px 0 0;opacity:.7;\">Tempo médio até o fechamento conforme a maturidade do vendedor. A posição acompanha o seu score: quanto mais alto, mais perto da negociação.</p>\n    ", _0x470275["appendChild"](_0x4ae2b0);
-        const _0x2240dd = _0xdd5eb9("chart-wrapper");
-        _0x2240dd["innerHTML"] = "\n      <p style=\"font-family:var(--ep);font-size:16px;font-weight:600;color:var(--navy);margin:0 0 10px;line-height:1.4;\">O seu maior risco hoje está em <span style=\"color:" + _0x282b25['color'] + '\x22>' + (_0x2c5d2b["label"] || '') + "</span></p>\n      <p style=\"font-family:var(--ep);font-size:14px;color:var(--slate);line-height:1.65;margin:0 0 18px;\">" + (_0x18181a["scoring"]["resultText"] || '') + "</p>\n      <div style=\"border-left:3px solid var(--gold);padding-left:16px;\">\n        <div style=\"font-family:var(--mo);font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;\">PRÓXIMO PASSO</div>\n        <p style=\"font-family:var(--ep);font-size:14px;color:var(--slate);line-height:1.6;margin:0;\">" + (_0x2c5d2b["action"] || '') + "</p>\n      </div>\n    ", _0x470275["appendChild"](_0x2240dd);
-        if (_0x18181a["scoring"]["callout"]) {
-            const _0x5a1a9f = _0xdd5eb9('');
-            _0x5a1a9f["style"]["cssText"] = "background:#FFF8E1;border:1px solid #E8D5A0;border-radius:6px;padding:20px 22px;margin-bottom:8px;", _0x5a1a9f['innerHTML'] = '<p\x20style=\x22font-family:var(--ep);font-size:14px;color:var(--navy);line-height:1.7;margin:0;\x22>' + _0x18181a['scoring']["callout"] + '</p>', _0x470275["appendChild"](_0x5a1a9f);
-        }
-        const _0x1f509f = _0xdd5eb9('result-ctas');
-        if (_0x18181a["scoring"]["cta"]) {
-            const _0x1d48ff = document['createElement']('a');
-            _0x1d48ff['href'] = _0x18181a["scoring"]["cta"]["href"], _0x1d48ff["className"] = "btn-gold", _0x1d48ff["style"]["cssText"] = "text-align:center;flex:1;", _0x1d48ff["innerHTML"] = _0x18181a['scoring']["cta"]['label'], _0x1f509f["appendChild"](_0x1d48ff);
-        }
-        const _0x3e0bea = document["createElement"]('a');
-        _0x3e0bea["href"] = "../index.html", _0x3e0bea["className"] = "btn-navy", _0x3e0bea["textContent"] = '←\x20Ver\x20outras\x20ferramentas', _0x1f509f["appendChild"](_0x3e0bea);
-        const _0x13f045 = document["createElement"]("button");
-        _0x13f045['className'] = "btn-outline", _0x13f045["style"]["cssText"] = "color:var(--slate);border-color:var(--ruledark);", _0x13f045["textContent"] = "Refazer →", _0x13f045['onclick'] = () => {
-            const _0x5ac327 = _0x2ffbc9;
-            _0x274703 = {
-                'screen': "welcome",
-                'qi': 0x0,
-                'answers': {},
-                'captured': ![]
-            }, _0x4bb4a5();
-        }, _0x1f509f['appendChild'](_0x13f045), _0x470275["appendChild"](_0x1f509f);
-        if (window['Highcharts'] && _0x45a612["length"] > 0x0) {
-            const _0x288e0f = _0x45a612["indexOf"](_0x250eee);
-            setTimeout(() => {
-                const _0x207039 = _0x2ffbc9;
-                Highcharts["chart"]("qe-journey-chart", {
-                    'chart': {
-                        'backgroundColor': "#fff",
-                        'style': {
-                            'fontFamily': "'Epilogue',sans-serif"
-                        },
-                        'type': 'line'
-                    },
-                    'title': {
-                        'text': ''
-                    },
-                    'xAxis': {
-                        'categories': _0x45a612["map"](_0x2eae09 => _0x2eae09["label"]),
-                        'labels': {
-                            'style': {
-                                'fontSize': "10px",
-                                'color': "#6B7A8D"
-                            }
-                        },
-                        'lineColor': '#EEF2F9',
-                        'tickColor': "#EEF2F9",
-                        'plotLines': _0x288e0f >= 0x0 ? [{
-                            'value': _0x288e0f,
-                            'color': "#B8952A",
-                            'dashStyle': "Dash",
-                            'width': 0x1,
-                            'label': {
-                                'text': 'você\x20está\x20aqui',
-                                'rotation': 0x0,
-                                'align': "center",
-                                'style': {
-                                    'color': "#B8952A",
-                                    'fontSize': '10px',
-                                    'fontFamily': "'DM Mono',monospace"
-                                },
-                                'y': 0x12
-                            }
-                        }] : []
-                    },
-                    'yAxis': {
-                        'title': {
-                            'text': "Meses médios",
-                            'style': {
-                                'fontSize': "10px",
-                                'color': '#6B7A8D'
-                            }
-                        },
-                        'labels': {
-                            'style': {
-                                'fontSize': "10px"
-                            }
-                        },
-                        'gridLineColor': "#EEF2F9",
-                        'min': 0x0
-                    },
-                    'series': [{
-                        'name': 'Tempo\x20até\x20o\x20deal',
-                        'data': _0x45a612["map"]((_0x12ba89, _0x23a86b) => ({
-                            'y': _0x12ba89['months'],
-                            'marker': _0x23a86b === _0x288e0f ? {
-                                'fillColor': '#B8952A',
-                                'radius': 0x7,
-                                'lineColor': "#fff",
-                                'lineWidth': 0x2
-                            } : {
-                                'fillColor': "#1B3A7A",
-                                'radius': 0x4
-                            }
-                        })),
-                        'color': "#1B3A7A",
-                        'lineWidth': 0x2,
-                        'marker': {
-                            'enabled': !![]
-                        }
-                    }],
-                    'legend': {
-                        'enabled': !![],
-                        'itemStyle': {
-                            'fontFamily': "'DM Mono',monospace",
-                            'fontSize': "10px",
-                            'fontWeight': "400",
-                            'color': "#6B7A8D"
-                        }
-                    },
-                    'credits': {
-                        'enabled': ![]
-                    },
-                    'tooltip': {
-                        'pointFormat': "<b>{point.y} meses</b>"
-                    }
-                });
-            }, 0x50);
-        }
+        _0x470275["querySelector"]('#btn-restart')["onclick"] = () => {
+            _0x274703 = { 'screen': "welcome", 'qi': 0x0, 'answers': {}, 'captured': ![] };
+            _0x4bb4a5();
+        };
     }
 
     function _0x3b5628() {
