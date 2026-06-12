@@ -1123,7 +1123,7 @@ const QuizEngine = ((() => {
         const benchCentral = (benchMin + benchMax) / 2;
         const consultEbitda = ebitda * 1.1;
         const consultMin = consultEbitda * multipleRange.min * noCompanyDiscount;
-        const consultMax = consultEbitda * multipleRange.max * noCompanyDiscount;
+        const consultMax = ebitda * multipleRange.max * noCompanyDiscount;
         const consultCentral = (consultMin + consultMax) / 2;
         const equityValue = divida > 0 ? evCentral - divida : null;
         const attrPct = benchCentral > 0 ? evCentral / benchCentral : 0;
