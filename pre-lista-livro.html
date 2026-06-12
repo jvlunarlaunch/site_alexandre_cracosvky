@@ -561,7 +561,7 @@ body::before{
       btn.style.opacity = '.6';
       btn.innerHTML = 'Registrando&hellip;';
       if(window._sb){
-        window._sb.from('lista_livro_alexandre_cracovsky').insert({nome:name,email:email});
+        window._sb.from('lista_livro_alexandre_cracovsky').insert({nome:name,email:email}).then(function(){},function(){});
       }
       setTimeout(function(){
         success.style.display = 'block';

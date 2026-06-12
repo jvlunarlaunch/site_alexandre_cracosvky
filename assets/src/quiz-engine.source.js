@@ -366,7 +366,7 @@ const QuizEngine = ((() => {
                         'respostas': _0x274703["answers"],
                         'score': _0x5bd6ad['main']
                     };
-                _0x1a906f ? (_0x355bf5["empresa"] = _0x4ee383["empresa"], _0x355bf5["tamanho"] = _0x4ee383["tam"], _0x355bf5["faturamento"] = _0x4ee383["fat"]) : _0x355bf5["nivel"] = _0x4ee383["nivel"], window["_sb"]['from']("isca_" + _0x18181a['id'] + '_alexandre_cracovsky')["insert"](_0x355bf5);
+                _0x1a906f ? (_0x355bf5["empresa"] = _0x4ee383["empresa"], _0x355bf5["tamanho"] = _0x4ee383["tam"], _0x355bf5["faturamento"] = _0x4ee383["fat"]) : _0x355bf5["nivel"] = _0x4ee383["nivel"], window["_sb"]['from']("isca_" + _0x18181a['id'] + '_alexandre_cracovsky')["insert"](_0x355bf5)["then"](function() {}, function() {});
             }
             _0x274703['captured'] = !![], _0x274703["lead"] = _0x4ee383, _0x274703["screen"] = "result", _0x4bb4a5();
         }

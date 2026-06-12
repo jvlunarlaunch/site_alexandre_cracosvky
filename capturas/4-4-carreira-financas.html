@@ -55,7 +55,7 @@
     steps: StepForm.CAPTURAS_STEPS,
     submitLabel: 'Quero receber gratuitamente →',
     onSubmit: function(data, done) {
-      if (window._sb) { window._sb.from('carreira_financas_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null,nivel:data.nivel||null,objetivo:data.objetivo||null}); }
+      if (window._sb) { window._sb.from('carreira_financas_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null,nivel:data.nivel||null,objetivo:data.objetivo||null}).then(function(){},function(){}); }
       done();
     }
   });

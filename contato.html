@@ -332,7 +332,7 @@
           whatsapp: data.whatsapp || null,
           assunto: data.assunto || null,
           mensagem: data.mensagem
-        });
+        }).then(function(){},function(){});
       }
       done();
     }

@@ -419,7 +419,7 @@
     successDesc: 'Seus dados foram recebidos. O download começou automaticamente.',
     successExtra: '<a href="../assets/corporate-lideranca-carreira.pdf" download="Corporate-Lideranca-Carreira-Alexandre-Cracovsky.pdf" style="display:inline-block;background:var(--gold);color:var(--navy);font-family:var(--ep);font-weight:600;font-size:14px;padding:12px 24px;border-radius:2px;text-decoration:none;letter-spacing:.04em;">⬇ Baixar agora</a>',
     onSubmit: function(data, done) {
-      if (window._sb) { window._sb.from('corporate_lideranca_carreira_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null,nivel:data.nivel||null,objetivo:data.objetivo||null}); }
+      if (window._sb) { window._sb.from('corporate_lideranca_carreira_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null,nivel:data.nivel||null,objetivo:data.objetivo||null}).then(function(){},function(){}); }
       done();
     },
     onSuccess: function() {
