@@ -60,14 +60,7 @@ All visual changes should touch CSS variables, not scattered inline styles.
 
 `QuizEngine` IIFE. Manages four screens: **welcome → question → capture (lead gen form) → result** (with Highcharts charts). Do not modify unless changing quiz engine behaviour.
 
-**The readable source lives at `assets/src/quiz-engine.source.js`** (committed to the repo, excluded from FTP deploy). Never edit `assets/quiz-engine.js` directly — edit the source and regenerate the obfuscated build:
-
-```bash
-npx javascript-obfuscator assets/src/quiz-engine.source.js --output assets/quiz-engine.js \
-  --compact true --string-array true --string-array-encoding base64 --string-array-threshold 1 \
-  --string-array-rotate true --string-array-shuffle true \
-  --identifier-names-generator hexadecimal --identifiers-prefix a1
-```
+**Edit `assets/quiz-engine.js` directly** — o arquivo é legível e é a fonte de verdade. Não há mais etapa de ofuscação. `assets/src/quiz-engine.source.js` é uma cópia idêntica mantida por histórico; mantenha-os em sincronia ao editar.
 
 Note: `diagnostico/9.html` does **not** use the engine — it has its own self-contained inline script.
 
