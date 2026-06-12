@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static lead-magnet site for Alexandre Cracovsky (M&A professor / CFA). No build step, no bundler, no package manager. **All HTML files are edited directly** — `index.html`, `iscas/isca-*.html`, and `capturas/*.html` are the source of truth.
+Static lead-magnet site for Alexandre Cracovsky (M&A professor / CFA). No build step, no bundler, no package manager. **All HTML files are edited directly** — `index.html`, `diagnostico/*.html`, and `capturas/*.html` are the source of truth.
 
 > `generator.py` and `setup.sh` still exist but are no longer the workflow. Do not run them or use them as a reference for current site state.
 
@@ -25,20 +25,22 @@ The workflow uses diff-based sync via `.ftp-deploy-sync-state.json` stored at th
 
 ### `index.html` — homepage
 
-Split-screen choice page: "Sou Empreendedor" (anchor `#empreendedor`) / "Sou Estudante" (anchor `#estudante`). Each leads to its own section of quiz cards below.
-
-- Empreendedor section: iscas 1, 2, 3, 4, 5, 13 (M&A and valuation diagnostics for business owners)
-- Estudante section: iscas 6, 7, 8 + PDF download (CFA, valuation theory, career)
+Hero + split-screen choice ("Sou Empreendedor" / "Sou Estudante" linking to `/empreendedor` and `/estudante`) + bio, book teaser, newsletter and channels sections. The quiz cards themselves live on the segment pages, not here.
 
 ### `empreendedor.html` / `estudante.html` — segment landing pages
 
-Dedicated pages for each audience. Each renders the same quiz cards as their respective section of `index.html` but on a standalone URL. Nav cross-links them. Edit card content here (or `index.html`) depending on where they appear.
+Dedicated pages for each audience, each with its own set of quiz cards:
+
+- `empreendedor.html`: diagnósticos 1, 2, 3, 4, 5, 13 (M&A and valuation diagnostics for business owners)
+- `estudante.html`: diagnósticos 6, 7, 9 + PDF bundle download (CFA, valuation theory, career)
+
+Nav cross-links them. Internal links use clean extensionless URLs (`/diagnostico/N`, `/capturas/slug`) — `.htaccess` strips `.html` and 301-redirects the legacy `/iscas/isca-N` URLs to `/diagnostico/N`.
 
 Inline `<style>` in `<head>` contains the split-screen CSS. Inline `<script>` just above `</head>` handles the mobile touch animation.
 
-### `iscas/isca-N.html` — quiz pages
+### `diagnostico/N.html` — quiz pages
 
-Each quiz page embeds its config as a `const QUIZ_CONFIG = {...}` JSON object and initialises the engine with `QuizEngine.init(el, QUIZ_CONFIG)`. To change quiz content, edit the JSON directly in the file.
+Each quiz page embeds its config as a `const QUIZ_CONFIG = {...}` JSON object and initialises the engine with `QuizEngine.init(el, QUIZ_CONFIG)`. To change quiz content, edit the JSON directly in the file. Exception: `diagnostico/9.html` does not use the engine — it has its own self-contained inline script.
 
 ### `pre-lista-livro.html` — book waitlist page
 
@@ -60,9 +62,7 @@ All visual changes should touch CSS variables, not scattered inline styles.
 
 `QuizEngine` IIFE. Manages four screens: **welcome → question → capture (lead gen form) → result** (with Highcharts charts). Do not modify unless changing quiz engine behaviour.
 
-**Edit `assets/quiz-engine.js` directly** — o arquivo é legível e é a fonte de verdade. Não há mais etapa de ofuscação. `assets/src/quiz-engine.source.js` é uma cópia idêntica mantida por histórico; mantenha-os em sincronia ao editar.
-
-Note: `diagnostico/9.html` does **not** use the engine — it has its own self-contained inline script.
+**Edit `assets/quiz-engine.js` directly** — é o único arquivo fonte; sem etapa de build ou ofuscação.
 
 ### `highcharts.js` / `highcharts-more.js` — vendored Highcharts
 
@@ -70,11 +70,11 @@ Required for polar/radar charts. Do not modify.
 
 ## Reference files
 
-- `iscas_digitais.md` — full specification of every quiz: formulas, scoring bands, question dimensions, and which Highcharts chart types each quiz uses. Consult this before editing `QUIZ_CONFIG` in any isca.
+- `iscas_digitais.md` — full specification of every quiz: formulas, scoring bands, question dimensions, and which Highcharts chart types each quiz uses. Consult this before editing `QUIZ_CONFIG` in any diagnóstico. (The filename keeps the old "iscas" naming; the pages themselves live in `diagnostico/`.)
 
 ## Key Conventions
 
-- **Quiz IDs are not sequential.** Current set: 1–8 and 13. Filename `isca-N.html` matches the quiz `id` in its JSON.
-- To add a new quiz: create `iscas/isca-N.html` by copying an existing one and replacing the JSON config. Then add a card to the correct segment section in `index.html`.
+- **Quiz IDs are not sequential.** Current set: 1–9 and 13. Filename `diagnostico/N.html` matches the quiz `id` in its JSON. (`8.html` exists but is not currently linked from any page.)
+- To add a new quiz: create `diagnostico/N.html` by copying an existing one and replacing the JSON config. Then add a card to `empreendedor.html` or `estudante.html` depending on the audience.
 - `design_system_v31_navy_gold.html` — standalone visual reference for the design system; not part of the live site.
 - `isca_modelo_de_diagnóstico/` — a separate subproject with its own `CLAUDE.md` and `generator.py`. Independent from this site.

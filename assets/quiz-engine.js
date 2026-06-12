@@ -1,4 +1,3 @@
-/* Fonte legível do quiz-engine. Editar AQUI; copiar para assets/quiz-engine.js (sem ofuscação). */
 const QuizEngine = ((() => {
     let config, el, state;
 

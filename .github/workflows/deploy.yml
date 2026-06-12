@@ -41,7 +41,6 @@ jobs:
             **/.git*/**
             **/.github/**
             **/node_modules/**
-            **/assets/src/**
             .gitignore
 
       - name: Aguardar antes do retry
@@ -64,5 +63,4 @@ jobs:
             **/.git*/**
             **/.github/**
             **/node_modules/**
-            **/assets/src/**
             .gitignore
