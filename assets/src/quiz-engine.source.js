@@ -563,20 +563,116 @@ const QuizEngine = ((() => {
     }
 
     function _0x250e75(_0x2e2766) {
-        const _0x29c0f9 = a0_0x526a,
-            _0x39179e = _0xdd5eb9("quiz-screen active"),
-            _0xb153fa = _0x2e2766["attrClass"] === "success" ? "#1B7A3A" : _0x2e2766["attrClass"] === 'warning' ? '#B8952A' : "#9A2020",
-            _0x13f7b9 = _0x2e2766['equityValue'] !== null ? "<div style=\"font-family:var(--mo);font-size:12px;color:var(--slate);margin-top:8px;\">Equity Value (mid): <strong>R$ " + _0x263ccb(_0x2e2766["equityValue"]) + '</strong></div>' : '',
-            _0x250eaa = _0x2e2766['upliftPct']["toFixed"](0x1);
-        _0x39179e["innerHTML"] = "\n      <div class=\"result-header " + _0x2e2766["attrClass"] + "\">\n        <p class=\"result-desc\" style=\"margin-bottom:16px;\">O valuation real exige a an\xe1lise do fluxo de caixa por tr\xe1s dele. Partindo do benchmark do seu setor e descontando porte e riscos, a estimativa do EV/EBITDA da sua empresa indica:</p>\n        <div class=\"result-intro-label\">Enterprise Value estimado:</div>\n        <div style=\"font-family:var(--mo);font-size:clamp(1rem,2.2vw,1.25rem);color:var(--gold2);letter-spacing:.04em;margin:6px 0;\">R$ " + _0x263ccb(_0x2e2766["min"]) + " — R$ " + _0x263ccb(_0x2e2766['max']) + "</div>\n        <div class=\"result-score-val\">R$ " + _0x263ccb(_0x2e2766["main"]) + "</div>\n        <div style=\"display:inline-block;background:" + _0xb153fa + ";color:#fff;padding:4px 14px;border-radius:4px;font-family:var(--mo);font-size:11px;letter-spacing:.1em;margin-top:8px;\">\n          Atratividade: " + _0x2e2766['attrLabel'] + " · " + Math["round"](_0x2e2766['attrPct'] * 0x64) + '%\x20do\x20benchmark\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20' + _0x13f7b9 + "\n        <p class=\"result-desc\"><strong>+" + _0x250eaa + "% com prepara\xe7\xe3o</strong></p>\n      </div>\n      <div id=\"charts-area\"></div>\n      <div class=\"result-ctas\">\n        <a href=\"../index.html\" class=\"btn-navy\">← Ver outras ferramentas</a>\n        <button class=\"btn-outline\" id=\"btn-restart\" style=\"color:var(--slate);border-color:var(--ruledark);\">Refazer →</button>\n      </div>\n    ", _0x3a5033["appendChild"](_0x39179e), _0x39179e['querySelector']("#btn-restart")['onclick'] = () => {
-            const _0x2069cc = _0x29c0f9;
-            _0x274703 = {
-                'screen': "welcome",
-                'qi': 0x0,
-                'answers': {},
-                'captured': ![]
-            }, _0x4bb4a5();
-        }, _0x4b73db(_0x2e2766, _0x39179e["querySelector"]("#charts-area"));
+        const _0x39179e = _0xdd5eb9("quiz-screen active");
+
+        // Compact million formatter: 195000000 → "195 mi", 1500000000 → "1.5B"
+        function qeFmtM(v) {
+            if (v >= 1e9) return (v / 1e9).toFixed(1) + 'B';
+            if (v >= 1e6) { const m = v / 1e6; return (m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)) + ' mi'; }
+            return _0x263ccb(v);
+        }
+
+        // Football field: axis + 3 horizontal bars in SVG
+        function qeFFSvg() {
+            const toM = v => v / 1e6;
+            const vals = [_0x2e2766['min'], _0x2e2766['max'], _0x2e2766['benchMin'], _0x2e2766['benchMax'], _0x2e2766['consultMin'], _0x2e2766['consultMax']].map(toM);
+            const dMin = Math.min.apply(null, vals), dMax = Math.max.apply(null, vals);
+            const padding = (dMax - dMin) * 0.1 || dMax * 0.1 || 10;
+            const rawStep = (dMax - dMin + 2 * padding) / 4;
+            const mag = Math.pow(10, Math.floor(Math.log10(rawStep || 1)));
+            const norm = rawStep / mag;
+            const step = (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10) * mag;
+            const axMin = Math.floor((dMin - padding) / step) * step;
+            const nSteps = Math.max(4, Math.ceil((dMax + padding - axMin) / step));
+            const axMax = axMin + nSteps * step;
+            const XS = 70, XE = 540, span = axMax - axMin;
+            const xp = vM => +(XS + (vM - axMin) / span * (XE - XS)).toFixed(1);
+            let tickHtml = '';
+            for (let i = 0; i <= nSteps; i++) {
+                const t = +(axMin + i * step).toFixed(10);
+                tickHtml += `<text x="${xp(t)}" y="48">${t % 1 === 0 ? t : t.toFixed(1)}</text>`;
+            }
+            const row = (lo, hi, mid, fill, label) => {
+                const x1 = xp(toM(lo)), x2 = xp(toM(hi)), xm = xp(toM(mid));
+                const w = Math.max(x2 - x1, 2).toFixed(1);
+                return `<div style="margin-bottom:14px"><p style="font-size:13px;color:#5F5E5A;margin:0 0 4px"><b style="color:#2C2C2A">${label}</b> · R$ ${qeFmtM(lo)} – R$ ${qeFmtM(hi)} · central R$ ${qeFmtM(mid)}</p><svg viewBox="0 0 560 26" width="100%"><rect x="${x1}" y="3" width="${w}" height="20" rx="4" fill="${fill}" fill-opacity="0.85"></rect><line x1="${xm}" y1="0" x2="${xm}" y2="26" stroke="#FFFFFF" stroke-width="2"></line></svg></div>`;
+            };
+            return `<svg viewBox="0 0 560 60" width="100%" style="margin-top:6px"><line x1="${XS}" y1="30" x2="${XE}" y2="30" stroke="#C9C7BD" stroke-width="1"></line><g font-size="10" fill="#8A887F" text-anchor="middle">${tickHtml}</g><text x="${((XS + XE) / 2).toFixed(0)}" y="16" text-anchor="middle" font-size="10" fill="#5F5E5A">Enterprise Value (R$ milhões)</text></svg>${row(_0x2e2766['min'], _0x2e2766['max'], _0x2e2766['main'], '#4F77AB', 'Sua empresa')}${row(_0x2e2766['benchMin'], _0x2e2766['benchMax'], _0x2e2766['benchCentral'], '#B8932F', 'Benchmark do setor')}${row(_0x2e2766['consultMin'], _0x2e2766['consultMax'], _0x2e2766['consultCentral'], '#0F6E56', 'Potencial com preparo')}<p style="font-size:11px;color:#8A887F;margin:8px 0 0">A linha branca marca o valor central de cada faixa.</p>`;
+        }
+
+        // Donut: SVG pie chart showing discount breakdown
+        function qeDonutSvg() {
+            const d = _0x2e2766['discountAmounts'];
+            if (!d) return '';
+            const sliceDefs = [
+                { key: 'valorRetido', label: 'Valor retido',               color: '#1A2A52' },
+                { key: 'company',     label: 'Risco específico da empresa', color: '#B8932F' },
+                { key: 'liquidez',    label: 'Liquidez',                    color: '#0F6E56' },
+                { key: 'regiao',      label: 'Mercado local (região)',       color: '#A8843C' },
+                { key: 'porte',       label: 'Porte',                       color: '#888780' },
+            ];
+            const active = sliceDefs.filter(s => d[s.key] > 0);
+            const total = active.reduce((acc, s) => acc + d[s.key], 0);
+            if (total <= 0) return '';
+            const circ = 2 * Math.PI * 70;
+            let offset = 0, circles = '', legItems = '';
+            const retidoPct = Math.round((d['valorRetido'] || 0) / total * 100);
+            active.forEach(s => {
+                const pct = d[s.key] / total;
+                const len = pct * circ;
+                circles += `<circle cx="90" cy="90" r="70" stroke="${s.color}" stroke-width="22" fill="none" stroke-dasharray="${len.toFixed(2)} ${(circ - len).toFixed(2)}" stroke-dashoffset="${(-offset).toFixed(2)}"></circle>`;
+                legItems += `<span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:3px;flex:0 0 auto;background:${s.color}"></span>${s.label} · ${Math.round(pct * 100)}%</span>`;
+                offset += len;
+            });
+            const totalDiscPct = Math.round((1 - (d['valorRetido'] || 0) / total) * 100);
+            return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 180 180" width="160" height="160"><g transform="rotate(-90 90 90)">${circles}</g><text x="90" y="84" text-anchor="middle" font-size="13" fill="#5F5E5A">Valor</text><text x="90" y="104" text-anchor="middle" font-size="22" font-weight="700" fill="#1A2A52">${retidoPct}%</text></svg><div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#5F5E5A">${legItems}</div></div><p style="font-size:11px;color:#8A887F;margin:14px 0 0">Os descontos somam ${totalDiscPct}% do valor de referência. O risco específico da empresa é o fator mais endereçável com preparo.</p>`;
+        }
+
+        const qeDebt = _0x2e2766['equityValue'] !== null ? (_0x2e2766['main'] - _0x2e2766['equityValue']) : 0;
+        const qeEquityLine = (_0x2e2766['equityValue'] !== null && qeDebt > 0)
+            ? `<p style="font-size:14px;color:#5F5E5A;margin:14px 0 0">Descontada a dívida líquida (<b style="color:#2C2C2A">R$ ${qeFmtM(qeDebt)}</b>) do ponto médio, o <b style="color:#2C2C2A">equity value</b> estimado fica em torno de <b style="color:#2C2C2A">R$ ${qeFmtM(_0x2e2766['equityValue'])}</b>.</p>`
+            : '';
+        const qeBadge = _0x2e2766['attrClass'] === 'success'
+            ? { bg: '#E8F5E9', color: '#1B7A3A' }
+            : _0x2e2766['attrClass'] === 'warning'
+                ? { bg: '#FAEEDA', color: '#854F0B' }
+                : { bg: '#FDECEA', color: '#9A2020' };
+        const qeUplift = _0x2e2766['upliftPct'].toFixed(0);
+        const qeCtaLabel = (_0x18181a['scoring'] && _0x18181a['scoring']['cta'] && _0x18181a['scoring']['cta']['label']) || 'Falar sobre meu processo de M&amp;A';
+        const qeCtaHref  = (_0x18181a['scoring'] && _0x18181a['scoring']['cta'] && _0x18181a['scoring']['cta']['href'])  || '/contato';
+
+        _0x39179e['innerHTML'] = `<div style="display:flex;flex-direction:column;gap:16px;padding-bottom:8px">
+  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
+    <p style="font-size:15px;color:#2C2C2A;font-weight:500;line-height:1.6;margin:0">O valuation real exige a análise do fluxo de caixa por trás dele. Partindo do benchmark do seu setor e descontando porte e riscos, a estimativa do EV/EBITDA da sua empresa indica:</p>
+  </div>
+  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">Enterprise Value estimado</p>
+    <div><span style="font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;color:#1A2A52;line-height:1.05">R$ ${qeFmtM(_0x2e2766['min'])} – ${qeFmtM(_0x2e2766['max'])}</span><span style="display:inline-block;background:${qeBadge.bg};color:${qeBadge.color};font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px">Atratividade ${_0x2e2766['attrLabel']}</span></div>
+    ${qeEquityLine}
+  </div>
+  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">Onde você está na régua do setor</p>
+    ${qeFFSvg()}
+  </div>
+  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">O que está descontando o seu valor</p>
+    ${qeDonutSvg()}
+  </div>
+  <div style="background:#FAEEDA;border-radius:16px;padding:20px 24px">
+    <p style="font-family:Georgia,serif;font-size:clamp(1.4rem,4vw,1.875rem);font-weight:700;color:#854F0B;margin:0 0 6px">+${qeUplift}% de valuation</p>
+    <p style="font-size:13.5px;color:#6E4309;margin:0;line-height:1.6">Baseado na minha experiência em dezenas de projetos, um trabalho de preparação antes da venda costuma elevar tanto o múltiplo aplicado quanto o EBITDA normalizado, levando o valor de R$ ${qeFmtM(_0x2e2766['min'])} – R$ ${qeFmtM(_0x2e2766['max'])} para R$ ${qeFmtM(_0x2e2766['consultMin'])} – R$ ${qeFmtM(_0x2e2766['consultMax'])} (central R$ ${qeFmtM(_0x2e2766['consultCentral'])}). É a diferença entre vender a empresa como ela está e vendê-la pronta.</p>
+  </div>
+  <a href="${qeCtaHref}" style="display:block;background:#B8932F;color:#2C2C2A;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;text-align:center;text-decoration:none">${qeCtaLabel}</a>
+  <p style="font-size:11.5px;color:#8A887F;margin:0;text-align:center;line-height:1.5">Estimativa ilustrativa, com base em múltiplos de mercado por setor e porte e descontos de risco. Não substitui um valuation formal.</p>
+  <p style="text-align:center;font-size:11.5px;color:#8A887F;margin:0">Alexandre Cracovsky, CFA · Quanto vale a minha empresa agora?</p>
+  <div style="text-align:center;margin-top:4px"><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>
+</div>`;
+
+        _0x3a5033['appendChild'](_0x39179e);
+        _0x39179e.querySelector('#btn-restart').onclick = () => {
+            _0x274703 = { 'screen': 'welcome', 'qi': 0x0, 'answers': {}, 'captured': ![] };
+            _0x4bb4a5();
+        };
     }
 
     function _0x40ee4d(_0x319238) {
