@@ -49,10 +49,11 @@ const QUIZ_CONFIG = {
   "questions": [
     {
       "id": "receita",
-      "text": "Qual é a receita líquida anual da empresa? (em R$)",
+      "text": "Qual é a receita líquida anual da empresa? (em R$ milhões)",
       "type": "number",
-      "placeholder": "Ex: 5000000",
+      "placeholder": "Ex: 5",
       "min": 0,
+      "scale": 1000000,
       "dimension": "Financeiro"
     },
     {
@@ -65,10 +66,11 @@ const QUIZ_CONFIG = {
     },
     {
       "id": "divida_liquida",
-      "text": "Dívida líquida da empresa — Dívida total menos caixa disponível (R$, opcional)",
+      "text": "Dívida líquida da empresa — Dívida total menos caixa disponível (R$ milhões, opcional)",
       "type": "number",
-      "placeholder": "Ex: 1000000 (ou 0 se sem dívidas)",
+      "placeholder": "Ex: 1 (ou 0 se sem dívidas)",
       "min": 0,
+      "scale": 1000000,
       "dimension": "Financeiro",
       "optional": true
     },
@@ -230,15 +232,15 @@ QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
 (function() {
   var app = document.getElementById('quiz-app');
   var obs = new MutationObserver(function() {
-    var inp = app.querySelector('input[placeholder="Ex: 5000000"]');
+    var inp = app.querySelector('input[placeholder="Ex: 5"]');
     if (inp && !inp._fmtAttached) {
       inp._fmtAttached = true;
       var display = document.createElement('div');
       display.style.cssText = 'font-family:var(--mo);font-size:13px;color:var(--gold2);margin-top:8px;letter-spacing:.02em;min-height:20px;';
       inp.parentNode.insertBefore(display, inp.nextSibling);
       inp.addEventListener('input', function() {
-        var val = parseInt(inp.value, 10);
-        display.textContent = isNaN(val) || inp.value === '' ? '' : 'R$ ' + val.toLocaleString('pt-BR');
+        var val = parseFloat(inp.value);
+        display.textContent = isNaN(val) || inp.value === '' ? '' : '= R$ ' + (val * 1000000).toLocaleString('pt-BR');
       });
     }
   });

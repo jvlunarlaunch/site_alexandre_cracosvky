@@ -568,7 +568,7 @@ const QuizEngine = ((() => {
             _0xb153fa = _0x2e2766["attrClass"] === "success" ? "#1B7A3A" : _0x2e2766["attrClass"] === 'warning' ? '#B8952A' : "#9A2020",
             _0x13f7b9 = _0x2e2766['equityValue'] !== null ? "<div style=\"font-family:var(--mo);font-size:12px;color:var(--slate);margin-top:8px;\">Equity Value (mid): <strong>R$ " + _0x263ccb(_0x2e2766["equityValue"]) + '</strong></div>' : '',
             _0x250eaa = _0x2e2766['upliftPct']["toFixed"](0x1);
-        _0x39179e["innerHTML"] = "\n      <div class=\"result-header " + _0x2e2766["attrClass"] + "\">\n        <div class=\"result-intro-label\">Enterprise Value estimado:</div>\n        <div style=\"font-family:var(--mo);font-size:clamp(1rem,2.2vw,1.25rem);color:var(--gold2);letter-spacing:.04em;margin:6px 0;\">R$ " + _0x263ccb(_0x2e2766["min"]) + " — R$ " + _0x263ccb(_0x2e2766['max']) + "</div>\n        <div class=\"result-score-val\">R$ " + _0x263ccb(_0x2e2766["main"]) + "</div>\n        <div style=\"display:inline-block;background:" + _0xb153fa + ";color:#fff;padding:4px 14px;border-radius:4px;font-family:var(--mo);font-size:11px;letter-spacing:.1em;margin-top:8px;\">\n          Atratividade: " + _0x2e2766['attrLabel'] + " · " + Math["round"](_0x2e2766['attrPct'] * 0x64) + '%\x20do\x20benchmark\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20' + _0x13f7b9 + "\n        <p class=\"result-desc\">O valuation real exige a análise de fluxo de caixa por trás dele. Uma análise do EV/EBITDA partindo do benchmark do seu setor e descontando porte e riscos indicam: <strong>+" + _0x250eaa + "% com preparação</strong></p>\n      </div>\n      <div id=\"charts-area\"></div>\n      <div class=\"result-ctas\">\n        <a href=\"../index.html\" class=\"btn-navy\">← Ver outras ferramentas</a>\n        <button class=\"btn-outline\" id=\"btn-restart\" style=\"color:var(--slate);border-color:var(--ruledark);\">Refazer →</button>\n      </div>\n    ", _0x3a5033["appendChild"](_0x39179e), _0x39179e['querySelector']("#btn-restart")['onclick'] = () => {
+        _0x39179e["innerHTML"] = "\n      <div class=\"result-header " + _0x2e2766["attrClass"] + "\">\n        <p class=\"result-desc\" style=\"margin-bottom:16px;\">O valuation real exige a an\xe1lise do fluxo de caixa por tr\xe1s dele. Partindo do benchmark do seu setor e descontando porte e riscos, a estimativa do EV/EBITDA da sua empresa indica:</p>\n        <div class=\"result-intro-label\">Enterprise Value estimado:</div>\n        <div style=\"font-family:var(--mo);font-size:clamp(1rem,2.2vw,1.25rem);color:var(--gold2);letter-spacing:.04em;margin:6px 0;\">R$ " + _0x263ccb(_0x2e2766["min"]) + " — R$ " + _0x263ccb(_0x2e2766['max']) + "</div>\n        <div class=\"result-score-val\">R$ " + _0x263ccb(_0x2e2766["main"]) + "</div>\n        <div style=\"display:inline-block;background:" + _0xb153fa + ";color:#fff;padding:4px 14px;border-radius:4px;font-family:var(--mo);font-size:11px;letter-spacing:.1em;margin-top:8px;\">\n          Atratividade: " + _0x2e2766['attrLabel'] + " · " + Math["round"](_0x2e2766['attrPct'] * 0x64) + '%\x20do\x20benchmark\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20' + _0x13f7b9 + "\n        <p class=\"result-desc\"><strong>+" + _0x250eaa + "% com prepara\xe7\xe3o</strong></p>\n      </div>\n      <div id=\"charts-area\"></div>\n      <div class=\"result-ctas\">\n        <a href=\"../index.html\" class=\"btn-navy\">← Ver outras ferramentas</a>\n        <button class=\"btn-outline\" id=\"btn-restart\" style=\"color:var(--slate);border-color:var(--ruledark);\">Refazer →</button>\n      </div>\n    ", _0x3a5033["appendChild"](_0x39179e), _0x39179e['querySelector']("#btn-restart")['onclick'] = () => {
             const _0x2069cc = _0x29c0f9;
             _0x274703 = {
                 'screen': "welcome",
@@ -997,11 +997,15 @@ const QuizEngine = ((() => {
 
     function _0xae649f() {
         const _0x18c632 = a0_0x526a,
-            _0x212f5d = +(_0x274703["answers"]["receita"] || 0x0),
+            _0x3qr = _0x18181a["questions"]["find"](q => q["id"] === "receita"),
+            _0x3qd = _0x18181a["questions"]["find"](q => q["id"] === "divida_liquida"),
+            _0x3sr = _0x3qr && _0x3qr["scale"] ? _0x3qr["scale"] : 1,
+            _0x3sd = _0x3qd && _0x3qd["scale"] ? _0x3qd["scale"] : 1,
+            _0x212f5d = +(_0x274703["answers"]["receita"] || 0x0) * _0x3sr,
             _0x827192 = +(_0x274703["answers"]['margem'] || 0x14) / 0x64,
             _0x49ff6b = _0x212f5d * _0x827192,
             _0x560769 = _0x274703['answers']["setor"] || "servicos_facilities",
-            _0x4a79ee = +(_0x274703["answers"]["divida_liquida"] || 0x0),
+            _0x4a79ee = +(_0x274703["answers"]["divida_liquida"] || 0x0) * _0x3sd,
             _0x543775 = _0x18181a["scoring"]["porteRanges"] || [];
         let _0x29ab07 = "grande",
             _0x712b9a = 0x0;
