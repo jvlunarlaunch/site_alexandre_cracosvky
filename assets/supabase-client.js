@@ -1,1 +1,18 @@
-function a0_0x45f7(_0x19ccd2,_0x40df08){_0x19ccd2=_0x19ccd2-0x1b7;var _0x838f8a=a0_0x838f();var _0x45f778=_0x838f8a[_0x19ccd2];if(a0_0x45f7['npVjQk']===undefined){var _0x4e5688=function(_0x57c3a5){var _0x2d7842='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';var _0x582165='',_0x5b98b2='';for(var _0xb164ac=0x0,_0xd1af77,_0x5cdedd,_0x5147e0=0x0;_0x5cdedd=_0x57c3a5['charAt'](_0x5147e0++);~_0x5cdedd&&(_0xd1af77=_0xb164ac%0x4?_0xd1af77*0x40+_0x5cdedd:_0x5cdedd,_0xb164ac++%0x4)?_0x582165+=String['fromCharCode'](0xff&_0xd1af77>>(-0x2*_0xb164ac&0x6)):0x0){_0x5cdedd=_0x2d7842['indexOf'](_0x5cdedd);}for(var _0x203f35=0x0,_0x436e41=_0x582165['length'];_0x203f35<_0x436e41;_0x203f35++){_0x5b98b2+='%'+('00'+_0x582165['charCodeAt'](_0x203f35)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x5b98b2);};a0_0x45f7['oAawfR']=_0x4e5688,a0_0x45f7['bBbYUo']={},a0_0x45f7['npVjQk']=!![];}var _0x3eb8be=_0x838f8a[0x0],_0x114647=_0x19ccd2+_0x3eb8be,_0x5ef115=a0_0x45f7['bBbYUo'][_0x114647];return!_0x5ef115?(_0x45f778=a0_0x45f7['oAawfR'](_0x45f778),a0_0x45f7['bBbYUo'][_0x114647]=_0x45f778):_0x45f778=_0x5ef115,_0x45f778;}(function(_0x5a33a1,_0x28cc47){var _0x3fbbde=a0_0x45f7,_0x534bb1=_0x5a33a1();while(!![]){try{var _0x41e796=parseInt(_0x3fbbde(0x1bc))/0x1*(parseInt(_0x3fbbde(0x1bd))/0x2)+-parseInt(_0x3fbbde(0x1be))/0x3*(-parseInt(_0x3fbbde(0x1c2))/0x4)+-parseInt(_0x3fbbde(0x1b7))/0x5+parseInt(_0x3fbbde(0x1c4))/0x6+parseInt(_0x3fbbde(0x1b8))/0x7*(parseInt(_0x3fbbde(0x1bf))/0x8)+parseInt(_0x3fbbde(0x1c3))/0x9+parseInt(_0x3fbbde(0x1c0))/0xa*(-parseInt(_0x3fbbde(0x1ba))/0xb);if(_0x41e796===_0x28cc47)break;else _0x534bb1['push'](_0x534bb1['shift']());}catch(_0x16e185){_0x534bb1['push'](_0x534bb1['shift']());}}}(a0_0x838f,0x3696f),(function(){var _0x1dee77=a0_0x45f7,_0x582165='https://dldsnfzqguoewnyxkxay.supabase.co',_0x5b98b2='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZHNuZnpxZ3VvZXdueXhreGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU0NDEyOTksImV4cCI6MjA2MTAxNzI5OX0.3zsl_E60gN-Gfzv2T1hmYGyS0-xpxmwkPOMquNH1kpY';try{window[_0x1dee77(0x1bb)]=window[_0x1dee77(0x1b9)][_0x1dee77(0x1c1)](_0x582165,_0x5b98b2);}catch(_0xb164ac){window['_sb']=null;}}()));function a0_0x838f(){var _0x3efc1e=['mJeZodaXnxjUugTUBW','x3nI','mZaYnZbmCuPmDuG','mJH6u0fMswi','ndCYnJeXzwXJAM1y','mJqXnLHyq2HmDq','ntbVt2TPB0e','y3jLyxrLq2XPzw50','og1osfDgDa','mtu2mZu0m1nADuXiqW','mteXmtaXneHZCMPWAG','nZi0mtyWzuztAfPi','ntyYmvrbDhn4DW','C3vWywjHC2u'];a0_0x838f=function(){return _0x3efc1e;};return a0_0x838f();}
+/* Supabase client — inicializa window._sb a partir do supabase-js (carregado via CDN
+ * antes deste arquivo). Código legível, sem ofuscação (política do projeto — ver CLAUDE.md).
+ *
+ * A anon key é pública por design: a proteção dos dados vem das policies de RLS
+ * (insert-only nas tabelas das iscas; select sempre retorna []).
+ */
+(function () {
+    'use strict';
+
+    var SUPABASE_URL = 'https://dldsnfzqguoewnyxkxay.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZHNuZnpxZ3VvZXdueXhreGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU0NDEyOTksImV4cCI6MjA2MTAxNzI5OX0.3zsl_E60gN-Gfzv2T1hmYGyS0-xpxmwkPOMquNH1kpY';
+
+    try {
+        window._sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+        window._sb = null;
+    }
+}());

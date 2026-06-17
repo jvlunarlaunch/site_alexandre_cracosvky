@@ -1606,15 +1606,6 @@ const QuizEngine = ((() => {
                 }],
                 tooltip: { pointFormat: '<b>{point.y}</b>' }
             });
-        } else if (type === 'bar') {
-            const items = scores.items || Object.entries(scores.dims || {}).map(([label, score]) => ({ label, score: +score, max: 3 }));
-            Object.assign(opts, {
-                chart: Object.assign({}, opts.chart, { type: 'bar' }),
-                xAxis: { categories: items.map(it => it.label), labels: { style: { fontSize: '10px', color: '#6B7A8D' } } },
-                yAxis: { min: 0, title: { text: '' }, labels: { style: { fontSize: '10px' } } },
-                series: [{ name: 'Score', data: items.map(it => +it.score), color: '#1B3A7A' }],
-                tooltip: { pointFormat: '<b>{point.y}</b>' }
-            });
         } else if (type === 'column') {
             const cats = scores.cats || {};
             const catKeys = Object.keys(cats);
@@ -1634,22 +1625,6 @@ const QuizEngine = ((() => {
                 plotOptions: { pie: { innerSize: '55%', dataLabels: { style: { fontSize: '11px', fontFamily: "'DM Mono'" } } } },
                 series: [{ name: chartCfg.seriesName || 'Valor', data: donutData, colorByPoint: true }],
                 tooltip: { pointFormat: scores.discountAmounts ? '<b>{point.name}: R$ {point.y:,.0f} ({point.percentage:.0f}%)</b>' : '<b>{point.percentage:.0f}%</b>' }
-            });
-        } else if (type === 'area') {
-            const stageLabels = (config.scoring.stages || []).map(s => s.label);
-            const stageMonths = (config.scoring.stages || []).map(s => s.avgMonths || 0);
-            const curStageIdx = config.scoring.stages ? config.scoring.stages.findIndex(s => s.label === (scores.stage && scores.stage.label)) : 0;
-            Object.assign(opts, {
-                chart: Object.assign({}, opts.chart, { type: 'area' }),
-                xAxis: { categories: stageLabels, labels: { style: { fontSize: '10px', color: '#6B7A8D' } } },
-                yAxis: { title: { text: 'Meses médios' }, labels: { style: { fontSize: '10px' } } },
-                series: [{
-                    name: 'Tempo para deal',
-                    data: stageMonths,
-                    color: '#1B3A7A',
-                    fillColor: 'rgba(27,58,122,.1)',
-                    marker: { fillColor: i => i === curStageIdx ? '#B8952A' : '#1B3A7A', radius: 5 }
-                }]
             });
         } else if (type === 'waterfall') {
             const base = 10;
