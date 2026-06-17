@@ -1,86 +1,487 @@
-function a0_0x5518(){var _0x3f7256=['sf-radio-desc','(11)\x2099999-9999','@media(max-width:480px){.sf-btn-next{width:100%;font-size:15px;padding:15px;}}','Quero\x20comprar\x20outra\x20empresa\x20ou\x20expandir\x20mercado\x20(Buy-side)','Passar\x20em\x20disciplinas\x20ou\x20entregar\x20um\x20TCC/projeto\x20acadêmico.','←\x20Voltar','ontouchstart','Vender\x20minha\x20empresa','span','input:not([type=radio]),\x20textarea','150svrQkD','.sf-step-slot{position:relative;overflow:hidden;min-height:300px;padding:28px\x200\x208px;}','sf-btn-row','Mercado\x20financeiro','.sf-success-extra{margin-top:22px;}','Entendo\x20a\x20teoria\x20e\x20já\x20faço\x20projeções,\x20mas\x20tenho\x20dúvidas\x20em\x20WACC,\x20perpetuidade,\x20etc.','Qual\x20é\x20o\x20tamanho\x20da\x20sua\x20empresa?','textarea.sf-input{resize:none;line-height:1.75;border:1.5px\x20solid\x20rgba(255,255,255,.2);border-radius:2px;padding:14px\x2012px;}','De\x20R$\x20100\x20Milhões\x20a\x20R$\x20500\x20Milhões','sf-success-icon','101\x20a\x20500\x20funcionários','.sf-input{width:100%;box-sizing:border-box;font-family:var(--ep,\x22Epilogue\x22,sans-serif);font-size:18px;font-weight:300;color:#fff;background:rgba(255,255,255,.05);border:none;border-bottom:1.5px\x20solid\x20rgba(255,255,255,.2);padding:14px\x208px;outline:none;transition:border-color\x20.3s,background\x20.3s;border-radius:0;-webkit-appearance:none;}','Explorando\x20alternativas\x20estratégicas.','Sócio\x20ou\x20investidor','21\x20a\x20100\x20funcionários','.sf-question{font-family:var(--cg,\x22Cormorant\x20Garamond\x22,serif);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:300;color:#fff;line-height:1.15;margin-bottom:26px;letter-spacing:-.015em;}','Qual\x20é\x20o\x20seu\x20maior\x20objetivo\x20ao\x20aprender\x20Valuation?','input','sf-wrap','div','radio','97770FOCcYc','remove','onSuccess','Busco\x20fusão\x20com\x20outra\x20operação\x20complementar','querySelector','required','Reestruturação','top','offsetHeight','string','faturamento','sf-step','759958tNpgfg','none','Enter','Fusão\x20estratégica','successTitle','sf-radio-card','text','round','Investimentos\x20pessoais','2gXOUYG','objetivo','empresa','Continuar\x20→','sf-radio-lbl','sf-err','removeChild','Nome\x20da\x20empresa','length','981333suCRSz','@media(max-width:480px){.sf-input{font-size:16px;}}','type','8LgNWim','Até\x2020\x20funcionários','.sf-radio-card{width:100%;box-sizing:border-box;text-align:left;background:rgba(255,255,255,.04);border:1px\x20solid\x20rgba(255,255,255,.1);border-radius:3px;padding:13px\x2016px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color\x20.2s,background\x20.2s,transform\x20.12s;-webkit-tap-highlight-color:transparent;min-height:44px;}','Acima\x20de\x20R$\x20500\x20Milhões','add','.sf-btn-next:hover{background:var(--gold2,#D4AE50);}','position','De\x20R$\x2050\x20Milhões\x20a\x20R$\x20100\x20Milhões','.sf-skip-btn{background:none;border:none;cursor:pointer;font-family:var(--mo,\x22DM\x20Mono\x22,monospace);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;padding:4px\x200;text-decoration:underline;text-underline-offset:3px;transition:color\x20.2s;-webkit-tap-highlight-color:transparent;min-height:44px;}','textContent','1085901OVdzJr','focus','email','.sf-btn-next','.sf-success{text-align:center;padding:52px\x2016px\x2032px;opacity:0;transform:scale(.97);transition:opacity\x20.35s\x20ease,transform\x20.35s\x20ease;}','pointerEvents','head','Como\x20posso\x20te\x20chamar?','optional','Pressione\x20<kbd>Enter\x20↵</kbd>','sf-success-extra','Meu\x20negócio','sf-enter-hint','Enviar\x20→','\x20/\x20','parentNode','button','.sf-radio-card','CAPTURAS_STEPS_EMP','opacity','key','Até\x20R$\x2050\x20Milhões','@keyframes\x20sf-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}}','Intermediário','submitLabel','sf-btn-next','Ainda\x20estou\x20avaliando\x20alternativas\x20estratégicas','keydown','.sf-prog-bar{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(184,149,42,.15);z-index:1;}','.sf-wrap{position:relative;overflow:hidden;}','.sf-input:focus{border-bottom-color:var(--gold,#B8952A);background:rgba(255,255,255,.07);}','.sf-back-btn{background:none;border:none;cursor:pointer;font-family:var(--mo,\x22DM\x20Mono\x22,monospace);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.1em;padding:0;margin-bottom:12px;display:inline-flex;align-items:center;gap:6px;transition:color\x20.2s;-webkit-tap-highlight-color:transparent;min-height:36px;}','Aplicar\x20no\x20meu\x20próprio\x20negócio\x20ou\x20na\x20empresa\x20onde\x20trabalho.','.sf-step','1497840bOqfAE','Sei\x20o\x20conceito\x20básico,\x20mas\x20nunca\x20montei\x20um\x20modelo\x20de\x20FCD.','sf-sel','.sf-success-icon{width:52px;height:52px;border:1px\x20solid\x20var(--gold,#B8952A);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0\x20auto\x2020px;font-family:var(--mo,\x22DM\x20Mono\x22,monospace);font-size:20px;color:var(--gold2,#D4AE50);}','question','Procuro\x20um\x20sócio\x20estratégico\x20ou\x20investidor\x20minoritário','Recebemos\x20seus\x20dados.\x20O\x20material\x20chegará\x20no\x20seu\x20e-mail\x20em\x20breve.','O\x20que\x20você\x20deseja\x20com\x20M&A?','sf-skip-btn','Estudar\x20para\x20CFA,\x20CNPI,\x20ou\x20outra\x20certificação\x20do\x20mercado\x20financeiro.','sf-success-desc','join','onSubmit','.sf-enter-hint{font-family:var(--mo,\x22DM\x20Mono\x22,monospace);font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;letter-spacing:.04em;}','Mais\x20de\x20500\x20funcionários','disabled','6905857XYfmqH','.sf-radio-list{display:flex;flex-direction:column;gap:8px;}','opacity\x20.22s\x20ease,\x20transform\x20.22s\x20ease','preventDefault','Entrada\x20de\x20capital\x20com\x20participação\x20minoritária.','.sf-prog-fill{height:100%;background:var(--gold,#B8952A);transition:width\x20.45s\x20cubic-bezier(.4,0,.2,1);}','label','.sf-counter{font-family:var(--mo,\x22DM\x20Mono\x22,monospace);font-size:11px;color:var(--gold2,#D4AE50);letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;opacity:.75;}','Buy-side:\x20aquisição\x20ou\x20expansão\x20de\x20mercado.','.sf-success-desc{font-family:var(--ep,\x22Epilogue\x22,sans-serif);font-size:15px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85;max-width:300px;margin:0\x20auto;}','.sf-btn-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:22px;}','minHeight','transform','transition','classList','rows','forEach','iniciante','Qual\x20é\x20o\x20seu\x20melhor\x20e-mail?','Qual\x20é\x20o\x20seu\x20nível\x20atual\x20em\x20Valuation?','textarea','click','className','.sf-input:-webkit-autofill{-webkit-box-shadow:0\x200\x200\x20100px\x20#0A1628\x20inset;-webkit-text-fill-color:#fff;}','.sf-back-btn:hover,.sf-back-btn:focus{color:rgba(255,255,255,.6);outline:none;}','left','Seu\x20nome\x20completo','textarea.sf-input:focus{border-color:var(--gold,#B8952A);}','translateX(32px)','voce@email.com','choices','Pronto!','sf-success','Analisar\x20e\x20escolher\x20ações\x20e\x20investimentos\x20por\x20conta\x20própria.','.sf-radio-desc{font-family:var(--ep,\x22Epilogue\x22,sans-serif);font-size:12px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.5;pointer-events:none;}','Reestruturação\x20financeira\x20ou\x20operacional.','right','Conquistar\x20uma\x20vaga\x20em\x20M&A,\x20Equity\x20Research,\x20Investment\x20Banking,\x20etc.','absolute','value','width','intermediario','.sf-radio-lbl{font-family:var(--ep,\x22Epilogue\x22,sans-serif);font-size:14px;font-weight:500;color:rgba(255,255,255,.9);pointer-events:none;}','innerHTML','avancado','.sf-skip-btn:hover{color:rgba(255,255,255,.5);}','R$\x20100M\x20–\x20R$\x20500M','sf-ok','sf-back-btn','Iniciante','tel','.sf-radio-card.sf-sel{border-color:var(--gold,#B8952A);background:rgba(184,149,42,.1);}','placeholder','appendChild','style','steps','createElement','sf-counter','StepForm','translateX(0)','Pular\x20esta\x20etapa','desc','investimentos','.sf-btn-next:disabled{opacity:.55;cursor:not-allowed;transform:none;}','querySelectorAll','successExtra','Unir\x20operações\x20com\x20empresa\x20complementar.','translateX(-32px)','Certificação','sf-success-title','4554076KkYLUq','addEventListener','Pular'];a0_0x5518=function(){return _0x3f7256;};return a0_0x5518();}function a0_0x2982(_0x4725a4,_0x387936){_0x4725a4=_0x4725a4-0x1ac;var _0x551811=a0_0x5518();var _0x298216=_0x551811[_0x4725a4];return _0x298216;}(function(_0x10099a,_0x55b226){var _0x3d3380=a0_0x2982,_0x13a2a3=_0x10099a();while(!![]){try{var _0x39bc03=parseInt(_0x3d3380(0x208))/0x1+parseInt(_0x3d3380(0x211))/0x2*(parseInt(_0x3d3380(0x227))/0x3)+-parseInt(_0x3d3380(0x1da))/0x4+parseInt(_0x3d3380(0x1fc))/0x5*(-parseInt(_0x3d3380(0x1e7))/0x6)+parseInt(_0x3d3380(0x259))/0x7+parseInt(_0x3d3380(0x21d))/0x8*(parseInt(_0x3d3380(0x21a))/0x9)+parseInt(_0x3d3380(0x249))/0xa;if(_0x39bc03===_0x55b226)break;else _0x13a2a3['push'](_0x13a2a3['shift']());}catch(_0x5030e1){_0x13a2a3['push'](_0x13a2a3['shift']());}}}(a0_0x5518,0xb4a58),function(_0x147656){'use strict';var _0x364881=a0_0x2982;var _0x31c5b4=[{'id':'nome','type':'text','question':_0x364881(0x22e),'placeholder':_0x364881(0x1ae),'required':!![]},{'id':'email','type':_0x364881(0x229),'question':_0x364881(0x26b),'placeholder':_0x364881(0x1b1),'required':!![]},{'id':'whatsapp','type':_0x364881(0x1c6),'question':'Qual\x20é\x20o\x20seu\x20WhatsApp?','placeholder':_0x364881(0x1de),'required':![],'optional':!![],'skipLabel':'Pular\x20esta\x20etapa'},{'id':'nivel','type':_0x364881(0x1fb),'question':_0x364881(0x26c),'choices':[{'value':_0x364881(0x26a),'label':_0x364881(0x1c5),'desc':_0x364881(0x24a)},{'value':_0x364881(0x1bd),'label':_0x364881(0x23e),'desc':_0x364881(0x1ec)},{'value':_0x364881(0x1c0),'label':'Avançado','desc':'Já\x20faço\x20valuations\x20na\x20prática\x20e\x20quero\x20refinar\x20minhas\x20análises.'}]},{'id':_0x364881(0x212),'type':'radio','question':_0x364881(0x1f7),'choices':[{'value':'mercado','label':_0x364881(0x1ea),'desc':_0x364881(0x1b9)},{'value':'certificacao','label':_0x364881(0x1d8),'desc':_0x364881(0x252)},{'value':_0x364881(0x1d2),'label':_0x364881(0x210),'desc':_0x364881(0x1b5)},{'value':_0x364881(0x213),'label':_0x364881(0x232),'desc':_0x364881(0x247)},{'value':'faculdade','label':'Faculdade','desc':_0x364881(0x1e1)}]}],_0x3ee558=[{'id':'nome','type':_0x364881(0x20e),'question':'Como\x20posso\x20te\x20chamar?','placeholder':_0x364881(0x1ae),'required':!![]},{'id':_0x364881(0x229),'type':_0x364881(0x229),'question':_0x364881(0x26b),'placeholder':_0x364881(0x1b1),'required':!![]},{'id':'empresa','type':'text','question':'Qual\x20é\x20o\x20nome\x20da\x20sua\x20empresa?','placeholder':_0x364881(0x218),'required':![],'optional':!![],'skipLabel':_0x364881(0x1dc)},{'id':'whatsapp','type':_0x364881(0x1c6),'question':'Qual\x20é\x20o\x20seu\x20WhatsApp?','placeholder':'(11)\x2099999-9999','required':![],'optional':!![],'skipLabel':_0x364881(0x1d0)},{'id':_0x364881(0x212),'type':'radio','question':_0x364881(0x250),'choices':[{'value':'Quero\x20vender\x20o\x20meu\x20controle\x20total\x20ou\x20majoritário\x20(Sell-side)','label':_0x364881(0x1e4),'desc':'Sell-side:\x20venda\x20de\x20controle\x20total\x20ou\x20majoritário.'},{'value':_0x364881(0x24e),'label':_0x364881(0x1f4),'desc':_0x364881(0x25d)},{'value':_0x364881(0x1e0),'label':'Comprar\x20/\x20expandir','desc':_0x364881(0x261)},{'value':_0x364881(0x1ff),'label':_0x364881(0x20b),'desc':_0x364881(0x1d6)},{'value':'Preciso\x20de\x20Reestruturação\x20Financeira\x20ou\x20Operacional','label':_0x364881(0x202),'desc':_0x364881(0x1b7)},{'value':_0x364881(0x241),'label':'Avaliando\x20opções','desc':_0x364881(0x1f3)}]},{'id':'tamanho','type':'radio','question':_0x364881(0x1ed),'choices':[{'value':_0x364881(0x21e),'label':_0x364881(0x21e)},{'value':'21\x20a\x20100\x20funcionários','label':_0x364881(0x1f5)},{'value':_0x364881(0x1f1),'label':_0x364881(0x1f1)},{'value':'Mais\x20de\x20500\x20funcionários','label':_0x364881(0x257)}]},{'id':_0x364881(0x206),'type':'radio','question':'Qual\x20é\x20o\x20faturamento\x20médio\x20anual?','choices':[{'value':'Até R$ 10 milhões','label':'Até R$ 10 milhões'},{'value':'R$ 10 milhões a R$ 50 milhões','label':'R$ 10 milhões a R$ 50 milhões'},{'value':'R$ 50 milhões a R$ 100 milhões','label':'R$ 50 milhões a R$ 100 milhões'},{'value':'R$ 100 milhões a R$ 500 milhões','label':'R$ 100 milhões a R$ 500 milhões'},{'value':'R$ 500 milhões a R$ 1 Bilhão','label':'R$ 500 milhões a R$ 1 Bilhão'},{'value':'Mais de R$ 1 Bilhão','label':'Mais de R$ 1 Bilhão'}]}],_0x401e10=[_0x364881(0x244),_0x364881(0x243),_0x364881(0x25e),_0x364881(0x1e8),'.sf-step{width:100%;box-sizing:border-box;}',_0x364881(0x246),_0x364881(0x1ac),_0x364881(0x260),_0x364881(0x1f6),_0x364881(0x1f2),'.sf-input::placeholder{color:rgba(255,255,255,.22);}',_0x364881(0x245),_0x364881(0x270),_0x364881(0x1ee),_0x364881(0x1af),_0x364881(0x21b),_0x364881(0x256),'.sf-enter-hint\x20kbd{font-family:var(--mo,\x22DM\x20Mono\x22,monospace);background:rgba(255,255,255,.08);border:1px\x20solid\x20rgba(255,255,255,.15);border-radius:3px;padding:1px\x206px;font-size:10px;}',_0x364881(0x263),'.sf-btn-next{font-family:var(--ep,\x22Epilogue\x22,sans-serif);font-size:14px;font-weight:500;letter-spacing:.06em;background:var(--gold,#B8952A);color:var(--navy,#0A1628);border:none;padding:13px\x2028px;border-radius:2px;cursor:pointer;transition:background\x20.2s,transform\x20.15s;-webkit-tap-highlight-color:transparent;min-height:44px;}',_0x364881(0x222),'.sf-btn-next:active{transform:scale(.97);}',_0x364881(0x1d3),_0x364881(0x1df),_0x364881(0x225),_0x364881(0x1c1),_0x364881(0x25a),_0x364881(0x21f),'.sf-radio-card:hover{border-color:rgba(184,149,42,.4);background:rgba(255,255,255,.07);}',_0x364881(0x1c7),'.sf-radio-card:active{transform:scale(.99);}',_0x364881(0x1be),_0x364881(0x1b6),_0x364881(0x22b),'.sf-success.sf-ok{opacity:1;transform:scale(1);}',_0x364881(0x24c),'.sf-success-title{font-family:var(--cg,\x22Cormorant\x20Garamond\x22,serif);font-size:clamp(1.8rem,4vw,2.4rem);font-weight:300;color:#fff;margin-bottom:12px;}',_0x364881(0x262),_0x364881(0x1eb),'.sf-err{border-bottom-color:var(--danger,#c0392b)!important;animation:sf-shake\x20.35s\x20ease;}','textarea.sf-err{border-color:var(--danger,#c0392b)!important;}',_0x364881(0x23d)][_0x364881(0x254)](''),_0x45eede=![];function _0x17ef30(){var _0x4fc047=_0x364881;if(_0x45eede)return;_0x45eede=!![];var _0x1af81b=document[_0x4fc047(0x1cc)]('style');_0x1af81b[_0x4fc047(0x226)]=_0x401e10,document[_0x4fc047(0x22d)][_0x4fc047(0x1c9)](_0x1af81b);}function _0x325cdc(_0x29ed39,_0x46c0bd){var _0x1061ab=_0x364881,_0x6070f2=document[_0x1061ab(0x1cc)](_0x29ed39);if(_0x46c0bd)_0x6070f2[_0x1061ab(0x26f)]=_0x46c0bd;return _0x6070f2;}function _0x1f9ef4(){}_0x1f9ef4['CAPTURAS_STEPS']=_0x31c5b4,_0x1f9ef4[_0x364881(0x239)]=_0x3ee558,_0x1f9ef4['init']=function(_0x1cb0db,_0x3ed2c3){var _0xf2995d=_0x364881;_0x17ef30();var _0x301099=_0x3ed2c3[_0xf2995d(0x1cb)],_0xc34f22=_0x301099[_0xf2995d(0x219)],_0x4c9f06=0x0,_0x21d615={};_0x1cb0db[_0xf2995d(0x1bf)]='',_0x1cb0db[_0xf2995d(0x267)][_0xf2995d(0x221)](_0xf2995d(0x1f9));var _0x500d64=_0x325cdc(_0xf2995d(0x1fa),'sf-prog-bar'),_0xe3dbab=_0x325cdc(_0xf2995d(0x1fa),'sf-prog-fill');_0x500d64[_0xf2995d(0x1c9)](_0xe3dbab),_0x1cb0db[_0xf2995d(0x1c9)](_0x500d64);var _0x3b6564=_0x325cdc(_0xf2995d(0x1fa),'sf-step-slot');_0x1cb0db[_0xf2995d(0x1c9)](_0x3b6564);function _0x5ac0d8(_0x29d71e){var _0x36a9a1=_0xf2995d;_0xe3dbab['style'][_0x36a9a1(0x1bc)]=Math[_0x36a9a1(0x20f)](_0x29d71e/_0xc34f22*0x64)+'%';}function _0xd1e5f7(_0x30eeca,_0x3b5231){var _0x5b40b0=_0xf2995d,_0x3a6478=_0x301099[_0x30eeca],_0x45df05=_0x3b6564[_0x5b40b0(0x200)](_0x5b40b0(0x248)),_0x11a8fe=_0x325cdc(_0x5b40b0(0x1fa),_0x5b40b0(0x207));_0x32be0e(_0x3a6478,_0x30eeca,_0x11a8fe),_0x11a8fe[_0x5b40b0(0x1ca)][_0x5b40b0(0x23a)]='0',_0x11a8fe[_0x5b40b0(0x1ca)][_0x5b40b0(0x265)]=_0x3b5231>=0x0?'translateX(32px)':_0x5b40b0(0x1d7);if(_0x45df05){var _0x4c1e17=_0x45df05[_0x5b40b0(0x204)];_0x3b6564[_0x5b40b0(0x1ca)][_0x5b40b0(0x264)]=_0x4c1e17+'px',_0x45df05['style'][_0x5b40b0(0x223)]=_0x5b40b0(0x1ba),_0x45df05[_0x5b40b0(0x1ca)][_0x5b40b0(0x203)]='0',_0x45df05[_0x5b40b0(0x1ca)][_0x5b40b0(0x1ad)]='0',_0x45df05[_0x5b40b0(0x1ca)][_0x5b40b0(0x1b8)]='0',_0x45df05[_0x5b40b0(0x1ca)]['zIndex']='1',_0x45df05[_0x5b40b0(0x1ca)][_0x5b40b0(0x22c)]=_0x5b40b0(0x209);var _0x117e7a=_0x45df05;requestAnimationFrame(function(){var _0x46ba10=_0x5b40b0;_0x117e7a[_0x46ba10(0x1ca)]['transition']=_0x46ba10(0x25b),_0x117e7a[_0x46ba10(0x1ca)][_0x46ba10(0x23a)]='0',_0x117e7a[_0x46ba10(0x1ca)][_0x46ba10(0x265)]=_0x3b5231>=0x0?_0x46ba10(0x1d7):_0x46ba10(0x1b0);}),setTimeout(function(){var _0x3498b6=_0x5b40b0;if(_0x117e7a['parentNode'])_0x117e7a[_0x3498b6(0x236)][_0x3498b6(0x217)](_0x117e7a);_0x3b6564['style'][_0x3498b6(0x264)]='';},0x104);}_0x3b6564['appendChild'](_0x11a8fe),requestAnimationFrame(function(){requestAnimationFrame(function(){var _0x45beac=a0_0x2982;_0x11a8fe['style'][_0x45beac(0x266)]='opacity\x20.28s\x20ease,\x20transform\x20.28s\x20ease',_0x11a8fe[_0x45beac(0x1ca)][_0x45beac(0x23a)]='1',_0x11a8fe[_0x45beac(0x1ca)]['transform']=_0x45beac(0x1cf);var _0x3019d1=_0x11a8fe[_0x45beac(0x200)](_0x45beac(0x1e6));if(_0x3019d1)setTimeout(function(){var _0x5a8c80=_0x45beac;try{_0x3019d1[_0x5a8c80(0x228)]();}catch(_0x29097c){}},0x136);});}),_0x5ac0d8(_0x30eeca);}function _0x32be0e(_0x575b2e,_0x39716e,_0x497ef5){var _0x10ab38=_0xf2995d;if(_0x39716e>0x0){var _0x2409fd=_0x325cdc(_0x10ab38(0x237),_0x10ab38(0x1c4));_0x2409fd[_0x10ab38(0x21c)]=_0x10ab38(0x237),_0x2409fd[_0x10ab38(0x226)]=_0x10ab38(0x1e2),_0x2409fd['addEventListener'](_0x10ab38(0x26e),function(){_0x4c9f06=_0x39716e-0x1,_0xd1e5f7(_0x4c9f06,-0x1);}),_0x497ef5['appendChild'](_0x2409fd);}var _0x249aaf=_0x325cdc('div',_0x10ab38(0x1cd));_0x249aaf['textContent']=_0x39716e+0x1+_0x10ab38(0x235)+_0xc34f22,_0x497ef5['appendChild'](_0x249aaf);var _0x376699=_0x325cdc('div','sf-question');_0x376699['textContent']=_0x575b2e[_0x10ab38(0x24d)],_0x497ef5[_0x10ab38(0x1c9)](_0x376699),_0x575b2e[_0x10ab38(0x21c)]==='radio'?_0x507825(_0x575b2e,_0x497ef5,_0x39716e):_0x172bbf(_0x575b2e,_0x497ef5,_0x39716e);}function _0x172bbf(_0x58c1b4,_0x2ba260,_0x382003){var _0x5cd1cd=_0xf2995d,_0x123eb8;_0x58c1b4[_0x5cd1cd(0x21c)]===_0x5cd1cd(0x26d)?(_0x123eb8=_0x325cdc('textarea','sf-input'),_0x123eb8[_0x5cd1cd(0x268)]=0x4):(_0x123eb8=_0x325cdc(_0x5cd1cd(0x1f8),'sf-input'),_0x123eb8[_0x5cd1cd(0x21c)]=_0x58c1b4['type']||_0x5cd1cd(0x20e));_0x123eb8[_0x5cd1cd(0x1c8)]=_0x58c1b4['placeholder']||'';if(_0x21d615[_0x58c1b4['id']])_0x123eb8[_0x5cd1cd(0x1bb)]=_0x21d615[_0x58c1b4['id']];_0x2ba260[_0x5cd1cd(0x1c9)](_0x123eb8);if(_0x58c1b4['type']!==_0x5cd1cd(0x26d)){var _0x2c21af=_0x5cd1cd(0x1e3)in window||navigator['maxTouchPoints']>0x0;if(!_0x2c21af){var _0x4204ba=_0x325cdc('div',_0x5cd1cd(0x233));_0x4204ba['innerHTML']=_0x5cd1cd(0x230),_0x2ba260['appendChild'](_0x4204ba);}_0x123eb8[_0x5cd1cd(0x1db)](_0x5cd1cd(0x242),function(_0x523911){var _0x750d41=_0x5cd1cd;_0x523911[_0x750d41(0x23b)]===_0x750d41(0x20a)&&(_0x523911[_0x750d41(0x25c)](),_0x333a72(_0x58c1b4,_0x123eb8[_0x750d41(0x1bb)],_0x382003));});}var _0x13a662=_0x325cdc('div',_0x5cd1cd(0x1e9)),_0x1b80e1=_0x325cdc(_0x5cd1cd(0x237),_0x5cd1cd(0x240));_0x1b80e1[_0x5cd1cd(0x21c)]=_0x5cd1cd(0x237),_0x1b80e1[_0x5cd1cd(0x226)]=_0x382003===_0xc34f22-0x1?_0x3ed2c3[_0x5cd1cd(0x23f)]||_0x5cd1cd(0x234):_0x5cd1cd(0x214),_0x1b80e1[_0x5cd1cd(0x1db)]('click',function(){var _0x5df10e=_0x5cd1cd;_0x333a72(_0x58c1b4,_0x123eb8[_0x5df10e(0x1bb)],_0x382003);}),_0x13a662[_0x5cd1cd(0x1c9)](_0x1b80e1);if(_0x58c1b4[_0x5cd1cd(0x22f)]){var _0x27129e=_0x325cdc(_0x5cd1cd(0x237),_0x5cd1cd(0x251));_0x27129e[_0x5cd1cd(0x21c)]=_0x5cd1cd(0x237),_0x27129e[_0x5cd1cd(0x226)]=_0x58c1b4['skipLabel']||'Pular',_0x27129e[_0x5cd1cd(0x1db)](_0x5cd1cd(0x26e),function(){_0x21d615[_0x58c1b4['id']]=null,_0x5e7e97(_0x382003);}),_0x13a662[_0x5cd1cd(0x1c9)](_0x27129e);}_0x2ba260[_0x5cd1cd(0x1c9)](_0x13a662);}function _0x507825(_0x161708,_0x291de4,_0x379bbf){var _0x1098dc=_0xf2995d,_0x378a46=_0x325cdc(_0x1098dc(0x1fa),'sf-radio-list');_0x161708[_0x1098dc(0x1b2)][_0x1098dc(0x269)](function(_0x32ba08){var _0x1bf8d1=_0x1098dc,_0x5f392f=_0x325cdc('button',_0x1bf8d1(0x20d));_0x5f392f[_0x1bf8d1(0x21c)]=_0x1bf8d1(0x237);if(_0x21d615[_0x161708['id']]===_0x32ba08['value'])_0x5f392f[_0x1bf8d1(0x267)][_0x1bf8d1(0x221)](_0x1bf8d1(0x24b));var _0x4116d9=_0x325cdc(_0x1bf8d1(0x1e5),_0x1bf8d1(0x215));_0x4116d9[_0x1bf8d1(0x226)]=_0x32ba08[_0x1bf8d1(0x25f)],_0x5f392f[_0x1bf8d1(0x1c9)](_0x4116d9);if(_0x32ba08[_0x1bf8d1(0x1d1)]){var _0x5136ba=_0x325cdc('span',_0x1bf8d1(0x1dd));_0x5136ba[_0x1bf8d1(0x226)]=_0x32ba08[_0x1bf8d1(0x1d1)],_0x5f392f[_0x1bf8d1(0x1c9)](_0x5136ba);}_0x5f392f[_0x1bf8d1(0x1db)](_0x1bf8d1(0x26e),function(){var _0x2826c5=_0x1bf8d1;_0x378a46[_0x2826c5(0x1d4)](_0x2826c5(0x238))[_0x2826c5(0x269)](function(_0xab7a55){var _0x199070=_0x2826c5;_0xab7a55[_0x199070(0x267)][_0x199070(0x1fd)](_0x199070(0x24b));}),_0x5f392f['classList'][_0x2826c5(0x221)]('sf-sel'),_0x21d615[_0x161708['id']]=_0x32ba08[_0x2826c5(0x1bb)],setTimeout(function(){_0x5e7e97(_0x379bbf);},0x118);}),_0x378a46[_0x1bf8d1(0x1c9)](_0x5f392f);}),_0x291de4[_0x1098dc(0x1c9)](_0x378a46);}function _0x333a72(_0x3e9693,_0x17bade,_0x55f094){var _0x7f07c8=_0xf2995d,_0x55ad19=typeof _0x17bade===_0x7f07c8(0x205)?_0x17bade['trim']():_0x17bade;if(_0x3e9693[_0x7f07c8(0x201)]&&!_0x55ad19){var _0x5c30bd=_0x3b6564[_0x7f07c8(0x200)]('.sf-input');if(_0x5c30bd){_0x5c30bd[_0x7f07c8(0x267)]['add']('sf-err');try{_0x5c30bd['focus']();}catch(_0x19e4c3){}setTimeout(function(){var _0x24dec2=_0x7f07c8;_0x5c30bd[_0x24dec2(0x267)]['remove'](_0x24dec2(0x216));},0x3e8);}return;}_0x21d615[_0x3e9693['id']]=_0x55ad19||null,_0x5e7e97(_0x55f094);}function _0x5e7e97(_0x2f0323){_0x2f0323>=_0xc34f22-0x1?_0xfce0a9():(_0x4c9f06=_0x2f0323+0x1,_0xd1e5f7(_0x4c9f06,0x1));}function _0xfce0a9(){var _0x4e1703=_0xf2995d,_0x34b474=_0x3b6564[_0x4e1703(0x200)](_0x4e1703(0x22a));_0x34b474&&(_0x34b474[_0x4e1703(0x258)]=!![],_0x34b474['textContent']='Enviando...'),_0x3b6564['querySelectorAll']('.sf-radio-card')[_0x4e1703(0x269)](function(_0xfbcc35){var _0x597351=_0x4e1703;_0xfbcc35[_0x597351(0x258)]=!![];}),_0x3ed2c3[_0x4e1703(0x255)]?_0x3ed2c3[_0x4e1703(0x255)](_0x21d615,function(){_0x5ac0d8(_0xc34f22),_0x20ccfe();}):(_0x5ac0d8(_0xc34f22),_0x20ccfe());}function _0x20ccfe(){var _0x2ac1b3=_0xf2995d,_0x47698d=_0x3b6564[_0x2ac1b3(0x200)](_0x2ac1b3(0x248));function _0xb93d5c(){var _0x58e272=_0x2ac1b3,_0x5136f3=_0x325cdc('div',_0x58e272(0x1b4)),_0x2fcf2f=_0x325cdc(_0x58e272(0x1fa),_0x58e272(0x1f0));_0x2fcf2f['textContent']='✓',_0x5136f3[_0x58e272(0x1c9)](_0x2fcf2f);var _0x442b18=_0x325cdc(_0x58e272(0x1fa),_0x58e272(0x1d9));_0x442b18[_0x58e272(0x226)]=_0x3ed2c3[_0x58e272(0x20c)]||_0x58e272(0x1b3),_0x5136f3['appendChild'](_0x442b18);var _0x2c8a5f=_0x325cdc('p',_0x58e272(0x253));_0x2c8a5f[_0x58e272(0x226)]=_0x3ed2c3['successDesc']||_0x58e272(0x24f),_0x5136f3[_0x58e272(0x1c9)](_0x2c8a5f);if(_0x3ed2c3[_0x58e272(0x1d5)]){var _0x1d33e5=_0x325cdc(_0x58e272(0x1fa),_0x58e272(0x231));_0x1d33e5['innerHTML']=_0x3ed2c3[_0x58e272(0x1d5)],_0x5136f3['appendChild'](_0x1d33e5);}_0x3b6564['appendChild'](_0x5136f3),requestAnimationFrame(function(){requestAnimationFrame(function(){var _0x2e72fe=a0_0x2982;_0x5136f3[_0x2e72fe(0x267)][_0x2e72fe(0x221)](_0x2e72fe(0x1c3));});});if(_0x3ed2c3[_0x58e272(0x1fe)])_0x3ed2c3[_0x58e272(0x1fe)](_0x21d615);}_0x47698d?(_0x47698d['style'][_0x2ac1b3(0x266)]='opacity\x20.18s\x20ease',_0x47698d['style'][_0x2ac1b3(0x23a)]='0',setTimeout(function(){var _0x9dc671=_0x2ac1b3;if(_0x47698d[_0x9dc671(0x236)])_0x47698d[_0x9dc671(0x236)][_0x9dc671(0x217)](_0x47698d);_0xb93d5c();},0xc8)):_0xb93d5c();}_0xd1e5f7(0x0,0x1);},_0x147656[_0x364881(0x1ce)]=_0x1f9ef4;}(window));
-(function(){
-  var _skipCss = document.createElement('style');
-  _skipCss.textContent = '.sf-skip-btn{display:none!important}';
-  (document.head || document.documentElement).appendChild(_skipCss);
+/* StepForm — formulário multi-etapas das páginas de captura (capturas/*) e contato.
+ *
+ * Código legível, sem ofuscação (política do projeto — ver CLAUDE.md).
+ * API pública (não alterar sem atualizar as páginas que a consomem):
+ *   StepForm.init(el, { steps, submitLabel, successTitle, successDesc, successExtra, onSubmit, onSuccess })
+ *   StepForm.CAPTURAS_STEPS      → fluxo Estudante
+ *   StepForm.CAPTURAS_STEPS_EMP  → fluxo Empreendedor
+ *
+ * onSubmit(data, done): recebe um objeto { <id>: valor } e deve chamar done() ao concluir
+ * (ex.: depois do insert no Supabase). Se ausente, o sucesso é exibido direto.
+ */
+(function (window) {
+    'use strict';
 
-  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  function validateEmail(v) { return EMAIL_RE.test(v); }
-  function validatePhone(v) {
-    if (!v) return false;
-    var d = v.replace(/\D/g, '');
-    if (d.length >= 12 && d.slice(0, 2) === '55') d = d.slice(2);
-    return d.length === 11 && d[2] === '9';
-  }
-  function shakeErr(el, msg) {
-    el.classList.add('sf-err');
-    var errEl = el.parentNode && el.parentNode.querySelector('.sf-err-msg');
-    if (!errEl && el.parentNode) {
-      errEl = document.createElement('div');
-      errEl.className = 'sf-err-msg';
-      errEl.style.cssText = 'color:var(--danger,#c0392b);font-size:12px;margin-top:6px;font-family:var(--ep,"Epilogue",sans-serif);';
-      el.parentNode.insertBefore(errEl, el.nextSibling);
+    // ---- Estilos (injetados uma única vez) -----------------------------------
+    var CSS = '.sf-wrap{position:relative;overflow:hidden;}.sf-prog-bar{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(184,149,42,.15);z-index:1;}.sf-prog-fill{height:100%;background:var(--gold,#B8952A);transition:width .45s cubic-bezier(.4,0,.2,1);}.sf-step-slot{position:relative;overflow:hidden;min-height:300px;padding:28px 0 8px;}.sf-step{width:100%;box-sizing:border-box;}.sf-back-btn{background:none;border:none;cursor:pointer;font-family:var(--mo,"DM Mono",monospace);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.1em;padding:0;margin-bottom:12px;display:inline-flex;align-items:center;gap:6px;transition:color .2s;-webkit-tap-highlight-color:transparent;min-height:36px;}.sf-back-btn:hover,.sf-back-btn:focus{color:rgba(255,255,255,.6);outline:none;}.sf-counter{font-family:var(--mo,"DM Mono",monospace);font-size:11px;color:var(--gold2,#D4AE50);letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;opacity:.75;}.sf-question{font-family:var(--cg,"Cormorant Garamond",serif);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:300;color:#fff;line-height:1.15;margin-bottom:26px;letter-spacing:-.015em;}.sf-input{width:100%;box-sizing:border-box;font-family:var(--ep,"Epilogue",sans-serif);font-size:18px;font-weight:300;color:#fff;background:rgba(255,255,255,.05);border:none;border-bottom:1.5px solid rgba(255,255,255,.2);padding:14px 8px;outline:none;transition:border-color .3s,background .3s;border-radius:0;-webkit-appearance:none;}.sf-input::placeholder{color:rgba(255,255,255,.22);}.sf-input:focus{border-bottom-color:var(--gold,#B8952A);background:rgba(255,255,255,.07);}.sf-input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #0A1628 inset;-webkit-text-fill-color:#fff;}textarea.sf-input{resize:none;line-height:1.75;border:1.5px solid rgba(255,255,255,.2);border-radius:2px;padding:14px 12px;}textarea.sf-input:focus{border-color:var(--gold,#B8952A);}@media(max-width:480px){.sf-input{font-size:16px;}}.sf-field-label{display:block;font-family:var(--ep,"Epilogue",sans-serif);font-size:13px;font-weight:500;color:rgba(255,255,255,.6);margin:16px 0 6px;}.sf-enter-hint{font-family:var(--mo,"DM Mono",monospace);font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;letter-spacing:.04em;}.sf-enter-hint kbd{font-family:var(--mo,"DM Mono",monospace);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:1px 6px;font-size:10px;}.sf-err-msg{color:var(--danger,#c0392b);font-size:12px;margin-top:6px;font-family:var(--ep,"Epilogue",sans-serif);}.sf-btn-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:22px;}.sf-btn-next{font-family:var(--ep,"Epilogue",sans-serif);font-size:14px;font-weight:500;letter-spacing:.06em;background:var(--gold,#B8952A);color:var(--navy,#0A1628);border:none;padding:13px 28px;border-radius:2px;cursor:pointer;transition:background .2s,transform .15s;-webkit-tap-highlight-color:transparent;min-height:44px;}.sf-btn-next:hover{background:var(--gold2,#D4AE50);}.sf-btn-next:active{transform:scale(.97);}.sf-btn-next:disabled{opacity:.55;cursor:not-allowed;transform:none;}@media(max-width:480px){.sf-btn-next{width:100%;font-size:15px;padding:15px;}}.sf-skip-btn{background:none;border:none;cursor:pointer;font-family:var(--mo,"DM Mono",monospace);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;padding:4px 0;text-decoration:underline;text-underline-offset:3px;transition:color .2s;-webkit-tap-highlight-color:transparent;min-height:44px;}.sf-skip-btn:hover{color:rgba(255,255,255,.5);}.sf-radio-list{display:flex;flex-direction:column;gap:8px;}.sf-radio-card{width:100%;box-sizing:border-box;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:13px 16px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s,transform .12s;-webkit-tap-highlight-color:transparent;min-height:44px;}.sf-radio-card:hover{border-color:rgba(184,149,42,.4);background:rgba(255,255,255,.07);}.sf-radio-card.sf-sel{border-color:var(--gold,#B8952A);background:rgba(184,149,42,.1);}.sf-radio-card:active{transform:scale(.99);}.sf-radio-lbl{font-family:var(--ep,"Epilogue",sans-serif);font-size:14px;font-weight:500;color:rgba(255,255,255,.9);pointer-events:none;}.sf-radio-desc{font-family:var(--ep,"Epilogue",sans-serif);font-size:12px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.5;pointer-events:none;}.sf-slider-val{font-family:var(--cg,"Cormorant Garamond",serif);font-size:clamp(1.4rem,3vw,1.9rem);font-weight:400;color:var(--gold2,#D4AE50);margin-bottom:18px;min-height:1.4em;}.sf-slider{width:100%;accent-color:var(--gold,#B8952A);cursor:pointer;}.sf-slider-ticks{display:flex;justify-content:space-between;gap:6px;font-family:var(--mo,"DM Mono",monospace);font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;}.sf-success{text-align:center;padding:52px 16px 32px;opacity:0;transform:scale(.97);transition:opacity .35s ease,transform .35s ease;}.sf-success.sf-ok{opacity:1;transform:scale(1);}.sf-success-icon{width:52px;height:52px;border:1px solid var(--gold,#B8952A);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--mo,"DM Mono",monospace);font-size:20px;color:var(--gold2,#D4AE50);}.sf-success-title{font-family:var(--cg,"Cormorant Garamond",serif);font-size:clamp(1.8rem,4vw,2.4rem);font-weight:300;color:#fff;margin-bottom:12px;}.sf-success-desc{font-family:var(--ep,"Epilogue",sans-serif);font-size:15px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85;max-width:300px;margin:0 auto;}.sf-success-extra{margin-top:22px;}.sf-err{border-bottom-color:var(--danger,#c0392b)!important;animation:sf-shake .35s ease;}textarea.sf-err{border-color:var(--danger,#c0392b)!important;}@keyframes sf-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}}';
+
+    var cssInjected = false;
+    function injectCSS() {
+        if (cssInjected) return;
+        cssInjected = true;
+        var tag = document.createElement('style');
+        tag.textContent = CSS;
+        document.head.appendChild(tag);
     }
-    if (errEl) errEl.textContent = msg || 'Campo inválido.';
-    try { el.focus(); } catch (x) {}
-    setTimeout(function() {
-      el.classList.remove('sf-err');
-      if (errEl && errEl.parentNode) errEl.parentNode.removeChild(errEl);
-    }, 3500);
-  }
-  document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.sf-btn-next');
-    if (!btn) return;
-    var wrap = btn.closest('.sf-wrap');
-    if (!wrap) return;
-    var txt = wrap.querySelector('input[type=text].sf-input');
-    if (txt) {
-      var tv = txt.value.trim();
-      if (!tv) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(txt, 'Preencha este campo.');
-        return;
-      }
-      if (tv.length < 3) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(txt, 'O nome deve ter pelo menos 3 letras.');
-        return;
-      }
+
+    // ---- Validação -----------------------------------------------------------
+    var FREE_EMAIL = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud', 'bol', 'uol', 'terra', 'live', 'msn', 'aol', 'protonmail', 'ymail', 'globo', 'ig.com'];
+    function validEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
     }
-    var em = wrap.querySelector('input[type=email].sf-input');
-    if (em) {
-      var ev = em.value.trim();
-      if (!ev) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(em, 'Preencha seu e-mail.');
-        return;
-      }
-      if (!validateEmail(ev)) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(em, 'Digite um e-mail válido (ex: voce@email.com).');
-        return;
-      }
+    function validWorkEmail(v) {
+        if (!validEmail(v)) return false;
+        var domain = String(v).split('@')[1].toLowerCase();
+        return !FREE_EMAIL.some(function (p) {
+            return domain === p + '.com' || domain === p + '.com.br' || domain.indexOf(p + '.') === 0;
+        });
     }
-    var tel = wrap.querySelector('input[type=tel].sf-input');
-    if (tel) {
-      var pv = tel.value.trim();
-      if (!pv) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(tel, 'Preencha seu WhatsApp com DDD (ex: 11 99999-9999).');
-        return;
-      }
-      if (!validatePhone(pv)) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        shakeErr(tel, 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).');
-        return;
-      }
+    function validSite(v) {
+        if (!v) return true; // opcional
+        return /^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/.test(String(v).trim());
     }
-  }, true);
-  document.addEventListener('blur', function(e) {
-    var el = e.target;
-    if (!el.classList.contains('sf-input')) return;
-    var v = el.value.trim();
-    if (el.type === 'email' && v && !validateEmail(v)) shakeErr(el, 'Digite um e-mail válido (ex: voce@email.com).');
-    if (el.type === 'tel' && v && !validatePhone(v)) shakeErr(el, 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).');
-  }, true);
-})();
+    function validPhone(v) {
+        if (!v) return false;
+        var d = String(v).replace(/\D/g, '');
+        if (d.length >= 12 && d.slice(0, 2) === '55') d = d.slice(2);
+        return d.length === 11 && d[2] === '9';
+    }
+
+    // mapeia o tipo lógico para um type de <input> válido
+    function domInputType(t) {
+        if (t === 'workemail') return 'email';
+        if (t === 'url') return 'url';
+        if (t === 'tel' || t === 'email' || t === 'number') return t;
+        return 'text';
+    }
+
+    // retorna mensagem de erro (string) ou null se válido
+    function fieldError(field, value) {
+        var type = field.type || 'text';
+        if (field.required && !value) return 'Preencha este campo.';
+        if (!value) return null;
+        if (field.id === 'nome' && value.length < 3) return 'O nome deve ter pelo menos 3 letras.';
+        if (type === 'email' && !validEmail(value)) return 'Digite um e-mail válido (ex: voce@email.com).';
+        if (type === 'workemail') {
+            if (!validEmail(value)) return 'Digite um e-mail válido (ex: nome@empresa.com).';
+            if (!validWorkEmail(value)) return 'Use um e-mail corporativo (nome@empresa.com), não pessoal.';
+        }
+        if (type === 'url' && !validSite(value)) return 'Digite um site válido (ex: empresa.com.br).';
+        if (type === 'tel' && !validPhone(value)) return 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).';
+        return null;
+    }
+
+    function el(tag, cls) {
+        var node = document.createElement(tag);
+        if (cls) node.className = cls;
+        return node;
+    }
+
+    function showInputError(inputEl, msg) {
+        if (!inputEl) return;
+        inputEl.classList.add('sf-err');
+        var holder = inputEl.parentNode;
+        var existing = holder && holder.querySelector('.sf-err-msg');
+        if (!existing && holder) {
+            existing = el('div', 'sf-err-msg');
+            holder.insertBefore(existing, inputEl.nextSibling);
+        }
+        if (existing) existing.textContent = msg;
+        try { inputEl.focus(); } catch (e) {}
+        setTimeout(function () {
+            inputEl.classList.remove('sf-err');
+            if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+        }, 3500);
+    }
+
+    function init(root, opts) {
+        injectCSS();
+        var steps = opts.steps;
+        var total = steps.length;
+        var current = 0;
+        var data = {};
+
+        root.innerHTML = '';
+        root.classList.add('sf-wrap');
+
+        var progBar = el('div', 'sf-prog-bar');
+        var progFill = el('div', 'sf-prog-fill');
+        progBar.appendChild(progFill);
+        root.appendChild(progBar);
+
+        var slot = el('div', 'sf-step-slot');
+        root.appendChild(slot);
+
+        function updateProgress(idx) {
+            progFill.style.width = Math.round(idx / total * 100) + '%';
+        }
+
+        function showStep(idx, direction) {
+            var cfg = steps[idx];
+            var prev = slot.querySelector('.sf-step');
+            var step = el('div', 'sf-step');
+            buildStep(cfg, idx, step);
+            step.style.opacity = '0';
+            step.style.transform = direction >= 0 ? 'translateX(32px)' : 'translateX(-32px)';
+
+            if (prev) {
+                slot.style.minHeight = prev.offsetHeight + 'px';
+                prev.style.position = 'absolute';
+                prev.style.top = '0';
+                prev.style.left = '0';
+                prev.style.right = '0';
+                prev.style.zIndex = '1';
+                prev.style.pointerEvents = 'none';
+                requestAnimationFrame(function () {
+                    prev.style.transition = 'opacity .22s ease, transform .22s ease';
+                    prev.style.opacity = '0';
+                    prev.style.transform = direction >= 0 ? 'translateX(-32px)' : 'translateX(32px)';
+                });
+                setTimeout(function () {
+                    if (prev.parentNode) prev.parentNode.removeChild(prev);
+                    slot.style.minHeight = '';
+                }, 260);
+            }
+
+            slot.appendChild(step);
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    step.style.transition = 'opacity .28s ease, transform .28s ease';
+                    step.style.opacity = '1';
+                    step.style.transform = 'translateX(0)';
+                    var focusable = step.querySelector('input:not([type=radio]):not([type=range]), textarea');
+                    if (focusable) setTimeout(function () {
+                        try { focusable.focus(); } catch (e) {}
+                    }, 310);
+                });
+            });
+            updateProgress(idx);
+        }
+
+        function buildStep(cfg, idx, container) {
+            if (idx > 0) {
+                var back = el('button', 'sf-back-btn');
+                back.type = 'button';
+                back.textContent = '← Voltar';
+                back.addEventListener('click', function () { current = idx - 1; showStep(current, -1); });
+                container.appendChild(back);
+            }
+
+            var counter = el('div', 'sf-counter');
+            counter.textContent = (idx + 1) + ' / ' + total;
+            container.appendChild(counter);
+
+            var question = el('div', 'sf-question');
+            question.textContent = cfg.question;
+            container.appendChild(question);
+
+            if (cfg.type === 'radio') renderRadio(cfg, idx, container);
+            else if (cfg.type === 'slider') renderSlider(cfg, idx, container);
+            else if (cfg.type === 'group') renderGroup(cfg, idx, container);
+            else renderText(cfg, idx, container);
+        }
+
+        function nextLabel(idx) {
+            return idx === total - 1 ? (opts.submitLabel || 'Enviar →') : 'Continuar →';
+        }
+
+        function renderText(field, idx, container) {
+            var input;
+            if (field.type === 'textarea') {
+                input = el('textarea', 'sf-input');
+                input.rows = 4;
+            } else {
+                input = el('input', 'sf-input');
+                input.type = domInputType(field.type);
+            }
+            input.placeholder = field.placeholder || '';
+            if (data[field.id]) input.value = data[field.id];
+            container.appendChild(input);
+
+            if (field.type !== 'textarea') {
+                var touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+                if (!touch) {
+                    var hint = el('div', 'sf-enter-hint');
+                    hint.innerHTML = 'Pressione <kbd>Enter ↵</kbd>';
+                    container.appendChild(hint);
+                }
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') { e.preventDefault(); validateAndAdvance(field, input.value, idx, input); }
+                });
+            }
+
+            var row = el('div', 'sf-btn-row');
+            var next = el('button', 'sf-btn-next');
+            next.type = 'button';
+            next.textContent = nextLabel(idx);
+            next.addEventListener('click', function () { validateAndAdvance(field, input.value, idx, input); });
+            row.appendChild(next);
+
+            if (field.optional) {
+                var skip = el('button', 'sf-skip-btn');
+                skip.type = 'button';
+                skip.textContent = field.skipLabel || 'Pular';
+                skip.addEventListener('click', function () { data[field.id] = null; advance(idx); });
+                row.appendChild(skip);
+            }
+            container.appendChild(row);
+        }
+
+        function renderRadio(field, idx, container) {
+            var list = el('div', 'sf-radio-list');
+            field.choices.forEach(function (choice) {
+                var card = el('button', 'sf-radio-card');
+                card.type = 'button';
+                if (data[field.id] === choice.value) card.classList.add('sf-sel');
+                var lbl = el('span', 'sf-radio-lbl');
+                lbl.textContent = choice.label;
+                card.appendChild(lbl);
+                if (choice.desc) {
+                    var desc = el('span', 'sf-radio-desc');
+                    desc.textContent = choice.desc;
+                    card.appendChild(desc);
+                }
+                card.addEventListener('click', function () {
+                    list.querySelectorAll('.sf-radio-card').forEach(function (c) { c.classList.remove('sf-sel'); });
+                    card.classList.add('sf-sel');
+                    data[field.id] = choice.value;
+                    setTimeout(function () { advance(idx); }, 280);
+                });
+                list.appendChild(card);
+            });
+            container.appendChild(list);
+        }
+
+        function renderSlider(field, idx, container) {
+            var stops = field.stops || [];
+            // Quando required, exige escolha ativa: começa sem valor e o botão
+            // só libera após mover o slider.
+            var hasValue = data[field.id] != null;
+            var pos = stops.findIndex(function (s) { return s.value === data[field.id]; });
+            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
+            var touched = !field.required || hasValue;
+
+            var valueLabel = el('div', 'sf-slider-val');
+            var slider = el('input', 'sf-slider');
+            slider.type = 'range';
+            slider.min = '0';
+            slider.max = String(stops.length - 1);
+            slider.step = '1';
+            slider.value = String(pos);
+
+            var ticks = el('div', 'sf-slider-ticks');
+            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
+
+            function sync() {
+                var i = parseInt(slider.value, 10);
+                valueLabel.textContent = stops[i].label;
+                slider.setAttribute('aria-valuetext', stops[i].label);
+                data[field.id] = stops[i].value;
+            }
+            slider.addEventListener('input', function () {
+                if (!touched) {
+                    touched = true;
+                    next.disabled = false;
+                }
+                sync();
+            });
+            if (touched) {
+                sync();
+            } else {
+                valueLabel.textContent = 'Mova para escolher';
+            }
+
+            container.appendChild(valueLabel);
+            container.appendChild(slider);
+            container.appendChild(ticks);
+
+            var row = el('div', 'sf-btn-row');
+            var next = el('button', 'sf-btn-next');
+            next.type = 'button';
+            next.disabled = !touched;
+            next.textContent = nextLabel(idx);
+            next.addEventListener('click', function () { advance(idx); });
+            row.appendChild(next);
+            container.appendChild(row);
+        }
+
+        function renderGroup(field, idx, container) {
+            var inputs = [];
+            (field.fields || []).forEach(function (sub) {
+                var label = el('label', 'sf-field-label');
+                label.textContent = sub.label + (sub.optional ? ' (opcional)' : '');
+                container.appendChild(label);
+
+                var input = el('input', 'sf-input');
+                input.type = domInputType(sub.type);
+                input.placeholder = sub.placeholder || '';
+                if (data[sub.id]) input.value = data[sub.id];
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') { e.preventDefault(); tryAdvanceGroup(); }
+                });
+                container.appendChild(input);
+                inputs.push({ sub: sub, input: input });
+            });
+
+            var row = el('div', 'sf-btn-row');
+            var next = el('button', 'sf-btn-next');
+            next.type = 'button';
+            next.textContent = nextLabel(idx);
+            next.addEventListener('click', tryAdvanceGroup);
+            row.appendChild(next);
+            container.appendChild(row);
+
+            function tryAdvanceGroup() {
+                for (var k = 0; k < inputs.length; k++) {
+                    var v = inputs[k].input.value.trim();
+                    var err = fieldError(inputs[k].sub, v);
+                    if (err) { showInputError(inputs[k].input, err); return; }
+                }
+                inputs.forEach(function (it) { data[it.sub.id] = it.input.value.trim() || null; });
+                advance(idx);
+            }
+        }
+
+        function validateAndAdvance(field, rawValue, idx, inputEl) {
+            var value = typeof rawValue === 'string' ? rawValue.trim() : rawValue;
+            var err = fieldError(field, value);
+            if (err) { showInputError(inputEl, err); return; }
+            data[field.id] = value || null;
+            advance(idx);
+        }
+
+        function advance(idx) {
+            if (idx >= total - 1) submit();
+            else { current = idx + 1; showStep(current, 1); }
+        }
+
+        function submit() {
+            var next = slot.querySelector('.sf-btn-next');
+            if (next) { next.disabled = true; next.textContent = 'Enviando...'; }
+            slot.querySelectorAll('.sf-radio-card').forEach(function (c) { c.disabled = true; });
+            if (opts.onSubmit) {
+                opts.onSubmit(data, function () { updateProgress(total); showSuccess(); });
+            } else {
+                updateProgress(total);
+                showSuccess();
+            }
+        }
+
+        function showSuccess() {
+            var step = slot.querySelector('.sf-step');
+            function build() {
+                var box = el('div', 'sf-success');
+                var icon = el('div', 'sf-success-icon');
+                icon.textContent = '✓';
+                box.appendChild(icon);
+                var title = el('div', 'sf-success-title');
+                title.textContent = opts.successTitle || 'Pronto!';
+                box.appendChild(title);
+                var desc = el('p', 'sf-success-desc');
+                desc.textContent = opts.successDesc || 'Recebemos seus dados. O material chegará no seu e-mail em breve.';
+                box.appendChild(desc);
+                if (opts.successExtra) {
+                    var extra = el('div', 'sf-success-extra');
+                    extra.innerHTML = opts.successExtra;
+                    box.appendChild(extra);
+                }
+                slot.appendChild(box);
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () { box.classList.add('sf-ok'); });
+                });
+                if (opts.onSuccess) opts.onSuccess(data);
+            }
+            if (step) {
+                step.style.transition = 'opacity .18s ease';
+                step.style.opacity = '0';
+                setTimeout(function () {
+                    if (step.parentNode) step.parentNode.removeChild(step);
+                    build();
+                }, 200);
+            } else {
+                build();
+            }
+        }
+
+        showStep(0, 1);
+    }
+
+    // ---- Definições de etapas ------------------------------------------------
+
+    // Estudante: WhatsApp obrigatório (não há "pular").
+    var CAPTURAS_STEPS = [
+        { id: 'nome', type: 'text', question: 'Como posso te chamar?', placeholder: 'Seu nome completo', required: true },
+        { id: 'email', type: 'email', question: 'Qual é o seu melhor e-mail?', placeholder: 'voce@email.com', required: true },
+        { id: 'whatsapp', type: 'tel', question: 'Qual é o seu WhatsApp?', placeholder: '(11) 99999-9999', required: true },
+        {
+            id: 'nivel', type: 'radio', question: 'Qual é o seu nível atual em Valuation?',
+            choices: [
+                { value: 'iniciante', label: 'Iniciante', desc: 'Sei o conceito básico, mas nunca montei um modelo de FCD.' },
+                { value: 'intermediario', label: 'Intermediário', desc: 'Entendo a teoria e já faço projeções, mas tenho dúvidas em WACC, perpetuidade, etc.' },
+                { value: 'avancado', label: 'Avançado', desc: 'Já faço valuations na prática e quero refinar minhas análises.' }
+            ]
+        },
+        {
+            id: 'objetivo', type: 'radio', question: 'Qual é o seu maior objetivo ao aprender Valuation?',
+            choices: [
+                { value: 'mercado', label: 'Mercado financeiro', desc: 'Conquistar uma vaga em M&A, Equity Research, Investment Banking, etc.' },
+                { value: 'certificacao', label: 'Certificação', desc: 'Estudar para CFA, CNPI, ou outra certificação do mercado financeiro.' },
+                { value: 'investimentos', label: 'Investimentos pessoais', desc: 'Analisar e escolher ações e investimentos por conta própria.' },
+                { value: 'empresa', label: 'Meu negócio', desc: 'Aplicar no meu próprio negócio ou na empresa onde trabalho.' },
+                { value: 'faculdade', label: 'Faculdade', desc: 'Passar em disciplinas ou entregar um TCC/projeto acadêmico.' }
+            ]
+        }
+    ];
+
+    // Empreendedor: e-mail corporativo, bloco empresa/site/cargo, faturamento e tamanho em slider.
+    var CAPTURAS_STEPS_EMP = [
+        { id: 'nome', type: 'text', question: 'Como posso te chamar?', placeholder: 'Seu nome completo', required: true },
+        { id: 'email', type: 'workemail', question: 'Qual é o seu e-mail de trabalho?', placeholder: 'nome@empresa.com', required: true },
+        {
+            id: 'empresa_bloco', type: 'group', question: 'Sobre a sua empresa',
+            fields: [
+                { id: 'empresa', type: 'text', label: 'Nome da empresa', placeholder: 'Nome da empresa', required: true },
+                { id: 'site', type: 'url', label: 'Site da empresa', placeholder: 'empresa.com.br', optional: true },
+                { id: 'cargo', type: 'text', label: 'Seu cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true }
+            ]
+        },
+        { id: 'whatsapp', type: 'tel', question: 'Qual é o seu WhatsApp?', placeholder: '(11) 99999-9999', required: true },
+        {
+            id: 'objetivo', type: 'radio', question: 'O que você deseja com M&A?',
+            choices: [
+                { value: 'Quero vender o meu controle total ou majoritário (Sell-side)', label: 'Vender minha empresa', desc: 'Sell-side: venda de controle total ou majoritário.' },
+                { value: 'Procuro um sócio estratégico ou investidor minoritário', label: 'Sócio ou investidor', desc: 'Entrada de capital com participação minoritária.' },
+                { value: 'Quero comprar outra empresa ou expandir mercado (Buy-side)', label: 'Comprar / expandir', desc: 'Buy-side: aquisição ou expansão de mercado.' },
+                { value: 'Busco fusão com outra operação complementar', label: 'Fusão estratégica', desc: 'Unir operações com empresa complementar.' },
+                { value: 'Preciso de Reestruturação Financeira ou Operacional', label: 'Reestruturação', desc: 'Reestruturação financeira ou operacional.' },
+                { value: 'Ainda estou avaliando alternativas estratégicas', label: 'Avaliando opções', desc: 'Explorando alternativas estratégicas.' }
+            ]
+        },
+        {
+            id: 'tamanho', type: 'slider', question: 'Qual é o tamanho da sua empresa?', required: true,
+            stops: [
+                { value: 'Até 20 funcionários', label: 'Até 20 funcionários' },
+                { value: '21 a 100 funcionários', label: '21 a 100 funcionários' },
+                { value: '101 a 500 funcionários', label: '101 a 500 funcionários' },
+                { value: 'Mais de 500 funcionários', label: 'Mais de 500 funcionários' }
+            ]
+        },
+        {
+            id: 'faturamento', type: 'slider', question: 'Qual é o faturamento médio anual?', required: true,
+            stops: [
+                { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
+                { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
+                { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
+                { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
+                { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
+                { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+            ]
+        }
+    ];
+
+    window.StepForm = {
+        init: init,
+        CAPTURAS_STEPS: CAPTURAS_STEPS,
+        CAPTURAS_STEPS_EMP: CAPTURAS_STEPS_EMP
+    };
+}(window));

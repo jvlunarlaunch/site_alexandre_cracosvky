@@ -54,6 +54,7 @@ const QUIZ_CONFIG = {
       "placeholder": "Ex: 5",
       "min": 0,
       "scale": 1000000,
+      "preview": "millions",
       "dimension": "Financeiro"
     },
     {
@@ -62,6 +63,7 @@ const QUIZ_CONFIG = {
       "type": "number",
       "placeholder": "Ex: 20",
       "min": 0,
+      "preview": "percent",
       "dimension": "Financeiro"
     },
     {
@@ -71,6 +73,7 @@ const QUIZ_CONFIG = {
       "placeholder": "Ex: 1 (ou 0 se sem dívidas)",
       "min": 0,
       "scale": 1000000,
+      "preview": "millions",
       "dimension": "Financeiro",
       "optional": true
     },
@@ -227,25 +230,6 @@ const QUIZ_CONFIG = {
   ]
 };
 QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
-</script>
-<script>
-(function() {
-  var app = document.getElementById('quiz-app');
-  var obs = new MutationObserver(function() {
-    var inp = app.querySelector('input[placeholder="Ex: 5"]');
-    if (inp && !inp._fmtAttached) {
-      inp._fmtAttached = true;
-      var display = document.createElement('div');
-      display.style.cssText = 'font-family:var(--mo);font-size:13px;color:var(--gold2);margin-top:8px;letter-spacing:.02em;min-height:20px;';
-      inp.parentNode.insertBefore(display, inp.nextSibling);
-      inp.addEventListener('input', function() {
-        var val = parseFloat(inp.value);
-        display.textContent = isNaN(val) || inp.value === '' ? '' : '= R$ ' + (val * 1000000).toLocaleString('pt-BR');
-      });
-    }
-  });
-  obs.observe(app, { childList: true, subtree: true });
-})();
 </script>
 </main>
 <footer class="footer">

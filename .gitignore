@@ -21,8 +21,13 @@ texto_extraido/
 
 # Dev/infra artifacts (not for production)
 supabase-schema.sql
+schema.sql
 .env.deploy
 backups/
+
+# Specs e materiais de trabalho (não vão ao servidor)
+iscas-digitais.csv
+.~lock.*#
 
 # ─── Adicionado por deploy-ftp-github skill ──────────────────────────────────
 
@@ -69,4 +74,5 @@ alterações_que_ele_me_passou/
 quizes_alexandre_cracovsky.docx
 diagnosticos_quizzes.docx
 documentacao_diagnosticos.docx
+documentacao_diagnostico_2.docx
 gerar_doc.py

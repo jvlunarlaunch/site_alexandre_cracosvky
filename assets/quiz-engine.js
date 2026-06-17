@@ -70,6 +70,88 @@ const QuizEngine = ((() => {
         btn.style.pointerEvents = 'auto';
     }
 
+    // Página de origem do segmento, para o link "Ver outras ferramentas".
+    function segmentHref() {
+        return config.segment === 'empreendedor' ? '../empreendedor.html' : '../estudante.html';
+    }
+
+    // CTA de contato no resultado (empresário): em vez de mandar para /contato e
+    // repetir os dados, abre um formulário inline já com o lead capturado, pedindo
+    // apenas uma mensagem. Mantém o link original como fallback.
+    function wireContactCta(screen) {
+        const cta = screen.querySelector('.quiz-cta-contato');
+        if (!cta) return;
+        if (config.segment !== 'empreendedor' || !state.lead) return;
+        cta.addEventListener('click', function (e) {
+            e.preventDefault();
+            openInlineContact(cta);
+        });
+    }
+
+    function openInlineContact(ctaEl) {
+        const lead = state.lead || {};
+        const firstName = (lead.name || '').trim().split(/\s+/)[0] || '';
+        const sub = [lead.cargo, lead.empresa].filter(Boolean).join(' · ');
+
+        const panel = document.createElement('div');
+        panel.style.cssText = 'background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:22px 24px;text-align:left;';
+        panel.innerHTML =
+            '<p style="font-family:var(--cg),Georgia,serif;font-size:clamp(1.25rem,3.5vw,1.6rem);font-weight:600;color:#1A2A52;margin:0 0 2px">'
+                + 'Olá' + (firstName ? ', ' + escapeHtml(firstName) : '') + '!</p>'
+            + (sub ? '<p style="font-size:12.5px;color:#8A887F;margin:0 0 14px">' + escapeHtml(sub) + '</p>' : '<div style="height:10px"></div>')
+            + '<label style="display:block;font-size:13.5px;font-weight:600;color:#2C2C2A;margin:0 0 8px">Conte mais sobre seu objetivo</label>'
+            + '<textarea id="qe-contato-msg" rows="4" placeholder="Ex.: gostaria de entender as opções para a minha empresa…" '
+                + 'style="width:100%;box-sizing:border-box;font-family:inherit;font-size:15px;color:#2C2C2A;border:1px solid #D8D6CC;border-radius:10px;padding:12px 14px;resize:vertical;outline:none"></textarea>'
+            + '<div id="qe-contato-err" style="display:none;color:#9A2020;font-size:12.5px;margin-top:6px"></div>'
+            + '<button id="qe-contato-send" type="button" disabled '
+                + 'style="margin-top:14px;width:100%;background:var(--gold,#B8932F);color:#2C2C2A;font-size:16px;font-weight:700;padding:14px 20px;border:none;border-radius:12px;font-family:inherit;cursor:pointer;opacity:.55">Enviar →</button>';
+
+        ctaEl.parentNode.replaceChild(panel, ctaEl);
+
+        const textarea = panel.querySelector('#qe-contato-msg');
+        const sendBtn = panel.querySelector('#qe-contato-send');
+        const errBox = panel.querySelector('#qe-contato-err');
+        textarea.focus();
+
+        textarea.addEventListener('input', function () {
+            const hasText = textarea.value.trim().length > 0;
+            sendBtn.disabled = !hasText;
+            sendBtn.style.opacity = hasText ? '1' : '.55';
+            if (hasText) errBox.style.display = 'none';
+        });
+
+        sendBtn.addEventListener('click', function () {
+            const msg = textarea.value.trim();
+            if (!msg) {
+                errBox.textContent = 'Escreva uma mensagem antes de enviar.';
+                errBox.style.display = 'block';
+                return;
+            }
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Enviando...';
+            if (window._sb) {
+                window._sb.from('contato_alexandre_cracovsky').insert({
+                    nome: lead.name,
+                    email: lead.email,
+                    whatsapp: lead.wa,
+                    assunto: config.title,
+                    mensagem: msg
+                }).then(function () {}, function () {});
+            }
+            panel.innerHTML =
+                '<p style="font-family:var(--cg),Georgia,serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:600;color:#1B7A3A;margin:0 0 8px">Recebido! ✓</p>'
+                + '<p style="font-size:14px;color:#2C2C2A;margin:0;line-height:1.6">Obrigado'
+                    + (firstName ? ', ' + escapeHtml(firstName) : '')
+                    + '. Em breve entro em contato pelo seu e-mail ou WhatsApp.</p>';
+        });
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
     function renderChoice(q, inputArea, btnNext, existing) {
         const list = makeDiv('options-list');
         q.options.forEach(opt => {
@@ -100,14 +182,31 @@ const QuizEngine = ((() => {
         };
     }
 
+    function numberPreview(kind, scale, raw) {
+        const val = parseFloat(raw);
+        if (raw === '' || isNaN(val)) return '';
+        if (kind === 'millions') return '= R$ ' + (val * (scale || 1000000)).toLocaleString('pt-BR');
+        if (kind === 'percent') return '= ' + val + '%';
+        return '';
+    }
+
     function renderNumber(q, inputArea, btnNext, existing) {
         inputArea.innerHTML = "<input class=\"number-input\" type=\"number\" id=\"num-in\" placeholder=\"" + (q.placeholder || '') + "\" value=\"" + (existing || '') + "\" min=\"" + (q.min || 0) + '">';
+        const input = inputArea.querySelector('#num-in');
+        let preview = null;
+        if (q.preview) {
+            preview = document.createElement('div');
+            preview.style.cssText = 'font-family:var(--mo);font-size:13px;color:var(--gold2);margin-top:8px;letter-spacing:.02em;min-height:20px;';
+            preview.textContent = numberPreview(q.preview, q.scale, input.value);
+            input.parentNode.insertBefore(preview, input.nextSibling);
+        }
         if (existing !== undefined) enableBtn(btnNext);
-        inputArea.querySelector('#num-in').oninput = function() {
+        input.oninput = function() {
             if (this.value) {
                 state.answers[q.id] = +this.value;
                 enableBtn(btnNext);
             }
+            if (preview) preview.textContent = numberPreview(q.preview, q.scale, this.value);
         };
     }
 
@@ -246,12 +345,22 @@ const QuizEngine = ((() => {
             container.appendChild(questionEl);
 
             if (stepCfg.type === 'radio') renderRadioField(stepCfg, container, idx);
+            else if (stepCfg.type === 'slider') renderSliderField(stepCfg, container, idx);
+            else if (stepCfg.type === 'group') renderGroupField(stepCfg, container, idx);
             else renderTextField(stepCfg, container, idx);
+        }
+
+        // Maps a logical field type to a valid DOM input type.
+        function qeDomInputType(t) {
+            if (t === 'workemail') return 'email';
+            if (t === 'url') return 'url';
+            if (t === 'tel' || t === 'email' || t === 'number') return t;
+            return 'text';
         }
 
         function renderTextField(field, container, idx) {
             const input = document.createElement('input');
-            input.type = field.type || 'text';
+            input.type = qeDomInputType(field.type);
             input.className = 'form-input';
             input.placeholder = field.placeholder || '';
             if (captureData[field.id]) input.value = captureData[field.id];
@@ -275,15 +384,6 @@ const QuizEngine = ((() => {
             continueBtn.textContent = idx === totalSteps - 1 ? 'Ver meu resultado →' : 'Continuar →';
             continueBtn.onclick = () => validateAndAdvance(field, input.value, idx);
             row.appendChild(continueBtn);
-
-            if (field.optional) {
-                const skipBtn = document.createElement('button');
-                skipBtn.type = 'button';
-                skipBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.3);text-decoration:underline;text-underline-offset:3px;padding:4px 0;min-height:44px;';
-                skipBtn.textContent = field.skipLabel || 'Pular';
-                skipBtn.onclick = () => { captureData[field.id] = null; advanceCapture(idx); };
-                row.appendChild(skipBtn);
-            }
             container.appendChild(row);
         }
 
@@ -335,8 +435,120 @@ const QuizEngine = ((() => {
             container.appendChild(wrap);
         }
 
+        function renderSliderField(field, container, idx) {
+            const stops = field.stops || [];
+            // Quando required, exige escolha ativa: começa sem valor e o botão
+            // só libera após a pessoa mover o slider.
+            const hasValue = captureData[field.id] != null;
+            let pos = stops.findIndex(s => s.value === captureData[field.id]);
+            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
+            let touched = !field.required || hasValue;
+
+            const valueLabel = document.createElement('div');
+            valueLabel.style.cssText = 'font-family:var(--cg);font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--gold2);margin-bottom:18px;min-height:1.4em;';
+
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = '0';
+            slider.max = String(stops.length - 1);
+            slider.step = '1';
+            slider.value = String(pos);
+            slider.className = 'quiz-slider';
+            slider.style.cssText = 'width:100%;accent-color:var(--gold);cursor:pointer;';
+
+            const ticks = document.createElement('div');
+            ticks.style.cssText = 'display:flex;justify-content:space-between;font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;gap:6px;';
+            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
+
+            function sync() {
+                const i = parseInt(slider.value, 10);
+                valueLabel.textContent = stops[i].label;
+                slider.setAttribute('aria-valuetext', stops[i].label);
+                captureData[field.id] = stops[i].value;
+            }
+            slider.addEventListener('input', () => {
+                if (!touched) {
+                    touched = true;
+                    continueBtn.disabled = false;
+                }
+                sync();
+            });
+            if (touched) {
+                sync();
+            } else {
+                valueLabel.textContent = 'Mova para escolher';
+            }
+
+            container.appendChild(valueLabel);
+            container.appendChild(slider);
+            container.appendChild(ticks);
+
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:24px;';
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'btn-gold';
+            continueBtn.type = 'button';
+            continueBtn.disabled = !touched;
+            continueBtn.textContent = idx === totalSteps - 1 ? 'Ver meu resultado →' : 'Continuar →';
+            continueBtn.onclick = () => advanceCapture(idx);
+            row.appendChild(continueBtn);
+            container.appendChild(row);
+        }
+
+        function renderGroupField(field, container, idx) {
+            const inputs = [];
+            (field.fields || []).forEach(sub => {
+                const label = document.createElement('label');
+                label.style.cssText = 'display:block;font-family:var(--ep);font-size:13px;font-weight:500;color:rgba(255,255,255,.6);margin:16px 0 6px;';
+                label.textContent = sub.label + (sub.optional ? ' (opcional)' : '');
+                container.appendChild(label);
+
+                const input = document.createElement('input');
+                input.type = qeDomInputType(sub.type);
+                input.className = 'form-input';
+                input.placeholder = sub.placeholder || '';
+                if (captureData[sub.id]) input.value = captureData[sub.id];
+                input.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') { e.preventDefault(); tryAdvance(); }
+                });
+                container.appendChild(input);
+                inputs.push({ sub, input });
+            });
+
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:24px;';
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'btn-gold';
+            continueBtn.type = 'button';
+            continueBtn.textContent = idx === totalSteps - 1 ? 'Ver meu resultado →' : 'Continuar →';
+            continueBtn.onclick = tryAdvance;
+            row.appendChild(continueBtn);
+            container.appendChild(row);
+
+            function tryAdvance() {
+                for (let k = 0; k < inputs.length; k++) {
+                    const v = inputs[k].input.value.trim();
+                    if (qeFieldInvalid(inputs[k].sub, v, inputs[k].input)) return;
+                }
+                inputs.forEach(it => { captureData[it.sub.id] = it.input.value.trim() || null; });
+                advanceCapture(idx);
+            }
+        }
+
         function qeValidEmail(v) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+        }
+
+        var QE_FREE_EMAIL = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud', 'bol', 'uol', 'terra', 'live', 'msn', 'aol', 'protonmail', 'ymail', 'globo', 'ig.com'];
+        function qeValidWorkEmail(v) {
+            if (!qeValidEmail(v)) return false;
+            var domain = String(v).split('@')[1].toLowerCase();
+            return !QE_FREE_EMAIL.some(function(p) { return domain === p + '.com' || domain === p + '.com.br' || domain.indexOf(p + '.') === 0; });
+        }
+
+        function qeValidSite(v) {
+            if (!v) return true; // opcional
+            return /^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/.test(String(v).trim());
         }
 
         function qeValidPhone(v) {
@@ -382,6 +594,20 @@ const QuizEngine = ((() => {
                 qeFieldError(inputEl, 'Digite um e-mail válido (ex: voce@email.com).');
                 return true;
             }
+            if (type === 'workemail') {
+                if (!qeValidEmail(value)) {
+                    qeFieldError(inputEl, 'Digite um e-mail válido (ex: nome@empresa.com).');
+                    return true;
+                }
+                if (!qeValidWorkEmail(value)) {
+                    qeFieldError(inputEl, 'Use um e-mail corporativo (nome@empresa.com), não pessoal.');
+                    return true;
+                }
+            }
+            if (type === 'url' && !qeValidSite(value)) {
+                qeFieldError(inputEl, 'Digite um site válido (ex: empresa.com.br).');
+                return true;
+            }
             if (type === 'tel' && !qeValidPhone(value)) {
                 qeFieldError(inputEl, 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).');
                 return true;
@@ -409,6 +635,8 @@ const QuizEngine = ((() => {
                 email: captureData.email,
                 wa: captureData.whatsapp,
                 empresa: captureData.empresa,
+                site: captureData.site,
+                cargo: captureData.cargo,
                 obj: captureData.objetivo,
                 tam: captureData.tamanho,
                 fat: captureData.faturamento,
@@ -426,6 +654,8 @@ const QuizEngine = ((() => {
                 };
                 if (isEmpreendedor) {
                     row.empresa = lead.empresa;
+                    row.site = lead.site;
+                    row.cargo = lead.cargo;
                     row.tamanho = lead.tam;
                     row.faturamento = lead.fat;
                 } else {
@@ -457,8 +687,7 @@ const QuizEngine = ((() => {
                 type: 'tel',
                 question: 'Qual é o seu WhatsApp?',
                 placeholder: '(11) 99999-9999',
-                optional: true,
-                skipLabel: 'Pular'
+                required: true
             }, {
                 id: 'nivel',
                 type: 'radio',
@@ -513,24 +742,25 @@ const QuizEngine = ((() => {
                 required: true
             }, {
                 id: 'email',
-                type: 'email',
-                question: 'Qual é o seu melhor e-mail?',
-                placeholder: 'voce@email.com',
+                type: 'workemail',
+                question: 'Qual é o seu e-mail de trabalho?',
+                placeholder: 'nome@empresa.com',
                 required: true
             }, {
-                id: 'empresa',
-                type: 'text',
-                question: 'Qual é o nome da sua empresa?',
-                placeholder: 'Nome da empresa',
-                optional: true,
-                skipLabel: 'Pular'
+                id: 'empresa_bloco',
+                type: 'group',
+                question: 'Sobre a sua empresa',
+                fields: [
+                    { id: 'empresa', type: 'text', label: 'Nome da empresa', placeholder: 'Nome da empresa', required: true },
+                    { id: 'site', type: 'url', label: 'Site da empresa', placeholder: 'empresa.com.br', optional: true },
+                    { id: 'cargo', type: 'text', label: 'Seu cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true }
+                ]
             }, {
                 id: 'whatsapp',
                 type: 'tel',
                 question: 'Qual é o seu WhatsApp?',
                 placeholder: '(11) 99999-9999',
-                optional: true,
-                skipLabel: 'Pular'
+                required: true
             }, {
                 id: 'objetivo',
                 type: 'radio',
@@ -562,38 +792,28 @@ const QuizEngine = ((() => {
                 }]
             }, {
                 id: 'tamanho',
-                type: 'radio',
+                type: 'slider',
                 question: 'Qual é o tamanho da sua empresa?',
-                choices: [{
-                    value: 'Até 20 funcionários',
-                    label: 'Até 20 funcionários'
-                }, {
-                    value: '21 a 100 funcionários',
-                    label: '21 a 100 funcionários'
-                }, {
-                    value: '101 a 500 funcionários',
-                    label: '101 a 500 funcionários'
-                }, {
-                    value: 'Mais de 500 funcionários',
-                    label: 'Mais de 500 funcionários'
-                }]
+                required: true,
+                stops: [
+                    { value: 'Até 20 funcionários', label: 'Até 20 funcionários' },
+                    { value: '21 a 100 funcionários', label: '21 a 100 funcionários' },
+                    { value: '101 a 500 funcionários', label: '101 a 500 funcionários' },
+                    { value: 'Mais de 500 funcionários', label: 'Mais de 500 funcionários' }
+                ]
             }, {
                 id: 'faturamento',
-                type: 'radio',
+                type: 'slider',
                 question: 'Qual é o faturamento médio anual?',
-                choices: [{
-                    value: 'Até R$ 50 Milhões',
-                    label: 'Até R$ 50M'
-                }, {
-                    value: 'De R$ 50 Milhões a R$ 100 Milhões',
-                    label: 'R$ 50M – R$ 100M'
-                }, {
-                    value: 'De R$ 100 Milhões a R$ 500 Milhões',
-                    label: 'R$ 100M – R$ 500M'
-                }, {
-                    value: 'Acima de R$ 500 Milhões',
-                    label: 'Acima de R$ 500M'
-                }]
+                required: true,
+                stops: [
+                    { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
+                    { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
+                    { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
+                    { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
+                    { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
+                    { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+                ]
             }];
         }
 
@@ -605,12 +825,13 @@ const QuizEngine = ((() => {
         if (config.scoring.normalize) { renderResultNormalize(scores); return; }
         if (config.scoring.type === 'valuation') { renderResultValuation(scores); return; }
         if (config.scoring.type === 'blindspots') { renderResultBlinspots(scores); return; }
+        if (config.scoring.type === 'maturity' && config.scoring.dimensions) { renderResultMaturity(scores); return; }
 
         const screen = makeDiv('quiz-screen active');
         const threshold = getThreshold(scores);
         const pct = Math.min(100, Math.round(scores.main / (config.scoring.max || 10) * 100));
         const deg = Math.round(pct * 3.6);
-        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"result-intro-label\">Seu resultado foi:</div>\n        <div class=\"result-score-label\">" + (config.scoring.scoreLabel || 'Pontuação') + "</div>\n        <div class=\"result-score-val\">" + formatScore(scores.main, config.scoring) + "</div>\n        <div class=\"result-level " + threshold.class + '">' + threshold.label + "</div>\n        <p class=\"result-desc\">" + threshold.description + '</p>\n      </div>\n      <div id="charts-area"></div>\n      <div class="result-ctas">\n        <a href="../index.html" class="btn-navy">← Ver outras ferramentas</a>\n        <button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark);">Refazer →</button>\n      </div>\n    ';
+        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"result-intro-label\">Seu resultado foi:</div>\n        <div class=\"result-score-label\">" + (config.scoring.scoreLabel || 'Pontuação') + "</div>\n        <div class=\"result-score-val\">" + formatScore(scores.main, config.scoring) + "</div>\n        <div class=\"result-level " + threshold.class + '">' + threshold.label + "</div>\n        <p class=\"result-desc\">" + threshold.description + '</p>\n      </div>\n      <div id="charts-area"></div>\n      <div class="result-ctas">\n        <a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a>\n        <button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark);">Refazer →</button>\n      </div>\n    ';
         el.appendChild(screen);
         screen.querySelector('#btn-restart').onclick = () => {
             state = { screen: 'welcome', qi: 0, answers: {}, captured: false };
@@ -623,9 +844,11 @@ const QuizEngine = ((() => {
         const screen = makeDiv('quiz-screen active');
 
         // Compact million formatter: 195000000 → "195 mi", 1500000000 → "1.5B"
+        // vírgula decimal (pt-BR), 1 casa
+        const qeDec = n => String(n).replace('.', ',');
         function qeFmtM(v) {
-            if (v >= 1e9) return (v / 1e9).toFixed(1) + 'B';
-            if (v >= 1e6) { const m = v / 1e6; return (m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)) + ' mi'; }
+            if (v >= 1e9) return qeDec((v / 1e9).toFixed(1)) + 'B';
+            if (v >= 1e6) { const m = v / 1e6; return qeDec(m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)) + ' mi'; }
             return formatCurrency(v);
         }
 
@@ -647,7 +870,7 @@ const QuizEngine = ((() => {
             let tickHtml = '';
             for (let i = 0; i <= nSteps; i++) {
                 const t = +(axMin + i * step).toFixed(10);
-                tickHtml += `<text x="${xp(t)}" y="48">${t % 1 === 0 ? t : t.toFixed(1)}</text>`;
+                tickHtml += `<text x="${xp(t)}" y="48">${t % 1 === 0 ? t : qeDec(t.toFixed(1))}</text>`;
             }
             const row = (lo, hi, mid, fill, label) => {
                 const x1 = xp(toM(lo)), x2 = xp(toM(hi)), xm = xp(toM(mid));
@@ -682,7 +905,7 @@ const QuizEngine = ((() => {
                 offset += len;
             });
             const totalDiscPct = Math.round((1 - (d.valorRetido || 0) / total) * 100);
-            return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 180 180" width="160" height="160"><g transform="rotate(-90 90 90)">${circles}</g><text x="90" y="84" text-anchor="middle" font-size="13" fill="#5F5E5A">Valor</text><text x="90" y="104" text-anchor="middle" font-size="22" font-weight="700" fill="#1A2A52">${retidoPct}%</text></svg><div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#5F5E5A">${legItems}</div></div><p style="font-size:11px;color:#8A887F;margin:14px 0 0">Os descontos somam ${totalDiscPct}% do valor de referência. O risco específico da empresa é o fator mais endereçável com preparo.</p>`;
+            return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 180 180" width="160" height="160"><g transform="rotate(-90 90 90)">${circles}</g><text x="90" y="84" text-anchor="middle" font-size="13" fill="#5F5E5A">Valor</text><text x="90" y="104" text-anchor="middle" font-size="22" font-weight="700" fill="#1A2A52">${retidoPct}%</text></svg><div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#5F5E5A">${legItems}</div></div><p style="font-size:11px;color:#8A887F;margin:14px 0 0">Os descontos somam ${totalDiscPct}% do valor de referência.</p>`;
         }
 
         const qeDebt = scores.equityValue !== null ? (scores.main - scores.equityValue) : 0;
@@ -700,7 +923,7 @@ const QuizEngine = ((() => {
 
         screen.innerHTML = `<div style="display:flex;flex-direction:column;gap:16px;padding-bottom:8px">
   <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
-    <p style="font-size:15px;color:#2C2C2A;font-weight:500;line-height:1.6;margin:0">O valuation real exige a análise do fluxo de caixa por trás dele. Partindo do benchmark do seu setor e descontando porte e riscos, a estimativa do EV/EBITDA da sua empresa indica:</p>
+    <p style="font-size:15px;color:#2C2C2A;font-weight:500;line-height:1.6;margin:0">Estimativa de Enterprise Value pelo múltiplo de EV/EBITDA do seu setor, ajustada por porte e riscos:</p>
   </div>
   <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
     <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">Enterprise Value estimado</p>
@@ -717,12 +940,12 @@ const QuizEngine = ((() => {
   </div>
   <div style="background:#FAEEDA;border-radius:16px;padding:20px 24px">
     <p style="font-family:Georgia,serif;font-size:clamp(1.4rem,4vw,1.875rem);font-weight:700;color:#854F0B;margin:0 0 6px">+${qeUplift}% de valuation</p>
-    <p style="font-size:13.5px;color:#6E4309;margin:0;line-height:1.6">Baseado na minha experiência em dezenas de projetos, um trabalho de preparação antes da venda costuma elevar tanto o múltiplo aplicado quanto o EBITDA normalizado, levando o valor de R$ ${qeFmtM(scores.min)} – R$ ${qeFmtM(scores.max)} para R$ ${qeFmtM(scores.consultMin)} – R$ ${qeFmtM(scores.consultMax)} (central R$ ${qeFmtM(scores.consultCentral)}). É a diferença entre vender a empresa como ela está e vendê-la pronta.</p>
+    <p style="font-size:13.5px;color:#6E4309;margin:0;line-height:1.6">Com preparação prévia à venda, a faixa estimada passa de R$ ${qeFmtM(scores.min)} – R$ ${qeFmtM(scores.max)} para R$ ${qeFmtM(scores.consultMin)} – R$ ${qeFmtM(scores.consultMax)} (central R$ ${qeFmtM(scores.consultCentral)}).</p>
   </div>
-  <a href="${qeCtaHref}" style="display:block;background:#B8932F;color:#2C2C2A;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;text-align:center;text-decoration:none">${qeCtaLabel}</a>
+  <a href="${qeCtaHref}" class="quiz-cta-contato" style="display:block;background:#B8932F;color:#2C2C2A;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;text-align:center;text-decoration:none">${qeCtaLabel}</a>
   <p style="font-size:11.5px;color:#8A887F;margin:0;text-align:center;line-height:1.5">Estimativa ilustrativa, com base em múltiplos de mercado por setor e porte e descontos de risco. Não substitui um valuation formal.</p>
   <p style="text-align:center;font-size:11.5px;color:#8A887F;margin:0">Alexandre Cracovsky, CFA · Quanto vale a minha empresa agora?</p>
-  <div style="text-align:center;margin-top:4px"><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px"><a href="${segmentHref()}" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>
 </div>`;
 
         el.appendChild(screen);
@@ -730,6 +953,7 @@ const QuizEngine = ((() => {
             state = { screen: 'welcome', qi: 0, answers: {}, captured: false };
             render();
         };
+        wireContactCta(screen);
     }
 
     function renderResultNormalize(scores) {
@@ -758,13 +982,184 @@ const QuizEngine = ((() => {
             return "\n        <div class=\"res-gap-card\">\n          <div class=\"res-gap-header\">" + gapLabel + " · " + dimLabel + ' (' + dimScore + ")</div>\n          " + (item.title ? "<div class=\"res-gap-title\">" + item.title + "</div>" : '') + "\n          <p class=\"res-gap-text\">" + item.action + "</p>\n        </div>";
         }).join('');
         const cta = config.scoring.cta;
-        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"res-ipv-label\">" + (config.scoring.scoreLabel || 'PONTUAÇÃO') + "</div>\n        <div class=\"res-ipv-row\">\n          <div class=\"res-ipv-score\">" + scores.main + "<span class=\"res-ipv-denom\"> /100</span></div>\n          <div class=\"result-level " + threshold.class + '">' + threshold.label + '</div>\n        </div>\n        <p class="result-desc">' + threshold.description + "</p>\n      </div>\n      <div id=\"charts-area\"></div>\n      <div class=\"res-legend\">" + legendHtml + "</div>\n      <div class=\"res-stage-cards\">" + stageCardsHtml + "</div>\n      " + gapsHtml + "\n      <div class=\"result-ctas\">\n        " + (cta ? "<a href=\"" + cta.href + "\" class=\"btn-gold\" style=\"text-align:center;\">" + cta.label + "</a>" : '') + "\n        <button class=\"btn-outline\" id=\"btn-restart\" style=\"color:var(--slate);border-color:var(--ruledark);\">Refazer →</button>\n      </div>";
+        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"res-ipv-label\">" + (config.scoring.scoreLabel || 'PONTUAÇÃO') + "</div>\n        <div class=\"res-ipv-row\">\n          <div class=\"res-ipv-score\">" + scores.main + "<span class=\"res-ipv-denom\"> /100</span></div>\n          <div class=\"result-level " + threshold.class + '">' + threshold.label + '</div>\n        </div>\n        <p class="result-desc">' + threshold.description + "</p>\n      </div>\n      <div id=\"charts-area\"></div>\n      <div class=\"res-legend\">" + legendHtml + "</div>\n      <div class=\"res-stage-cards\">" + stageCardsHtml + "</div>\n      " + gapsHtml + "\n      <div class=\"result-ctas\">\n        " + (cta ? "<a href=\"" + cta.href + "\" class=\"btn-gold quiz-cta-contato\" style=\"text-align:center;\">" + cta.label + "</a>" : '') + "\n        <a href=\"" + segmentHref() + "\" class=\"btn-navy\">← Ver outras ferramentas</a>\n        <button class=\"btn-outline\" id=\"btn-restart\" style=\"color:var(--slate);border-color:var(--ruledark);\">Refazer →</button>\n      </div>";
         el.appendChild(screen);
         screen.querySelector('#btn-restart').onclick = () => {
             state = { screen: 'welcome', qi: 0, answers: {}, captured: false };
             render();
         };
+        wireContactCta(screen);
         renderCharts(scores, screen.querySelector('#charts-area'));
+    }
+
+    function injectBsStyles() {
+        if (document.getElementById('bs-result-styles')) return;
+        const styleEl = document.createElement('style');
+        styleEl.id = 'bs-result-styles';
+        styleEl.textContent = [
+            '.bs-wrap{display:flex;flex-direction:column;gap:16px;padding:24px 0 56px}',
+            '.bs-card{background:#fff;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px}',
+            '.bs-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-score{font-family:Georgia,serif;font-weight:700;color:#1A2A52;font-size:52px;line-height:1;margin:0;display:inline}',
+            '.bs-badge{display:inline-block;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-track{background:#EFEDE6;border-radius:6px;height:11px;overflow:hidden;margin:16px 0 0}',
+            '.bs-fill{height:11px;border-radius:6px}',
+            '.bs-lead{font-size:14px;color:#5F5E5A;margin:14px 0 0;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
+            '.bs-section-h{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A887F;font-weight:700;margin:0 0 18px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}',
+            '.bs-row:last-child{margin-bottom:0}',
+            '.bs-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}',
+            '.bs-name{width:172px;flex:0 0 auto;font-size:13.5px;color:#5F5E5A;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-bar{flex:1;background:#EFEDE6;border-radius:5px;height:18px;overflow:hidden}',
+            '.bs-bar>span{display:block;height:18px;border-radius:5px}',
+            '.bs-status{width:82px;flex:0 0 auto;text-align:right;font-size:12.5px;font-weight:600;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-journey-title{font-size:15px;font-weight:600;color:#2C2C2A;margin:0 0 4px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-journey-lead{font-size:13.5px;color:#5F5E5A;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
+            '.bs-journey-cap{font-size:11.5px;color:#8A887F;margin:8px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-risk-h{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#2C2C2A;margin:0 0 12px}',
+            '.bs-risk-p{font-size:14px;color:#5F5E5A;margin:0 0 16px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.65}',
+            '.bs-next{background:#F1F6F4;border-left:4px solid #0F6E56;border-radius:8px;padding:14px 16px}',
+            '.bs-next-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#0F6E56;font-weight:700;margin:0 0 5px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-next-text{font-size:13.5px;color:#5F5E5A;margin:0;line-height:1.55;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-inaction{background:#FAEEDA;border-radius:16px;padding:20px 24px}',
+            '.bs-inaction p{font-size:13.5px;color:#6E4309;margin:0;line-height:1.65;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-cta{display:block;width:100%;background:#B8932F;color:#2C2C2A;text-decoration:none;text-align:center;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;box-sizing:border-box}',
+            '.bs-cta:hover{background:#A8841F}',
+            '.bs-foot{text-align:center;font-size:11.5px;color:#8A887F;margin:4px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '@media(max-width:520px){.bs-card{padding:20px 18px}.bs-score{font-size:42px}.bs-name{width:118px;font-size:12.5px}.bs-status{width:66px;font-size:11.5px}}'
+        ].join('');
+        document.head.appendChild(styleEl);
+    }
+
+    // Builds the "Jornada M&A" area chart (months per stage, with a cursor at the
+    // current stage). `stages` is an array of { label, months }; `curIdx` is the
+    // index of the stage the user is in.
+    function buildJourneySvg(stages, curIdx) {
+        if (!stages.length) return '';
+        const n = stages.length;
+        const x0 = 60, x1 = 560, y0 = 30, y1 = 210;
+        const maxM = Math.max.apply(null, stages.map(s => s.months));
+        const xs = n > 1 ? stages.map((_, i) => Math.round(x0 + (x1 - x0) / (n - 1) * i)) : [Math.round((x0 + x1) / 2)];
+        const ys = stages.map(s => Math.round(y1 - (s.months / maxM) * (y1 - y0)));
+        const polyPoints = xs.map((x, i) => x + ',' + ys[i]).join(' ');
+        const areaPath = 'M' + xs.map((x, i) => x + ',' + ys[i]).join(' L') + ' L' + xs[n - 1] + ',' + y1 + ' L' + xs[0] + ',' + y1 + ' Z';
+        const yStep = (y1 - y0) / 4;
+        const monthStep = maxM / 4;
+        const gridLines = [1, 2, 3, 4].map(i => {
+            const yy = Math.round(y1 - i * yStep);
+            return '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy + '"/>';
+        }).join('');
+        const yLabels = [0, 1, 2, 3, 4].map(i => {
+            return '<text x="52" y="' + Math.round(y1 - i * yStep + 4) + '" text-anchor="end" font-size="9" fill="#8A887F">' + Math.round(i * monthStep) + '</text>';
+        }).join('');
+        const circles = xs.map((x, i) => {
+            if (i === curIdx) return '<circle cx="' + x + '" cy="' + ys[i] + '" r="5.5" fill="#B8932F" stroke="#FFFFFF" stroke-width="1.5"/>';
+            return '<circle cx="' + x + '" cy="' + ys[i] + '" r="3" fill="#1A2A52"/>';
+        }).join('');
+        const cursorLine = curIdx >= 0 ? (
+            '<line x1="' + xs[curIdx] + '" y1="' + ys[curIdx] + '" x2="' + xs[curIdx] + '" y2="' + y1 + '" stroke="#B8932F" stroke-width="1.5" stroke-dasharray="4 3"/>' +
+            '<text x="' + xs[curIdx] + '" y="' + (ys[curIdx] - 10) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#854F0B">você está aqui</text>'
+        ) : '';
+        const stageLabels = stages.map((s, i) => {
+            const isCur = i === curIdx;
+            return '<text x="' + xs[i] + '" y="228" text-anchor="middle" font-size="9" ' +
+                (isCur ? 'font-weight="700" fill="#854F0B"' : 'fill="#8A887F"') + '>' + s.label + '</text>';
+        }).join('');
+        return '<svg viewBox="0 0 600 270" width="100%" role="img" aria-label="Jornada M&amp;A · tempo médio por estágio">' +
+            '<text x="300" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1A2A52">Jornada M&amp;A · tempo médio por estágio (meses)</text>' +
+            '<g stroke="#E7E5DC" stroke-width="0.8">' + gridLines + '</g>' +
+            '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
+            '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
+            yLabels +
+            '<text x="20" y="120" text-anchor="middle" font-size="9.5" fill="#5F5E5A" transform="rotate(-90 20 120)">Meses médios</text>' +
+            '<path d="' + areaPath + '" fill="#1A2A52" opacity="0.08"/>' +
+            '<polyline points="' + polyPoints + '" fill="none" stroke="#1A2A52" stroke-width="2.4"/>' +
+            circles + cursorLine + stageLabels + '</svg>';
+    }
+
+    function renderResultMaturity(scores) {
+        const screen = makeDiv('quiz-screen active');
+        injectBsStyles();
+        const pct = scores.pct;
+        const stage = scores.stage || {};
+        const signalStyles = {
+            green:  { label: 'Sólido',     dot: '#1E7A4B', bar: '#1E7A4B', text: '#1E7A4B' },
+            yellow: { label: 'Em construção', dot: '#B8932F', bar: '#B8932F', text: '#9A7A1F' },
+            red:    { label: 'Frágil',     dot: '#B23A2E', bar: '#B23A2E', text: '#B23A2E' }
+        };
+        // Header colour follows maturity: low → amber/red, high → green.
+        const tclass = pct >= 80 ? 'success' : (pct >= 50 ? 'warning' : 'danger');
+        const badgeStyle = ({
+            danger:  { bg: '#FAEEDA', color: '#854F0B' },
+            warning: { bg: '#FAEEDA', color: '#854F0B' },
+            success: { bg: '#EDF7F0', color: '#1E7A4B' }
+        })[tclass];
+        const fillColor = ({ danger: '#B23A2E', warning: '#B8932F', success: '#1E7A4B' })[tclass];
+
+        const dimRows = (scores.dims || []).map(function(d) {
+            const sig = signalStyles[d.signal] || signalStyles.red;
+            const w = Math.round(d.pct * 100);
+            return '<div class="bs-row">' +
+                '<span class="bs-dot" style="background:' + sig.dot + '"></span>' +
+                '<span class="bs-name">' + d.label + '</span>' +
+                '<div class="bs-bar"><span style="width:' + w + '%;background:' + sig.bar + '"></span></div>' +
+                '<span class="bs-status" style="color:' + sig.text + '">' + sig.label + '</span>' +
+                '</div>';
+        }).join('');
+
+        const stages = config.scoring.stages || [];
+        const curIdx = stages.indexOf(stage);
+        const journeyStages = stages.map(s => ({ label: s.label, months: s.avgMonths }));
+        const svgJourney = buildJourneySvg(journeyStages, curIdx);
+        const journeyLead = (config.scoring.journeyText ||
+            'Pelo seu diagnóstico, você está no estágio de <strong style="color:#B8932F">{stage}</strong>, a cerca de {months} meses de um deal. Cada frente que você fortalece encurta esse caminho.')
+            .replace('{stage}', '<strong style="color:#B8932F">' + (stage.label || '') + '</strong>')
+            .replace('{months}', stage.avgMonths != null ? stage.avgMonths : '');
+
+        const worst = scores.worst || {};
+        const worstStyle = signalStyles[worst.signal] || signalStyles.red;
+
+        const calloutHTML = config.scoring.callout ?
+            '<div class="bs-inaction"><p>' + config.scoring.callout + '</p></div>' : '';
+        const ctaCfg = config.scoring.cta;
+        const ctaHTML = ctaCfg ?
+            '<a href="' + ctaCfg.href + '" class="bs-cta quiz-cta-contato">' + ctaCfg.label + '</a>' : '';
+
+        screen.innerHTML = '<div class="bs-wrap">' +
+            '<div class="bs-card">' +
+            '<p class="bs-eyebrow">Sua maturidade para um M&amp;A</p>' +
+            '<div><span class="bs-score">' + pct + '%</span>' +
+            '<span class="bs-badge" style="background:' + badgeStyle.bg + ';color:' + badgeStyle.color + '">' + (stage.label || '') + '</span></div>' +
+            '<div class="bs-track"><div class="bs-fill" style="width:' + pct + '%;background:' + fillColor + '"></div></div>' +
+            '<p class="bs-lead">' + (stage.description || '') + '</p>' +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<h2 class="bs-section-h">Onde você está mais preparado — e mais frágil</h2>' +
+            dimRows +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<p class="bs-journey-title">Onde você está na jornada</p>' +
+            '<p class="bs-journey-lead">' + journeyLead + '</p>' +
+            svgJourney +
+            '<p class="bs-journey-cap">Tempo médio até o fechamento conforme a maturidade do vendedor. A posição acompanha o seu score: quanto mais alto, mais perto da negociação.</p>' +
+            '</div>' +
+            '<div class="bs-card">' +
+            '<p class="bs-risk-h">A frente que mais atrasa o seu deal hoje é <span style="color:' + worstStyle.text + '">' + (worst.label || '') + '</span></p>' +
+            '<p class="bs-risk-p">' + (config.scoring.resultText || '') + '</p>' +
+            '<div class="bs-next"><p class="bs-next-label">Próximo passo</p>' +
+            '<p class="bs-next-text">' + (worst.action || '') + '</p></div>' +
+            '</div>' +
+            calloutHTML + ctaHTML +
+            '<p class="bs-foot">ADVISIA Investimentos · ' + config.title + '</p>' +
+            '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
+            '</div>';
+
+        el.appendChild(screen);
+        screen.querySelector('#btn-restart').onclick = () => {
+            state = { screen: 'welcome', qi: 0, answers: {}, captured: false };
+            render();
+        };
+        wireContactCta(screen);
     }
 
     function renderResultBlinspots(scores) {
@@ -805,93 +1200,15 @@ const QuizEngine = ((() => {
                 '</div>';
         }).join('');
 
-        const svgJourney = (function() {
-            if (!journeyStages.length) return '';
-            const n = journeyStages.length;
-            const x0 = 60, x1 = 560, y0 = 30, y1 = 210;
-            const maxM = Math.max.apply(null, journeyStages.map(s => s.months));
-            const xs = journeyStages.map((_, i) => Math.round(x0 + (x1 - x0) / (n - 1) * i));
-            const ys = journeyStages.map(s => Math.round(y1 - (s.months / maxM) * (y1 - y0)));
-            const curIdx = journeyStages.indexOf(currentJourneyStage);
-            const polyPoints = xs.map((x, i) => x + ',' + ys[i]).join(' ');
-            const areaPath = 'M' + xs.map((x, i) => x + ',' + ys[i]).join(' L') + ' L' + xs[n - 1] + ',' + y1 + ' L' + xs[0] + ',' + y1 + ' Z';
-            const yStep = (y1 - y0) / 4;
-            const monthStep = maxM / 4;
-            const gridLines = [1, 2, 3, 4].map(i => {
-                const yy = Math.round(y1 - i * yStep);
-                return '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy + '"/>';
-            }).join('');
-            const yLabels = [0, 1, 2, 3, 4].map(i => {
-                return '<text x="52" y="' + Math.round(y1 - i * yStep + 4) + '" text-anchor="end" font-size="9" fill="#8A887F">' + Math.round(i * monthStep) + '</text>';
-            }).join('');
-            const circles = xs.map((x, i) => {
-                if (i === curIdx) return '<circle cx="' + x + '" cy="' + ys[i] + '" r="5.5" fill="#B8932F" stroke="#FFFFFF" stroke-width="1.5"/>';
-                return '<circle cx="' + x + '" cy="' + ys[i] + '" r="3" fill="#1A2A52"/>';
-            }).join('');
-            const cursorLine = curIdx >= 0 ? (
-                '<line x1="' + xs[curIdx] + '" y1="' + ys[curIdx] + '" x2="' + xs[curIdx] + '" y2="' + y1 + '" stroke="#B8932F" stroke-width="1.5" stroke-dasharray="4 3"/>' +
-                '<text x="' + xs[curIdx] + '" y="' + (ys[curIdx] - 10) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#854F0B">você está aqui</text>'
-            ) : '';
-            const stageLabels = journeyStages.map((s, i) => {
-                const isCur = i === curIdx;
-                return '<text x="' + xs[i] + '" y="228" text-anchor="middle" font-size="9" ' +
-                    (isCur ? 'font-weight="700" fill="#854F0B"' : 'fill="#8A887F"') + '>' + s.label + '</text>';
-            }).join('');
-            return '<svg viewBox="0 0 600 270" width="100%" role="img" aria-label="Jornada M&amp;A · tempo médio por estágio">' +
-                '<text x="300" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1A2A52">Jornada M&amp;A · tempo médio por estágio (meses)</text>' +
-                '<g stroke="#E7E5DC" stroke-width="0.8">' + gridLines + '</g>' +
-                '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
-                '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
-                yLabels +
-                '<text x="20" y="120" text-anchor="middle" font-size="9.5" fill="#5F5E5A" transform="rotate(-90 20 120)">Meses médios</text>' +
-                '<path d="' + areaPath + '" fill="#1A2A52" opacity="0.08"/>' +
-                '<polyline points="' + polyPoints + '" fill="none" stroke="#1A2A52" stroke-width="2.4"/>' +
-                circles + cursorLine + stageLabels + '</svg>';
-        })();
+        const svgJourney = buildJourneySvg(journeyStages, journeyStages.indexOf(currentJourneyStage));
 
         const calloutHTML = config.scoring.callout ?
             '<div class="bs-inaction"><p>' + config.scoring.callout + '</p></div>' : '';
         const ctaCfg = config.scoring.cta;
         const ctaHTML = ctaCfg ?
-            '<a href="' + ctaCfg.href + '" class="bs-cta">' + ctaCfg.label + '</a>' : '';
+            '<a href="' + ctaCfg.href + '" class="bs-cta quiz-cta-contato">' + ctaCfg.label + '</a>' : '';
 
-        if (!document.getElementById('bs-result-styles')) {
-            const styleEl = document.createElement('style');
-            styleEl.id = 'bs-result-styles';
-            styleEl.textContent = [
-                '.bs-wrap{display:flex;flex-direction:column;gap:16px;padding:24px 0 56px}',
-                '.bs-card{background:#fff;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px}',
-                '.bs-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-score{font-family:Georgia,serif;font-weight:700;color:#1A2A52;font-size:52px;line-height:1;margin:0;display:inline}',
-                '.bs-badge{display:inline-block;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-track{background:#EFEDE6;border-radius:6px;height:11px;overflow:hidden;margin:16px 0 0}',
-                '.bs-fill{height:11px;border-radius:6px}',
-                '.bs-lead{font-size:14px;color:#5F5E5A;margin:14px 0 0;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
-                '.bs-section-h{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A887F;font-weight:700;margin:0 0 18px;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}',
-                '.bs-row:last-child{margin-bottom:0}',
-                '.bs-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}',
-                '.bs-name{width:172px;flex:0 0 auto;font-size:13.5px;color:#5F5E5A;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-bar{flex:1;background:#EFEDE6;border-radius:5px;height:18px;overflow:hidden}',
-                '.bs-bar>span{display:block;height:18px;border-radius:5px}',
-                '.bs-status{width:82px;flex:0 0 auto;text-align:right;font-size:12.5px;font-weight:600;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-journey-title{font-size:15px;font-weight:600;color:#2C2C2A;margin:0 0 4px;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-journey-lead{font-size:13.5px;color:#5F5E5A;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
-                '.bs-journey-cap{font-size:11.5px;color:#8A887F;margin:8px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-risk-h{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#2C2C2A;margin:0 0 12px}',
-                '.bs-risk-p{font-size:14px;color:#5F5E5A;margin:0 0 16px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.65}',
-                '.bs-next{background:#F1F6F4;border-left:4px solid #0F6E56;border-radius:8px;padding:14px 16px}',
-                '.bs-next-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#0F6E56;font-weight:700;margin:0 0 5px;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-next-text{font-size:13.5px;color:#5F5E5A;margin:0;line-height:1.55;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-inaction{background:#FAEEDA;border-radius:16px;padding:20px 24px}',
-                '.bs-inaction p{font-size:13.5px;color:#6E4309;margin:0;line-height:1.65;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '.bs-cta{display:block;width:100%;background:#B8932F;color:#2C2C2A;text-decoration:none;text-align:center;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;box-sizing:border-box}',
-                '.bs-cta:hover{background:#A8841F}',
-                '.bs-foot{text-align:center;font-size:11.5px;color:#8A887F;margin:4px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
-                '@media(max-width:520px){.bs-card{padding:20px 18px}.bs-score{font-size:42px}.bs-name{width:118px;font-size:12.5px}.bs-status{width:66px;font-size:11.5px}}'
-            ].join('');
-            document.head.appendChild(styleEl);
-        }
+        injectBsStyles();
 
         screen.innerHTML = '<div class="bs-wrap">' +
             '<div class="bs-card">' +
@@ -919,7 +1236,7 @@ const QuizEngine = ((() => {
             '</div>' +
             calloutHTML + ctaHTML +
             '<p class="bs-foot">ADVISIA Investimentos · ' + config.title + '</p>' +
-            '<div style="text-align:center"><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
+            '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
             '</div>';
 
         el.appendChild(screen);
@@ -927,6 +1244,7 @@ const QuizEngine = ((() => {
             state = { screen: 'welcome', qi: 0, answers: {}, captured: false };
             render();
         };
+        wireContactCta(screen);
     }
 
     function computeScore() {
@@ -1060,7 +1378,24 @@ const QuizEngine = ((() => {
         for (const s of stages) {
             if (total >= s.min) stage = s;
         }
-        return { main: total, stage };
+        const max = config.scoring.max || total || 1;
+        const pct = Math.min(100, Math.round(total / max * 100));
+
+        // Per-dimension breakdown (raw value vs. max per dimension, ignoring weight).
+        const sigT = config.scoring.signalThresholds || { green: 0.75, yellow: 0.45 };
+        const dimCfgs = config.scoring.dimensions || [];
+        const dims = dimCfgs.map(d => {
+            const qids = d.questions || [];
+            const raw = qids.reduce((acc, qid) => acc + +(state.answers[qid] || 0), 0);
+            const maxRaw = qids.length * 4;
+            const dpct = maxRaw > 0 ? raw / maxRaw : 0;
+            const signal = dpct >= sigT.green ? 'green' : (dpct >= sigT.yellow ? 'yellow' : 'red');
+            return { label: d.label, pct: dpct, signal, action: d.action || '' };
+        });
+        let worst = dims[0];
+        dims.forEach(d => { if (d.pct < worst.pct) worst = d; });
+
+        return { main: total, stage, pct: pct, dims: dims, worst: worst || {} };
     }
 
     function scoreCorrectCount() {
@@ -1123,7 +1458,7 @@ const QuizEngine = ((() => {
         const benchCentral = (benchMin + benchMax) / 2;
         const consultEbitda = ebitda * 1.1;
         const consultMin = consultEbitda * multipleRange.min * noCompanyDiscount;
-        const consultMax = ebitda * multipleRange.max * noCompanyDiscount;
+        const consultMax = consultEbitda * multipleRange.max * noCompanyDiscount;
         const consultCentral = (consultMin + consultMax) / 2;
         const equityValue = divida > 0 ? evCentral - divida : null;
         const attrPct = benchCentral > 0 ? evCentral / benchCentral : 0;

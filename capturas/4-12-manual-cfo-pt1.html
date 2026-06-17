@@ -55,7 +55,7 @@
     steps: StepForm.CAPTURAS_STEPS_EMP,
     submitLabel: 'Quero receber gratuitamente →',
     onSubmit: function(data, done) {
-      if (window._sb) { window._sb.from('manual_cfo_pt1_alexandre_cracovsky').insert({nome:data.nome,email:data.email,empresa:data.empresa||null,whatsapp:data.whatsapp||null,objetivo:data.objetivo||null,tamanho:data.tamanho||null,faturamento:data.faturamento||null}).then(function(){},function(){}); }
+      if (window._sb) { window._sb.from('manual_cfo_pt1_alexandre_cracovsky').insert({nome:data.nome,email:data.email,empresa:data.empresa||null,site:data.site||null,cargo:data.cargo||null,whatsapp:data.whatsapp||null,objetivo:data.objetivo||null,tamanho:data.tamanho||null,faturamento:data.faturamento||null}).then(function(){},function(){}); }
       done();
     }
   });

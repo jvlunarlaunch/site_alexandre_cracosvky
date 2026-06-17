@@ -68,16 +68,6 @@
   .binary-option:hover { border-color: var(--royal); background: var(--ice); }
   .binary-option.selected { border-color: var(--gold); background: rgba(184,149,42,.07); }
   .binary-label { font-family: var(--mo); font-weight: 700; font-size: .95rem; color: var(--gold); min-width: 1.4rem; flex-shrink: 0; }
-  .cap-form { max-width: 440px; margin: 0 auto; padding-top: .5rem; }
-  .cap-field { margin-bottom: 1.25rem; }
-  .cap-label { display: block; font-family: var(--mo); font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--royal); margin-bottom: .4rem; }
-  .cap-opt { color: #9ca3af; text-transform: none; letter-spacing: 0; }
-  .cap-input { width: 100%; padding: .8rem 1rem; border: 2px solid var(--ice); border-radius: 8px; font-size: .95rem; color: var(--navy); font-family: var(--ep); background: white; transition: border-color .2s; }
-  .cap-input:focus { outline: none; border-color: var(--gold); }
-  .cap-input.cap-invalid { border-color: #9A2020; }
-  .cap-err { font-size: .78rem; color: #9A2020; margin-top: .3rem; min-height: 1rem; }
-  .cap-privacy { text-align: center; font-size: .75rem; color: #9ca3af; margin-top: 1rem; }
-  .cap-privacy a { color: #9ca3af; }
   @media (max-width: 520px) {
     .scale-options { gap: .35rem; }
     .scale-btn { width: 40px; height: 40px; font-size: .85rem; }
@@ -138,31 +128,8 @@
 
   <!-- CAPTURE SCREEN -->
   <div id="screen-capture" style="display:none">
-    <div class="quiz-welcome">
-      <span class="quiz-badge">Último passo</span>
-      <h2 class="quiz-title" style="font-size:1.6rem">Seu mapa de perfil está pronto</h2>
-      <p class="quiz-sub">Preencha abaixo para ver seu resultado completo.</p>
-    </div>
-    <div class="cap-form">
-      <div class="cap-field">
-        <label class="cap-label" for="cap-nome">Nome</label>
-        <input class="cap-input" id="cap-nome" type="text" placeholder="Seu nome completo" autocomplete="name">
-        <div class="cap-err" id="cap-err-nome"></div>
-      </div>
-      <div class="cap-field">
-        <label class="cap-label" for="cap-email">E-mail</label>
-        <input class="cap-input" id="cap-email" type="email" placeholder="voce@email.com" autocomplete="email">
-        <div class="cap-err" id="cap-err-email"></div>
-      </div>
-      <div class="cap-field">
-        <label class="cap-label" for="cap-wa">WhatsApp <span class="cap-opt">(opcional)</span></label>
-        <input class="cap-input" id="cap-wa" type="tel" placeholder="(11) 99999-9999" autocomplete="tel">
-        <div class="cap-err" id="cap-err-wa"></div>
-      </div>
-      <div style="text-align:center">
-        <button class="btn-next" style="margin:0 auto;display:inline-block;padding:.8rem 2.5rem;font-size:1rem" onclick="submitCapture()">Ver meu resultado →</button>
-      </div>
-      <p class="cap-privacy">Seus dados estão protegidos conforme nossa <a href="/politica-e-privacidade">Política de Privacidade</a>.</p>
+    <div class="quiz-capture">
+      <div id="sf-root"></div>
     </div>
   </div>
 
@@ -175,6 +142,7 @@
 <script src="../highcharts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="../assets/supabase-client.js"></script>
+<script src="../assets/step-form.js"></script>
 <script>
 const QUESTIONS = [
   { id: 'p1', text: 'Me energiza estar com clientes, entender o que precisam e construir relações de confiança.', axis: 'Y', pole: '+' },
@@ -325,46 +293,29 @@ function nextQ() {
 function showCapture() {
   document.getElementById('screen-question').style.display = 'none';
   document.getElementById('screen-capture').style.display = 'block';
-}
-
-function capError(id, msg) {
-  const input = document.getElementById('cap-' + id);
-  const err = document.getElementById('cap-err-' + id);
-  input.classList.add('cap-invalid');
-  err.textContent = msg;
-  setTimeout(() => { input.classList.remove('cap-invalid'); err.textContent = ''; }, 3500);
-}
-
-function capValidPhone(v) {
-  let d = v.replace(/\D/g, '');
-  if (d.length >= 12 && d.slice(0, 2) === '55') d = d.slice(2);
-  return d.length === 11 && d[2] === '9';
-}
-
-function submitCapture() {
-  const nome = document.getElementById('cap-nome').value.trim();
-  const email = document.getElementById('cap-email').value.trim();
-  const wa = document.getElementById('cap-wa').value.trim();
-  let ok = true;
-  if (nome.length < 3) { capError('nome', 'O nome deve ter pelo menos 3 letras.'); ok = false; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { capError('email', 'Digite um e-mail válido (ex: voce@email.com).'); ok = false; }
-  if (wa && !capValidPhone(wa)) { capError('wa', 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).'); ok = false; }
-  if (!ok) return;
-
-  const prof = computeProfile();
-  if (window._sb) {
-    window._sb.from('isca_9_alexandre_cracovsky').insert({
-      nome: nome,
-      email: email,
-      whatsapp: wa || null,
-      respostas: answers,
-      perfil: QUADRANTS[prof.quadrantKey].label,
-      eixo_x: prof.X,
-      eixo_y: prof.Y
-    }).then(function(){}, function(){});
-  }
-  document.getElementById('screen-capture').style.display = 'none';
-  showResult();
+  StepForm.init(document.getElementById('sf-root'), {
+    steps: StepForm.CAPTURAS_STEPS,
+    submitLabel: 'Ver meu resultado →',
+    onSubmit: function(data) {
+      const prof = computeProfile();
+      if (window._sb) {
+        window._sb.from('isca_9_alexandre_cracovsky').insert({
+          nome: data.nome,
+          email: data.email,
+          whatsapp: data.whatsapp || null,
+          nivel: data.nivel || null,
+          objetivo: data.objetivo || null,
+          respostas: answers,
+          perfil: QUADRANTS[prof.quadrantKey].label,
+          eixo_x: prof.X,
+          eixo_y: prof.Y
+        }).then(function() {}, function() {});
+      }
+      // Não chama done(): pula a tela de sucesso do StepForm e vai direto ao resultado.
+      document.getElementById('screen-capture').style.display = 'none';
+      showResult();
+    }
+  });
 }
 
 function computeProfile() {

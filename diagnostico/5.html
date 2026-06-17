@@ -246,15 +246,51 @@ const QUIZ_CONFIG = {
         "class": "success",
         "description": "Você está pronto para fechar. Foque na negociação dos termos, LOI e estruturação do contrato de compra e venda."
       }
-    ]
-  },
-  "charts": [
-    {
-      "type": "area",
-      "title": "Jornada M&A — tempo médio por estágio (meses)",
-      "height": 240
+    ],
+    "signalThresholds": {
+      "green": 0.75,
+      "yellow": 0.45
+    },
+    "dimensions": [
+      {
+        "label": "Intenção",
+        "questions": ["q1"],
+        "action": "Defina uma janela-alvo para o deal (12, 24 ou 36 meses) e trate a venda como um projeto com prazo, não como uma ideia que vai e volta. A intenção clara é o que organiza todas as outras frentes."
+      },
+      {
+        "label": "Prontidão financeira",
+        "questions": ["q2"],
+        "action": "Organize três anos de demonstrações consistentes e normalize o EBITDA, idealmente com auditoria ou revisão. É a base factual sobre a qual o comprador vai calcular o seu valor."
+      },
+      {
+        "label": "Assessoria",
+        "questions": ["q3"],
+        "action": "Tenha uma conversa formal com um assessor de M&A antes de ir ao mercado. Quem conduz o processo pela primeira vez quase sempre deixa valor na mesa por não conhecer o jogo."
+      },
+      {
+        "label": "Material de venda",
+        "questions": ["q4"],
+        "action": "Prepare um teaser e um Information Memorandum que contem a tese de valor da empresa. Sem material, o comprador preenche as lacunas com desconto."
+      },
+      {
+        "label": "Pipeline de compradores",
+        "questions": ["q5"],
+        "action": "Mapeie compradores estratégicos e financeiros plausíveis antes de abrir o processo. Concorrência entre interessados é o que sustenta o preço."
+      },
+      {
+        "label": "Clareza de preço",
+        "questions": ["q6"],
+        "action": "Estabeleça um floor price fundamentado em valuation por método, e não em percepção. Sem um piso claro, você negocia no escuro e tende a ancorar no número errado."
+      }
+    ],
+    "resultText": "Maturidade para vender não se improvisa: ela se constrói nas frentes acima, e a mais fraca delas é a que dita o seu ritmo. Empresas que vão ao mercado antes de fechar essas lacunas costumam enfrentar processos mais longos, due diligence mais dolorosa e desconto no preço. A boa notícia é que cada frente fortalecida encurta o caminho até o deal.",
+    "callout": "O tempo que falta até o seu deal não é só espera, é exposição. Quanto mais longa a jornada, mais a liderança se distrai do negócio, mais gente-chave fica insegura e mais o mercado lê a demora como problema. Antecipar o preparo, com boa assessoria, é o que transforma anos de jornada em meses. É exatamente esse trabalho que conduzo na ADVISIA Investimentos ao lado do empresário.",
+    "cta": {
+      "label": "Quero acelerar a minha jornada de M&amp;A",
+      "href": "/contato"
     }
-  ]
+  },
+  "charts": []
 };
 QuizEngine.init(document.getElementById('quiz-app'), QUIZ_CONFIG);
 </script>
