@@ -347,7 +347,6 @@ const QuizEngine = ((() => {
             container.appendChild(questionEl);
 
             if (stepCfg.type === 'radio') renderRadioField(stepCfg, container, idx);
-            else if (stepCfg.type === 'slider') renderSliderField(stepCfg, container, idx);
             else if (stepCfg.type === 'group') renderGroupField(stepCfg, container, idx);
             else renderTextField(stepCfg, container, idx);
         }
@@ -437,88 +436,31 @@ const QuizEngine = ((() => {
             container.appendChild(wrap);
         }
 
-        function renderSliderField(field, container, idx) {
-            const stops = field.stops || [];
-            // Quando required, exige escolha ativa: começa sem valor e o botão
-            // só libera após a pessoa mover o slider.
-            const hasValue = captureData[field.id] != null;
-            let pos = stops.findIndex(s => s.value === captureData[field.id]);
-            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
-            let touched = !field.required || hasValue;
-
-            const valueLabel = document.createElement('div');
-            valueLabel.style.cssText = 'font-family:var(--cg);font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--gold2);margin-bottom:18px;min-height:1.4em;';
-
-            const slider = document.createElement('input');
-            slider.type = 'range';
-            slider.min = '0';
-            slider.max = String(stops.length - 1);
-            slider.step = '1';
-            slider.value = String(pos);
-            slider.className = 'quiz-slider';
-            slider.style.cssText = 'width:100%;accent-color:var(--gold);cursor:pointer;';
-
-            const ticks = document.createElement('div');
-            ticks.style.cssText = 'display:flex;justify-content:space-between;font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;gap:6px;';
-            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
-
-            function sync() {
-                const i = parseInt(slider.value, 10);
-                valueLabel.textContent = stops[i].label;
-                slider.setAttribute('aria-valuetext', stops[i].label);
-                captureData[field.id] = stops[i].value;
-            }
-            slider.addEventListener('input', () => {
-                if (!touched) {
-                    touched = true;
-                    continueBtn.disabled = false;
-                }
-                sync();
-            });
-            if (touched) {
-                sync();
-            } else {
-                valueLabel.textContent = 'Mova para escolher';
-            }
-
-            container.appendChild(valueLabel);
-            container.appendChild(slider);
-            container.appendChild(ticks);
-
-            const row = document.createElement('div');
-            row.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:24px;';
-            const continueBtn = document.createElement('button');
-            continueBtn.className = 'btn-gold';
-            continueBtn.type = 'button';
-            continueBtn.disabled = !touched;
-            continueBtn.textContent = idx === totalSteps - 1 ? 'Ver meu resultado →' : 'Continuar →';
-            continueBtn.onclick = () => advanceCapture(idx);
-            row.appendChild(continueBtn);
-            container.appendChild(row);
-        }
-
         function renderGroupField(field, container, idx) {
             const inputs = [];
-            const sliders = [];
             (field.fields || []).forEach(sub => {
                 const label = document.createElement('label');
                 label.style.cssText = 'display:block;font-family:var(--ep);font-size:13px;font-weight:500;color:rgba(255,255,255,.6);margin:16px 0 6px;';
                 label.textContent = sub.label + (sub.optional ? ' (opcional)' : '');
                 container.appendChild(label);
 
-                if (sub.type === 'slider') {
-                    sliders.push(renderGroupSlider(sub, container));
-                    return;
+                let input;
+                if (sub.type === 'select') {
+                    input = document.createElement('select');
+                    input.className = 'form-select';
+                    input.innerHTML = '<option value="">' + (sub.placeholder || 'Selecione...') + '</option>'
+                        + (sub.options || []).map(o => '<option value="' + o.value + '">' + o.label + '</option>').join('');
+                    if (captureData[sub.id]) input.value = captureData[sub.id];
+                } else {
+                    input = document.createElement('input');
+                    input.type = qeDomInputType(sub.type);
+                    input.className = 'form-input';
+                    input.placeholder = sub.placeholder || '';
+                    if (captureData[sub.id]) input.value = captureData[sub.id];
+                    input.addEventListener('keydown', e => {
+                        if (e.key === 'Enter') { e.preventDefault(); tryAdvance(); }
+                    });
                 }
-
-                const input = document.createElement('input');
-                input.type = qeDomInputType(sub.type);
-                input.className = 'form-input';
-                input.placeholder = sub.placeholder || '';
-                if (captureData[sub.id]) input.value = captureData[sub.id];
-                input.addEventListener('keydown', e => {
-                    if (e.key === 'Enter') { e.preventDefault(); tryAdvance(); }
-                });
                 container.appendChild(input);
                 inputs.push({ sub, input });
             });
@@ -538,56 +480,9 @@ const QuizEngine = ((() => {
                     const v = inputs[k].input.value.trim();
                     if (qeFieldInvalid(inputs[k].sub, v, inputs[k].input)) return;
                 }
-                for (let s = 0; s < sliders.length; s++) {
-                    if (sliders[s].sub.required && !sliders[s].touched()) {
-                        qeFieldError(sliders[s].slider, 'Mova o controle para escolher uma faixa.');
-                        return;
-                    }
-                }
                 inputs.forEach(it => { captureData[it.sub.id] = it.input.value.trim() || null; });
                 advanceCapture(idx);
             }
-        }
-
-        // Slider usado como sub-campo de um group (sem botão próprio).
-        // Quando required, exige escolha ativa antes do envio.
-        function renderGroupSlider(sub, container) {
-            const stops = sub.stops || [];
-            const hasValue = captureData[sub.id] != null;
-            let pos = stops.findIndex(s => s.value === captureData[sub.id]);
-            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
-            let touched = !sub.required || hasValue;
-
-            const valueLabel = document.createElement('div');
-            valueLabel.style.cssText = 'font-family:var(--cg);font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--gold2);margin-bottom:12px;min-height:1.4em;';
-
-            const slider = document.createElement('input');
-            slider.type = 'range';
-            slider.min = '0';
-            slider.max = String(stops.length - 1);
-            slider.step = '1';
-            slider.value = String(pos);
-            slider.className = 'quiz-slider';
-            slider.style.cssText = 'width:100%;accent-color:var(--gold);cursor:pointer;';
-
-            const ticks = document.createElement('div');
-            ticks.style.cssText = 'display:flex;justify-content:space-between;font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;gap:6px;';
-            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
-
-            function sync() {
-                const i = parseInt(slider.value, 10);
-                valueLabel.textContent = stops[i].label;
-                slider.setAttribute('aria-valuetext', stops[i].label);
-                captureData[sub.id] = stops[i].value;
-            }
-            slider.addEventListener('input', () => { touched = true; sync(); });
-            if (touched) sync();
-            else valueLabel.textContent = 'Mova para escolher';
-
-            container.appendChild(valueLabel);
-            container.appendChild(slider);
-            container.appendChild(ticks);
-            return { sub, slider, touched: () => touched };
         }
 
         function qeValidEmail(v) {
@@ -629,7 +524,7 @@ const QuizEngine = ((() => {
 
         function qeFieldInvalid(field, value, inputEl) {
             if (field.required && !value) {
-                qeFieldError(inputEl, 'Preencha este campo.');
+                qeFieldError(inputEl, field.type === 'select' ? 'Selecione uma faixa.' : 'Preencha este campo.');
                 return true;
             }
             if (!value) return false;
@@ -788,8 +683,9 @@ const QuizEngine = ((() => {
                     { id: 'cargo', type: 'text', label: 'Cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true },
                     { id: 'whatsapp', type: 'tel', label: 'Telefone (WhatsApp)', placeholder: '(11) 99999-9999', required: true },
                     {
-                        id: 'faturamento', type: 'slider', label: 'Faixa de faturamento anual', required: true,
-                        stops: [
+                        id: 'faturamento', type: 'select', label: 'Faixa de faturamento anual', required: true,
+                        placeholder: 'Selecione a faixa...',
+                        options: [
                             { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
                             { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
                             { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
@@ -1142,7 +1038,7 @@ const QuizEngine = ((() => {
             '<p class="bs-next-text">' + (worst.action || '') + '</p></div>' +
             '</div>' +
             calloutHTML + ctaHTML +
-            '<p class="bs-foot">ADVISIA Investimentos · ' + config.title + '</p>' +
+            '<p class="bs-foot">' + config.title + '</p>' +
             '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
             '</div>';
 
@@ -1227,7 +1123,7 @@ const QuizEngine = ((() => {
             '<p class="bs-next-text">' + (worst.action || '') + '</p></div>' +
             '</div>' +
             calloutHTML + ctaHTML +
-            '<p class="bs-foot">ADVISIA Investimentos · ' + config.title + '</p>' +
+            '<p class="bs-foot">' + config.title + '</p>' +
             '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>' +
             '</div>';
 
