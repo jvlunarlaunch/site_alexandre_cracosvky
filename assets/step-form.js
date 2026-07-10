@@ -25,16 +25,8 @@
     }
 
     // ---- Validação -----------------------------------------------------------
-    var FREE_EMAIL = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud', 'bol', 'uol', 'terra', 'live', 'msn', 'aol', 'protonmail', 'ymail', 'globo', 'ig.com'];
     function validEmail(v) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-    }
-    function validWorkEmail(v) {
-        if (!validEmail(v)) return false;
-        var domain = String(v).split('@')[1].toLowerCase();
-        return !FREE_EMAIL.some(function (p) {
-            return domain === p + '.com' || domain === p + '.com.br' || domain.indexOf(p + '.') === 0;
-        });
     }
     function validSite(v) {
         if (!v) return true; // opcional
@@ -62,10 +54,7 @@
         if (!value) return null;
         if (field.id === 'nome' && value.length < 3) return 'O nome deve ter pelo menos 3 letras.';
         if (type === 'email' && !validEmail(value)) return 'Digite um e-mail válido (ex: voce@email.com).';
-        if (type === 'workemail') {
-            if (!validEmail(value)) return 'Digite um e-mail válido (ex: nome@empresa.com).';
-            if (!validWorkEmail(value)) return 'Use um e-mail corporativo (nome@empresa.com), não pessoal.';
-        }
+        if (type === 'workemail' && !validEmail(value)) return 'Digite um e-mail válido (ex: nome@empresa.com).';
         if (type === 'url' && !validSite(value)) return 'Digite um site válido (ex: empresa.com.br).';
         if (type === 'tel' && !validPhone(value)) return 'Digite um WhatsApp válido com DDD (ex: 11 99999-9999).';
         return null;
@@ -167,9 +156,11 @@
                 container.appendChild(back);
             }
 
-            var counter = el('div', 'sf-counter');
-            counter.textContent = (idx + 1) + ' / ' + total;
-            container.appendChild(counter);
+            if (total > 1) {
+                var counter = el('div', 'sf-counter');
+                counter.textContent = (idx + 1) + ' / ' + total;
+                container.appendChild(counter);
+            }
 
             var question = el('div', 'sf-question');
             question.textContent = cfg.question;
@@ -307,10 +298,16 @@
 
         function renderGroup(field, idx, container) {
             var inputs = [];
+            var sliders = [];
             (field.fields || []).forEach(function (sub) {
                 var label = el('label', 'sf-field-label');
                 label.textContent = sub.label + (sub.optional ? ' (opcional)' : '');
                 container.appendChild(label);
+
+                if (sub.type === 'slider') {
+                    sliders.push(renderGroupSlider(sub, container));
+                    return;
+                }
 
                 var input = el('input', 'sf-input');
                 input.type = domInputType(sub.type);
@@ -337,9 +334,51 @@
                     var err = fieldError(inputs[k].sub, v);
                     if (err) { showInputError(inputs[k].input, err); return; }
                 }
+                for (var s = 0; s < sliders.length; s++) {
+                    if (sliders[s].sub.required && !sliders[s].touched()) {
+                        showInputError(sliders[s].slider, 'Mova o controle para escolher uma faixa.');
+                        return;
+                    }
+                }
                 inputs.forEach(function (it) { data[it.sub.id] = it.input.value.trim() || null; });
                 advance(idx);
             }
+        }
+
+        // Slider usado como sub-campo de um group (sem botão próprio).
+        // Quando required, exige escolha ativa antes do envio.
+        function renderGroupSlider(sub, container) {
+            var stops = sub.stops || [];
+            var hasValue = data[sub.id] != null;
+            var pos = stops.findIndex(function (s) { return s.value === data[sub.id]; });
+            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
+            var touched = !sub.required || hasValue;
+
+            var valueLabel = el('div', 'sf-slider-val');
+            var slider = el('input', 'sf-slider');
+            slider.type = 'range';
+            slider.min = '0';
+            slider.max = String(stops.length - 1);
+            slider.step = '1';
+            slider.value = String(pos);
+
+            var ticks = el('div', 'sf-slider-ticks');
+            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
+
+            function sync() {
+                var i = parseInt(slider.value, 10);
+                valueLabel.textContent = stops[i].label;
+                slider.setAttribute('aria-valuetext', stops[i].label);
+                data[sub.id] = stops[i].value;
+            }
+            slider.addEventListener('input', function () { touched = true; sync(); });
+            if (touched) sync();
+            else valueLabel.textContent = 'Mova para escolher';
+
+            container.appendChild(valueLabel);
+            container.appendChild(slider);
+            container.appendChild(ticks);
+            return { sub: sub, slider: slider, touched: function () { return touched; } };
         }
 
         function validateAndAdvance(field, rawValue, idx, inputEl) {
@@ -433,48 +472,27 @@
         }
     ];
 
-    // Empreendedor: e-mail corporativo, bloco empresa/site/cargo, faturamento e tamanho em slider.
+    // Empreendedor: tela única — nome, e-mail de trabalho (aceita provedores
+    // pessoais), cargo, telefone e faixa de faturamento.
     var CAPTURAS_STEPS_EMP = [
-        { id: 'nome', type: 'text', question: 'Como posso te chamar?', placeholder: 'Seu nome completo', required: true },
-        { id: 'email', type: 'workemail', question: 'Qual é o seu e-mail de trabalho?', placeholder: 'nome@empresa.com', required: true },
         {
-            id: 'empresa_bloco', type: 'group', question: 'Sobre a sua empresa',
+            id: 'dados', type: 'group', question: 'Preencha para receber o material',
             fields: [
-                { id: 'empresa', type: 'text', label: 'Nome da empresa', placeholder: 'Nome da empresa', required: true },
-                { id: 'site', type: 'url', label: 'Site da empresa', placeholder: 'empresa.com.br', optional: true },
-                { id: 'cargo', type: 'text', label: 'Seu cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true }
-            ]
-        },
-        { id: 'whatsapp', type: 'tel', question: 'Qual é o seu WhatsApp?', placeholder: '(11) 99999-9999', required: true },
-        {
-            id: 'objetivo', type: 'radio', question: 'O que você deseja com M&A?',
-            choices: [
-                { value: 'Quero vender o meu controle total ou majoritário (Sell-side)', label: 'Vender minha empresa', desc: 'Sell-side: venda de controle total ou majoritário.' },
-                { value: 'Procuro um sócio estratégico ou investidor minoritário', label: 'Sócio ou investidor', desc: 'Entrada de capital com participação minoritária.' },
-                { value: 'Quero comprar outra empresa ou expandir mercado (Buy-side)', label: 'Comprar / expandir', desc: 'Buy-side: aquisição ou expansão de mercado.' },
-                { value: 'Busco fusão com outra operação complementar', label: 'Fusão estratégica', desc: 'Unir operações com empresa complementar.' },
-                { value: 'Preciso de Reestruturação Financeira ou Operacional', label: 'Reestruturação', desc: 'Reestruturação financeira ou operacional.' },
-                { value: 'Ainda estou avaliando alternativas estratégicas', label: 'Avaliando opções', desc: 'Explorando alternativas estratégicas.' }
-            ]
-        },
-        {
-            id: 'tamanho', type: 'slider', question: 'Qual é o tamanho da sua empresa?', required: true,
-            stops: [
-                { value: 'Até 20 funcionários', label: 'Até 20 funcionários' },
-                { value: '21 a 100 funcionários', label: '21 a 100 funcionários' },
-                { value: '101 a 500 funcionários', label: '101 a 500 funcionários' },
-                { value: 'Mais de 500 funcionários', label: 'Mais de 500 funcionários' }
-            ]
-        },
-        {
-            id: 'faturamento', type: 'slider', question: 'Qual é o faturamento médio anual?', required: true,
-            stops: [
-                { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
-                { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
-                { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
-                { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
-                { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
-                { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+                { id: 'nome', type: 'text', label: 'Nome', placeholder: 'Seu nome completo', required: true },
+                { id: 'email', type: 'workemail', label: 'E-mail de trabalho', placeholder: 'nome@empresa.com', required: true },
+                { id: 'cargo', type: 'text', label: 'Cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true },
+                { id: 'whatsapp', type: 'tel', label: 'Telefone (WhatsApp)', placeholder: '(11) 99999-9999', required: true },
+                {
+                    id: 'faturamento', type: 'slider', label: 'Faixa de faturamento anual', required: true,
+                    stops: [
+                        { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
+                        { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
+                        { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
+                        { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
+                        { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
+                        { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+                    ]
+                }
             ]
         }
     ];

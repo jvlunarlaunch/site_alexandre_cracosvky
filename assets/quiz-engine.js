@@ -334,10 +334,12 @@ const QuizEngine = ((() => {
                 };
                 container.appendChild(backBtn);
             }
-            const counter = document.createElement('div');
-            counter.style.cssText = 'font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;opacity:.75;';
-            counter.textContent = (idx + 1) + ' / ' + totalSteps;
-            container.appendChild(counter);
+            if (totalSteps > 1) {
+                const counter = document.createElement('div');
+                counter.style.cssText = 'font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;opacity:.75;';
+                counter.textContent = (idx + 1) + ' / ' + totalSteps;
+                container.appendChild(counter);
+            }
 
             const questionEl = document.createElement('div');
             questionEl.style.cssText = 'font-family:var(--cg);font-size:clamp(1.6rem,3.5vw,2.1rem);font-weight:300;color:#fff;line-height:1.18;margin-bottom:24px;';
@@ -497,11 +499,17 @@ const QuizEngine = ((() => {
 
         function renderGroupField(field, container, idx) {
             const inputs = [];
+            const sliders = [];
             (field.fields || []).forEach(sub => {
                 const label = document.createElement('label');
                 label.style.cssText = 'display:block;font-family:var(--ep);font-size:13px;font-weight:500;color:rgba(255,255,255,.6);margin:16px 0 6px;';
                 label.textContent = sub.label + (sub.optional ? ' (opcional)' : '');
                 container.appendChild(label);
+
+                if (sub.type === 'slider') {
+                    sliders.push(renderGroupSlider(sub, container));
+                    return;
+                }
 
                 const input = document.createElement('input');
                 input.type = qeDomInputType(sub.type);
@@ -530,20 +538,60 @@ const QuizEngine = ((() => {
                     const v = inputs[k].input.value.trim();
                     if (qeFieldInvalid(inputs[k].sub, v, inputs[k].input)) return;
                 }
+                for (let s = 0; s < sliders.length; s++) {
+                    if (sliders[s].sub.required && !sliders[s].touched()) {
+                        qeFieldError(sliders[s].slider, 'Mova o controle para escolher uma faixa.');
+                        return;
+                    }
+                }
                 inputs.forEach(it => { captureData[it.sub.id] = it.input.value.trim() || null; });
                 advanceCapture(idx);
             }
         }
 
-        function qeValidEmail(v) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+        // Slider usado como sub-campo de um group (sem botão próprio).
+        // Quando required, exige escolha ativa antes do envio.
+        function renderGroupSlider(sub, container) {
+            const stops = sub.stops || [];
+            const hasValue = captureData[sub.id] != null;
+            let pos = stops.findIndex(s => s.value === captureData[sub.id]);
+            if (pos < 0) pos = Math.floor((stops.length - 1) / 2);
+            let touched = !sub.required || hasValue;
+
+            const valueLabel = document.createElement('div');
+            valueLabel.style.cssText = 'font-family:var(--cg);font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--gold2);margin-bottom:12px;min-height:1.4em;';
+
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = '0';
+            slider.max = String(stops.length - 1);
+            slider.step = '1';
+            slider.value = String(pos);
+            slider.className = 'quiz-slider';
+            slider.style.cssText = 'width:100%;accent-color:var(--gold);cursor:pointer;';
+
+            const ticks = document.createElement('div');
+            ticks.style.cssText = 'display:flex;justify-content:space-between;font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;gap:6px;';
+            ticks.innerHTML = '<span>' + stops[0].label + '</span><span>' + stops[stops.length - 1].label + '</span>';
+
+            function sync() {
+                const i = parseInt(slider.value, 10);
+                valueLabel.textContent = stops[i].label;
+                slider.setAttribute('aria-valuetext', stops[i].label);
+                captureData[sub.id] = stops[i].value;
+            }
+            slider.addEventListener('input', () => { touched = true; sync(); });
+            if (touched) sync();
+            else valueLabel.textContent = 'Mova para escolher';
+
+            container.appendChild(valueLabel);
+            container.appendChild(slider);
+            container.appendChild(ticks);
+            return { sub, slider, touched: () => touched };
         }
 
-        var QE_FREE_EMAIL = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud', 'bol', 'uol', 'terra', 'live', 'msn', 'aol', 'protonmail', 'ymail', 'globo', 'ig.com'];
-        function qeValidWorkEmail(v) {
-            if (!qeValidEmail(v)) return false;
-            var domain = String(v).split('@')[1].toLowerCase();
-            return !QE_FREE_EMAIL.some(function(p) { return domain === p + '.com' || domain === p + '.com.br' || domain.indexOf(p + '.') === 0; });
+        function qeValidEmail(v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
         }
 
         function qeValidSite(v) {
@@ -594,15 +642,9 @@ const QuizEngine = ((() => {
                 qeFieldError(inputEl, 'Digite um e-mail válido (ex: voce@email.com).');
                 return true;
             }
-            if (type === 'workemail') {
-                if (!qeValidEmail(value)) {
-                    qeFieldError(inputEl, 'Digite um e-mail válido (ex: nome@empresa.com).');
-                    return true;
-                }
-                if (!qeValidWorkEmail(value)) {
-                    qeFieldError(inputEl, 'Use um e-mail corporativo (nome@empresa.com), não pessoal.');
-                    return true;
-                }
+            if (type === 'workemail' && !qeValidEmail(value)) {
+                qeFieldError(inputEl, 'Digite um e-mail válido (ex: nome@empresa.com).');
+                return true;
             }
             if (type === 'url' && !qeValidSite(value)) {
                 qeFieldError(inputEl, 'Digite um site válido (ex: empresa.com.br).');
@@ -733,86 +775,29 @@ const QuizEngine = ((() => {
             }];
         }
 
+        // Empreendedor: tela única — nome, e-mail de trabalho (aceita provedores
+        // pessoais), cargo, telefone e faixa de faturamento.
         function captureStepsEmpreendedor() {
             return [{
-                id: 'nome',
-                type: 'text',
-                question: 'Como posso te chamar?',
-                placeholder: 'Seu nome completo',
-                required: true
-            }, {
-                id: 'email',
-                type: 'workemail',
-                question: 'Qual é o seu e-mail de trabalho?',
-                placeholder: 'nome@empresa.com',
-                required: true
-            }, {
-                id: 'empresa_bloco',
+                id: 'dados',
                 type: 'group',
-                question: 'Sobre a sua empresa',
+                question: 'Preencha para ver o seu resultado',
                 fields: [
-                    { id: 'empresa', type: 'text', label: 'Nome da empresa', placeholder: 'Nome da empresa', required: true },
-                    { id: 'site', type: 'url', label: 'Site da empresa', placeholder: 'empresa.com.br', optional: true },
-                    { id: 'cargo', type: 'text', label: 'Seu cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true }
-                ]
-            }, {
-                id: 'whatsapp',
-                type: 'tel',
-                question: 'Qual é o seu WhatsApp?',
-                placeholder: '(11) 99999-9999',
-                required: true
-            }, {
-                id: 'objetivo',
-                type: 'radio',
-                question: 'O que você deseja com M&A?',
-                choices: [{
-                    value: 'Quero vender o meu controle total ou majoritário (Sell-side)',
-                    label: 'Vender minha empresa',
-                    desc: 'Sell-side: venda de controle total ou majoritário.'
-                }, {
-                    value: 'Procuro um sócio estratégico ou investidor minoritário',
-                    label: 'Sócio ou investidor',
-                    desc: 'Entrada de capital com participação minoritária.'
-                }, {
-                    value: 'Quero comprar outra empresa ou expandir mercado (Buy-side)',
-                    label: 'Comprar / expandir',
-                    desc: 'Buy-side: aquisição ou expansão de mercado.'
-                }, {
-                    value: 'Busco fusão com outra operação complementar',
-                    label: 'Fusão estratégica',
-                    desc: 'Unir operações com empresa complementar.'
-                }, {
-                    value: 'Preciso de Reestruturação Financeira ou Operacional',
-                    label: 'Reestruturação',
-                    desc: 'Reestruturação financeira ou operacional.'
-                }, {
-                    value: 'Ainda estou avaliando alternativas estratégicas',
-                    label: 'Avaliando opções',
-                    desc: 'Explorando alternativas estratégicas.'
-                }]
-            }, {
-                id: 'tamanho',
-                type: 'slider',
-                question: 'Qual é o tamanho da sua empresa?',
-                required: true,
-                stops: [
-                    { value: 'Até 20 funcionários', label: 'Até 20 funcionários' },
-                    { value: '21 a 100 funcionários', label: '21 a 100 funcionários' },
-                    { value: '101 a 500 funcionários', label: '101 a 500 funcionários' },
-                    { value: 'Mais de 500 funcionários', label: 'Mais de 500 funcionários' }
-                ]
-            }, {
-                id: 'faturamento',
-                type: 'slider',
-                question: 'Qual é o faturamento médio anual?',
-                required: true,
-                stops: [
-                    { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
-                    { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
-                    { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
-                    { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
-                    { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
-                    { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+                    { id: 'nome', type: 'text', label: 'Nome', placeholder: 'Seu nome completo', required: true },
+                    { id: 'email', type: 'workemail', label: 'E-mail de trabalho', placeholder: 'nome@empresa.com', required: true },
+                    { id: 'cargo', type: 'text', label: 'Cargo', placeholder: 'Ex: CEO, Sócio, Diretor Financeiro', required: true },
+                    { id: 'whatsapp', type: 'tel', label: 'Telefone (WhatsApp)', placeholder: '(11) 99999-9999', required: true },
+                    {
+                        id: 'faturamento', type: 'slider', label: 'Faixa de faturamento anual', required: true,
+                        stops: [
+                            { value: 'Até R$ 10 milhões', label: 'Até R$ 10 mi' },
+                            { value: 'R$ 10 milhões a R$ 50 milhões', label: 'R$ 10–50 mi' },
+                            { value: 'R$ 50 milhões a R$ 100 milhões', label: 'R$ 50–100 mi' },
+                            { value: 'R$ 100 milhões a R$ 500 milhões', label: 'R$ 100–500 mi' },
+                            { value: 'R$ 500 milhões a R$ 1 Bilhão', label: 'R$ 500 mi – 1 bi' },
+                            { value: 'Mais de R$ 1 Bilhão', label: 'Mais de R$ 1 bi' }
+                        ]
+                    }
                 ]
             }];
         }
@@ -831,7 +816,14 @@ const QuizEngine = ((() => {
         const threshold = getThreshold(scores);
         const pct = Math.min(100, Math.round(scores.main / (config.scoring.max || 10) * 100));
         const deg = Math.round(pct * 3.6);
-        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"result-intro-label\">Seu resultado foi:</div>\n        <div class=\"result-score-label\">" + (config.scoring.scoreLabel || 'Pontuação') + "</div>\n        <div class=\"result-score-val\">" + formatScore(scores.main, config.scoring) + "</div>\n        <div class=\"result-level " + threshold.class + '">' + threshold.label + "</div>\n        <p class=\"result-desc\">" + threshold.description + '</p>\n      </div>\n      <div id="charts-area"></div>\n      <div class="result-ctas">\n        <a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a>\n        <button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark);">Refazer →</button>\n      </div>\n    ';
+        const cta = config.scoring.cta;
+        const ctaHtml = cta
+            ? '<div style="background:var(--navy,#0A1628);border-radius:16px;padding:28px 26px;text-align:center;margin-top:8px">'
+                + (cta.description ? '<p style="color:rgba(255,255,255,.7);font-size:14.5px;line-height:1.7;margin:0 0 18px">' + cta.description + '</p>' : '')
+                + '<a href="' + cta.href + '" class="btn-gold" style="display:inline-block;text-align:center">' + cta.label + ' →</a>'
+                + '</div>'
+            : '';
+        screen.innerHTML = "\n      <div class=\"result-header " + threshold.class + "\">\n        <div class=\"result-intro-label\">Seu resultado foi:</div>\n        <div class=\"result-score-label\">" + (config.scoring.scoreLabel || 'Pontuação') + "</div>\n        <div class=\"result-score-val\">" + formatScore(scores.main, config.scoring) + "</div>\n        <div class=\"result-level " + threshold.class + '">' + threshold.label + "</div>\n        <p class=\"result-desc\">" + threshold.description + '</p>\n      </div>\n      <div id="charts-area"></div>\n      ' + ctaHtml + '\n      <div class="result-ctas">\n        <a href="' + segmentHref() + '" class="btn-navy">← Ver outras ferramentas</a>\n        <button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark);">Refazer →</button>\n      </div>\n    ';
         el.appendChild(screen);
         screen.querySelector('#btn-restart').onclick = () => {
             state = { screen: 'welcome', qi: 0, answers: {}, captured: false };

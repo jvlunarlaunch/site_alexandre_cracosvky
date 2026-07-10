@@ -49,113 +49,50 @@ const QUIZ_CONFIG = {
   "questions": [
     {
       "id": "q1",
-      "text": "Com que frequência você pensa em vender a empresa?",
-      "dimension": "Intenção",
+      "text": "Você tem uma janela-alvo definida para vender a empresa?",
+      "dimension": "Clareza de decisão",
       "weight": 1,
       "type": "choice",
       "options": [
         {
-          "label": "Nunca ou raramente penso nisso",
+          "label": "Não penso em vender ou nunca defini um prazo",
           "value": 0
         },
         {
-          "label": "Às vezes, mas sem urgência",
+          "label": "Tenho a intenção, mas sem prazo definido",
           "value": 2
         },
         {
-          "label": "Frequentemente — é um objetivo concreto",
+          "label": "Sim, tenho uma janela-alvo concreta (ex.: 12, 24 ou 36 meses)",
           "value": 4
         }
       ]
     },
     {
       "id": "q2",
-      "text": "Suas demonstrações financeiras estão organizadas para apresentar a um comprador?",
-      "dimension": "Prontidão financeira",
-      "weight": 1.5,
+      "text": "Você já sabe o que fará depois da venda — pessoal e financeiramente?",
+      "dimension": "Clareza de decisão",
+      "weight": 1,
       "type": "choice",
       "options": [
         {
-          "label": "Não, precisariam de trabalho significativo",
+          "label": "Nunca parei para pensar nisso",
           "value": 0
         },
         {
-          "label": "Parcialmente, temos dados mas sem auditoria",
+          "label": "Tenho ideias, mas nada estruturado",
           "value": 2
         },
         {
-          "label": "Sim, estão auditadas e prontas para due diligence",
+          "label": "Sim, tenho um plano claro para o pós-venda",
           "value": 4
         }
       ]
     },
     {
       "id": "q3",
-      "text": "Você já conversou formalmente com assessores financeiros ou bancos de investimento?",
-      "dimension": "Assessoria",
-      "weight": 1,
-      "type": "choice",
-      "options": [
-        {
-          "label": "Nunca tive essa conversa",
-          "value": 0
-        },
-        {
-          "label": "Conversas informais, sem engajamento formal",
-          "value": 2
-        },
-        {
-          "label": "Sim, já tive ou tenho assessor formal",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "id": "q4",
-      "text": "Você tem material de apresentação da empresa (Information Memorandum ou teaser) preparado?",
-      "dimension": "Material de venda",
-      "weight": 1.5,
-      "type": "choice",
-      "options": [
-        {
-          "label": "Não tenho nada preparado",
-          "value": 0
-        },
-        {
-          "label": "Tenho esboço ou apresentação inicial",
-          "value": 2
-        },
-        {
-          "label": "Sim, IM completo e atualizado",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "id": "q5",
-      "text": "Há compradores potenciais que já demonstraram interesse na empresa?",
-      "dimension": "Pipeline de compradores",
-      "weight": 1,
-      "type": "choice",
-      "options": [
-        {
-          "label": "Não há compradores mapeados",
-          "value": 0
-        },
-        {
-          "label": "Tivemos contatos informais sem avanço",
-          "value": 2
-        },
-        {
-          "label": "Estamos em negociação ativa com interessados",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "id": "q6",
-      "text": "Você tem clareza sobre o valor mínimo que aceitaria pela empresa?",
-      "dimension": "Clareza de preço",
+      "text": "Você tem um valor mínimo (floor price) fundamentado em valuation?",
+      "dimension": "Expectativa de valor",
       "weight": 1,
       "type": "choice",
       "options": [
@@ -168,7 +105,70 @@ const QUIZ_CONFIG = {
           "value": 2
         },
         {
-          "label": "Sim, tenho floor price fundamentado",
+          "label": "Sim, tenho floor price fundamentado em método de valuation",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "A empresa opera e cresce sem depender de você no dia a dia?",
+      "dimension": "Dependência do crescimento",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Não — quase tudo passa por mim",
+          "value": 0
+        },
+        {
+          "label": "Parcialmente — há gestores, mas as decisões-chave dependem de mim",
+          "value": 2
+        },
+        {
+          "label": "Sim — a operação e o crescimento seguem sem a minha presença",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Qual o peso dos seus 3 maiores clientes na receita da empresa?",
+      "dimension": "Dependência do crescimento",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Mais de 50% da receita",
+          "value": 0
+        },
+        {
+          "label": "Entre 20% e 50% da receita",
+          "value": 2
+        },
+        {
+          "label": "Menos de 20% — receita bem distribuída",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "Suas demonstrações financeiras e o material de venda (IM ou teaser) estão prontos para apresentar a um comprador?",
+      "dimension": "Prontidão de execução",
+      "weight": 1,
+      "type": "choice",
+      "options": [
+        {
+          "label": "Nada preparado",
+          "value": 0
+        },
+        {
+          "label": "Financeiras organizadas, mas sem auditoria nem IM",
+          "value": 2
+        },
+        {
+          "label": "Sim, financeiras auditadas e IM/teaser prontos",
           "value": 4
         }
       ]
@@ -253,34 +253,24 @@ const QUIZ_CONFIG = {
     },
     "dimensions": [
       {
-        "label": "Intenção",
-        "questions": ["q1"],
-        "action": "Defina uma janela-alvo para o deal (12, 24 ou 36 meses) e trate a venda como um projeto com prazo, não como uma ideia que vai e volta. A intenção clara é o que organiza todas as outras frentes."
+        "label": "Clareza de decisão",
+        "questions": ["q1", "q2"],
+        "action": "Defina uma janela-alvo para o deal (12, 24 ou 36 meses) e um plano concreto para o pós-venda. Vendedores sem clareza de decisão são os que mais recuam na última hora — e o mercado percebe."
       },
       {
-        "label": "Prontidão financeira",
-        "questions": ["q2"],
-        "action": "Organize três anos de demonstrações consistentes e normalize o EBITDA, idealmente com auditoria ou revisão. É a base factual sobre a qual o comprador vai calcular o seu valor."
-      },
-      {
-        "label": "Assessoria",
+        "label": "Expectativa de valor",
         "questions": ["q3"],
-        "action": "Tenha uma conversa formal com um assessor de M&A antes de ir ao mercado. Quem conduz o processo pela primeira vez quase sempre deixa valor na mesa por não conhecer o jogo."
+        "action": "Estabeleça um floor price fundamentado em valuation por método, e não em percepção. Expectativa de valor desalinhada é a principal causa de deals que morrem no meio do caminho."
       },
       {
-        "label": "Material de venda",
-        "questions": ["q4"],
-        "action": "Prepare um teaser e um Information Memorandum que contem a tese de valor da empresa. Sem material, o comprador preenche as lacunas com desconto."
+        "label": "Dependência do crescimento",
+        "questions": ["q4", "q5"],
+        "action": "Reduza a dependência do fundador e a concentração de receita nos maiores clientes. O comprador paga pelo que consegue replicar e escalar sem você — dependências estruturais viram desconto no preço."
       },
       {
-        "label": "Pipeline de compradores",
-        "questions": ["q5"],
-        "action": "Mapeie compradores estratégicos e financeiros plausíveis antes de abrir o processo. Concorrência entre interessados é o que sustenta o preço."
-      },
-      {
-        "label": "Clareza de preço",
+        "label": "Prontidão de execução",
         "questions": ["q6"],
-        "action": "Estabeleça um floor price fundamentado em valuation por método, e não em percepção. Sem um piso claro, você negocia no escuro e tende a ancorar no número errado."
+        "action": "Organize três anos de demonstrações consistentes, idealmente auditadas, e prepare um teaser e um Information Memorandum com a tese de valor da empresa. Sem isso, a due diligence alonga o processo e corrói o preço."
       }
     ],
     "resultText": "Maturidade para vender não se improvisa: ela se constrói nas frentes acima, e a mais fraca delas é a que dita o seu ritmo. Empresas que vão ao mercado antes de fechar essas lacunas costumam enfrentar processos mais longos, due diligence mais dolorosa e desconto no preço. A boa notícia é que cada frente fortalecida encurta o caminho até o deal.",

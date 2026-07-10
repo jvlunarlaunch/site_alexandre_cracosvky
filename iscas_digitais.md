@@ -179,16 +179,18 @@ $$
 | 4 | Posicionamento | 16–20 | 6–18 meses |
 | 5 | Negociação ativa | 21–24 | 0–6 meses |
 
-### Perguntas e pesos
+### Perguntas, pilares e pesos
 
-| # | Pergunta (múltipla escolha) | Opções e pontos | Peso $w_i$ |
-|---|---|---|---|
-| Q1 | Com que frequência você pensa em vender a empresa? | Nunca=0 / Às vezes=2 / Frequentemente=4 | 1× |
-| Q2 | Suas demonstrações financeiras estão organizadas para apresentar a um comprador? | Não=0 / Parcialmente=2 / Sim, auditadas=4 | 1.5× |
-| Q3 | Você já conversou com algum assessor financeiro ou banco de investimento? | Nunca=0 / Informalmente=2 / Formalmente=4 | 1× |
-| Q4 | Você tem ou já preparou algum material de apresentação da empresa (IM, teaser)? | Não=0 / Esboço=2 / Completo=4 | 1.5× |
-| Q5 | Há compradores potenciais que já demonstraram interesse? | Não=0 / Contatos informais=2 / Em negociação=4 | 1× |
-| Q6 | Você tem clareza sobre o valor mínimo que aceitaria por sua empresa? | Não tenho ideia=0 / Tenho uma estimativa=2 / Tenho clareza total=4 | 1× |
+As 6 perguntas agrupam-se em **4 pilares** (dimensões do resultado): Clareza de decisão (Q1+Q2), Expectativa de valor (Q3), Dependência do crescimento (Q4+Q5) e Prontidão de execução (Q6). Todos os pesos são 1×, de modo que a soma máxima é exatamente 24.
+
+| # | Pilar | Pergunta (múltipla escolha) | Opções e pontos | Peso $w_i$ |
+|---|---|---|---|---|
+| Q1 | Clareza de decisão | Você tem uma janela-alvo definida para vender a empresa? | Não penso/sem prazo=0 / Intenção sem prazo=2 / Janela concreta=4 | 1× |
+| Q2 | Clareza de decisão | Você já sabe o que fará depois da venda — pessoal e financeiramente? | Nunca pensei=0 / Ideias soltas=2 / Plano claro=4 | 1× |
+| Q3 | Expectativa de valor | Você tem um valor mínimo (floor price) fundamentado em valuation? | Não tenho ideia=0 / Estimativa por percepção=2 / Floor fundamentado=4 | 1× |
+| Q4 | Dependência do crescimento | A empresa opera e cresce sem depender de você no dia a dia? | Tudo passa por mim=0 / Parcialmente=2 / Opera sem mim=4 | 1× |
+| Q5 | Dependência do crescimento | Qual o peso dos seus 3 maiores clientes na receita? | >50%=0 / 20–50%=2 / <20%=4 | 1× |
+| Q6 | Prontidão de execução | Financeiras e material de venda (IM/teaser) prontos para um comprador? | Nada=0 / Organizadas sem auditoria/IM=2 / Auditadas + IM prontos=4 | 1× |
 
 **Avanço para próximo estágio — ações necessárias:**
 
