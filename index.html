@@ -146,6 +146,7 @@
 .hero-lux-cta-btn{
   font-family:var(--ep);font-size:16px;font-weight:500;
   background:var(--navy);color:#fff;
+  border:1px solid rgba(255,255,255,.22);
   padding:18px 36px;border-radius:2px;letter-spacing:.07em;
   display:inline-flex;align-items:center;gap:12px;
   text-decoration:none;
@@ -159,40 +160,67 @@
 
 /* ─── Hero lux ─── */
 .hero-lux{
-  background:#FFFFFF;min-height:100vh;
+  background:var(--navy) url('assets/hero-bg-poster.jpg') center/cover no-repeat;
+  min-height:100vh;
   display:flex;align-items:center;
   padding:0 clamp(32px,5vw,72px);
   border-bottom:.5px solid rgba(0,0,0,.08);
+  position:relative;overflow:hidden;
 }
-.hero-lux-inner{max-width:1100px;margin:0 auto;width:100%;padding:100px 0;}
-.hero-lux-rule{width:40px;height:2px;background:var(--royal);margin-bottom:32px;}
-.hero-lux-h1{font-family:var(--cg);font-size:clamp(36px,4.55vw,62px);font-weight:300;color:var(--navy);line-height:1.08;margin-bottom:24px;letter-spacing:.01em;}
-.hero-lux-h1 em{font-style:italic;color:var(--royal);}
-.hero-lux-sub{font-family:var(--ep);font-size:19px;font-weight:300;color:var(--slate);line-height:1.8;max-width:560px;}
-.hero-lux-divider{height:.5px;background:rgba(0,0,0,.08);margin:44px 0;}
-.hero-lux-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;}
-.hero-lux-stat{padding:24px 36px 24px 0;border-right:.5px solid rgba(0,0,0,.08);}
+.hero-lux-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+.hero-lux::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,22,40,.30) 0%,rgba(10,22,40,.45) 60%,rgba(10,22,40,.60) 100%);
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-lux-video{display:none;}
+}
+.hero-lux-inner{max-width:1100px;margin:0 auto;width:100%;padding:100px 0;position:relative;z-index:2;}
+.hero-lux-glass{
+  background:rgba(10,22,40,.55);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:2px;
+  padding:clamp(28px,3.5vw,44px);
+}
+.hero-lux-rule{width:40px;height:2px;background:var(--gold2);margin-bottom:32px;}
+.hero-lux-h1{font-family:var(--cg);font-size:clamp(36px,4.55vw,62px);font-weight:300;color:#fff;line-height:1.08;margin-bottom:24px;letter-spacing:.01em;}
+.hero-lux-h1 em{font-style:italic;color:var(--gold2);}
+.hero-lux-sub{font-family:var(--ep);font-size:19px;font-weight:300;color:rgba(255,255,255,.85);line-height:1.8;max-width:560px;}
+.hero-lux-divider{height:44px;}
+.hero-lux-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  background:rgba(10,22,40,.55);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:2px;
+  padding:8px clamp(24px,3vw,40px);
+}
+.hero-lux-stat{padding:24px 36px 24px 0;border-right:.5px solid rgba(255,255,255,.14);}
 .hero-lux-stat:not(:first-child){padding-left:36px;}
 .hero-lux-stat:last-child{border-right:none;padding-right:0;}
-.hero-lux-stlabel{font-family:var(--ep);font-size:12px;font-weight:400;color:#9BA7B4;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
-.hero-lux-stval{font-family:var(--cg);font-size:clamp(36px,3.8vw,52px);font-weight:600;color:var(--navy);line-height:1;}
-.hero-lux-stmeta{font-family:var(--ep);font-size:13px;color:#9BA7B4;margin-top:6px;font-weight:300;}
+.hero-lux-stlabel{font-family:var(--ep);font-size:12px;font-weight:400;color:rgba(255,255,255,.55);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.hero-lux-stval{font-family:var(--cg);font-size:clamp(36px,3.8vw,52px);font-weight:600;color:#fff;line-height:1;}
+.hero-lux-stmeta{font-family:var(--ep);font-size:13px;color:rgba(255,255,255,.65);margin-top:6px;font-weight:300;}
 .hero-lux-tagrow{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap;}
 .hero-lux-tag{font-family:var(--ep);font-size:13px;font-weight:400;color:var(--royal);background:var(--ice);padding:7px 16px;border-radius:2px;letter-spacing:.04em;}
 @media(max-width:768px){
   .hero-lux{min-height:100svh;align-items:flex-start;}
   .hero-lux-inner{padding:64px 0 72px;}
-  .hero-lux-stats{grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.08);}
-  .hero-lux-stat{background:#fff;padding:20px 12px;}
+  .hero-lux-stats{grid-template-columns:repeat(3,1fr);gap:0;padding:0 16px;}
+  .hero-lux-stat{padding:20px 12px;}
   .hero-lux-stat:not(:first-child){padding-left:12px;}
   .hero-lux-stval{font-size:clamp(22px,3.8vw,52px);}
 }
 @media(max-width:480px){
-  .hero-lux-stats{grid-template-columns:1fr;gap:0;background:none;}
+  .hero-lux-stats{grid-template-columns:1fr;gap:0;padding:4px 20px;}
   .hero-lux-stat{
     display:flex;flex-direction:row;align-items:center;gap:16px;
     padding:16px 0;background:transparent;
-    border-right:none;border-bottom:.5px solid rgba(0,0,0,.08);
+    border-right:none;border-bottom:.5px solid rgba(255,255,255,.14);
   }
   .hero-lux-stat:not(:first-child){padding-left:0;}
   .hero-lux-stat:last-child{border-bottom:none;}
@@ -406,10 +434,24 @@
 <main class="page-main">
 
 <section class="hero-lux">
+  <video class="hero-lux-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
+    <source src="assets/hero-bg.mp4" type="video/mp4">
+  </video>
+  <script>
+  (function(){
+    var v=document.querySelector('.hero-lux-video');
+    if(!v||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    v.muted=true;
+    var p=v.play();
+    if(p&&p.catch)p.catch(function(){});
+  })();
+  </script>
   <div class="hero-lux-inner">
-    <div class="hero-lux-rule"></div>
-    <h1 class="hero-lux-h1">Equity é o fator mais importante dos negócios e do mercado financeiro. Aqui, você aprende a medir, construir e maximizar valor.</h1>
-    <p class="hero-lux-sub">Mais de 10 anos dedicados a M&amp;A e valuation — em sala de aula e dentro das transações.</p>
+    <div class="hero-lux-glass">
+      <div class="hero-lux-rule"></div>
+      <h1 class="hero-lux-h1">Equity é o fator mais importante dos negócios e do mercado financeiro. Aqui, você aprende a medir, construir e maximizar valor.</h1>
+      <p class="hero-lux-sub">Mais de 10 anos dedicados a M&amp;A e valuation — em sala de aula e dentro das transações.</p>
+    </div>
     <div class="hero-lux-divider"></div>
     <div class="hero-lux-stats">
       <div class="hero-lux-stat">
