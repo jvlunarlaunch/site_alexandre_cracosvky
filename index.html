@@ -169,8 +169,10 @@
 }
 .hero-lux-video{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;z-index:0;
+  object-fit:cover;z-index:0;pointer-events:none;
 }
+.hero-lux-video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none;}
+.hero-lux-video::-webkit-media-controls{display:none!important;}
 .hero-lux::after{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(10,22,40,.30) 0%,rgba(10,22,40,.45) 60%,rgba(10,22,40,.60) 100%);
@@ -449,7 +451,7 @@
 <main class="page-main">
 
 <section class="hero-lux">
-  <video class="hero-lux-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
+  <video class="hero-lux-video" autoplay muted loop playsinline webkit-playsinline disablepictureinpicture preload="auto" poster="assets/hero-bg-poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="assets/hero-bg.mp4" type="video/mp4">
   </video>
   <script>
@@ -457,8 +459,25 @@
     var v=document.querySelector('.hero-lux-video');
     if(!v||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     v.muted=true;
-    var p=v.play();
-    if(p&&p.catch)p.catch(function(){});
+    v.defaultMuted=true;
+    function tryPlay(){
+      if(!v.paused)return;
+      var p=v.play();
+      if(p&&p.catch)p.catch(function(){});
+    }
+    tryPlay();
+    v.addEventListener('loadedmetadata',tryPlay);
+    v.addEventListener('canplay',tryPlay);
+    // Low Power Mode (iOS) / data saver (Android) bloqueiam autoplay até haver gesto do usuário
+    ['touchstart','pointerdown','scroll','click'].forEach(function(ev){
+      addEventListener(ev,function h(){
+        tryPlay();
+        if(!v.paused)removeEventListener(ev,h);
+      },{passive:true});
+    });
+    document.addEventListener('visibilitychange',function(){
+      if(!document.hidden)tryPlay();
+    });
   })();
   </script>
   <div class="hero-lux-inner">
