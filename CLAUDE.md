@@ -31,7 +31,7 @@ Hero + split-screen choice ("Sou Empreendedor" / "Sou Estudante" linking to `/em
 
 Dedicated pages for each audience, each with its own set of quiz cards:
 
-- `empreendedor.html`: diagnósticos 1, 2, 3, 4, 5, 13 (M&A and valuation diagnostics for business owners)
+- `empreendedor.html`: diagnósticos 1, 2, 4, 5, 13 (M&A and valuation diagnostics for business owners)
 - `estudante.html`: diagnósticos 6, 7, 9 + PDF bundle download (CFA, valuation theory, career)
 
 Nav cross-links them. Internal links use clean extensionless URLs (`/diagnostico/N`, `/capturas/slug`) — `.htaccess` strips `.html` and 301-redirects the legacy `/iscas/isca-N` URLs to `/diagnostico/N`.
@@ -74,7 +74,7 @@ Required for polar/radar charts. Do not modify.
 
 ## Key Conventions
 
-- **Quiz IDs are not sequential.** Current set: 1–9 and 13. Filename `diagnostico/N.html` matches the quiz `id` in its JSON. (`8.html` exists but is not currently linked from any page.)
+- **Quiz IDs are not sequential.** Current set: 1, 2, 4–9, 13 (no 3). Filename `diagnostico/N.html` matches the quiz `id` in its JSON. (`8.html` exists but is not currently linked from any page.)
 - To add a new quiz: create `diagnostico/N.html` by copying an existing one and replacing the JSON config. Then add a card to `empreendedor.html` or `estudante.html` depending on the audience.
 - `design_system_v31_navy_gold.html` — standalone visual reference for the design system; not part of the live site.
 - `isca_modelo_de_diagnóstico/` — a separate subproject with its own `CLAUDE.md` and `generator.py`. Independent from this site.

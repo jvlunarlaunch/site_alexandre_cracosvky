@@ -1,0 +1,33 @@
+Setor;Categoria de Liquidez;Desconto de Liquidez (%)
+Agro (Grãos/Trading);liq3;3%
+Agro (Proteínas);liq2;2%
+Alimentos & Bebidas;liq1;1%
+Beleza;liq2;2%
+Bens de Consumo;liq2;2%
+Construção (Materiais);liq2;2%
+Construtoras;liq3;3%
+E-commerce;liq2;2%
+Educação;liq1;1%
+Farmacêutica;liq1;1%
+Indústria (Autopeças);liq2;2%
+Indústria (Outros);liq2;2%
+Infraestrutura;liq3;3%
+Logística;liq1;1%
+Marketing & Mídia & Entretenimento;liq2;2%
+Meios de Pagamento;liq1;1%
+Químicos & Embalagens;liq2;2%
+Renováveis;liq1;1%
+Saneamento;liq1;1%
+Saúde (Clínicas);liq1;1%
+Saúde (Hospitais);liq1;1%
+Saúde (Planos de saúde);liq2;2%
+Seguros;liq2;2%
+Serviços/Facilities;liq1;1%
+Tech (AI/SaaS);liq1;1%
+Tech (Hardware);liq3;3%
+Tech (Serviços TI);liq1;1%
+Telecom (ISPs);liq1;1%
+Turismo / Hotelaria;liq2;2%
+Varejo (Alimentar/Supermercado);liq1;1%
+Varejo (Farmácia);liq2;2%
+Varejo (Moda/Vestuário);liq2;2%

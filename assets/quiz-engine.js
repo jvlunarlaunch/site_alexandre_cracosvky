@@ -1344,7 +1344,7 @@ const QuizEngine = ((() => {
         const benchMin = ebitda * multipleRange.min;
         const benchMax = ebitda * multipleRange.max;
         const benchCentral = (benchMin + benchMax) / 2;
-        const consultEbitda = ebitda * 1.1;
+        const consultEbitda = ebitda * 1.15;
         const consultMin = consultEbitda * multipleRange.min * noCompanyDiscount;
         const consultMax = consultEbitda * multipleRange.max * noCompanyDiscount;
         const consultCentral = (consultMin + consultMax) / 2;

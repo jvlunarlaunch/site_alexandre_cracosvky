@@ -12,7 +12,7 @@
   </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Em qual estágio de maturidade M&amp;A sua empresa está? — Alexandre Cracovsky, CFA</title>
+<title>Os 4 pontos cegos que derrubam deals de M&amp;A — Alexandre Cracovsky, CFA</title>
 <link rel="stylesheet" href="../assets/design-system.css">
 
 </head>
@@ -40,243 +40,239 @@
 const QUIZ_CONFIG = {
   "id": 5,
   "segment": "empreendedor",
-  "slug": "maturidade-ma",
-  "title": "Em qual estágio de maturidade M&amp;A sua empresa está?",
-  "subtitle": "Descubra em qual dos 5 estágios da jornada de M&A você se encontra e quanto tempo falta para estar pronto.",
-  "badge": "M&amp;A · Maturidade",
+  "slug": "4-pontos-cegos-ma",
+  "title": "Os 4 pontos cegos que derrubam deals de M&amp;A",
+  "subtitle": "Responda 12 perguntas e descubra quais dos 4 pontos cegos ameaçam a conclusão do seu negócio.",
+  "badge": "M&amp;A · Risco",
   "estimatedTime": "3 min",
-  "icon": "📈",
+  "icon": "⚠️",
+  "intro": "É mais provável você ter um casamento bem-sucedido do que concluir um M&A, já disse a CNN. No middle market, 70% a 80% das empresas que vão ao mercado não chegam ao fechamento. E quando o negócio morre, raramente é por um único motivo.",
   "questions": [
     {
-      "id": "q1",
-      "text": "Você tem uma janela-alvo definida para vender a empresa?",
-      "dimension": "Clareza de decisão",
-      "weight": 1,
-      "type": "choice",
-      "options": [
-        {
-          "label": "Não penso em vender ou nunca defini um prazo",
-          "value": 0
-        },
-        {
-          "label": "Tenho a intenção, mas sem prazo definido",
-          "value": 2
-        },
-        {
-          "label": "Sim, tenho uma janela-alvo concreta (ex.: 12, 24 ou 36 meses)",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "id": "q2",
-      "text": "Você já sabe o que fará depois da venda — pessoal e financeiramente?",
-      "dimension": "Clareza de decisão",
-      "weight": 1,
-      "type": "choice",
-      "options": [
-        {
-          "label": "Nunca parei para pensar nisso",
-          "value": 0
-        },
-        {
-          "label": "Tenho ideias, mas nada estruturado",
-          "value": 2
-        },
-        {
-          "label": "Sim, tenho um plano claro para o pós-venda",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "id": "q3",
-      "text": "Você tem um valor mínimo (floor price) fundamentado em valuation?",
+      "id": "pc1_1",
+      "text": "Você já tem uma referência de valuation feita com método (múltiplos do setor, fluxo de caixa), e não apenas o número que gostaria de receber?",
       "dimension": "Expectativa de valor",
-      "weight": 1,
+      "blindspot": 1,
+      "blindspotLabel": "Expectativa de valor",
       "type": "choice",
       "options": [
-        {
-          "label": "Não tenho ideia de quanto valeria",
-          "value": 0
-        },
-        {
-          "label": "Tenho uma estimativa baseada em percepção",
-          "value": 2
-        },
-        {
-          "label": "Sim, tenho floor price fundamentado em método de valuation",
-          "value": 4
-        }
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
       ]
     },
     {
-      "id": "q4",
-      "text": "A empresa opera e cresce sem depender de você no dia a dia?",
-      "dimension": "Dependência do crescimento",
-      "weight": 1,
+      "id": "pc1_2",
+      "text": "Sua expectativa de preço reflete como o mercado paga hoje (juros, múltiplos do setor, porte), e não o pico de anos atrás ou o que um conhecido vendeu?",
+      "dimension": "Expectativa de valor",
+      "blindspot": 1,
+      "blindspotLabel": "Expectativa de valor",
       "type": "choice",
       "options": [
-        {
-          "label": "Não — quase tudo passa por mim",
-          "value": 0
-        },
-        {
-          "label": "Parcialmente — há gestores, mas as decisões-chave dependem de mim",
-          "value": 2
-        },
-        {
-          "label": "Sim — a operação e o crescimento seguem sem a minha presença",
-          "value": 4
-        }
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
       ]
     },
     {
-      "id": "q5",
-      "text": "Qual o peso dos seus 3 maiores clientes na receita da empresa?",
-      "dimension": "Dependência do crescimento",
-      "weight": 1,
+      "id": "pc1_3",
+      "text": "Suas demonstrações dos últimos três anos estão organizadas, consistentes e idealmente auditadas ou revisadas, com EBITDA normalizado? É a base factual sobre a qual o seu valuation se apoia.",
+      "dimension": "Expectativa de valor",
+      "blindspot": 1,
+      "blindspotLabel": "Expectativa de valor",
       "type": "choice",
       "options": [
-        {
-          "label": "Mais de 50% da receita",
-          "value": 0
-        },
-        {
-          "label": "Entre 20% e 50% da receita",
-          "value": 2
-        },
-        {
-          "label": "Menos de 20% — receita bem distribuída",
-          "value": 4
-        }
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
       ]
     },
     {
-      "id": "q6",
-      "text": "Suas demonstrações financeiras e o material de venda (IM ou teaser) estão prontos para apresentar a um comprador?",
-      "dimension": "Prontidão de execução",
-      "weight": 1,
+      "id": "pc2_1",
+      "text": "Você conseguiria montar um data room (societário, contratos, fiscal, trabalhista, imobiliário) em poucas semanas se um comprador sério aparecesse?",
+      "dimension": "Prontidão e due diligence",
+      "blindspot": 2,
+      "blindspotLabel": "Prontidão e due diligence",
       "type": "choice",
       "options": [
-        {
-          "label": "Nada preparado",
-          "value": 0
-        },
-        {
-          "label": "Financeiras organizadas, mas sem auditoria nem IM",
-          "value": 2
-        },
-        {
-          "label": "Sim, financeiras auditadas e IM/teaser prontos",
-          "value": 4
-        }
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc2_2",
+      "text": "Você já levantou as exposições a contingências (cíveis, tributárias, trabalhistas, ambientais e regulatórias) antes de abrir o processo?",
+      "dimension": "Prontidão e due diligence",
+      "blindspot": 2,
+      "blindspotLabel": "Prontidão e due diligence",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc2_3",
+      "text": "Você tem certeza da situação de ativos sensíveis (imóveis, licenças ambientais, propriedade intelectual), incluindo o histórico deles?",
+      "dimension": "Prontidão e due diligence",
+      "blindspot": 2,
+      "blindspotLabel": "Prontidão e due diligence",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc3_1",
+      "text": "A empresa continua operando e crescendo se você se afastar por 90 dias, com um segundo nível que decide sem você?",
+      "dimension": "Dependências do crescimento",
+      "blindspot": 3,
+      "blindspotLabel": "Dependências do crescimento",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc3_2",
+      "text": "As relações-chave (clientes, fornecedores, bancos) estão na empresa, e não na sua pessoa?",
+      "dimension": "Dependências do crescimento",
+      "blindspot": 3,
+      "blindspotLabel": "Dependências do crescimento",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc3_3",
+      "text": "Nenhum cliente concentra uma fatia que assustaria um comprador (em geral acima de aproximadamente 20% da receita)?",
+      "dimension": "Dependências do crescimento",
+      "blindspot": 3,
+      "blindspotLabel": "Dependências do crescimento",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc4_1",
+      "text": "Você tem clareza do que vai fazer depois da venda (projeto de vida, destino dos recursos) e a decisão está madura?",
+      "dimension": "Decisão do dono",
+      "blindspot": 4,
+      "blindspotLabel": "Clareza e decisão do dono",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc4_2",
+      "text": "Há alinhamento entre todos os sócios sobre vender, preço mínimo, participações cruzadas e papel de cada um após a transação, por escrito, para não travar quando o comprador olhar?",
+      "dimension": "Decisão do dono",
+      "blindspot": 4,
+      "blindspotLabel": "Clareza e decisão do dono",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
+      ]
+    },
+    {
+      "id": "pc4_3",
+      "text": "Você e o time têm fôlego para tocar a operação e o processo ao mesmo tempo, sabendo que um M&A costuma levar de 6 a 12 meses, ou mais de 24 meses com uma preparação mais longa?",
+      "dimension": "Decisão do dono",
+      "blindspot": 4,
+      "blindspotLabel": "Clareza e decisão do dono",
+      "type": "choice",
+      "options": [
+        { "label": "Sim", "value": 2 },
+        { "label": "Parcial", "value": 1 },
+        { "label": "Não", "value": 0 }
       ]
     }
   ],
   "scoring": {
-    "type": "maturity",
-    "scoreLabel": "Score de Maturidade",
+    "type": "blindspots",
     "max": 24,
-    "stages": [
+    "scoreLabel": "Índice geral",
+    "blindspots": [
       {
-        "min": 0,
-        "max": 5,
-        "label": "Pré-consciência",
-        "avgMonths": 60,
-        "description": "Você ainda não iniciou a jornada. O primeiro passo é entender o valuation atual e os fundamentos de M&A."
+        "id": 1,
+        "label": "Expectativa de valor",
+        "questions": ["pc1_1","pc1_2","pc1_3"],
+        "action": "Faça uma referência de valuation por método antes de formar expectativa e ancore o número no que o vale hoje, não no pico nem no caso do vizinho."
       },
       {
-        "min": 6,
-        "max": 10,
-        "label": "Curiosidade",
-        "avgMonths": 48,
-        "description": "Há interesse mas falta estrutura. Comece pela organização financeira e mapeamento de compradores potenciais."
+        "id": 2,
+        "label": "Prontidão e due diligence",
+        "questions": ["pc2_1","pc2_2","pc2_3"],
+        "action": "Monte o data room e levante as contingências antes de abrir o processo. A surpresa que aparece na diligência do comprador é a que derruba o deal; a que você encontra antes, você resolve."
       },
       {
-        "min": 11,
-        "max": 15,
-        "label": "Preparação",
-        "avgMonths": 24,
-        "description": "Você está se preparando ativamente. Foque em auditoria, documentação e construção do IM."
+        "id": 3,
+        "label": "Dependências do crescimento",
+        "questions": ["pc3_1","pc3_2","pc3_3"],
+        "action": "Construa um segundo nível de gestão e transfira as relações-chave para a empresa, reduzindo a concentração de receita, para o comprador enxergar um negócio que escala sem você."
       },
       {
-        "min": 16,
-        "max": 20,
-        "label": "Posicionamento",
-        "avgMonths": 12,
-        "description": "A empresa está bem posicionada. O próximo passo é engajar um assessor e iniciar o processo formal."
-      },
-      {
-        "min": 21,
-        "max": 24,
-        "label": "Negociação ativa",
-        "avgMonths": 3,
-        "description": "Você está pronto para fechar. Foque na negociação dos termos e estruturação do contrato."
-      }
-    ],
-    "thresholds": [
-      {
-        "max": 5,
-        "label": "Estágio 1 — Pré-consciência",
-        "class": "warning",
-        "description": "Você ainda não iniciou a jornada de M&A. O primeiro passo é entender o valuation atual e os fundamentos para uma venda bem-sucedida."
-      },
-      {
-        "max": 10,
-        "label": "Estágio 2 — Curiosidade",
-        "class": "warning",
-        "description": "Há interesse, mas ainda falta estrutura. Organize as finanças e comece a mapear compradores potenciais."
-      },
-      {
-        "max": 15,
-        "label": "Estágio 3 — Preparação",
-        "class": "warning",
-        "description": "Você está se preparando ativamente. Foque em auditoria financeira, documentação legal e construção do Information Memorandum."
-      },
-      {
-        "max": 20,
-        "label": "Estágio 4 — Posicionamento",
-        "class": "success",
-        "description": "A empresa está bem posicionada para iniciar o processo. Engaje um assessor financeiro e formalize o pipeline de compradores."
-      },
-      {
-        "max": 24,
-        "label": "Estágio 5 — Negociação ativa",
-        "class": "success",
-        "description": "Você está pronto para fechar. Foque na negociação dos termos, LOI e estruturação do contrato de compra e venda."
+        "id": 4,
+        "label": "Clareza e decisão do dono",
+        "questions": ["pc4_1","pc4_2","pc4_3"],
+        "action": "Alinhe a decisão e o pós-venda entre os sócios, por escrito, antes de ir ao mercado. Dono que recua na última hora responde por quase um quarto dos deals que não fecham."
       }
     ],
     "signalThresholds": {
       "green": 0.75,
       "yellow": 0.45
     },
-    "dimensions": [
+    "thresholds": [
       {
-        "label": "Clareza de decisão",
-        "questions": ["q1", "q2"],
-        "action": "Defina uma janela-alvo para o deal (12, 24 ou 36 meses) e um plano concreto para o pós-venda. Vendedores sem clareza de decisão são os que mais recuam na última hora — e o mercado percebe."
+        "max": 10,
+        "label": "Alto risco de não fechar",
+        "class": "danger",
+        "description": "Vários pontos cegos ativos; ir ao mercado assim tende a terminar em frustração e valor perdido."
       },
       {
-        "label": "Expectativa de valor",
-        "questions": ["q3"],
-        "action": "Estabeleça um floor price fundamentado em valuation por método, e não em percepção. Expectativa de valor desalinhada é a principal causa de deals que morrem no meio do caminho."
+        "max": 17,
+        "label": "Zona de risco",
+        "class": "warning",
+        "description": "Há pontos cegos relevantes que podem travar o processo ou derrubar o preço na mesa. Ir ao mercado sem resolvê-los aumenta muito a chance de o deal não fechar."
       },
       {
-        "label": "Dependência do crescimento",
-        "questions": ["q4", "q5"],
-        "action": "Reduza a dependência do fundador e a concentração de receita nos maiores clientes. O comprador paga pelo que consegue replicar e escalar sem você — dependências estruturais viram desconto no preço."
-      },
-      {
-        "label": "Prontidão de execução",
-        "questions": ["q6"],
-        "action": "Organize três anos de demonstrações consistentes, idealmente auditadas, e prepare um teaser e um Information Memorandum com a tese de valor da empresa. Sem isso, a due diligence alonga o processo e corrói o preço."
+        "max": 24,
+        "label": "Deal defensável",
+        "class": "success",
+        "description": "Poucos pontos cegos; você chega ao mercado com a casa arrumada."
       }
     ],
-    "resultText": "Maturidade para vender não se improvisa: ela se constrói nas frentes acima, e a mais fraca delas é a que dita o seu ritmo. Empresas que vão ao mercado antes de fechar essas lacunas costumam enfrentar processos mais longos, due diligence mais dolorosa e desconto no preço. A boa notícia é que cada frente fortalecida encurta o caminho até o deal.",
-    "callout": "O tempo que falta até o seu deal não é só espera, é exposição. Quanto mais longa a jornada, mais a liderança se distrai do negócio, mais gente-chave fica insegura e mais o mercado lê a demora como problema. Antecipar o preparo, com boa assessoria, é o que transforma anos de jornada em meses. É exatamente esse trabalho que conduzo ao lado do empresário.",
+    "resultText": "E isso não é detalhe. Segundo o Exit Planning Institute, 55% dos deals que falham morrem por expectativa de valor desalinhada, 22% porque o dono recua na última hora e 20% por falta de prontidão e falhas na due diligence. Por trás desses números há quase sempre um bloqueio estrutural: a dependência do fundador e a concentração de receita, que impedem o comprador de replicar e escalar o negócio. A maioria desses pontos cegos poderia ter sido resolvida antes de o comprador chegar.",
+    "callout": "O atraso que esses pontos cegos provocam não é só tempo perdido, é erosão de valor. Enquanto o processo se arrasta, a liderança se distrai do negócio, gente-chave fica insegura e pede para sair, e o mercado começa a ler a demora como problema. Há quem chame M&A de Misery & Agony por isso. A diferença entre fechar e frustrar costuma estar no preparo feito com antecedência e boa assessoria, que transforma ponto cego em ponto resolvido antes da due diligence. É exatamente esse trabalho que executo ao lado do empresário.",
+    "journey": {
+      "stages": [
+        { "label": "Pré-consciência", "months": 36, "minPct": 0  },
+        { "label": "Curiosidade",      "months": 30, "minPct": 20 },
+        { "label": "Preparação",       "months": 24, "minPct": 40 },
+        { "label": "Posicionamento",   "months": 12, "minPct": 60 },
+        { "label": "Negociação ativa", "months": 6,  "minPct": 80 }
+      ],
+      "text": "Empresas começam a pensar em vender anos antes de fechar. Pelo seu diagnóstico, você está por volta da fase de {stage}, a cerca de {months} meses de um deal. Cada ponto cego que você resolve encurta esse caminho."
+    },
     "cta": {
-      "label": "Quero acelerar a minha jornada de M&amp;A",
+      "label": "Quero blindar o meu processo de M&amp;A",
       "href": "/contato"
     }
   },

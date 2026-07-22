@@ -7,7 +7,7 @@ RewriteRule ^ /%1 [R=301,L]
 # 301 redirects: old /iscas/isca-N → new /diagnostico/N
 RewriteRule ^iscas/isca-1$ /diagnostico/1 [R=301,L]
 RewriteRule ^iscas/isca-2$ /diagnostico/2 [R=301,L]
-RewriteRule ^iscas/isca-3$ /diagnostico/3 [R=301,L]
+RewriteRule ^iscas/isca-3$ /diagnostico/5 [R=301,L]
 RewriteRule ^iscas/isca-4$ /diagnostico/4 [R=301,L]
 RewriteRule ^iscas/isca-5$ /diagnostico/5 [R=301,L]
 RewriteRule ^iscas/isca-6$ /diagnostico/6 [R=301,L]
