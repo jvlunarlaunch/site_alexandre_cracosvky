@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>9 Materiais Avulsos — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+<style>
+/* ---- stats bar ---- */
+.stats-bar { display:flex; gap:0; border-top:1px solid var(--ruledark); border-bottom:1px solid var(--ruledark); margin:0; }
+.stat-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:20px 16px; border-right:1px solid var(--ruledark); text-align:center; }
+.stat-item:last-child { border-right:none; }
+.stat-value { font-family:var(--cg); font-size:28px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:4px; }
+.stat-desc { font-family:var(--mo); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--slate); }
+
+/* ---- materials picker section ---- */
+.materials-section { padding:56px 0 72px; background:var(--ice); }
+.materials-inner { max-width:960px; margin:0 auto; padding:0 24px; }
+.materials-eyebrow { font-family:var(--mo); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.materials-heading { font-family:var(--cg); font-size:32px; font-weight:600; color:var(--navy); margin-bottom:40px; line-height:1.2; }
+.category-block { margin-bottom:36px; }
+.category-label { font-family:var(--mo); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--slate); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--ruledark); }
+.pick-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.pick-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; background:#fff; border-left:3px solid var(--gold); border-radius:2px; box-shadow:0 1px 4px rgba(10,22,40,.06); }
+.pick-item-title { font-family:var(--ep); font-size:13px; color:var(--navy); line-height:1.35; }
+.pick-item-range { font-family:var(--mo); font-size:10px; color:var(--slate); letter-spacing:.04em; display:block; margin-top:2px; }
+.pick-item-btn { flex-shrink:0; font-family:var(--mo); font-size:11px; letter-spacing:.06em; color:var(--navy); background:var(--gold); padding:8px 14px; border-radius:2px; text-decoration:none; white-space:nowrap; transition:background .2s; }
+.pick-item-btn:hover { background:var(--gold2); }
+
+/* ---- hero full-height override ---- */
+.capture-hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-left:20%; padding-right:20%; }
+.capture-hero .capture-inner { align-items:center; max-width:none; margin:0; width:100%; }
+.capture-right { align-items:center; }
+
+/* ---- responsive ---- */
+@media(max-width:640px){
+  .capture-hero { padding-left:20px; padding-right:20px; }
+  .stats-bar { flex-wrap:wrap; }
+  .stat-item { flex:1 1 33%; border-right:none; border-bottom:1px solid var(--ruledark); }
+  .pick-grid { grid-template-columns:1fr; }
+  .materials-heading { font-size:24px; }
+}
+@media(max-width:480px){
+  .stat-item { flex:1 1 100%; flex-direction:row; justify-content:flex-start; gap:16px; align-items:center; padding:14px 16px; }
+  .stat-item:last-child { border-bottom:none; }
+  .stat-value { font-size:22px; margin-bottom:0; }
+  .stats-bar { border-top:1px solid var(--ruledark); }
+  .pick-item { flex-direction:column; align-items:flex-start; }
+  .pick-item-btn { width:100%; text-align:center; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+
+<main class="page-main">
+
+  <!-- HERO (formulário — escondido em acesso direto) -->
+  <div class="capture-hero" id="captura" data-gate>
+    <div class="capture-inner">
+      <div class="capture-left">
+        <div class="eyebrow-bar">9 Materiais &nbsp;·&nbsp; Gratuito</div>
+        <h1 class="hero-h1" style="font-size:clamp(28px,6vw,54px);line-height:1.1;">Escolha os materiais que quer baixar, gratuitamente.</h1>
+        <p class="hero-sub">9 PDFs avulsos sobre finanças, economia, M&amp;A, valuation, carreira e liderança. Baixe só o que interessa.</p>
+        <div class="capture-form" style="margin-top:24px;">
+          <div id="sf-root"></div>
+        </div>
+      </div>
+      <div class="capture-right">
+        <div style="width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--royal),var(--navy));display:flex;align-items:center;justify-content:center;font-family:var(--cg);font-size:56px;font-weight:700;color:var(--gold2);">9</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR (visível sempre) -->
+  <div style="max-width:960px;margin:0 auto;padding:0 24px;">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value">9</div>
+        <div class="stat-desc">Materiais avulsos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">CFA</div>
+        <div class="stat-desc">Professor Charterholder</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-desc">Gratuito</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATERIAIS (escondido até o form ser enviado, ou visível de cara em acesso direto) -->
+  <section class="materials-section" id="materiais-wrap" style="display:none;">
+    <div class="materials-inner">
+      <div class="materials-eyebrow">Baixe individualmente</div>
+      <h2 class="materials-heading">Escolha o que você quer baixar</h2>
+
+      <div class="category-block">
+        <div class="category-label">Finanças &amp; Contabilidade</div>
+        <div class="pick-grid">
+          <div class="pick-item">
+            <span class="pick-item-title">Fundamentos de Finanças<span class="pick-item-range">Cap. 1.1–1.13</span></span>
+            <a class="pick-item-btn" href="../assets/01_FINANCAS_1.1-1.13.pdf" download>⬇ Baixar</a>
+          </div>
+          <div class="pick-item">
+            <span class="pick-item-title">Indicadores Financeiros<span class="pick-item-range">Cap. 1.14–1.33</span></span>
+            <a class="pick-item-btn" href="../assets/02_INDICADORES_1.14-1.33.pdf" download>⬇ Baixar</a>
+          </div>
+          <div class="pick-item">
+            <span class="pick-item-title">Análise Financeira<span class="pick-item-range">Cap. 1.34–97</span></span>
+            <a class="pick-item-btn" href="../assets/03_FINANCEIRO_1.34-97.pdf" download>⬇ Baixar</a>
+          </div>
+          <div class="pick-item">
+            <span class="pick-item-title">Fluxo de Caixa<span class="pick-item-range">Cap. 98–101</span></span>
+            <a class="pick-item-btn" href="../assets/04_CAIXA_98-101.pdf" download>⬇ Baixar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Economia</div>
+        <div class="pick-grid">
+          <div class="pick-item">
+            <span class="pick-item-title">Economia para Investimentos<span class="pick-item-range">Cap. 2.1–2.9</span></span>
+            <a class="pick-item-btn" href="../assets/05_ECONOMIA_2.1-2.9.pdf" download>⬇ Baixar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Estratégia &amp; Valuation</div>
+        <div class="pick-grid">
+          <div class="pick-item">
+            <span class="pick-item-title">Fusões e Aquisições<span class="pick-item-range">Cap. 3.1–3.14</span></span>
+            <a class="pick-item-btn" href="../assets/06_FUSOES_3.1-3.14.pdf" download>⬇ Baixar</a>
+          </div>
+          <div class="pick-item">
+            <span class="pick-item-title">Valuation<span class="pick-item-range">Cap. 3.15–3.28</span></span>
+            <a class="pick-item-btn" href="../assets/07_VALUATION_3.15-3.28.pdf" download>⬇ Baixar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="category-label">Carreira &amp; Liderança</div>
+        <div class="pick-grid">
+          <div class="pick-item">
+            <span class="pick-item-title">Carreira em Finanças<span class="pick-item-range">Cap. 4.1–4.15</span></span>
+            <a class="pick-item-btn" href="../assets/08_CARREIRA_4.1-4.15.pdf" download>⬇ Baixar</a>
+          </div>
+          <div class="pick-item">
+            <span class="pick-item-title">Liderança<span class="pick-item-range">Cap. 4.16–4.31</span></span>
+            <a class="pick-item-btn" href="../assets/09_LIDERANCA_4.16-4.31.pdf" download>⬇ Baixar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/step-form.js"></script>
+<script>
+(function(){
+  var gate = document.querySelector('[data-gate]');
+  var materiais = document.getElementById('materiais-wrap');
+
+  // Acesso direto: ?acesso=direto pula o formulário e mostra a lista na hora.
+  // Usado para compartilhar o link sem passar pela home nem pelo formulário.
+  var direto = new URLSearchParams(location.search).get('acesso') === 'direto';
+
+  if (direto) {
+    gate.style.display = 'none';
+    materiais.style.display = 'block';
+    return;
+  }
+
+  StepForm.init(document.getElementById('sf-root'), {
+    steps: StepForm.CAPTURAS_STEPS.slice(0, 3),
+    submitLabel: 'Quero ver os materiais →',
+    successDesc: 'Seus dados foram recebidos. Role a página para escolher o que baixar.',
+    onSubmit: function(data, done) {
+      if (window._sb) { window._sb.from('nove_materiais_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null}).then(function(){},function(){}); }
+      done();
+    },
+    onSuccess: function() {
+      materiais.style.display = 'block';
+      materiais.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+})();
+</script>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>

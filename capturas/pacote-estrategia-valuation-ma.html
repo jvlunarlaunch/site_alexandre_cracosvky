@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pacote Estratégia, Valuation e M&amp;A — Alexandre Cracovsky, CFA</title>
+<link rel="stylesheet" href="../assets/design-system.css">
+<style>
+/* ---- pdf stack mockup ---- */
+.pdf-stack-wrap { display:flex; justify-content:center; align-items:center; padding:32px 0; }
+.pdf-stack { position:relative; width:240px; height:300px; }
+.pdf-layer { position:absolute; inset:0; border-radius:6px; box-shadow:0 8px 32px rgba(10,22,40,.22); display:flex; flex-direction:column; justify-content:center; align-items:center; padding:24px 20px; text-align:center; }
+.pdf-layer-4 { background:var(--ice2); transform:rotate(-5deg) translate(-18px, 14px); }
+.pdf-layer-3 { background:var(--ice); transform:rotate(-2.5deg) translate(-9px, 7px); }
+.pdf-layer-2 { background:#dce6f5; transform:rotate(1.5deg) translate(5px, 3px); }
+.pdf-layer-1 { background:var(--navy); border:1px solid rgba(184,149,42,.25); transform:rotate(0deg); z-index:10; }
+.pdf-spine { width:36px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:18px; }
+.pdf-title-text { font-family:var(--cg); font-size:15px; font-weight:600; color:var(--ice); line-height:1.4; margin-bottom:12px; }
+.pdf-count-badge { font-family:var(--mo); font-size:10px; letter-spacing:.1em; color:var(--gold2); text-transform:uppercase; padding:4px 10px; border:1px solid rgba(184,149,42,.4); border-radius:20px; }
+
+/* ---- stats bar ---- */
+.stats-bar { display:flex; gap:0; border-top:1px solid var(--ruledark); border-bottom:1px solid var(--ruledark); margin:0; }
+.stat-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:20px 16px; border-right:1px solid var(--ruledark); text-align:center; }
+.stat-item:last-child { border-right:none; }
+.stat-value { font-family:var(--cg); font-size:28px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:4px; }
+.stat-desc { font-family:var(--mo); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--slate); }
+
+/* ---- what's inside section ---- */
+.materials-section { padding:56px 0; background:var(--ice); }
+.materials-inner { max-width:960px; margin:0 auto; padding:0 24px; }
+.materials-eyebrow { font-family:var(--mo); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.materials-heading { font-family:var(--cg); font-size:32px; font-weight:600; color:var(--navy); margin-bottom:40px; line-height:1.2; }
+.materials-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.material-item { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; background:#fff; border-left:3px solid var(--gold); border-radius:2px; box-shadow:0 1px 4px rgba(10,22,40,.06); }
+.material-item-icon { font-size:13px; line-height:1; flex-shrink:0; margin-top:2px; }
+.material-item-title { font-family:var(--ep); font-size:13px; color:var(--navy); line-height:1.35; }
+
+/* ---- second cta section ---- */
+.cta-section { background:var(--navy); padding:64px 24px; text-align:center; }
+.cta-section-eyebrow { font-family:var(--mo); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.cta-section-heading { font-family:var(--cg); font-size:36px; font-weight:600; color:#fff; margin-bottom:10px; line-height:1.2; }
+.cta-section-sub { font-family:var(--ep); font-size:15px; color:rgba(238,242,249,.65); margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto; }
+.cta-section-btn { display:inline-block; padding:14px 36px; background:var(--gold); color:var(--navy); font-family:var(--mo); font-size:12px; letter-spacing:.08em; text-transform:uppercase; border-radius:3px; text-decoration:none; font-weight:700; transition:background .2s; }
+.cta-section-btn:hover { background:var(--gold2); }
+
+/* ---- hero full-height override ---- */
+.capture-hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-left:20%; padding-right:20%; }
+.capture-hero .capture-inner { align-items:center; max-width:none; margin:0; width:100%; }
+.capture-right { align-items:center; }
+
+/* ---- responsive ---- */
+@media(max-width:640px){
+  .capture-hero { padding-left:20px; padding-right:20px; }
+  .stats-bar { flex-wrap:wrap; }
+  .stat-item { flex:1 1 33%; border-right:none; border-bottom:1px solid var(--ruledark); }
+  .materials-grid { grid-template-columns:1fr; }
+  .materials-heading { font-size:24px; }
+  .cta-section-heading { font-size:26px; }
+  .pdf-stack { width:180px; height:220px; }
+}
+@media(max-width:480px){
+  .stat-item { flex:1 1 100%; flex-direction:row; justify-content:flex-start; gap:16px; align-items:center; padding:14px 16px; }
+  .stat-item:last-child { border-bottom:none; }
+  .stat-value { font-size:22px; margin-bottom:0; }
+  .stats-bar { border-top:1px solid var(--ruledark); }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  <div class="nav-links">
+    <a href="/empreendedor" class="nav-link">Para empresários</a>
+    <a href="/estudante" class="nav-link">Para profissionais e estudantes</a>
+    <a href="/pre-lista-livro" class="nav-link">Livro</a>
+  </div>
+  <a href="/contato" class="nav-cta">Contato</a>
+</nav>
+
+<main class="page-main">
+
+  <!-- HERO -->
+  <div class="capture-hero" id="captura">
+    <div class="capture-inner">
+      <div class="capture-left">
+        <div class="eyebrow-bar">Pacote completo &nbsp;·&nbsp; Gratuito</div>
+        <h1 class="hero-h1" style="font-size:clamp(28px,6vw,54px);line-height:1.1;">Estratégia, Valuation e M&amp;A: o material completo, gratuito.</h1>
+        <p class="hero-sub">Fusões, aquisições e métodos de valuation reunidos em um único PDF.</p>
+        <div class="capture-form" style="margin-top:24px;">
+          <div id="sf-root"></div>
+        </div>
+      </div>
+      <div class="capture-right">
+        <div class="pdf-stack-wrap">
+          <div class="pdf-stack">
+            <div class="pdf-layer pdf-layer-4"></div>
+            <div class="pdf-layer pdf-layer-3"></div>
+            <div class="pdf-layer pdf-layer-2"></div>
+            <div class="pdf-layer pdf-layer-1">
+              <div class="pdf-spine"></div>
+              <div class="pdf-title-text">Estratégia, Valuation<br>e M&amp;A</div>
+              <div class="pdf-count-badge">Material completo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div style="max-width:960px;margin:0 auto;padding:0 24px;">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value">3.1–3.28</div>
+        <div class="stat-desc">Capítulos cobertos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">CFA</div>
+        <div class="stat-desc">Professor Charterholder</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-desc">Gratuito</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE ESTÁ INCLUÍDO -->
+  <section class="materials-section">
+    <div class="materials-inner">
+      <div class="materials-eyebrow">O que você vai receber</div>
+      <h2 class="materials-heading">Um único PDF cobrindo Estratégia, Valuation e M&amp;A</h2>
+      <div class="materials-grid">
+        <div class="material-item"><span class="material-item-icon">🤝</span><span class="material-item-title">Fusões e Aquisições</span></div>
+        <div class="material-item"><span class="material-item-icon">📐</span><span class="material-item-title">Métodos de Valuation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGUNDO CTA -->
+  <section class="cta-section">
+    <div class="cta-section-eyebrow">Gratuito e imediato</div>
+    <h2 class="cta-section-heading">Preencha e receba agora</h2>
+    <p class="cta-section-sub">Preencha o formulário acima e baixe o material completo na hora.</p>
+    <a href="#captura" class="cta-section-btn">Quero receber gratuitamente →</a>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/step-form.js"></script>
+<script>
+(function(){
+  StepForm.init(document.getElementById('sf-root'), {
+    steps: StepForm.CAPTURAS_STEPS.slice(0, 3),
+    submitLabel: 'Quero receber gratuitamente →',
+    successDesc: 'Seus dados foram recebidos. O download começou automaticamente.',
+    successExtra: '<a href="../assets/pacote-estrategia-valuation-ma.pdf" download="Estrategia-Valuation-MA-Alexandre-Cracovsky.pdf" style="display:inline-block;background:var(--gold);color:var(--navy);font-family:var(--ep);font-weight:600;font-size:14px;padding:12px 24px;border-radius:2px;text-decoration:none;letter-spacing:.04em;">⬇ Baixar agora</a>',
+    onSubmit: function(data, done) {
+      if (window._sb) { window._sb.from('pacote_estrategia_valuation_ma_alexandre_cracovsky').insert({nome:data.nome,email:data.email,whatsapp:data.whatsapp||null}).then(function(){},function(){}); }
+      done();
+    },
+    onSuccess: function() {
+      var a = document.createElement('a');
+      a.href = '../assets/pacote-estrategia-valuation-ma.pdf';
+      a.download = 'Estrategia-Valuation-MA-Alexandre-Cracovsky.pdf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+  });
+})();
+</script>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+    <div class="footer-copy">© 2026 · M&amp;A Advisor · Valuation Expert · Professor · Palestrante · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+  </div>
+  <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+</footer>
+</body>
+</html>

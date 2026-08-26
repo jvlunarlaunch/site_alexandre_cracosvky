@@ -24,6 +24,7 @@ supabase-schema.sql
 schema.sql
 .env.deploy
 backups/
+supabase/.temp/
 
 # Specs e materiais de trabalho (não vão ao servidor)
 iscas-digitais.csv
