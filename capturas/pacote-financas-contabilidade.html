@@ -15,17 +15,9 @@
 <title>Pacote Finanças e Contabilidade — Alexandre Cracovsky, CFA</title>
 <link rel="stylesheet" href="../assets/design-system.css">
 <style>
-/* ---- pdf stack mockup ---- */
-.pdf-stack-wrap { display:flex; justify-content:center; align-items:center; padding:32px 0; }
-.pdf-stack { position:relative; width:240px; height:300px; }
-.pdf-layer { position:absolute; inset:0; border-radius:6px; box-shadow:0 8px 32px rgba(10,22,40,.22); display:flex; flex-direction:column; justify-content:center; align-items:center; padding:24px 20px; text-align:center; }
-.pdf-layer-4 { background:var(--ice2); transform:rotate(-5deg) translate(-18px, 14px); }
-.pdf-layer-3 { background:var(--ice); transform:rotate(-2.5deg) translate(-9px, 7px); }
-.pdf-layer-2 { background:#dce6f5; transform:rotate(1.5deg) translate(5px, 3px); }
-.pdf-layer-1 { background:var(--navy); border:1px solid rgba(184,149,42,.25); transform:rotate(0deg); z-index:10; }
-.pdf-spine { width:36px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:18px; }
-.pdf-title-text { font-family:var(--cg); font-size:15px; font-weight:600; color:var(--ice); line-height:1.4; margin-bottom:12px; }
-.pdf-count-badge { font-family:var(--mo); font-size:10px; letter-spacing:.1em; color:var(--gold2); text-transform:uppercase; padding:4px 10px; border:1px solid rgba(184,149,42,.4); border-radius:20px; }
+/* ---- cover plate ---- */
+.cover-plate-wrap { display:flex; justify-content:center; align-items:center; padding:32px 0; }
+.cover-plate { width:100%; max-width:300px; height:auto; filter:drop-shadow(0 18px 40px rgba(10,22,40,.28)); }
 
 /* ---- stats bar ---- */
 .stats-bar { display:flex; gap:0; border-top:1px solid var(--ruledark); border-bottom:1px solid var(--ruledark); margin:0; }
@@ -65,7 +57,7 @@
   .materials-grid { grid-template-columns:1fr; }
   .materials-heading { font-size:24px; }
   .cta-section-heading { font-size:26px; }
-  .pdf-stack { width:180px; height:220px; }
+  .cover-plate { max-width:220px; }
 }
 @media(max-width:480px){
   .stat-item { flex:1 1 100%; flex-direction:row; justify-content:flex-start; gap:16px; align-items:center; padding:14px 16px; }
@@ -100,17 +92,30 @@
         </div>
       </div>
       <div class="capture-right">
-        <div class="pdf-stack-wrap">
-          <div class="pdf-stack">
-            <div class="pdf-layer pdf-layer-4"></div>
-            <div class="pdf-layer pdf-layer-3"></div>
-            <div class="pdf-layer pdf-layer-2"></div>
-            <div class="pdf-layer pdf-layer-1">
-              <div class="pdf-spine"></div>
-              <div class="pdf-title-text">Finanças e<br>Contabilidade</div>
-              <div class="pdf-count-badge">Material completo</div>
-            </div>
-          </div>
+        <div class="cover-plate-wrap">
+          <svg class="cover-plate" viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Capa — Finanças e Contabilidade">
+            <defs>
+              <linearGradient id="coverGrad-financas" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#101E36"/>
+                <stop offset="1" stop-color="#0A1628"/>
+              </linearGradient>
+              <clipPath id="coverClip-financas"><rect x="0" y="0" width="320" height="400" rx="4"/></clipPath>
+            </defs>
+            <g clip-path="url(#coverClip-financas)">
+              <rect x="0" y="0" width="320" height="400" fill="url(#coverGrad-financas)"/>
+              <text x="160" y="330" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="110" font-weight="600" fill="#F0D078" opacity="0.07">FINANÇAS</text>
+              <rect x="94" y="46" width="132" height="22" rx="11" fill="none" stroke="#B8952A" stroke-opacity=".55"/>
+              <text x="160" y="61" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9.5" letter-spacing="1.2" fill="#D4AE50">MATERIAL COMPLETO</text>
+              <text font-family="'Cormorant Garamond',Georgia,serif" font-size="27" font-weight="600" fill="#EEF2F9" text-anchor="middle">
+                <tspan x="160" y="196">Finanças e</tspan>
+                <tspan x="160" y="230">Contabilidade</tspan>
+              </text>
+              <rect x="142" y="252" width="36" height="2" rx="1" fill="#B8952A"/>
+              <rect x="10" y="10" width="300" height="380" rx="2" fill="none" stroke="#B8952A" stroke-opacity=".35"/>
+              <line x1="40" y1="356" x2="280" y2="356" stroke="#B8952A" stroke-opacity=".3"/>
+              <text x="160" y="376" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" letter-spacing="1.5" fill="#D4AE50" opacity=".85">ALEXANDRE CRACOVSKY, CFA</text>
+            </g>
+          </svg>
         </div>
       </div>
     </div>
