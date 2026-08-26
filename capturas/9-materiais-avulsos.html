@@ -15,13 +15,6 @@
 <title>9 Materiais Avulsos — Alexandre Cracovsky, CFA</title>
 <link rel="stylesheet" href="../assets/design-system.css">
 <style>
-/* ---- stats bar ---- */
-.stats-bar { display:flex; gap:0; border-top:1px solid var(--ruledark); border-bottom:1px solid var(--ruledark); margin:0; }
-.stat-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:20px 16px; border-right:1px solid var(--ruledark); text-align:center; }
-.stat-item:last-child { border-right:none; }
-.stat-value { font-family:var(--cg); font-size:28px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:4px; }
-.stat-desc { font-family:var(--mo); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--slate); }
-
 /* ---- materials picker section ---- */
 .materials-section { padding:56px 0 72px; background:var(--ice); }
 .materials-inner { max-width:960px; margin:0 auto; padding:0 24px; }
@@ -44,16 +37,10 @@
 /* ---- responsive ---- */
 @media(max-width:640px){
   .capture-hero { padding-left:20px; padding-right:20px; }
-  .stats-bar { flex-wrap:wrap; }
-  .stat-item { flex:1 1 33%; border-right:none; border-bottom:1px solid var(--ruledark); }
   .pick-grid { grid-template-columns:1fr; }
   .materials-heading { font-size:24px; }
 }
 @media(max-width:480px){
-  .stat-item { flex:1 1 100%; flex-direction:row; justify-content:flex-start; gap:16px; align-items:center; padding:14px 16px; }
-  .stat-item:last-child { border-bottom:none; }
-  .stat-value { font-size:22px; margin-bottom:0; }
-  .stats-bar { border-top:1px solid var(--ruledark); }
   .pick-item { flex-direction:column; align-items:flex-start; }
   .pick-item-btn { width:100%; text-align:center; }
 }
@@ -85,20 +72,6 @@
       </div>
       <div class="capture-right">
         <div style="width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--royal),var(--navy));display:flex;align-items:center;justify-content:center;font-family:var(--cg);font-size:56px;font-weight:700;color:var(--gold2);">9</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STATS BAR (visível sempre) -->
-  <div style="max-width:960px;margin:0 auto;padding:0 24px;">
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-value">CFA</div>
-        <div class="stat-desc">Professor Charterholder</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">100%</div>
-        <div class="stat-desc">Gratuito</div>
       </div>
     </div>
   </div>
