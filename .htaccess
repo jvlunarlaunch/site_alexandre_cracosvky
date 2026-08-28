@@ -15,6 +15,9 @@ RewriteRule ^iscas/isca-7$ /diagnostico/7 [R=301,L]
 RewriteRule ^iscas/isca-8$ /diagnostico/8 [R=301,L]
 RewriteRule ^iscas/isca-13$ /diagnostico/13 [R=301,L]
 
+# 301 redirect: old /pre-lista-livro → new /livro
+RewriteRule ^pre-lista-livro$ /livro [R=301,L]
+
 # Serve the .html file for extensionless requests
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

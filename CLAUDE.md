@@ -42,9 +42,9 @@ Inline `<style>` in `<head>` contains the split-screen CSS. Inline `<script>` ju
 
 Each quiz page embeds its config as a `const QUIZ_CONFIG = {...}` JSON object and initialises the engine with `QuizEngine.init(el, QUIZ_CONFIG)`. To change quiz content, edit the JSON directly in the file. Exception: `diagnostico/9.html` does not use the engine — it has its own self-contained inline script.
 
-### `pre-lista-livro.html` — book waitlist page
+### `livro.html` — book waitlist page
 
-Standalone root-level page for a book pre-order waitlist. Does **not** use `assets/design-system.css`; it has its own self-contained inline `<style>` with the same CSS variables and Google Fonts `<link>` tags baked in. Edit it independently from the rest of the site.
+Standalone root-level page for a book pre-order waitlist (URL: `/livro`). Does **not** use `assets/design-system.css`; it has its own self-contained inline `<style>` with the same CSS variables and Google Fonts `<link>` tags baked in. Edit it independently from the rest of the site.
 
 ### `capturas/*.html` — lead-capture pages
 
