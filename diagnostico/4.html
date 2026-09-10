@@ -12,7 +12,7 @@
   </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Qual perfil de comprador é ideal para sua empresa? — Alexandre Cracovsky, CFA</title>
+<title>Qual método de valuation usar em cada caso? — Alexandre Cracovsky, CFA</title>
 <link rel="stylesheet" href="../assets/design-system.css">
 
 </head>
@@ -37,290 +37,183 @@
 <script src="../assets/quiz-engine.js"></script>
 <script>
 const QUIZ_CONFIG = {
-  "id": 4,
-  "segment": "empreendedor",
-  "slug": "perfil-comprador-ideal",
-  "title": "Qual perfil de comprador é ideal para sua empresa?",
-  "subtitle": "Descubra se sua empresa e seus objetivos se alinham melhor com PE, comprador estratégico, familiar ou consolidador.",
-  "badge": "M&amp;A · Estratégia",
-  "estimatedTime": "3 min",
-  "icon": "🎯",
+  "id": 6,
+  "segment": "estudante",
+  "slug": "quiz-metodo-valuation",
+  "title": "Qual método de valuation usar em cada caso?",
+  "subtitle": "8 mini-cases reais para testar se você escolheria o método correto — do DCF ao VC Method.",
+  "badge": "Valuation · Quiz",
+  "estimatedTime": "5 min",
+  "icon": "📐",
   "questions": [
     {
-      "id": "q1",
-      "text": "Qual é o seu objetivo principal na venda da empresa?",
-      "dimension": "Objetivos do vendedor",
+      "id": "c1",
+      "text": "Uma SaaS B2B faturou R$ 80 milhões no último ano, cresce 80% ao ano e tem retenção líquida de receita acima de 120%. Para sustentar esse ritmo, reinveste tudo em vendas e marketing e segue no prejuízo. O comitê precisa de um valuation para a próxima rodada.",
+      "dimension": "Múltiplo de receita",
       "type": "choice",
+      "correct": "ev_receita",
+      "category": "Múltiplos",
+      "explanation": "Com prejuízo, múltiplos de lucro não funcionam e o DCF fica muito sensível a premissas nessa fase. O padrão de mercado para SaaS de alto crescimento é o múltiplo de receita (EV/Receita ou EV/ARR).",
       "options": [
-        {
-          "label": "Maximizar o preço de venda",
-          "value": "preco",
-          "profiles": [
-            "PE",
-            "EST"
-          ]
-        },
-        {
-          "label": "Preservar a cultura e time da empresa",
-          "value": "cultura",
-          "profiles": [
-            "FAM"
-          ]
-        },
-        {
-          "label": "Velocidade no fechamento do deal",
-          "value": "velocidade",
-          "profiles": [
-            "CONC",
-            "FAM"
-          ]
-        }
+        { "label": "EV/Receita de comparáveis", "value": "ev_receita" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "DCF baseado em fluxo futuro", "value": "dcf" },
+        { "label": "LBO model", "value": "lbo" }
       ]
     },
     {
-      "id": "q2",
-      "text": "Você quer sair completamente ou continuar como sócio minoritário?",
-      "dimension": "Participação pós-deal",
+      "id": "c2",
+      "text": "Uma holding controla quatro empresas em setores que não conversam entre si: software, varejo, transporte e geração de energia. Cada uma tem margem, múltiplo e risco próprios, e o investidor quer saber quanto vale o grupo inteiro.",
+      "dimension": "SOTP",
       "type": "choice",
+      "correct": "sotp",
+      "category": "DCF",
+      "explanation": "Negócios sem relação entre si têm dinâmicas distintas. Avalia-se cada um pelo seu método e soma-se (SOTP). Um múltiplo único ou DCF consolidado misturaria realidades diferentes.",
       "options": [
-        {
-          "label": "Sair totalmente — liquidez total",
-          "value": "sair",
-          "profiles": [
-            "PE",
-            "FAM"
-          ]
-        },
-        {
-          "label": "Ficar como minoritário por alguns anos",
-          "value": "ficar",
-          "profiles": [
-            "EST"
-          ]
-        },
-        {
-          "label": "Manter papel operacional relevante",
-          "value": "manter",
-          "profiles": [
-            "CONC"
-          ]
-        }
+        { "label": "DCF consolidado", "value": "dcf" },
+        { "label": "Soma das partes (SOTP)", "value": "sotp" },
+        { "label": "EV/EBITDA de holding comparável", "value": "ev_ebitda" },
+        { "label": "P/BV", "value": "pbv" }
       ]
     },
     {
-      "id": "q3",
-      "text": "A empresa tem tecnologia ou modelo de negócio escalável para outros mercados?",
-      "dimension": "Escalabilidade",
+      "id": "c3",
+      "text": "Um fundo de private equity avalia comprar uma distribuidora de caixa forte e baixa volatilidade. O plano é financiar boa parte da compra com dívida, amortizar com o próprio caixa do negócio e revender em cinco anos.",
+      "dimension": "LBO",
       "type": "choice",
+      "correct": "lbo",
+      "category": "Especiais",
+      "explanation": "O retorno de uma compra alavancada depende da estrutura de dívida e do desinvestimento. Só o LBO model captura a TIR para o acionista sob essa alavancagem.",
       "options": [
-        {
-          "label": "Sim, alta escalabilidade e potencial de expansão",
-          "value": "sim",
-          "profiles": [
-            "EST",
-            "PE"
-          ]
-        },
-        {
-          "label": "Parcialmente, escalável em alguns aspectos",
-          "value": "parcial",
-          "profiles": [
-            "PE"
-          ]
-        },
-        {
-          "label": "Não, negócio local ou de nicho específico",
-          "value": "nao",
-          "profiles": [
-            "FAM",
-            "CONC"
-          ]
-        }
+        { "label": "DCF com WACC ajustado", "value": "dcf" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "LBO model com análise de retorno", "value": "lbo" },
+        { "label": "Soma das partes", "value": "sotp" }
       ]
     },
     {
-      "id": "q4",
-      "text": "Você prefere um processo rápido (6–12 meses) ou esperar pelo comprador ideal?",
-      "dimension": "Prazo",
+      "id": "c4",
+      "text": "Dois bancos regionais anunciam fusão. O analista precisa comparar as duas instituições e definir uma relação de troca justa entre as ações.",
+      "dimension": "Múltiplo de instituição financeira",
       "type": "choice",
+      "correct": "pbv",
+      "category": "Múltiplos",
+      "explanation": "Em banco, a dívida é matéria-prima do negócio, não estrutura de capital, então múltiplos de Enterprise Value não se aplicam. Usam-se múltiplos de patrimônio, com o P/BV à frente, lido junto do ROE.",
       "options": [
-        {
-          "label": "Processo rápido — preciso de liquidez",
-          "value": "rapido",
-          "profiles": [
-            "CONC",
-            "FAM"
-          ]
-        },
-        {
-          "label": "Prefiro esperar pelo comprador com melhor fit",
-          "value": "esperar",
-          "profiles": [
-            "PE",
-            "EST"
-          ]
-        },
-        {
-          "label": "Indiferente, desde que o preço seja justo",
-          "value": "indiferente",
-          "profiles": [
-            "PE",
-            "EST",
-            "CONC"
-          ]
-        }
+        { "label": "P/BV", "value": "pbv" },
+        { "label": "EV/EBITDA", "value": "ev_ebitda" },
+        { "label": "EV/EBIT", "value": "ev_ebit" },
+        { "label": "EV/Revenue", "value": "ev_rev" }
       ]
     },
     {
-      "id": "q5",
-      "text": "Teria conforto em ter um fundo de PE como sócio por 4–6 anos antes do exit final?",
-      "dimension": "Fit com PE",
+      "id": "c5",
+      "text": "Uma startup em estágio seed ainda não gerou receita: tem um produto em testes, um time pequeno e um mercado potencial grande. Um investidor-anjo precisa definir quanto a empresa vale antes de aportar.",
+      "dimension": "VC Method / Scorecard",
       "type": "choice",
+      "correct": "scorecard",
+      "category": "Especiais",
+      "explanation": "Sem receita, lucro ou comparável direto, não há base para múltiplos nem DCF confiável. O VC Method parte de um valor de saída futuro e do retorno exigido pelo investidor; o Scorecard pondera fatores qualitativos.",
       "options": [
-        {
-          "label": "Sim, estou confortável com governança de PE",
-          "value": "sim",
-          "profiles": [
-            "PE"
-          ]
-        },
-        {
-          "label": "Não tenho certeza — depende dos termos",
-          "value": "talvez",
-          "profiles": [
-            "PE",
-            "EST"
-          ]
-        },
-        {
-          "label": "Não, prefiro um comprador final direto",
-          "value": "nao",
-          "profiles": [
-            "EST",
-            "FAM"
-          ]
-        }
+        { "label": "Scorecard Method", "value": "scorecard" },
+        { "label": "DCF com projeção de 5 anos", "value": "dcf" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "Net Asset Value", "value": "nav" }
       ]
     },
     {
-      "id": "q6",
-      "text": "A empresa é líder em nicho regional que um player nacional poderia absorver?",
-      "dimension": "Potencial de consolidação",
+      "id": "c6",
+      "text": "Uma fabricante de autopeças opera há décadas, com receita estável, margem previsível e vários concorrentes de porte parecido negociados em bolsa. O analista precisa de um valor de referência para embasar uma oferta.",
+      "dimension": "Múltiplos de comparáveis",
       "type": "choice",
+      "correct": "ev_ebitda",
+      "category": "Múltiplos",
+      "explanation": "Negócio maduro e lucrativo com muitos pares listados é o caso ideal de múltiplos de comparáveis, e o EV/EBITDA é o mais direto e defensável.",
       "options": [
-        {
-          "label": "Sim, somos referência regional em nicho específico",
-          "value": "sim",
-          "profiles": [
-            "EST",
-            "CONC"
-          ]
-        },
-        {
-          "label": "Temos presença regional mas não somos líderes",
-          "value": "parcial",
-          "profiles": [
-            "PE",
-            "FAM"
-          ]
-        },
-        {
-          "label": "Não, atuamos em mercado amplo e competitivo",
-          "value": "nao",
-          "profiles": [
-            "PE",
-            "FAM"
-          ]
-        }
+        { "label": "Valor de liquidação", "value": "liquidacao" },
+        { "label": "EV/EBITDA de comparáveis", "value": "ev_ebitda" },
+        { "label": "LBO model", "value": "lbo" },
+        { "label": "EV/Receita", "value": "ev_receita" }
       ]
     },
     {
-      "id": "q7",
-      "text": "Há sócios familiares cujo bem-estar precisa ser considerado no estruturação do deal?",
-      "dimension": "Estrutura societária",
+      "id": "c7",
+      "text": "Uma empresa tem como principal ativo um grande portfólio de imóveis comerciais e aufere alguma receita de aluguel sobre parte deles. Um interessado precisa avaliar quanto o negócio vale.",
+      "dimension": "NAV",
       "type": "choice",
+      "correct": "nav",
+      "category": "Especiais",
+      "explanation": "Quando o valor está nos ativos, e não no resultado, o NAV (ativos a valor de mercado menos passivos) captura melhor que múltiplos de lucro, que subavaliam o patrimônio.",
       "options": [
-        {
-          "label": "Sim, há família envolvida e isso é prioritário",
-          "value": "sim",
-          "profiles": [
-            "FAM"
-          ]
-        },
-        {
-          "label": "Parcialmente, há sócios não familiares",
-          "value": "parcial",
-          "profiles": [
-            "FAM",
-            "PE"
-          ]
-        },
-        {
-          "label": "Não, estrutura puramente profissional",
-          "value": "nao",
-          "profiles": [
-            "PE",
-            "EST"
-          ]
-        }
+        { "label": "DCF", "value": "dcf" },
+        { "label": "P/L", "value": "pl" },
+        { "label": "NAV", "value": "nav" },
+        { "label": "EV/EBITDA", "value": "ev_ebitda" }
       ]
     },
     {
-      "id": "q8",
-      "text": "O valuation máximo é mais importante do que quem vai comprar a empresa?",
-      "dimension": "Prioridade no deal",
+      "id": "c8",
+      "text": "Uma empresa de capital fechado tem crescimento moderado, histórico financeiro consistente e nenhum par comparável listado em bolsa. O avaliador precisa chegar a um valor justo para uma negociação privada.",
+      "dimension": "DCF ajustado",
       "type": "choice",
+      "correct": "dcf_dlom",
+      "category": "DCF",
+      "explanation": "Sem comparáveis listados, o DCF é o caminho. Como a empresa é fechada e suas ações são ilíquidas, aplica-se um desconto de liquidez (DLOM) sobre o valor encontrado.",
       "options": [
-        {
-          "label": "Sim, preço é minha prioridade principal",
-          "value": "sim",
-          "profiles": [
-            "PE",
-            "EST"
-          ]
-        },
-        {
-          "label": "Equilíbrio entre preço e fit cultural",
-          "value": "equilibrio",
-          "profiles": [
-            "EST",
-            "FAM"
-          ]
-        },
-        {
-          "label": "Não, quem compra importa mais que o preço",
-          "value": "nao",
-          "profiles": [
-            "FAM"
-          ]
-        }
+        { "label": "EV/EBITDA de setor", "value": "ev_ebitda" },
+        { "label": "DCF com prêmio de controle", "value": "dcf_controle" },
+        { "label": "Soma das partes", "value": "sotp" },
+        { "label": "DCF com desconto de liquidez", "value": "dcf_dlom" }
       ]
     }
   ],
   "scoring": {
-    "type": "profile",
-    "profiles": [
-      "PE",
-      "EST",
-      "FAM",
-      "CONC"
-    ],
-    "max": 100,
-    "scoreLabel": "Compatibilidade",
+    "type": "correct_count",
+    "max": 8,
+    "scoreLabel": "Acertos",
     "thresholds": [
       {
-        "max": 100,
-        "label": "Perfil identificado",
+        "max": 5,
+        "label": "Começo de conversa",
+        "class": "danger",
+        "description": "Você está construindo a base. Vale firmar os fundamentos de análise financeira e valuation antes de avançar para os casos especiais."
+      },
+      {
+        "max": 6,
+        "label": "No caminho",
+        "class": "warning",
+        "description": "Você domina os métodos principais. É exatamente o que separa o júnior do pleno."
+      },
+      {
+        "max": 8,
+        "label": "Afiado",
         "class": "success",
-        "description": "O perfil de comprador mais compatível com seus objetivos e características foi identificado. Entender isso antes de iniciar o processo é decisivo para o sucesso do deal."
+        "description": "Você lê a situação e escolhe o método certo, o raciocínio que se espera de um analista sênior. Esse é o tipo de cabeça que o mercado financeiro gosta de ter por perto."
       }
-    ]
+    ],
+    "cta": {
+      "label": "Falar sobre minha carreira",
+      "href": "/contato"
+    }
   },
   "charts": [
     {
+      "type": "column",
+      "title": "Acertos por categoria de método",
+      "height": 240
+    },
+    {
       "type": "donut",
-      "title": "Compatibilidade por perfil de comprador",
-      "height": 260
+      "title": "Performance geral",
+      "height": 220,
+      "dataFn": function(result) {
+        var c = result.main || 0;
+        var w = (result.max || 8) - c;
+        return [
+          { name: 'Acertos', y: c, color: '#1B3A7A' },
+          { name: 'Erros', y: w, color: '#EEF2F9' }
+        ];
+      }
     }
   ]
 };
