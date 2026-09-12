@@ -15,18 +15,19 @@
 <title>Pré-Lista — Novo Livro · Alexandre Cracovsky, CFA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Epilogue:wght@200;300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@200;300;400;500;600;700;800&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --navy:#0A1628;--royal:#1B3A7A;--royal2:#2A52A8;
-  --ice:#EEF2F9;--ice2:#D8E3F4;
-  --gold:#B8952A;--gold2:#D4AE50;--gold3:#F0D078;--goldpale:#FAF3DC;
-  --white:#FFFFFF;--slate:#6B7A8D;--slate2:#4A576A;
-  --rule:rgba(10,22,40,.12);--ruledark:rgba(10,22,40,.22);
-  --cg:'Cormorant Garamond',Georgia,serif;
-  --ep:'Epilogue',sans-serif;
-  --mo:'DM Mono',monospace;
+  --navy:#0B1F3B;--royal:#3D6E96;--royal2:#7CA3C4;
+  --ice:#123057;--ice2:#1B3F6B;
+  --gold:#D9BE3D;--gold2:#EBD766;--gold3:#F3E29B;--goldpale:rgba(217,190,61,.10);
+  --white:#123057;--slate:#B9D0E4;--slate2:#E7EBF0;
+  --rule:rgba(231,235,240,.12);--ruledark:rgba(231,235,240,.22);
+  --cg:'Archivo Black','Arial Black',sans-serif;
+  --ep:'Inter',sans-serif;
+  --mo:'JetBrains Mono',monospace;
+  --script:'Caveat',cursive;
 }
 html{scroll-behavior:smooth;}
 body{background:var(--navy);color:#fff;font-family:var(--ep);font-size:18px;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
@@ -51,11 +52,11 @@ body::before{
   padding:0 40px;height:64px;
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:100;
-  background:rgba(10,22,40,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  background:rgba(7,22,48,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:.5px solid rgba(255,255,255,.06);
 }
 .nav-logo{font-family:var(--cg);font-size:21px;font-weight:600;color:#fff;letter-spacing:.04em;text-decoration:none;}
-.nav-logo em{font-style:italic;color:var(--gold2);}
+.nav-logo em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--gold2);}
 .nav-back{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:6px;}
 .nav-back:hover{color:rgba(255,255,255,.7);}
 @media(max-width:600px){.nav-back-label{display:none;}}
@@ -76,7 +77,7 @@ body::before{
 .hero::after{
   content:'';position:absolute;
   width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle, rgba(27,58,122,.35) 0%, transparent 70%);
+  background:radial-gradient(circle, rgba(61,110,150,.35) 0%, transparent 70%);
   top:-100px;right:-100px;pointer-events:none;
 }
 .hero-diag{
@@ -89,18 +90,18 @@ body::before{
 .hero-tag{
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--mo);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold2);border:.5px solid rgba(184,149,42,.3);
+  color:var(--gold2);border:.5px solid rgba(217,190,61,.3);
   padding:7px 14px;border-radius:2px;margin-bottom:28px;
-  background:rgba(184,149,42,.06);
+  background:rgba(217,190,61,.06);
 }
 .hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2);animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
 
 .hero-h1{
-  font-family:var(--cg);font-size:64px;font-weight:300;color:#fff;
-  line-height:1.1;margin-bottom:22px;
+  font-family:var(--cg);font-size:52px;font-weight:400;color:#fff;
+  line-height:1.05;margin-bottom:22px;letter-spacing:-.01em;
 }
-.hero-h1 em{font-style:italic;color:var(--gold3);}
+.hero-h1 em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--gold3);}
 .hero-h1 .reveal{
   position:relative;display:inline-block;
   background:linear-gradient(90deg, var(--gold3), var(--gold2));
@@ -134,7 +135,7 @@ body::before{
   padding:15px 16px;outline:none;transition:border-color .25s,background .25s,box-shadow .25s;
 }
 .form-input::placeholder{color:rgba(255,255,255,.3);}
-.form-input:focus{border-color:rgba(184,149,42,.65);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(184,149,42,.12);}
+.form-input:focus{border-color:rgba(217,190,61,.65);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(217,190,61,.15);}
 .form-row{display:grid;grid-template-columns:1fr;gap:12px;}
 .btn-submit{
   width:100%;font-family:var(--ep);font-size:15px;font-weight:500;letter-spacing:.06em;
@@ -149,8 +150,8 @@ body::before{
 .form-disclaimer{font-family:var(--mo);font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.06em;text-align:center;margin-top:12px;line-height:1.6;}
 .form-success{
   display:none;margin-top:16px;padding:16px;
-  border:1px solid rgba(184,149,42,.3);border-radius:3px;
-  background:rgba(184,149,42,.07);
+  border:1px solid rgba(217,190,61,.3);border-radius:3px;
+  background:rgba(217,190,61,.07);
   font-family:var(--mo);font-size:12px;color:var(--gold2);letter-spacing:.08em;line-height:1.7;
 }
 
@@ -183,18 +184,18 @@ body::before{
 .sect-label::after{content:'';flex:1;height:.5px;background:var(--ruledark);}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:56px;}
 .why-card{padding:28px 24px;border:.5px solid var(--ruledark);border-radius:4px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s;}
-.why-card:hover{box-shadow:0 8px 32px rgba(10,22,40,.08);transform:translateY(-2px);}
+.why-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.35);transform:translateY(-2px);}
 .why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
-.why-num{font-family:var(--cg);font-size:48px;font-weight:600;font-style:italic;color:rgba(10,22,40,.05);line-height:1;margin-bottom:16px;}
-.why-title{font-family:var(--cg);font-size:24px;font-weight:400;color:var(--navy);line-height:1.3;margin-bottom:10px;}
+.why-num{font-family:var(--cg);font-size:44px;font-weight:400;color:rgba(231,235,240,.08);line-height:1;margin-bottom:16px;}
+.why-title{font-family:var(--cg);font-size:20px;font-weight:400;color:var(--slate2);line-height:1.3;margin-bottom:10px;}
 .why-desc{font-family:var(--ep);font-size:15px;font-weight:300;color:var(--slate2);line-height:1.7;}
 
 /* ── FOR WHOM ── */
 .for-whom{background:var(--ice);padding:72px 40px;}
 .for-whom-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
 .for-whom-left{}
-.for-whom-h2{font-family:var(--cg);font-size:44px;font-weight:300;color:var(--navy);line-height:1.2;margin-bottom:20px;}
-.for-whom-h2 em{font-style:italic;color:var(--royal);}
+.for-whom-h2{font-family:var(--cg);font-size:36px;font-weight:400;color:var(--slate2);line-height:1.2;margin-bottom:20px;}
+.for-whom-h2 em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--royal2);}
 .for-whom-sub{font-family:var(--ep);font-size:17px;font-weight:300;color:var(--slate2);line-height:1.8;margin-bottom:32px;}
 .profile-list{display:flex;flex-direction:column;gap:12px;}
 .profile-item{
@@ -208,7 +209,7 @@ body::before{
   font-size:15px;
 }
 .profile-text{}
-.profile-title{font-family:var(--ep);font-size:15px;font-weight:500;color:var(--navy);margin-bottom:2px;}
+.profile-title{font-family:var(--ep);font-size:15px;font-weight:600;color:var(--slate2);margin-bottom:2px;}
 .profile-desc{font-family:var(--ep);font-size:14px;font-weight:300;color:var(--slate);line-height:1.5;}
 
 /* ── TEASER TABLE ── */
@@ -219,7 +220,7 @@ body::before{
 .teaser-row:last-child{border-bottom:none;}
 .teaser-row:hover{background:var(--ice);}
 .teaser-check{width:20px;height:20px;border-radius:50%;background:var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);}
-.teaser-row-text{font-family:var(--ep);font-size:15px;font-weight:300;color:var(--navy);}
+.teaser-row-text{font-family:var(--ep);font-size:15px;font-weight:400;color:var(--slate2);}
 .teaser-row-blur{filter:blur(4px);opacity:.4;user-select:none;}
 
 /* ── AUTHOR ── */
@@ -227,14 +228,14 @@ body::before{
 .author::before{
   content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);
   width:480px;height:480px;border-radius:50%;
-  background:radial-gradient(circle, rgba(27,58,122,.4) 0%, transparent 65%);
+  background:radial-gradient(circle, rgba(61,110,150,.4) 0%, transparent 65%);
 }
 .author-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;position:relative;z-index:1;}
 .author-photo-wrap{position:relative;}
 .author-photo{
   width:200px;height:200px;border-radius:3px;object-fit:cover;
   box-shadow:0 12px 40px rgba(0,0,0,.4);display:block;
-  border:.5px solid rgba(184,149,42,.2);
+  border:.5px solid rgba(217,190,61,.2);
 }
 .author-photo-label{
   position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);
@@ -244,8 +245,8 @@ body::before{
 }
 .author-right{}
 .author-eyebrow{font-family:var(--mo);font-size:11px;color:var(--gold2);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;}
-.author-name{font-family:var(--cg);font-size:42px;font-weight:300;color:#fff;line-height:1.15;margin-bottom:6px;}
-.author-name em{font-style:italic;color:var(--gold3);}
+.author-name{font-family:var(--cg);font-size:34px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:6px;}
+.author-name em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--gold3);}
 .author-title{font-family:var(--mo);font-size:13px;color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:20px;}
 .author-bio{font-family:var(--ep);font-size:16px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:24px;max-width:520px;}
 .author-stats{display:flex;gap:28px;flex-wrap:wrap;}
@@ -257,8 +258,8 @@ body::before{
 .final-cta{background:var(--white);padding:80px 40px;}
 .final-cta-inner{max-width:640px;margin:0 auto;text-align:center;}
 .final-rule{width:32px;height:2px;background:var(--gold);margin:0 auto 24px;}
-.final-h2{font-family:var(--cg);font-size:48px;font-weight:300;color:var(--navy);line-height:1.15;margin-bottom:16px;}
-.final-h2 em{font-style:italic;color:var(--royal);}
+.final-h2{font-family:var(--cg);font-size:38px;font-weight:400;color:var(--slate2);line-height:1.15;margin-bottom:16px;}
+.final-h2 em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--royal2);}
 .final-sub{font-family:var(--ep);font-size:17px;font-weight:300;color:var(--slate2);line-height:1.75;margin-bottom:40px;}
 .final-form{text-align:left;}
 
@@ -266,7 +267,7 @@ body::before{
 .footer{background:var(--navy);padding:32px 40px;border-top:.5px solid rgba(255,255,255,.06);}
 .footer-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
 .footer-logo{font-family:var(--cg);font-size:17px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.04em;}
-.footer-logo em{font-style:italic;color:var(--gold2);}
+.footer-logo em{font-style:normal;font-family:var(--script);font-weight:600;color:var(--gold2);}
 .footer-copy{font-family:var(--mo);font-size:12px;color:rgba(255,255,255,.2);letter-spacing:.08em;}
 .footer-trademark{font-family:var(--mo);font-size:10px;color:rgba(255,255,255,.13);letter-spacing:.05em;text-align:center;max-width:960px;margin:12px auto 0;padding-top:12px;border-top:.5px solid rgba(255,255,255,.05);}
 
@@ -449,7 +450,7 @@ body::before{
       </div>
     </div>
     <div class="for-whom-right">
-      <div style="background:var(--navy);border-radius:4px;padding:32px;border:.5px solid rgba(10,22,40,.15);">
+      <div style="background:var(--navy);border-radius:2px;padding:32px;border:.5px solid rgba(231,235,240,.12);">
         <div style="font-family:var(--mo);font-size:11px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;">Benefícios da pré-lista</div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div style="display:flex;gap:14px;align-items:flex-start;">
@@ -507,24 +508,24 @@ body::before{
         <div class="form-group">
           <label class="form-label" for="f-name" style="color:var(--slate);">Nome</label>
           <input class="form-input" type="text" id="f-name" placeholder="Seu nome"
-            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+            style="background:var(--ice);color:var(--slate2);border-color:var(--ruledark);">
         </div>
         <div class="form-group">
           <label class="form-label" for="f-email" style="color:var(--slate);">E-mail</label>
           <input class="form-input" type="email" id="f-email" placeholder="seu@email.com"
-            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+            style="background:var(--ice);color:var(--slate2);border-color:var(--ruledark);">
         </div>
         <div class="form-group">
           <label class="form-label" for="f-whatsapp" style="color:var(--slate);">WhatsApp</label>
           <input class="form-input" type="tel" id="f-whatsapp" placeholder="(11) 99999-9999"
-            style="background:var(--ice);color:var(--navy);border-color:var(--ruledark);">
+            style="background:var(--ice);color:var(--slate2);border-color:var(--ruledark);">
         </div>
       </div>
-      <button class="btn-submit" id="final-btn" style="background:var(--navy);color:#fff;">
+      <button class="btn-submit" id="final-btn" style="background:var(--gold);color:var(--navy);">
         Quero ser avisado no lançamento
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="form-success" id="final-success" style="color:var(--royal);border-color:rgba(27,58,122,.3);background:var(--ice);">
+      <div class="form-success" id="final-success" style="color:var(--royal2);border-color:rgba(61,110,150,.3);background:var(--ice);">
         ✓ &nbsp;Você está na lista. Avisaremos assim que o livro for lançado.
       </div>
       <p class="form-disclaimer" style="color:var(--slate);">Sem spam. Você pode cancelar a inscrição a qualquer momento.</p>

@@ -94,17 +94,17 @@ const QuizEngine = ((() => {
         const sub = [lead.cargo, lead.empresa].filter(Boolean).join(' · ');
 
         const panel = document.createElement('div');
-        panel.style.cssText = 'background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:22px 24px;text-align:left;';
+        panel.style.cssText = 'background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:22px 24px;text-align:left;';
         panel.innerHTML =
-            '<p style="font-family:var(--cg),Georgia,serif;font-size:clamp(1.25rem,3.5vw,1.6rem);font-weight:600;color:#1A2A52;margin:0 0 2px">'
+            '<p style="font-family:var(--cg),\'Arial Black\',sans-serif;font-size:clamp(1.1rem,3.5vw,1.4rem);font-weight:400;color:var(--slate2,#E7EBF0);margin:0 0 2px">'
                 + 'Olá' + (firstName ? ', ' + escapeHtml(firstName) : '') + '!</p>'
-            + (sub ? '<p style="font-size:12.5px;color:#8A887F;margin:0 0 14px">' + escapeHtml(sub) + '</p>' : '<div style="height:10px"></div>')
-            + '<label style="display:block;font-size:13.5px;font-weight:600;color:#2C2C2A;margin:0 0 8px">Conte mais sobre seu objetivo</label>'
+            + (sub ? '<p style="font-size:12.5px;color:var(--slate,#B9D0E4);margin:0 0 14px">' + escapeHtml(sub) + '</p>' : '<div style="height:10px"></div>')
+            + '<label style="display:block;font-size:13.5px;font-weight:600;color:var(--slate2,#E7EBF0);margin:0 0 8px">Conte mais sobre seu objetivo</label>'
             + '<textarea id="qe-contato-msg" rows="4" placeholder="Ex.: gostaria de entender as opções para a minha empresa…" '
-                + 'style="width:100%;box-sizing:border-box;font-family:inherit;font-size:15px;color:#2C2C2A;border:1px solid #D8D6CC;border-radius:10px;padding:12px 14px;resize:vertical;outline:none"></textarea>'
-            + '<div id="qe-contato-err" style="display:none;color:#9A2020;font-size:12.5px;margin-top:6px"></div>'
+                + 'style="width:100%;box-sizing:border-box;font-family:inherit;font-size:15px;color:var(--slate2,#E7EBF0);background:rgba(255,255,255,.06);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:3px;padding:12px 14px;resize:vertical;outline:none"></textarea>'
+            + '<div id="qe-contato-err" style="display:none;color:var(--danger,#C2564A);font-size:12.5px;margin-top:6px"></div>'
             + '<button id="qe-contato-send" type="button" disabled '
-                + 'style="margin-top:14px;width:100%;background:var(--gold,#B8932F);color:#2C2C2A;font-size:16px;font-weight:700;padding:14px 20px;border:none;border-radius:12px;font-family:inherit;cursor:pointer;opacity:.55">Enviar →</button>';
+                + 'style="margin-top:14px;width:100%;background:var(--gold,#D9BE3D);color:var(--navy-deep,#071630);font-size:16px;font-weight:700;padding:14px 20px;border:none;border-radius:2px;font-family:inherit;cursor:pointer;opacity:.55">Enviar →</button>';
 
         ctaEl.parentNode.replaceChild(panel, ctaEl);
 
@@ -139,8 +139,8 @@ const QuizEngine = ((() => {
                 }).then(function () {}, function () {});
             }
             panel.innerHTML =
-                '<p style="font-family:var(--cg),Georgia,serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:600;color:#1B7A3A;margin:0 0 8px">Recebido! ✓</p>'
-                + '<p style="font-size:14px;color:#2C2C2A;margin:0;line-height:1.6">Obrigado'
+                '<p style="font-family:var(--cg),\'Arial Black\',sans-serif;font-size:clamp(1.2rem,3.5vw,1.5rem);font-weight:400;color:#4CAF7D;margin:0 0 8px">Recebido! ✓</p>'
+                + '<p style="font-size:14px;color:var(--slate2,#E7EBF0);margin:0;line-height:1.6">Obrigado'
                     + (firstName ? ', ' + escapeHtml(firstName) : '')
                     + '. Em breve entro em contato pelo seu e-mail ou WhatsApp.</p>';
         });
@@ -504,13 +504,13 @@ const QuizEngine = ((() => {
         function qeFieldError(inputEl, msg) {
             if (!inputEl) return;
             var orig = inputEl.style.borderBottomColor;
-            inputEl.style.borderBottomColor = 'var(--danger,#9A2020)';
+            inputEl.style.borderBottomColor = 'var(--danger,#C2564A)';
             inputEl.style.animation = 'qe-shake .35s ease';
             var errEl = inputEl.parentNode && inputEl.parentNode.querySelector('.qe-err-msg');
             if (!errEl && inputEl.parentNode) {
                 errEl = document.createElement('div');
                 errEl.className = 'qe-err-msg';
-                errEl.style.cssText = 'color:var(--danger,#9A2020);font-size:12px;margin-top:6px;font-family:var(--ep,"Epilogue",sans-serif);';
+                errEl.style.cssText = 'color:var(--danger,#C2564A);font-size:12px;margin-top:6px;font-family:var(--ep,"Inter",sans-serif);';
                 inputEl.parentNode.insertBefore(errEl, inputEl.nextSibling);
             }
             if (errEl) errEl.textContent = msg || 'Campo inválido.';
@@ -714,7 +714,7 @@ const QuizEngine = ((() => {
         const deg = Math.round(pct * 3.6);
         const cta = config.scoring.cta;
         const ctaHtml = cta
-            ? '<div style="background:var(--navy,#0A1628);border-radius:16px;padding:28px 26px;text-align:center;margin-top:8px">'
+            ? '<div style="background:var(--navy,#0B1F3B);border-radius:2px;padding:28px 26px;text-align:center;margin-top:8px">'
                 + (cta.description ? '<p style="color:rgba(255,255,255,.7);font-size:14.5px;line-height:1.7;margin:0 0 18px">' + cta.description + '</p>' : '')
                 + '<a href="' + cta.href + '" class="btn-gold" style="display:inline-block;text-align:center">' + cta.label + ' →</a>'
                 + '</div>'
@@ -763,9 +763,9 @@ const QuizEngine = ((() => {
             const row = (lo, hi, mid, fill, label) => {
                 const x1 = xp(toM(lo)), x2 = xp(toM(hi)), xm = xp(toM(mid));
                 const w = Math.max(x2 - x1, 2).toFixed(1);
-                return `<div style="margin-bottom:14px"><p style="font-size:13px;color:#5F5E5A;margin:0 0 4px"><b style="color:#2C2C2A">${label}</b> · R$ ${qeFmtM(lo)} – R$ ${qeFmtM(hi)} · central R$ ${qeFmtM(mid)}</p><svg viewBox="0 0 560 26" width="100%"><rect x="${x1}" y="3" width="${w}" height="20" rx="4" fill="${fill}" fill-opacity="0.85"></rect><line x1="${xm}" y1="0" x2="${xm}" y2="26" stroke="#FFFFFF" stroke-width="2"></line></svg></div>`;
+                return `<div style="margin-bottom:14px"><p style="font-size:13px;color:var(--slate,#B9D0E4);margin:0 0 4px"><b style="color:var(--slate2,#E7EBF0)">${label}</b> · R$ ${qeFmtM(lo)} – R$ ${qeFmtM(hi)} · central R$ ${qeFmtM(mid)}</p><svg viewBox="0 0 560 26" width="100%"><rect x="${x1}" y="3" width="${w}" height="20" rx="2" fill="${fill}" fill-opacity="0.85"></rect><line x1="${xm}" y1="0" x2="${xm}" y2="26" stroke="#FFFFFF" stroke-width="2"></line></svg></div>`;
             };
-            return `<svg viewBox="0 0 560 60" width="100%" style="margin-top:6px"><line x1="${XS}" y1="30" x2="${XE}" y2="30" stroke="#C9C7BD" stroke-width="1"></line><g font-size="10" fill="#8A887F" text-anchor="middle">${tickHtml}</g><text x="${((XS + XE) / 2).toFixed(0)}" y="16" text-anchor="middle" font-size="10" fill="#5F5E5A">Enterprise Value (R$ milhões)</text></svg>${row(scores.min, scores.max, scores.main, '#4F77AB', 'Sua empresa')}${row(scores.benchMin, scores.benchMax, scores.benchCentral, '#B8932F', 'Benchmark do setor')}${row(scores.consultMin, scores.consultMax, scores.consultCentral, '#0F6E56', 'Potencial com preparo')}<p style="font-size:11px;color:#8A887F;margin:8px 0 0">A linha branca marca o valor central de cada faixa.</p>`;
+            return `<svg viewBox="0 0 560 60" width="100%" style="margin-top:6px"><line x1="${XS}" y1="30" x2="${XE}" y2="30" stroke="var(--ruledark,rgba(231,235,240,.3))" stroke-width="1"></line><g font-size="10" fill="var(--slate,#B9D0E4)" text-anchor="middle">${tickHtml}</g><text x="${((XS + XE) / 2).toFixed(0)}" y="16" text-anchor="middle" font-size="10" fill="var(--slate,#B9D0E4)">Enterprise Value (R$ milhões)</text></svg>${row(scores.min, scores.max, scores.main, '#7CA3C4', 'Sua empresa')}${row(scores.benchMin, scores.benchMax, scores.benchCentral, '#D9BE3D', 'Benchmark do setor')}${row(scores.consultMin, scores.consultMax, scores.consultCentral, '#4CAF7D', 'Potencial com preparo')}<p style="font-size:11px;color:var(--slate,#B9D0E4);margin:8px 0 0">A linha branca marca o valor central de cada faixa.</p>`;
         }
 
         // Donut: SVG pie chart showing discount breakdown
@@ -773,11 +773,11 @@ const QuizEngine = ((() => {
             const d = scores.discountAmounts;
             if (!d) return '';
             const sliceDefs = [
-                { key: 'valorRetido', label: 'Valor retido',               color: '#1A2A52' },
-                { key: 'company',     label: 'Risco específico da empresa', color: '#B8932F' },
-                { key: 'liquidez',    label: 'Liquidez',                    color: '#0F6E56' },
-                { key: 'regiao',      label: 'Mercado local (região)',       color: '#A8843C' },
-                { key: 'porte',       label: 'Porte',                       color: '#888780' },
+                { key: 'valorRetido', label: 'Valor retido',               color: '#D9BE3D' },
+                { key: 'company',     label: 'Risco específico da empresa', color: '#C2564A' },
+                { key: 'liquidez',    label: 'Liquidez',                    color: '#7CA3C4' },
+                { key: 'regiao',      label: 'Mercado local (região)',       color: '#3D6E96' },
+                { key: 'porte',       label: 'Porte',                       color: '#B9D0E4' },
             ];
             const active = sliceDefs.filter(s => d[s.key] > 0);
             const total = active.reduce((acc, s) => acc + d[s.key], 0);
@@ -793,46 +793,46 @@ const QuizEngine = ((() => {
                 offset += len;
             });
             const totalDiscPct = Math.round((1 - (d.valorRetido || 0) / total) * 100);
-            return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 180 180" width="160" height="160"><g transform="rotate(-90 90 90)">${circles}</g><text x="90" y="84" text-anchor="middle" font-size="13" fill="#5F5E5A">Valor</text><text x="90" y="104" text-anchor="middle" font-size="22" font-weight="700" fill="#1A2A52">${retidoPct}%</text></svg><div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#5F5E5A">${legItems}</div></div><p style="font-size:11px;color:#8A887F;margin:14px 0 0">Os descontos somam ${totalDiscPct}% do valor de referência.</p>`;
+            return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg viewBox="0 0 180 180" width="160" height="160"><g transform="rotate(-90 90 90)">${circles}</g><text x="90" y="84" text-anchor="middle" font-size="13" fill="var(--slate,#B9D0E4)">Valor</text><text x="90" y="104" text-anchor="middle" font-size="22" font-weight="700" fill="var(--gold,#D9BE3D)">${retidoPct}%</text></svg><div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:var(--slate,#B9D0E4)">${legItems}</div></div><p style="font-size:11px;color:var(--slate,#B9D0E4);margin:14px 0 0">Os descontos somam ${totalDiscPct}% do valor de referência.</p>`;
         }
 
         const qeDebt = scores.equityValue !== null ? (scores.main - scores.equityValue) : 0;
         const qeEquityLine = (scores.equityValue !== null && qeDebt > 0)
-            ? `<p style="font-size:14px;color:#5F5E5A;margin:14px 0 0">Descontada a dívida líquida (<b style="color:#2C2C2A">R$ ${qeFmtM(qeDebt)}</b>) do ponto médio, o <b style="color:#2C2C2A">equity value</b> estimado fica em torno de <b style="color:#2C2C2A">R$ ${qeFmtM(scores.equityValue)}</b>.</p>`
+            ? `<p style="font-size:14px;color:var(--slate,#B9D0E4);margin:14px 0 0">Descontada a dívida líquida (<b style="color:var(--slate2,#E7EBF0)">R$ ${qeFmtM(qeDebt)}</b>) do ponto médio, o <b style="color:var(--slate2,#E7EBF0)">equity value</b> estimado fica em torno de <b style="color:var(--slate2,#E7EBF0)">R$ ${qeFmtM(scores.equityValue)}</b>.</p>`
             : '';
         const qeBadge = scores.attrClass === 'success'
-            ? { bg: '#E8F5E9', color: '#1B7A3A' }
+            ? { bg: 'rgba(76,175,125,.15)', color: '#4CAF7D' }
             : scores.attrClass === 'warning'
-                ? { bg: '#FAEEDA', color: '#854F0B' }
-                : { bg: '#FDECEA', color: '#9A2020' };
+                ? { bg: 'rgba(217,190,61,.15)', color: '#D9BE3D' }
+                : { bg: 'rgba(194,86,74,.15)', color: '#C2564A' };
         const qeUplift = scores.upliftPct.toFixed(0);
         const qeCtaLabel = (config.scoring && config.scoring.cta && config.scoring.cta.label) || 'Falar sobre meu processo de M&amp;A';
         const qeCtaHref  = (config.scoring && config.scoring.cta && config.scoring.cta.href)  || '/contato';
 
         screen.innerHTML = `<div style="display:flex;flex-direction:column;gap:16px;padding-bottom:8px">
-  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
-    <p style="font-size:15px;color:#2C2C2A;font-weight:500;line-height:1.6;margin:0">Estimativa de Enterprise Value pelo múltiplo de EV/EBITDA do seu setor, ajustada por porte e riscos:</p>
+  <div style="background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:24px 26px">
+    <p style="font-size:15px;color:var(--slate2,#E7EBF0);font-weight:500;line-height:1.6;margin:0">Estimativa de Enterprise Value pelo múltiplo de EV/EBITDA do seu setor, ajustada por porte e riscos:</p>
   </div>
-  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
-    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">Enterprise Value estimado</p>
-    <div><span style="font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;color:#1A2A52;line-height:1.05">R$ ${qeFmtM(scores.min)} – ${qeFmtM(scores.max)}</span><span style="display:inline-block;background:${qeBadge.bg};color:${qeBadge.color};font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px">Atratividade ${scores.attrLabel}</span></div>
+  <div style="background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#D9BE3D);font-weight:700;margin:0 0 10px">Enterprise Value estimado</p>
+    <div><span style="font-family:var(--cg),'Arial Black',sans-serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:400;color:var(--slate2,#E7EBF0);line-height:1.05">R$ ${qeFmtM(scores.min)} – ${qeFmtM(scores.max)}</span><span style="display:inline-block;background:${qeBadge.bg};color:${qeBadge.color};font-size:13px;font-weight:600;padding:6px 14px;border-radius:2px;vertical-align:middle;margin-left:12px">Atratividade ${scores.attrLabel}</span></div>
     ${qeEquityLine}
   </div>
-  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
-    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">Onde você está na régua do setor</p>
+  <div style="background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#D9BE3D);font-weight:700;margin:0 0 10px">Onde você está na régua do setor</p>
     ${qeFFSvg()}
   </div>
-  <div style="background:#FFF;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px">
-    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px">O que está descontando o seu valor</p>
+  <div style="background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:24px 26px">
+    <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#D9BE3D);font-weight:700;margin:0 0 10px">O que está descontando o seu valor</p>
     ${qeDonutSvg()}
   </div>
-  <div style="background:#FAEEDA;border-radius:16px;padding:20px 24px">
-    <p style="font-family:Georgia,serif;font-size:clamp(1.4rem,4vw,1.875rem);font-weight:700;color:#854F0B;margin:0 0 6px">+${qeUplift}% de valuation</p>
-    <p style="font-size:13.5px;color:#6E4309;margin:0;line-height:1.6">Com preparação prévia à venda, a faixa estimada passa de R$ ${qeFmtM(scores.min)} – R$ ${qeFmtM(scores.max)} para R$ ${qeFmtM(scores.consultMin)} – R$ ${qeFmtM(scores.consultMax)} (central R$ ${qeFmtM(scores.consultCentral)}).</p>
+  <div style="background:rgba(217,190,61,.10);border:1px solid rgba(217,190,61,.3);border-radius:2px;padding:20px 24px">
+    <p style="font-family:var(--cg),'Arial Black',sans-serif;font-size:clamp(1.4rem,4vw,1.875rem);font-weight:400;color:var(--gold,#D9BE3D);margin:0 0 6px">+${qeUplift}% de valuation</p>
+    <p style="font-size:13.5px;color:var(--slate2,#E7EBF0);margin:0;line-height:1.6">Com preparação prévia à venda, a faixa estimada passa de R$ ${qeFmtM(scores.min)} – R$ ${qeFmtM(scores.max)} para R$ ${qeFmtM(scores.consultMin)} – R$ ${qeFmtM(scores.consultMax)} (central R$ ${qeFmtM(scores.consultCentral)}).</p>
   </div>
-  <a href="${qeCtaHref}" class="quiz-cta-contato" style="display:block;background:#B8932F;color:#2C2C2A;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;text-align:center;text-decoration:none">${qeCtaLabel}</a>
-  <p style="font-size:11.5px;color:#8A887F;margin:0;text-align:center;line-height:1.5">Estimativa ilustrativa, com base em múltiplos de mercado por setor e porte e descontos de risco. Não substitui um valuation formal.</p>
-  <p style="text-align:center;font-size:11.5px;color:#8A887F;margin:0">Alexandre Cracovsky, CFA · Quanto vale a minha empresa agora?</p>
+  <a href="${qeCtaHref}" class="quiz-cta-contato" style="display:block;background:var(--gold,#D9BE3D);color:var(--navy-deep,#071630);font-size:16px;font-weight:700;padding:16px 20px;border-radius:2px;font-family:inherit;text-align:center;text-decoration:none">${qeCtaLabel}</a>
+  <p style="font-size:11.5px;color:var(--slate,#B9D0E4);margin:0;text-align:center;line-height:1.5">Estimativa ilustrativa, com base em múltiplos de mercado por setor e porte e descontos de risco. Não substitui um valuation formal.</p>
+  <p style="text-align:center;font-size:11.5px;color:var(--slate,#B9D0E4);margin:0">Alexandre Cracovsky, CFA · Quanto vale a minha empresa agora?</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px"><a href="${segmentHref()}" class="btn-navy">← Ver outras ferramentas</a><button class="btn-outline" id="btn-restart" style="color:var(--slate);border-color:var(--ruledark)">Refazer →</button></div>
 </div>`;
 
@@ -886,34 +886,34 @@ const QuizEngine = ((() => {
         styleEl.id = 'bs-result-styles';
         styleEl.textContent = [
             '.bs-wrap{display:flex;flex-direction:column;gap:16px;padding:24px 0 56px}',
-            '.bs-card{background:#fff;border:1px solid #E7E5DC;border-radius:16px;padding:24px 26px}',
-            '.bs-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#B8932F;font-weight:700;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-score{font-family:Georgia,serif;font-weight:700;color:#1A2A52;font-size:52px;line-height:1;margin:0;display:inline}',
-            '.bs-badge{display:inline-block;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;vertical-align:middle;margin-left:12px;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-track{background:#EFEDE6;border-radius:6px;height:11px;overflow:hidden;margin:16px 0 0}',
-            '.bs-fill{height:11px;border-radius:6px}',
-            '.bs-lead{font-size:14px;color:#5F5E5A;margin:14px 0 0;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
-            '.bs-section-h{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A887F;font-weight:700;margin:0 0 18px;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-card{background:var(--ice,#123057);border:1px solid var(--ruledark,rgba(231,235,240,.22));border-radius:2px;padding:24px 26px}',
+            '.bs-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#D9BE3D);font-weight:700;margin:0 0 10px;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-score{font-family:var(--cg),"Arial Black",sans-serif;font-weight:400;color:var(--slate2,#E7EBF0);font-size:52px;line-height:1;margin:0;display:inline}',
+            '.bs-badge{display:inline-block;font-size:13px;font-weight:600;padding:6px 14px;border-radius:2px;vertical-align:middle;margin-left:12px;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-track{background:var(--ice2,#1B3F6B);border-radius:2px;height:11px;overflow:hidden;margin:16px 0 0}',
+            '.bs-fill{height:11px;border-radius:2px}',
+            '.bs-lead{font-size:14px;color:var(--slate,#B9D0E4);margin:14px 0 0;font-family:var(--ep,"Inter",sans-serif);line-height:1.6}',
+            '.bs-section-h{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate,#B9D0E4);font-weight:700;margin:0 0 18px;font-family:var(--ep,"Inter",sans-serif)}',
             '.bs-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}',
             '.bs-row:last-child{margin-bottom:0}',
             '.bs-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}',
-            '.bs-name{width:172px;flex:0 0 auto;font-size:13.5px;color:#5F5E5A;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-bar{flex:1;background:#EFEDE6;border-radius:5px;height:18px;overflow:hidden}',
-            '.bs-bar>span{display:block;height:18px;border-radius:5px}',
-            '.bs-status{width:82px;flex:0 0 auto;text-align:right;font-size:12.5px;font-weight:600;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-journey-title{font-size:15px;font-weight:600;color:#2C2C2A;margin:0 0 4px;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-journey-lead{font-size:13.5px;color:#5F5E5A;margin:0 0 10px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.6}',
-            '.bs-journey-cap{font-size:11.5px;color:#8A887F;margin:8px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-risk-h{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#2C2C2A;margin:0 0 12px}',
-            '.bs-risk-p{font-size:14px;color:#5F5E5A;margin:0 0 16px;font-family:var(--ep,"Epilogue",sans-serif);line-height:1.65}',
-            '.bs-next{background:#F1F6F4;border-left:4px solid #0F6E56;border-radius:8px;padding:14px 16px}',
-            '.bs-next-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#0F6E56;font-weight:700;margin:0 0 5px;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-next-text{font-size:13.5px;color:#5F5E5A;margin:0;line-height:1.55;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-inaction{background:#FAEEDA;border-radius:16px;padding:20px 24px}',
-            '.bs-inaction p{font-size:13.5px;color:#6E4309;margin:0;line-height:1.65;font-family:var(--ep,"Epilogue",sans-serif)}',
-            '.bs-cta{display:block;width:100%;background:#B8932F;color:#2C2C2A;text-decoration:none;text-align:center;font-size:16px;font-weight:700;padding:16px 20px;border-radius:12px;font-family:inherit;box-sizing:border-box}',
-            '.bs-cta:hover{background:#A8841F}',
-            '.bs-foot{text-align:center;font-size:11.5px;color:#8A887F;margin:4px 0 0;font-family:var(--ep,"Epilogue",sans-serif)}',
+            '.bs-name{width:172px;flex:0 0 auto;font-size:13.5px;color:var(--slate,#B9D0E4);font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-bar{flex:1;background:var(--ice2,#1B3F6B);border-radius:2px;height:18px;overflow:hidden}',
+            '.bs-bar>span{display:block;height:18px;border-radius:2px}',
+            '.bs-status{width:82px;flex:0 0 auto;text-align:right;font-size:12.5px;font-weight:600;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-journey-title{font-size:15px;font-weight:600;color:var(--slate2,#E7EBF0);margin:0 0 4px;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-journey-lead{font-size:13.5px;color:var(--slate,#B9D0E4);margin:0 0 10px;font-family:var(--ep,"Inter",sans-serif);line-height:1.6}',
+            '.bs-journey-cap{font-size:11.5px;color:var(--slate,#B9D0E4);margin:8px 0 0;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-risk-h{font-family:var(--cg),"Arial Black",sans-serif;font-size:19px;font-weight:400;color:var(--slate2,#E7EBF0);margin:0 0 12px}',
+            '.bs-risk-p{font-size:14px;color:var(--slate,#B9D0E4);margin:0 0 16px;font-family:var(--ep,"Inter",sans-serif);line-height:1.65}',
+            '.bs-next{background:rgba(76,175,125,.10);border-left:4px solid #4CAF7D;border-radius:2px;padding:14px 16px}',
+            '.bs-next-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4CAF7D;font-weight:700;margin:0 0 5px;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-next-text{font-size:13.5px;color:var(--slate,#B9D0E4);margin:0;line-height:1.55;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-inaction{background:rgba(217,190,61,.10);border-radius:2px;padding:20px 24px}',
+            '.bs-inaction p{font-size:13.5px;color:var(--slate2,#E7EBF0);margin:0;line-height:1.65;font-family:var(--ep,"Inter",sans-serif)}',
+            '.bs-cta{display:block;width:100%;background:var(--gold,#D9BE3D);color:var(--navy-deep,#071630);text-decoration:none;text-align:center;font-size:16px;font-weight:700;padding:16px 20px;border-radius:2px;font-family:inherit;box-sizing:border-box}',
+            '.bs-cta:hover{background:var(--gold2,#EBD766)}',
+            '.bs-foot{text-align:center;font-size:11.5px;color:var(--slate,#B9D0E4);margin:4px 0 0;font-family:var(--ep,"Inter",sans-serif)}',
             '@media(max-width:520px){.bs-card{padding:20px 18px}.bs-score{font-size:42px}.bs-name{width:118px;font-size:12.5px}.bs-status{width:66px;font-size:11.5px}}'
         ].join('');
         document.head.appendChild(styleEl);
@@ -938,30 +938,30 @@ const QuizEngine = ((() => {
             return '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy + '"/>';
         }).join('');
         const yLabels = [0, 1, 2, 3, 4].map(i => {
-            return '<text x="52" y="' + Math.round(y1 - i * yStep + 4) + '" text-anchor="end" font-size="9" fill="#8A887F">' + Math.round(i * monthStep) + '</text>';
+            return '<text x="52" y="' + Math.round(y1 - i * yStep + 4) + '" text-anchor="end" font-size="9" fill="var(--slate,#B9D0E4)">' + Math.round(i * monthStep) + '</text>';
         }).join('');
         const circles = xs.map((x, i) => {
-            if (i === curIdx) return '<circle cx="' + x + '" cy="' + ys[i] + '" r="5.5" fill="#B8932F" stroke="#FFFFFF" stroke-width="1.5"/>';
-            return '<circle cx="' + x + '" cy="' + ys[i] + '" r="3" fill="#1A2A52"/>';
+            if (i === curIdx) return '<circle cx="' + x + '" cy="' + ys[i] + '" r="5.5" fill="var(--gold,#D9BE3D)" stroke="var(--navy-deep,#071630)" stroke-width="1.5"/>';
+            return '<circle cx="' + x + '" cy="' + ys[i] + '" r="3" fill="var(--slate2,#E7EBF0)"/>';
         }).join('');
         const cursorLine = curIdx >= 0 ? (
-            '<line x1="' + xs[curIdx] + '" y1="' + ys[curIdx] + '" x2="' + xs[curIdx] + '" y2="' + y1 + '" stroke="#B8932F" stroke-width="1.5" stroke-dasharray="4 3"/>' +
-            '<text x="' + xs[curIdx] + '" y="' + (ys[curIdx] - 10) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#854F0B">você está aqui</text>'
+            '<line x1="' + xs[curIdx] + '" y1="' + ys[curIdx] + '" x2="' + xs[curIdx] + '" y2="' + y1 + '" stroke="var(--gold,#D9BE3D)" stroke-width="1.5" stroke-dasharray="4 3"/>' +
+            '<text x="' + xs[curIdx] + '" y="' + (ys[curIdx] - 10) + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--gold,#D9BE3D)">você está aqui</text>'
         ) : '';
         const stageLabels = stages.map((s, i) => {
             const isCur = i === curIdx;
             return '<text x="' + xs[i] + '" y="228" text-anchor="middle" font-size="9" ' +
-                (isCur ? 'font-weight="700" fill="#854F0B"' : 'fill="#8A887F"') + '>' + s.label + '</text>';
+                (isCur ? 'font-weight="700" fill="var(--gold,#D9BE3D)"' : 'fill="var(--slate,#B9D0E4)"') + '>' + s.label + '</text>';
         }).join('');
         return '<svg viewBox="0 0 600 270" width="100%" role="img" aria-label="Jornada M&amp;A · tempo médio por estágio">' +
-            '<text x="300" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1A2A52">Jornada M&amp;A · tempo médio por estágio (meses)</text>' +
-            '<g stroke="#E7E5DC" stroke-width="0.8">' + gridLines + '</g>' +
-            '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
-            '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="#C9C7BD" stroke-width="1"/>' +
+            '<text x="300" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--slate2,#E7EBF0)">Jornada M&amp;A · tempo médio por estágio (meses)</text>' +
+            '<g stroke="var(--ruledark,rgba(231,235,240,.22))" stroke-width="0.8">' + gridLines + '</g>' +
+            '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="var(--ruledark,rgba(231,235,240,.3))" stroke-width="1"/>' +
+            '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="var(--ruledark,rgba(231,235,240,.3))" stroke-width="1"/>' +
             yLabels +
-            '<text x="20" y="120" text-anchor="middle" font-size="9.5" fill="#5F5E5A" transform="rotate(-90 20 120)">Meses médios</text>' +
-            '<path d="' + areaPath + '" fill="#1A2A52" opacity="0.08"/>' +
-            '<polyline points="' + polyPoints + '" fill="none" stroke="#1A2A52" stroke-width="2.4"/>' +
+            '<text x="20" y="120" text-anchor="middle" font-size="9.5" fill="var(--slate,#B9D0E4)" transform="rotate(-90 20 120)">Meses médios</text>' +
+            '<path d="' + areaPath + '" fill="var(--gold,#D9BE3D)" opacity="0.10"/>' +
+            '<polyline points="' + polyPoints + '" fill="none" stroke="var(--gold,#D9BE3D)" stroke-width="2.4"/>' +
             circles + cursorLine + stageLabels + '</svg>';
     }
 
@@ -971,18 +971,18 @@ const QuizEngine = ((() => {
         const pct = scores.pct;
         const stage = scores.stage || {};
         const signalStyles = {
-            green:  { label: 'Sólido',     dot: '#1E7A4B', bar: '#1E7A4B', text: '#1E7A4B' },
-            yellow: { label: 'Em construção', dot: '#B8932F', bar: '#B8932F', text: '#9A7A1F' },
-            red:    { label: 'Frágil',     dot: '#B23A2E', bar: '#B23A2E', text: '#B23A2E' }
+            green:  { label: 'Sólido',     dot: '#4CAF7D', bar: '#4CAF7D', text: '#4CAF7D' },
+            yellow: { label: 'Em construção', dot: '#D9BE3D', bar: '#D9BE3D', text: '#D9BE3D' },
+            red:    { label: 'Frágil',     dot: '#C2564A', bar: '#C2564A', text: '#C2564A' }
         };
         // Header colour follows maturity: low → amber/red, high → green.
         const tclass = pct >= 80 ? 'success' : (pct >= 50 ? 'warning' : 'danger');
         const badgeStyle = ({
-            danger:  { bg: '#FAEEDA', color: '#854F0B' },
-            warning: { bg: '#FAEEDA', color: '#854F0B' },
-            success: { bg: '#EDF7F0', color: '#1E7A4B' }
+            danger:  { bg: 'rgba(194,86,74,.12)', color: '#C2564A' },
+            warning: { bg: 'rgba(217,190,61,.12)', color: '#D9BE3D' },
+            success: { bg: 'rgba(76,175,125,.12)', color: '#4CAF7D' }
         })[tclass];
-        const fillColor = ({ danger: '#B23A2E', warning: '#B8932F', success: '#1E7A4B' })[tclass];
+        const fillColor = ({ danger: '#C2564A', warning: '#D9BE3D', success: '#4CAF7D' })[tclass];
 
         const dimRows = (scores.dims || []).map(function(d) {
             const sig = signalStyles[d.signal] || signalStyles.red;
@@ -1000,8 +1000,8 @@ const QuizEngine = ((() => {
         const journeyStages = stages.map(s => ({ label: s.label, months: s.avgMonths }));
         const svgJourney = buildJourneySvg(journeyStages, curIdx);
         const journeyLead = (config.scoring.journeyText ||
-            'Pelo seu diagnóstico, você está no estágio de <strong style="color:#B8932F">{stage}</strong>, a cerca de {months} meses de um deal. Cada frente que você fortalece encurta esse caminho.')
-            .replace('{stage}', '<strong style="color:#B8932F">' + (stage.label || '') + '</strong>')
+            'Pelo seu diagnóstico, você está no estágio de <strong style="color:#D9BE3D">{stage}</strong>, a cerca de {months} meses de um deal. Cada frente que você fortalece encurta esse caminho.')
+            .replace('{stage}', '<strong style="color:#D9BE3D">' + (stage.label || '') + '</strong>')
             .replace('{months}', stage.avgMonths != null ? stage.avgMonths : '');
 
         const worst = scores.worst || {};
@@ -1055,25 +1055,25 @@ const QuizEngine = ((() => {
         const pct = scores.pct;
         const screen = makeDiv('quiz-screen active');
         const signalStyles = {
-            green:  { label: 'Protegido',  dot: '#1E7A4B', bar: '#1E7A4B', text: '#1E7A4B' },
-            yellow: { label: 'Atenção',    dot: '#B8932F', bar: '#B8932F', text: '#9A7A1F' },
-            red:    { label: 'Risco alto', dot: '#B23A2E', bar: '#B23A2E', text: '#B23A2E' }
+            green:  { label: 'Protegido',  dot: '#4CAF7D', bar: '#4CAF7D', text: '#4CAF7D' },
+            yellow: { label: 'Atenção',    dot: '#D9BE3D', bar: '#D9BE3D', text: '#D9BE3D' },
+            red:    { label: 'Risco alto', dot: '#C2564A', bar: '#C2564A', text: '#C2564A' }
         };
         const badgeStyle = ({
-            danger:  { bg: '#FAEEDA', color: '#854F0B' },
-            warning: { bg: '#FAEEDA', color: '#854F0B' },
-            success: { bg: '#EDF7F0', color: '#1E7A4B' }
-        })[threshold.class] || { bg: '#FAEEDA', color: '#854F0B' };
+            danger:  { bg: 'rgba(194,86,74,.12)', color: '#C2564A' },
+            warning: { bg: 'rgba(217,190,61,.12)', color: '#D9BE3D' },
+            success: { bg: 'rgba(76,175,125,.12)', color: '#4CAF7D' }
+        })[threshold.class] || { bg: 'rgba(217,190,61,.12)', color: '#D9BE3D' };
         const fillColor = ({
-            danger: '#B23A2E', warning: '#B8932F', success: '#1E7A4B'
-        })[threshold.class] || '#B8932F';
+            danger: '#C2564A', warning: '#D9BE3D', success: '#4CAF7D'
+        })[threshold.class] || '#D9BE3D';
         const journey = config.scoring.journey || {};
         const journeyStages = journey.stages || [];
         let currentJourneyStage = journeyStages[0] || { label: '', months: 24 };
         for (const s of journeyStages) {
             if (pct >= s.minPct) currentJourneyStage = s;
         }
-        const journeyText = (journey.text || '').replace('{stage}', '<strong style="color:#B8932F">' + currentJourneyStage.label + '</strong>').replace('{months}', currentJourneyStage.months);
+        const journeyText = (journey.text || '').replace('{stage}', '<strong style="color:#D9BE3D">' + currentJourneyStage.label + '</strong>').replace('{months}', currentJourneyStage.months);
         const worst = scores.worst || {};
         const worstStyle = signalStyles[worst.signal] || signalStyles.red;
 
@@ -1432,18 +1432,18 @@ const QuizEngine = ((() => {
 
     const hcBaseTheme = {
         chart: {
-            backgroundColor: '#fff',
-            style: { fontFamily: "'Epilogue',sans-serif" }
+            backgroundColor: 'transparent',
+            style: { fontFamily: "'Inter',sans-serif" }
         },
-        colors: ['#1B3A7A', '#B8952A', '#2A52A8', '#D4AE50', '#6B7A8D', '#0A1628'],
+        colors: ['#3D6E96', '#D9BE3D', '#7CA3C4', '#EBD766', '#B9D0E4', '#0B1F3B'],
         title: { text: '' },
         credits: { enabled: false },
         legend: {
             itemStyle: {
-                fontFamily: "'DM Mono',monospace",
+                fontFamily: "'JetBrains Mono',monospace",
                 fontSize: '10px',
                 fontWeight: '400',
-                color: '#6B7A8D'
+                color: '#B9D0E4'
             }
         }
     };
@@ -1462,7 +1462,7 @@ const QuizEngine = ((() => {
             (scoring.stages || []).forEach(st => { stageColorMap[st.id] = st.color; });
             const getPointColor = key => {
                 const sg = (scoring.subgroups || []).find(s => (s.shortLabel || s.label) === key);
-                return (sg && stageColorMap[sg.stage]) || '#B8952A';
+                return (sg && stageColorMap[sg.stage]) || '#D9BE3D';
             };
             const radarData = keys.map((key, i) => ({
                 y: vals[i],
@@ -1474,23 +1474,23 @@ const QuizEngine = ((() => {
                     categories: keys,
                     tickmarkPlacement: 'on',
                     lineWidth: 0,
-                    gridLineColor: '#EEF2F9',
-                    labels: { style: { fontSize: '10px', color: '#6B7A8D', fontFamily: "'DM Mono'" } }
+                    gridLineColor: 'rgba(231,235,240,.15)',
+                    labels: { style: { fontSize: '10px', color: '#B9D0E4', fontFamily: "'JetBrains Mono'" } }
                 },
                 yAxis: {
                     min: 0,
                     max: chartCfg.yMax || undefined,
-                    gridLineColor: '#EEF2F9',
+                    gridLineColor: 'rgba(231,235,240,.15)',
                     labels: { enabled: false }
                 },
                 series: [{
                     name: 'Pontuação',
                     data: radarData,
                     pointPlacement: 'on',
-                    color: 'rgba(27,58,122,.6)',
-                    fillColor: 'rgba(27,58,122,.12)',
+                    color: 'rgba(217,190,61,.7)',
+                    fillColor: 'rgba(217,190,61,.15)',
                     lineWidth: 2,
-                    marker: { fillColor: '#B8952A', radius: 4 }
+                    marker: { fillColor: '#D9BE3D', radius: 4 }
                 }],
                 tooltip: { pointFormat: '<b>{point.y}</b>' }
             });
@@ -1499,30 +1499,30 @@ const QuizEngine = ((() => {
             const catKeys = Object.keys(cats);
             Object.assign(opts, {
                 chart: Object.assign({}, opts.chart, { type: 'column' }),
-                xAxis: { categories: catKeys, labels: { style: { fontSize: '10px', color: '#6B7A8D' } } },
+                xAxis: { categories: catKeys, labels: { style: { fontSize: '10px', color: '#B9D0E4' } } },
                 yAxis: { min: 0, title: { text: '' } },
                 series: [
-                    { name: 'Acertos', data: catKeys.map(k => cats[k].correct || 0), color: '#1B3A7A' },
-                    { name: 'Total',   data: catKeys.map(k => cats[k].total   || 0), color: '#EEF2F9' }
+                    { name: 'Acertos', data: catKeys.map(k => cats[k].correct || 0), color: '#D9BE3D' },
+                    { name: 'Total',   data: catKeys.map(k => cats[k].total   || 0), color: 'rgba(231,235,240,.15)' }
                 ]
             });
         } else if (type === 'donut') {
             const donutData = chartCfg.dataFn ? chartCfg.dataFn(scores) : buildDonutData(scores);
             Object.assign(opts, {
                 chart: Object.assign({}, opts.chart, { type: 'pie' }),
-                plotOptions: { pie: { innerSize: '55%', dataLabels: { style: { fontSize: '11px', fontFamily: "'DM Mono'" } } } },
+                plotOptions: { pie: { innerSize: '55%', dataLabels: { style: { fontSize: '11px', fontFamily: "'JetBrains Mono'" } } } },
                 series: [{ name: chartCfg.seriesName || 'Valor', data: donutData, colorByPoint: true }],
                 tooltip: { pointFormat: scores.discountAmounts ? '<b>{point.name}: R$ {point.y:,.0f} ({point.percentage:.0f}%)</b>' : '<b>{point.percentage:.0f}%</b>' }
             });
         } else if (type === 'waterfall') {
             const base = 10;
             const cats = scores.cats || {};
-            const wfData = [{ name: 'Base', y: base, color: '#1B3A7A' }];
+            const wfData = [{ name: 'Base', y: base, color: '#7CA3C4' }];
             const catKeys = Object.keys(cats);
             catKeys.forEach(k => {
-                if (!cats[k].correct) wfData.push({ name: k, y: -(cats[k].discount || 0.1) * base, color: '#9A2020', isIntermediateSum: false });
+                if (!cats[k].correct) wfData.push({ name: k, y: -(cats[k].discount || 0.1) * base, color: '#C2564A', isIntermediateSum: false });
             });
-            wfData.push({ name: 'Valor Final', isSum: true, color: '#B8952A' });
+            wfData.push({ name: 'Valor Final', isSum: true, color: '#D9BE3D' });
             Object.assign(opts, {
                 chart: Object.assign({}, opts.chart, { type: 'waterfall' }),
                 xAxis: { type: 'category', labels: { style: { fontSize: '10px' } } },
@@ -1535,15 +1535,15 @@ const QuizEngine = ((() => {
                 chart: Object.assign({}, opts.chart, { type: 'columnrange', inverted: true }),
                 xAxis: {
                     categories: ['Sua empresa hoje', 'Benchmark do setor', 'Com preparação'],
-                    labels: { style: { fontSize: '11px', color: '#6B7A8D' } }
+                    labels: { style: { fontSize: '11px', color: '#B9D0E4' } }
                 },
                 yAxis: { title: { text: 'Enterprise Value (R$ M)' }, labels: { style: { fontSize: '10px' } } },
                 plotOptions: { columnrange: { grouping: false, borderWidth: 0, pointWidth: 28 } },
                 legend: { enabled: true },
                 series: [
-                    { name: 'Sua empresa hoje',   color: '#1B3A7A', data: [[toM(scores.min),      toM(scores.max)],      null, null] },
-                    { name: 'Benchmark do setor', color: '#6B7A8D', data: [null, [toM(scores.benchMin),  toM(scores.benchMax)],  null] },
-                    { name: 'Com preparação',     color: '#B8952A', data: [null, null, [toM(scores.consultMin), toM(scores.consultMax)]] }
+                    { name: 'Sua empresa hoje',   color: '#7CA3C4', data: [[toM(scores.min),      toM(scores.max)],      null, null] },
+                    { name: 'Benchmark do setor', color: '#D9BE3D', data: [null, [toM(scores.benchMin),  toM(scores.benchMax)],  null] },
+                    { name: 'Com preparação',     color: '#4CAF7D', data: [null, null, [toM(scores.consultMin), toM(scores.consultMax)]] }
                 ],
                 tooltip: { pointFormat: "<span style=\"color:{series.color}\">●</span> {series.name}: <b>R$ {point.low}M – R$ {point.high}M</b><br/>" }
             });
@@ -1555,11 +1555,11 @@ const QuizEngine = ((() => {
         if (scores.discountAmounts) {
             const d = scores.discountAmounts;
             return [
-                { name: 'Valor retido',        y: d.valorRetido, color: '#1B3A7A' },
-                { name: 'Desconto de porte',   y: d.porte,       color: '#9A2020' },
-                { name: 'Desconto de liquidez',y: d.liquidez,    color: '#B85820' },
-                { name: 'Riscos da empresa',   y: d.company,     color: '#C09030' },
-                { name: 'Desconto de região',  y: d.regiao,      color: '#6B7A8D' }
+                { name: 'Valor retido',        y: d.valorRetido, color: '#D9BE3D' },
+                { name: 'Desconto de porte',   y: d.porte,       color: '#C2564A' },
+                { name: 'Desconto de liquidez',y: d.liquidez,    color: '#3D6E96' },
+                { name: 'Riscos da empresa',   y: d.company,     color: '#7CA3C4' },
+                { name: 'Desconto de região',  y: d.regiao,      color: '#B9D0E4' }
             ].filter(item => item.y > 0);
         }
         if (scores.profiles) {
@@ -1569,19 +1569,19 @@ const QuizEngine = ((() => {
             const correctCount = Object.values(scores.cats).filter(c => c.correct).length;
             const errCount = Object.keys(scores.cats).length - correctCount;
             return [
-                { name: 'Acertos', y: correctCount, color: '#1B3A7A' },
-                { name: 'Erros',   y: errCount,     color: '#EEF2F9' }
+                { name: 'Acertos', y: correctCount, color: '#D9BE3D' },
+                { name: 'Erros',   y: errCount,     color: 'rgba(231,235,240,.15)' }
             ];
         }
         return [
-            { name: 'Score',    y: scores.main,                          color: '#1B3A7A' },
-            { name: 'Restante', y: (scores.max || 10) - scores.main,     color: '#EEF2F9' }
+            { name: 'Score',    y: scores.main,                          color: '#D9BE3D' },
+            { name: 'Restante', y: (scores.max || 10) - scores.main,     color: 'rgba(231,235,240,.15)' }
         ];
     }
 
     function profileColor(profile) {
-        const map = { PE: '#0A1628', EST: '#1B3A7A', FAM: '#B8952A', CONC: '#2A52A8' };
-        return map[profile] || '#6B7A8D';
+        const map = { PE: '#0B1F3B', EST: '#3D6E96', FAM: '#D9BE3D', CONC: '#7CA3C4' };
+        return map[profile] || '#B9D0E4';
     }
 
     function makeDiv(className) {
@@ -1609,13 +1609,13 @@ const QuizEngine = ((() => {
 
     function shakeErr(el, msg) {
         var orig = el.style.borderColor;
-        el.style.borderColor = 'var(--danger,#9A2020)';
+        el.style.borderColor = 'var(--danger,#C2564A)';
         el.style.animation = 'qe-shake .35s ease';
         var errEl = el.parentNode && el.parentNode.querySelector('.qe-err-msg');
         if (!errEl && el.parentNode) {
             errEl = document.createElement('div');
             errEl.className = 'qe-err-msg';
-            errEl.style.cssText = 'color:var(--danger,#9A2020);font-size:12px;margin-top:6px;font-family:var(--ep,"Epilogue",sans-serif);';
+            errEl.style.cssText = 'color:var(--danger,#C2564A);font-size:12px;margin-top:6px;font-family:var(--ep,"Inter",sans-serif);';
             el.parentNode.insertBefore(errEl, el.nextSibling);
         }
         if (errEl) errEl.textContent = msg || 'Campo inválido.';

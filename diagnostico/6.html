@@ -16,57 +16,57 @@
 <style>
   .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; }
   .quiz-welcome { text-align: center; padding: 2rem 0 1rem; }
-  .quiz-badge { display: inline-block; background: var(--ice); color: var(--royal); font-size: .75rem; font-family: var(--mo); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .8rem; border-radius: 999px; margin-bottom: 1rem; }
-  .quiz-title { font-family: var(--cg); font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.2; margin-bottom: .75rem; }
-  .quiz-sub { color: var(--royal); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.6; }
-  .quiz-intro { background: var(--ice); border-radius: 12px; padding: 1.25rem 1.5rem; font-size: .92rem; color: var(--navy); line-height: 1.65; margin-bottom: 2rem; text-align: left; }
+  .quiz-badge { display: inline-block; background: var(--ice); color: var(--royal2); font-size: .75rem; font-family: var(--mo); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .8rem; border-radius: 2px; margin-bottom: 1rem; }
+  .quiz-title { font-family: var(--cg); font-size: clamp(1.4rem, 4vw, 2rem); color: var(--slate2); line-height: 1.2; margin-bottom: .75rem; }
+  .quiz-sub { color: var(--royal2); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.6; }
+  .quiz-intro { background: var(--ice); border-radius: 2px; padding: 1.25rem 1.5rem; font-size: .92rem; color: var(--slate2); line-height: 1.65; margin-bottom: 2rem; text-align: left; }
   .progress-bar { height: 4px; background: var(--ice); border-radius: 2px; margin-bottom: 2.5rem; }
   .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width .4s ease; }
-  .progress-label { font-family: var(--mo); font-size: .75rem; color: #6b7280; text-align: right; margin-bottom: .4rem; }
+  .progress-label { font-family: var(--mo); font-size: .75rem; color: var(--slate); text-align: right; margin-bottom: .4rem; }
   .question-block { animation: fadeIn .3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .question-num { font-family: var(--mo); font-size: .75rem; color: var(--gold); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; }
-  .question-text { font-size: 1.15rem; color: var(--navy); font-weight: 600; line-height: 1.5; margin-bottom: 1.75rem; }
+  .question-text { font-size: 1.15rem; color: var(--slate2); font-weight: 600; line-height: 1.5; margin-bottom: 1.75rem; }
   .scale-wrap { display: flex; flex-direction: column; gap: .5rem; }
-  .scale-labels { display: flex; justify-content: space-between; font-size: .78rem; color: #6b7280; font-family: var(--mo); margin-bottom: .25rem; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: .78rem; color: var(--slate); font-family: var(--mo); margin-bottom: .25rem; }
   .scale-options { display: flex; gap: .6rem; justify-content: center; }
-  .scale-btn { width: 48px; height: 48px; border-radius: 8px; border: 2px solid var(--ice); background: white; font-family: var(--mo); font-size: .95rem; font-weight: 700; color: var(--navy); cursor: pointer; transition: all .2s; flex-shrink: 0; }
-  .scale-btn:hover { border-color: var(--royal); background: var(--ice); }
-  .scale-btn.selected { border-color: var(--gold); background: var(--gold); color: white; }
+  .scale-btn { width: 48px; height: 48px; border-radius: 2px; border: 2px solid var(--ruledark); background: var(--white); font-family: var(--mo); font-size: .95rem; font-weight: 700; color: var(--slate2); cursor: pointer; transition: all .2s; flex-shrink: 0; }
+  .scale-btn:hover { border-color: var(--royal2); background: var(--ice); }
+  .scale-btn.selected { border-color: var(--gold); background: var(--gold); color: var(--navy); }
   .nav-btns { display: flex; gap: 1rem; margin-top: 2rem; }
-  .btn-back { background: transparent; border: 2px solid var(--ice); color: var(--navy); padding: .65rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: .9rem; transition: all .2s; }
-  .btn-back:hover { border-color: var(--royal); }
-  .btn-next { background: var(--navy); color: white; border: none; padding: .65rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: .95rem; transition: background .2s; margin-left: auto; }
+  .btn-back { background: transparent; border: 2px solid var(--ruledark); color: var(--slate2); padding: .65rem 1.5rem; border-radius: 2px; font-weight: 600; cursor: pointer; font-size: .9rem; transition: all .2s; }
+  .btn-back:hover { border-color: var(--royal2); }
+  .btn-next { background: var(--navy); color: white; border: none; padding: .65rem 2rem; border-radius: 2px; font-weight: 700; cursor: pointer; font-size: .95rem; transition: background .2s; margin-left: auto; }
   .btn-next:hover { background: var(--royal); }
-  .btn-next:disabled { background: #d1d5db; cursor: not-allowed; }
+  .btn-next:disabled { background: rgba(231,235,240,.12); color: rgba(255,255,255,.35); cursor: not-allowed; }
   .result-block { animation: fadeIn .4s ease; }
   .result-quadrant { text-align: center; padding: 2rem 0 1rem; }
   .quadrant-label { font-family: var(--cg); font-size: 1.1rem; color: var(--gold); font-weight: 700; letter-spacing: .04em; margin-bottom: .4rem; }
-  .quadrant-title { font-family: var(--cg); font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--navy); margin-bottom: 1rem; line-height: 1.2; }
-  .quadrant-desc { color: #374151; line-height: 1.7; font-size: 1rem; margin-bottom: 1.5rem; }
+  .quadrant-title { font-family: var(--cg); font-size: clamp(1.3rem, 4vw, 1.8rem); color: var(--slate2); margin-bottom: 1rem; line-height: 1.2; }
+  .quadrant-desc { color: var(--slate2); opacity: .85; line-height: 1.7; font-size: 1rem; margin-bottom: 1.5rem; }
   .axis-bars { display: flex; flex-direction: column; gap: .75rem; margin: 1.5rem 0; }
   .axis-bar-row { display: flex; align-items: center; gap: .75rem; font-size: .85rem; }
-  .axis-bar-label { width: 80px; text-align: right; font-family: var(--mo); font-size: .75rem; color: #6b7280; }
-  .axis-bar-track { flex: 1; height: 8px; background: var(--ice); border-radius: 4px; position: relative; }
-  .axis-bar-fill { height: 100%; border-radius: 4px; background: var(--gold); position: absolute; }
-  .axis-bar-label-r { width: 80px; font-family: var(--mo); font-size: .75rem; color: #6b7280; }
-  #chart-container { border-radius: 12px; overflow: hidden; margin: 1.5rem 0; }
-  .careers-block { background: var(--ice); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-  .careers-block h3 { font-family: var(--cg); font-size: 1.1rem; color: var(--navy); margin-bottom: .75rem; }
+  .axis-bar-label { width: 80px; text-align: right; font-family: var(--mo); font-size: .75rem; color: var(--slate); }
+  .axis-bar-track { flex: 1; height: 8px; background: var(--ice); border-radius: 2px; position: relative; }
+  .axis-bar-fill { height: 100%; border-radius: 2px; background: var(--gold); position: absolute; }
+  .axis-bar-label-r { width: 80px; font-family: var(--mo); font-size: .75rem; color: var(--slate); }
+  #chart-container { border-radius: 2px; overflow: hidden; margin: 1.5rem 0; }
+  .careers-block { background: var(--ice); border-radius: 2px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+  .careers-block h3 { font-family: var(--cg); font-size: 1.1rem; color: var(--slate2); margin-bottom: .75rem; }
   .careers-list { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .career-tag { background: white; border: 1px solid #e5e7eb; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; color: var(--royal); font-weight: 600; }
+  .career-tag { background: var(--white); border: 1px solid var(--ruledark); border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; color: var(--royal2); font-weight: 600; }
   .cert-tag { background: var(--navy); color: white; border-radius: 999px; padding: .3rem .85rem; font-size: .82rem; font-weight: 600; }
-  .axis-legend { background: var(--ice); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: .5rem; }
-  .axis-legend-item { font-size: .83rem; color: #374151; line-height: 1.55; }
-  .axis-legend-term { font-family: var(--mo); font-weight: 700; color: var(--navy); margin-right: .35rem; }
-  .ressalva { font-size: .85rem; color: #6b7280; line-height: 1.65; border-top: 1px solid var(--ice); padding-top: 1rem; margin-top: 1rem; }
-  .cta-box { background: var(--navy); color: white; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem; }
-  .cta-box p { color: #c7d2fe; font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
-  .cta-btn { display: inline-block; background: var(--gold); color: white; font-weight: 700; padding: .8rem 2rem; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background .2s; }
+  .axis-legend { background: var(--ice); border-radius: 2px; padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: .5rem; }
+  .axis-legend-item { font-size: .83rem; color: var(--slate); line-height: 1.55; }
+  .axis-legend-term { font-family: var(--mo); font-weight: 700; color: var(--slate2); margin-right: .35rem; }
+  .ressalva { font-size: .85rem; color: var(--slate); line-height: 1.65; border-top: 1px solid var(--ruledark); padding-top: 1rem; margin-top: 1rem; }
+  .cta-box { background: var(--navy); color: white; border-radius: 2px; padding: 2rem; text-align: center; margin-top: 2rem; }
+  .cta-box p { color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+  .cta-btn { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 700; padding: .8rem 2rem; border-radius: 2px; text-decoration: none; font-size: 1rem; transition: background .2s; }
   .cta-btn:hover { background: var(--gold2); }
-  .binary-option { width: 100%; text-align: left; padding: 1rem 1.25rem; border-radius: 8px; border: 2px solid var(--ice); background: white; font-size: .95rem; color: var(--navy); cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: .75rem; line-height: 1.45; }
-  .binary-option:hover { border-color: var(--royal); background: var(--ice); }
-  .binary-option.selected { border-color: var(--gold); background: rgba(184,149,42,.07); }
+  .binary-option { width: 100%; text-align: left; padding: 1rem 1.25rem; border-radius: 2px; border: 2px solid var(--ruledark); background: var(--white); font-size: .95rem; color: var(--slate2); cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: .75rem; line-height: 1.45; }
+  .binary-option:hover { border-color: var(--royal2); background: var(--ice); }
+  .binary-option.selected { border-color: var(--gold); background: rgba(217,190,61,.10); }
   .binary-label { font-family: var(--mo); font-weight: 700; font-size: .95rem; color: var(--gold); min-width: 1.4rem; flex-shrink: 0; }
   @media (max-width: 520px) {
     .scale-options { gap: .35rem; }
@@ -101,7 +101,7 @@
     <div style="text-align:center">
       <button class="btn-next" style="margin:0 auto;display:inline-block;padding:.8rem 2.5rem;font-size:1rem" onclick="startQuiz()">Começar →</button>
     </div>
-    <p style="text-align:center;font-size:.8rem;color:#9ca3af;margin-top:1rem;font-family:var(--mo)">⏱ 4 min · Gratuito</p>
+    <p style="text-align:center;font-size:.8rem;color:var(--slate);margin-top:1rem;font-family:var(--mo)">⏱ 4 min · Gratuito</p>
   </div>
 
   <!-- QUESTION SCREEN -->
@@ -395,12 +395,12 @@ function showResult() {
 
       <div class="careers-block">
         <h3>Hard skills do seu perfil</h3>
-        <p style="font-size:.9rem;color:#374151;margin:0">${q.hardSkills}</p>
+        <p style="font-size:.9rem;color:var(--slate2);opacity:.85;margin:0">${q.hardSkills}</p>
       </div>
 
       <div class="careers-block">
         <h3>Soft skills do seu perfil</h3>
-        <p style="font-size:.9rem;color:#374151;margin:0">${q.softSkills}</p>
+        <p style="font-size:.9rem;color:var(--slate2);opacity:.85;margin:0">${q.softSkills}</p>
       </div>
 
       <div class="ressalva">
@@ -410,7 +410,7 @@ function showResult() {
       <div class="cta-box">
         <p>Quer aprofundar esse direcionamento com quem já viveu M&A e mercado financeiro na prática?</p>
         <a href="/contato" class="cta-btn">Falar com Alexandre →</a>
-        <p style="margin-top:.75rem;font-size:.8rem;color:#6366f1">Por Alexandre Cracovsky, CFA</p>
+        <p style="margin-top:.75rem;font-size:.8rem;color:var(--gold2)">Por Alexandre Cracovsky, CFA</p>
       </div>
     </div>
   `;
@@ -421,9 +421,9 @@ function showResult() {
 function renderAxisBar(val, axis) {
   const pct = ((val + 6) / 12) * 100;
   const clampedPct = Math.max(0, Math.min(100, pct));
-  const color = '#B8952A';
+  const color = '#D9BE3D';
   return `<div class="axis-bar-fill" style="left:${Math.min(50, clampedPct)}%;width:${Math.abs(clampedPct - 50)}%;background:${color}"></div>
-          <div style="position:absolute;top:-2px;left:50%;width:2px;height:12px;background:#e5e7eb"></div>`;
+          <div style="position:absolute;top:-2px;left:50%;width:2px;height:12px;background:rgba(231,235,240,.3)"></div>`;
 }
 
 function renderChart(rawX, rawY, quadrantKey) {
@@ -460,35 +460,35 @@ function renderChart(rawX, rawY, quadrantKey) {
   Highcharts.chart('chart-container', {
     chart: {
       type: 'scatter',
-      backgroundColor: '#F8F9FC',
+      backgroundColor: 'transparent',
       margin: [50, 30, 50, 30],
-      style: { fontFamily: 'Epilogue, sans-serif' }
+      style: { fontFamily: "'Inter', sans-serif" }
     },
-    title: { text: 'Seu posicionamento no mapa de perfis', style: { color: '#0A1628', fontSize: '13px', fontWeight: '600' } },
+    title: { text: 'Seu posicionamento no mapa de perfis', style: { color: '#E7EBF0', fontSize: '13px', fontWeight: '600' } },
     credits: { enabled: false },
     legend: { enabled: false },
     xAxis: {
       min: -6, max: 6,
-      title: { text: '← Vertical  ·  Horizontal →', style: { color: '#6b7280', fontSize: '11px' } },
+      title: { text: '← Vertical  ·  Horizontal →', style: { color: '#B9D0E4', fontSize: '11px' } },
       tickInterval: 3,
-      plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
+      plotLines: [{ value: 0, color: 'rgba(231,235,240,.3)', width: 1.5, zIndex: 2 }],
       plotBands: [
-        { from: -6, to: 0, color: 'rgba(27,58,122,.04)' },
-        { from: 0, to: 6, color: 'rgba(184,149,42,.04)' }
+        { from: -6, to: 0, color: 'rgba(61,110,150,.08)' },
+        { from: 0, to: 6, color: 'rgba(217,190,61,.08)' }
       ],
-      gridLineColor: '#e5e7eb',
-      lineColor: '#e5e7eb'
+      gridLineColor: 'rgba(231,235,240,.12)',
+      lineColor: 'rgba(231,235,240,.2)'
     },
     yAxis: {
       min: -6, max: 6,
-      title: { text: '← Analítico  ·  Comercial →', style: { color: '#6b7280', fontSize: '11px' } },
+      title: { text: '← Analítico  ·  Comercial →', style: { color: '#B9D0E4', fontSize: '11px' } },
       tickInterval: 3,
-      plotLines: [{ value: 0, color: '#d1d5db', width: 1.5, zIndex: 2 }],
+      plotLines: [{ value: 0, color: 'rgba(231,235,240,.3)', width: 1.5, zIndex: 2 }],
       plotBands: [
-        { from: -6, to: 0, color: 'rgba(27,58,122,.04)' },
-        { from: 0, to: 6, color: 'rgba(13,110,110,.04)' }
+        { from: -6, to: 0, color: 'rgba(61,110,150,.08)' },
+        { from: 0, to: 6, color: 'rgba(76,175,125,.08)' }
       ],
-      gridLineColor: '#e5e7eb'
+      gridLineColor: 'rgba(231,235,240,.12)'
     },
     tooltip: {
       formatter: function() {
@@ -505,15 +505,15 @@ function renderChart(rawX, rawY, quadrantKey) {
         dataLabels: {
           enabled: true,
           formatter: function() { return this.point.name; },
-          style: { color: '#1B3A7A', fontSize: '9px', fontWeight: '400', textOutline: 'none' },
+          style: { color: '#B9D0E4', fontSize: '9px', fontWeight: '400', textOutline: 'none' },
           allowOverlap: true
         }
       },
       {
         name: 'Você',
         data: [[X, Y]],
-        marker: { radius: 10, fillColor: '#B8952A', lineColor: 'white', lineWidth: 2 },
-        dataLabels: { enabled: true, format: 'Você', style: { color: '#0A1628', fontWeight: '700', fontSize: '11px' }, y: -16 }
+        marker: { radius: 10, fillColor: '#D9BE3D', lineColor: '#071630', lineWidth: 2 },
+        dataLabels: { enabled: true, format: 'Você', style: { color: '#D9BE3D', fontWeight: '700', fontSize: '11px' }, y: -16 }
       }
     ]
   });
