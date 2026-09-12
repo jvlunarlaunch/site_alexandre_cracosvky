@@ -293,7 +293,7 @@
   padding:20px 0;
 }
 .book-ed-img{
-  width:100%;max-width:300px;
+  width:100%;max-width:420px;
   display:block;position:relative;z-index:1;
   margin:0 auto;
 }
@@ -301,8 +301,78 @@
 @media(max-width:768px){
   .book-ed-inner{grid-template-columns:1fr;gap:40px;}
   .book-ed-visual{order:-1;}
-  .book-ed-img{max-width:200px;}
+  .book-ed-img{max-width:260px;}
   .book-ed-ghost{display:none;}
+}
+
+/* ─── Book popup ─── */
+.book-popup-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(7,22,48,.86);
+  backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  opacity:0;transition:opacity .35s ease;
+}
+.book-popup-overlay[hidden]{display:none;}
+.book-popup-overlay.is-open{opacity:1;}
+.book-popup{
+  position:relative;
+  background:var(--ice);
+  border:1px solid rgba(217,190,61,.25);
+  border-radius:2px;
+  box-shadow:var(--shadow);
+  max-width:640px;width:100%;
+  display:grid;grid-template-columns:200px 1fr;gap:0;
+  overflow:hidden;
+  transform:scale(.94) translateY(10px);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.book-popup-overlay.is-open .book-popup{transform:scale(1) translateY(0);}
+.book-popup-close{
+  position:absolute;top:12px;right:12px;z-index:2;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(11,31,59,.55);border:1px solid rgba(231,235,240,.25);
+  color:#fff;font-size:18px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+}
+.book-popup-close:hover{background:rgba(11,31,59,.85);}
+.book-popup-visual{
+  background:var(--navy-deep,var(--navy));
+  display:flex;align-items:center;justify-content:center;
+  padding:24px 16px;
+}
+.book-popup-img{width:100%;max-width:160px;display:block;}
+.book-popup-body{padding:32px 28px;}
+.book-popup-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mo);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);border:.5px solid rgba(217,190,61,.35);
+  padding:5px 12px;border-radius:2px;margin-bottom:16px;
+  background:rgba(217,190,61,.08);
+}
+.book-popup-title{
+  font-family:var(--cg);font-size:22px;font-weight:400;
+  color:var(--slate2);line-height:1.25;margin:0 0 12px;
+}
+.book-popup-sub{
+  font-family:var(--ep);font-size:14.5px;line-height:1.65;
+  color:rgba(231,235,240,.75);margin:0 0 22px;
+}
+.book-popup-cta{
+  font-family:var(--ep);font-size:14px;font-weight:500;
+  background:var(--navy);color:#fff;
+  padding:12px 22px;border-radius:2px;letter-spacing:.04em;
+  display:inline-flex;align-items:center;gap:9px;
+  text-decoration:none;transition:background .2s,transform .2s,box-shadow .2s;
+}
+.book-popup-cta:hover{background:var(--royal);transform:translateX(4px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+@media(max-width:560px){
+  .book-popup{grid-template-columns:1fr;max-width:360px;}
+  .book-popup-visual{padding:28px 16px 12px;}
+  .book-popup-img{max-width:140px;}
+  .book-popup-body{padding:24px 22px 28px;}
 }
 
 /* ─── Contact CTA section ─── */
@@ -541,18 +611,18 @@
     <div>
       <div class="book-ed-tag">
         <span class="book-ed-dot"></span>
-        Pré-lançamento · 2026
+        Pré-venda aberta
       </div>
-      <h2 class="book-ed-h2">Está chegando. O livro de valuation e M&amp;A que o mercado brasileiro<br><em>ainda não tinha.</em></h2>
+      <h2 class="book-ed-h2">O livro de valuation e M&amp;A que o mercado brasileiro<br><em>ainda não tinha.</em></h2>
       <div class="book-ed-divider"></div>
-      <p class="book-ed-sub">Valuation, Estratégia e M&amp;A. Mais de uma década assessorando transações. Bilhões em negócios e experiência real na mesa de negociação. Um livro para quem quer entender o que realmente determina o valor de uma empresa. Entre na lista de pré-lançamento e tenha acesso antecipado.</p>
-      <a href="/livro" class="book-ed-cta">
-        Entrar na pré-lista
+      <p class="book-ed-sub">Valuation, Estratégia e M&amp;A. Mais de uma década assessorando transações. Bilhões em negócios e experiência real na mesa de negociação. Um livro para quem quer entender o que realmente determina o valor de uma empresa. Garanta o seu na pré-venda.</p>
+      <a href="https://redirectlivro.agencialunarlaunch.workers.dev/livro" class="book-ed-cta" target="_blank" rel="noopener">
+        Garantir meu exemplar
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
     <div class="book-ed-visual">
-      <img src="./assets/livro_secreto_cracosky.png" alt="Novo livro — Alexandre Cracovsky, CFA" class="book-ed-img">
+      <img src="./assets/3d-valuation-estrategia-ma.png" alt="Livro Valuation, Estratégia e M&amp;A — Alexandre Cracovsky, CFA" class="book-ed-img">
     </div>
   </div>
 </section>
@@ -627,6 +697,71 @@
   </div>
   <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
 </footer>
+
+<!-- ─── Book popup ─── -->
+<div class="book-popup-overlay" id="bookPopupOverlay" hidden>
+  <div class="book-popup" role="dialog" aria-modal="true" aria-labelledby="bookPopupTitle">
+    <button type="button" class="book-popup-close" id="bookPopupClose" aria-label="Fechar">&times;</button>
+    <div class="book-popup-visual">
+      <img src="./assets/3d-valuation-estrategia-ma.png" alt="Livro Valuation, Estratégia e M&amp;A — Alexandre Cracovsky, CFA" class="book-popup-img">
+    </div>
+    <div class="book-popup-body">
+      <div class="book-popup-tag">
+        <span class="book-ed-dot"></span>
+        Pré-venda aberta
+      </div>
+      <h3 id="bookPopupTitle" class="book-popup-title">Valuation, Estratégia e M&amp;A</h3>
+      <p class="book-popup-sub">O livro de Alexandre Cracovsky, CFA, para construir uma empresa que o mercado queira comprar. Garanta o seu na pré-venda.</p>
+      <a href="https://redirectlivro.agencialunarlaunch.workers.dev/livro" class="book-popup-cta" target="_blank" rel="noopener">
+        Garantir meu exemplar
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('bookPopupOverlay');
+  var closeBtn = document.getElementById('bookPopupClose');
+  if(!overlay || !closeBtn) return;
+  var lastFocused = null;
+
+  function focusableEls(){
+    return overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  }
+
+  function openPopup(){
+    lastFocused = document.activeElement;
+    overlay.hidden = false;
+    requestAnimationFrame(function(){ overlay.classList.add('is-open'); });
+    closeBtn.focus();
+    document.addEventListener('keydown', onKeydown);
+  }
+
+  function closePopup(){
+    overlay.classList.remove('is-open');
+    document.removeEventListener('keydown', onKeydown);
+    setTimeout(function(){ overlay.hidden = true; }, 350);
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  function onKeydown(e){
+    if(e.key === 'Escape'){ closePopup(); return; }
+    if(e.key === 'Tab'){
+      var els = focusableEls();
+      if(!els.length) return;
+      var first = els[0], last = els[els.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closePopup(); });
+
+  window.addEventListener('load', function(){ setTimeout(openPopup, 500); });
+})();
+</script>
 <script>
 (function(){
   if(!('ontouchstart' in window) && !navigator.maxTouchPoints) return;
