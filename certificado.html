@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPYX87CYFQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPYX87CYFQ');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Formação em Valuation, Estratégia e M&amp;A · Lista de espera</title>
+<meta name="description" content="Formação com certificado em Valuation, Estratégia e M&amp;A, com Alexandre Cracovsky, CFA. Entre na lista de espera.">
+<meta property="og:title" content="Formação em Valuation, Estratégia e M&amp;A">
+<meta property="og:description" content="Formação com certificado. Entre na lista de espera e seja avisado primeiro.">
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+.cert-page { flex:1; display:flex; flex-direction:column; min-height:100svh; background:var(--navy-deep); }
+.cert-top { padding:28px 48px 0; }
+.cert-main { flex:1; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px 72px; grid-template-areas:"intro panel" "sign panel"; align-items:center; align-content:center; max-width:1200px; width:100%; margin:0 auto; padding:56px 48px 72px; }
+
+/* ---- título ---- */
+.cert-h1 { color:var(--slate2); }
+.cert-h1-lead { display:block; font-family:var(--ep); font-weight:300; font-size:clamp(22px,2.4vw,30px); letter-spacing:-.01em; margin-bottom:10px; color:var(--slate); }
+.cert-h1-name { display:block; font-family:var(--cg); font-weight:400; font-size:clamp(40px,6.4vw,88px); line-height:.98; letter-spacing:-.02em; }
+.cert-sub { font-family:var(--ep); font-size:17px; font-weight:300; line-height:1.6; color:var(--slate); max-width:42ch; margin-top:28px; }
+
+/* ---- assinatura ---- */
+.cert-intro { grid-area:intro; align-self:end; }
+.cert-panel { grid-area:panel; }
+.cert-sign { grid-area:sign; align-self:start; width:max-content; max-width:100%; }
+.cert-sign-name { font-family:var(--script); font-weight:600; font-size:34px; line-height:1; color:var(--slate2); padding:0 8px 6px; transform:rotate(-2deg); }
+.cert-sign-line { height:1px; background:var(--gold); transform-origin:left center; animation:cert-draw 1.1s cubic-bezier(.6,0,.2,1) .3s both; }
+.cert-sign-role { font-family:var(--ep); font-size:13px; color:var(--slate); opacity:.75; margin-top:8px; }
+@keyframes cert-draw { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+
+/* ---- formulário ---- */
+.cert-panel { background:var(--navy); border-top:2px solid var(--gold); padding:36px 32px 32px; }
+.cert-field + .cert-field { margin-top:22px; }
+.cert-label { display:block; font-family:var(--ep); font-size:14px; font-weight:500; color:var(--slate2); margin-bottom:6px; }
+.cert-input { width:100%; font-family:var(--ep); font-size:17px; font-weight:400; color:#fff; background:transparent; border:none; border-bottom:1.5px solid rgba(231,235,240,.28); border-radius:0; padding:10px 2px; outline:none; transition:border-color .2s; -webkit-appearance:none; }
+.cert-input::placeholder { color:rgba(231,235,240,.3); }
+.cert-input:focus { border-bottom-color:var(--gold); }
+.cert-input:focus-visible { outline:2px solid var(--gold); outline-offset:4px; }
+.cert-input:-webkit-autofill { -webkit-box-shadow:0 0 0 100px var(--navy) inset; -webkit-text-fill-color:#fff; }
+.cert-input[aria-invalid="true"] { border-bottom-color:var(--danger); }
+.cert-err { font-family:var(--ep); font-size:13px; color:#E58A7F; margin-top:6px; min-height:0; }
+.cert-err:empty { display:none; }
+
+.cert-btn { width:100%; margin-top:32px; font-family:var(--ep); font-size:16px; font-weight:600; color:var(--navy-deep); background:var(--gold); border:none; border-radius:2px; padding:16px 20px; min-height:52px; cursor:pointer; transition:background .2s; }
+.cert-btn:hover { background:var(--gold2); }
+.cert-btn:focus-visible { outline:2px solid var(--gold2); outline-offset:3px; }
+.cert-btn:disabled { opacity:.6; cursor:progress; }
+.cert-fail { font-family:var(--ep); font-size:14px; color:#E58A7F; margin-top:14px; }
+.cert-fail:empty { display:none; }
+.cert-note { font-family:var(--ep); font-size:13px; color:var(--slate); opacity:.7; margin-top:14px; }
+.cert-note a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.cert-note a:hover { color:var(--gold2); }
+
+.cert-done { animation:cert-fade .35s ease both; }
+.cert-done-title { font-family:var(--cg); font-weight:400; font-size:28px; line-height:1.15; color:var(--slate2); margin-bottom:12px; }
+.cert-done-text { font-family:var(--ep); font-size:16px; font-weight:300; line-height:1.6; color:var(--slate); }
+.cert-done:focus { outline:none; }
+@keyframes cert-fade { from { opacity:0; } to { opacity:1; } }
+
+.cert-page .footer { background:var(--navy-deep); }
+
+@media (max-width:900px) {
+  .cert-main { grid-template-columns:1fr; grid-template-areas:"intro" "panel" "sign"; gap:32px; padding:40px 24px 56px; }
+  .cert-top { padding:24px 24px 0; }
+  .cert-intro { align-self:auto; }
+}
+@media (max-width:480px) {
+  .cert-top { padding:20px 16px 0; }
+  .cert-main { padding:32px 16px 48px; }
+  .cert-panel { padding:28px 20px 24px; }
+  .cert-sub { font-size:16px; }
+  .cert-sign-name { font-size:30px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .cert-sign-line, .cert-done { animation:none; }
+}
+</style>
+</head>
+<body>
+<div class="cert-page">
+  <header class="cert-top">
+    <a href="/" class="nav-logo">Alexandre <em>Cracovsky, CFA</em></a>
+  </header>
+
+  <main class="cert-main">
+    <div class="cert-intro">
+      <h1 class="cert-h1">
+        <span class="cert-h1-lead">Formação em</span>
+        <span class="cert-h1-name">Valuation,<br>Estratégia<br>e M&amp;A</span>
+      </h1>
+      <p class="cert-sub">Com certificado de conclusão. As inscrições ainda não abriram: entre na lista e seja avisado primeiro.</p>
+    </div>
+
+    <div class="cert-sign" aria-hidden="true">
+      <div class="cert-sign-name">Alexandre Cracovsky</div>
+      <div class="cert-sign-line"></div>
+      <div class="cert-sign-role">CFA, professor de Valuation e M&amp;A</div>
+    </div>
+
+    <div class="cert-panel" id="cert-panel" aria-live="polite">
+      <form id="cert-form" novalidate>
+        <div class="cert-field">
+          <label class="cert-label" for="f-nome">Nome</label>
+          <input class="cert-input" id="f-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" aria-describedby="e-nome" required>
+          <p class="cert-err" id="e-nome"></p>
+        </div>
+        <div class="cert-field">
+          <label class="cert-label" for="f-email">E-mail</label>
+          <input class="cert-input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="voce@email.com" aria-describedby="e-email" required>
+          <p class="cert-err" id="e-email"></p>
+        </div>
+        <div class="cert-field">
+          <label class="cert-label" for="f-whatsapp">WhatsApp</label>
+          <input class="cert-input" id="f-whatsapp" name="whatsapp" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(11) 99999-9999" aria-describedby="e-whatsapp" required>
+          <p class="cert-err" id="e-whatsapp"></p>
+        </div>
+        <button class="cert-btn" type="submit" id="cert-btn">Entrar na lista de espera</button>
+        <p class="cert-fail" id="cert-fail" role="alert"></p>
+        <p class="cert-note">Sem spam. Veja a <a href="/politica-e-privacidade">Política de Privacidade</a>.</p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Alexandre <em>Cracovsky, CFA</em></div>
+      <div class="footer-copy">© 2026 · <a href="/politica-e-privacidade">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-trademark">CFA&#174; and Chartered Financial Analyst&#174; are registered trademarks owned by CFA Institute.</div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var TABLE = 'certificado_formacao_alexandre_cracovsky';
+  var form = document.getElementById('cert-form');
+  var btn = document.getElementById('cert-btn');
+  var fail = document.getElementById('cert-fail');
+  var panel = document.getElementById('cert-panel');
+  var fNome = document.getElementById('f-nome');
+  var fEmail = document.getElementById('f-email');
+  var fWpp = document.getElementById('f-whatsapp');
+
+  function digits(v) { return String(v).replace(/\D/g, ''); }
+
+  // Máscara simples: (11) 99999-9999
+  fWpp.addEventListener('input', function () {
+    var d = digits(fWpp.value).slice(0, 11);
+    var out = d;
+    if (d.length > 2) out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length > 6) out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
+    fWpp.value = out;
+  });
+
+  function setError(input, msg) {
+    var el = document.getElementById(input.getAttribute('aria-describedby'));
+    el.textContent = msg || '';
+    if (msg) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+    return !msg;
+  }
+
+  [fNome, fEmail, fWpp].forEach(function (input) {
+    input.addEventListener('input', function () {
+      if (input.getAttribute('aria-invalid')) setError(input, '');
+    });
+  });
+
+  function validate() {
+    var ok = [
+      setError(fNome, fNome.value.trim().length >= 2 ? '' : 'Informe seu nome.'),
+      setError(fEmail, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fEmail.value.trim()) ? '' : 'Informe um e-mail válido.'),
+      setError(fWpp, /^\d{10,11}$/.test(digits(fWpp.value)) ? '' : 'Informe um WhatsApp com DDD.')
+    ];
+    var first = [fNome, fEmail, fWpp][ok.indexOf(false)];
+    if (first) first.focus();
+    return !first;
+  }
+
+  function showDone(nome) {
+    var first = nome.split(/\s+/)[0];
+    var done = document.createElement('div');
+    done.className = 'cert-done';
+    done.tabIndex = -1;
+    var title = document.createElement('h2');
+    title.className = 'cert-done-title';
+    title.textContent = 'Você está na lista, ' + first + '.';
+    var text = document.createElement('p');
+    text.className = 'cert-done-text';
+    text.textContent = 'Avisaremos por e-mail e WhatsApp quando as inscrições abrirem.';
+    done.appendChild(title);
+    done.appendChild(text);
+    panel.replaceChildren(done);
+    done.focus();
+  }
+
+  function showFail() {
+    btn.disabled = false;
+    btn.textContent = 'Entrar na lista de espera';
+    fail.textContent = 'Não foi possível enviar. Verifique a conexão e tente de novo.';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fail.textContent = '';
+    if (!validate()) return;
+
+    var row = { nome: fNome.value.trim(), email: fEmail.value.trim(), whatsapp: fWpp.value.trim() };
+    if (!window._sb) { showFail(); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    window._sb.from(TABLE).insert(row).then(function (res) {
+      if (res && res.error) { showFail(); return; }
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { form: 'certificado' });
+      showDone(row.nome);
+    }, showFail);
+  });
+}());
+</script>
+</body>
+</html>
