@@ -517,6 +517,10 @@
     if(!v||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     v.muted=true;
     v.defaultMuted=true;
+    function setRate(){v.defaultPlaybackRate=0.25;v.playbackRate=0.25;}
+    setRate();
+    v.addEventListener('loadedmetadata',setRate);
+    v.addEventListener('play',setRate);
     function tryPlay(){
       if(!v.paused)return;
       var p=v.play();
