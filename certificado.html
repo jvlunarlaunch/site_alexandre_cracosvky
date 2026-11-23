@@ -300,6 +300,12 @@
       gap: 24px;
     }
 
+    @media (min-width: 960px) {
+      .audience { grid-template-columns: repeat(6, 1fr); }
+      .audience > .card { grid-column: span 2; }
+      .audience > .card:nth-child(n+4) { grid-column: span 3; }
+    }
+
     .card {
       display: flex;
       flex-direction: column;
@@ -870,30 +876,34 @@
     <section class="section">
       <div class="container">
         <div class="section__head">
-          <p class="eyebrow">Público</p>
           <h2 class="section__title">Para quem é a formação</h2>
         </div>
 
         <div class="audience">
           <article class="card">
             <span class="card__num">01</span>
-            <h3 class="card__title">Profissionais e Executivos</h3>
-            <p>Que querem se destacar na carreira com uma formação prática em valuation, estratégia e M&amp;A.</p>
+            <h3 class="card__title">Empresários</h3>
+            <p>Que querem construir uma empresa altamente avaliada e que o mercado queira comprar.</p>
           </article>
           <article class="card">
             <span class="card__num">02</span>
-            <h3 class="card__title">Estudantes</h3>
-            <p>Que querem aprender sobre o mundo das fusões e aquisições de empresas de forma aprofundada e melhorar o currículo.</p>
+            <h3 class="card__title">Executivos de Companhias e Bancos</h3>
+            <p>Que querem estar preparados para lidar com M&amp;A, melhorar o currículo e ter vantagem para lidar com o mercado em 2027.</p>
           </article>
           <article class="card">
             <span class="card__num">03</span>
             <h3 class="card__title">Advogados</h3>
-            <p>Que atuam em fusões e aquisições de empresas e precisam entender processos de due diligence, riscos e contratos bem-sucedidos.</p>
+            <p>Que atuam em fusões e aquisições de empresas e precisam entender sobre processos de due diligence, riscos, contratos bem-sucedidos e garantir negociações sem riscos.</p>
           </article>
           <article class="card">
             <span class="card__num">04</span>
-            <h3 class="card__title">Empresários</h3>
-            <p>Que querem saber como melhorar a gestão da empresa para um melhor valuation.</p>
+            <h3 class="card__title">Consultores</h3>
+            <p>Que querem entender sobre cases reais de M&amp;A, entender os principais erros e as principais soluções que resultam em sucesso.</p>
+          </article>
+          <article class="card">
+            <span class="card__num">05</span>
+            <h3 class="card__title">Analistas e Estudantes</h3>
+            <p>Que querem aprender M&amp;A do básico ao avançado, aprimorar o currículo e ter acesso a vagas altamente remuneradas no mercado financeiro.</p>
           </article>
         </div>
       </div>
