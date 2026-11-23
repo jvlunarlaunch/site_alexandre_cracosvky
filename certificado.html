@@ -353,34 +353,13 @@
       overflow: hidden;
     }
 
-    .kpi__head { padding: 22px 32px 0; }
-
-    .kpi__period {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-    }
-
-    .kpi__period::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
     .kpi__grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       margin: 0;
     }
 
-    .kpi__cell { padding: 20px 32px 28px; }
+    .kpi__cell { padding: 28px 32px; }
     .kpi__cell + .kpi__cell { border-left: 1px solid var(--line); }
 
     .kpi__cell dt {
@@ -505,9 +484,8 @@
 
     @media (max-width: 640px) {
       .market { padding: 24px 20px; }
-      .kpi__head { padding: 20px 20px 0; }
       .kpi__grid { grid-template-columns: 1fr; }
-      .kpi__cell { padding: 18px 20px 22px; }
+      .kpi__cell { padding: 22px 20px; }
       .kpi__cell + .kpi__cell { border-left: 0; border-top: 1px solid var(--line); }
       .kpi__source { padding: 14px 20px; }
       .market__chart { height: 300px; }
@@ -1102,9 +1080,6 @@
         </div>
 
         <div class="kpi">
-          <div class="kpi__head">
-            <span class="kpi__period">Acumulado de janeiro a setembro · 3T26</span>
-          </div>
           <dl class="kpi__grid">
             <div class="kpi__cell">
               <dt>Transações</dt>
@@ -1135,7 +1110,7 @@
               <strong>R$ 3,08 trilhões</strong> transacionados
             </span>
           </div>
-          <p class="market__source">Fontes: KPMG (número de transações) e TTR Data (volume). *2026: acumulado jan–set (3T26), TTR Data.</p>
+          <p class="market__source">Fontes: KPMG e TTR Data</p>
         </div>
 
         <div class="section__head section__head--spaced">
@@ -1475,7 +1450,7 @@
       var el = document.getElementById('ma-chart');
       if (!el || !window.Highcharts) return;
 
-      var years  = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026*'];
+      var years  = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
       var volume = [196.7, 201.3, 208.1, 295.4, 256.8, 583.4, 331.2, 214.5, 263.8, 281.4, 251.6];
       var deals  = [740, 830, 967, 1231, 1117, 1963, 1728, 1505, 1582, 1581, 968];
 
