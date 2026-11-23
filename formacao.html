@@ -692,7 +692,7 @@
     .unique {
       display: grid;
       grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      align-items: start;
+      align-items: center;
       gap: clamp(32px, 6vw, 88px);
     }
 
@@ -709,7 +709,10 @@
 
     .unique__title em {
       font-style: normal;
-      color: var(--gold);
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+      text-decoration-thickness: 5px;
+      text-underline-offset: 8px;
     }
 
     .unique__body { display: flex; flex-direction: column; gap: 36px; }
