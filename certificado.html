@@ -656,8 +656,17 @@
       gap: clamp(40px, 6vw, 80px);
     }
 
+    .prof__figure { margin: 0; }
+
+    .prof__caption {
+      margin-top: 32px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+    }
+
     .prof__photo {
-      margin: 0;
       aspect-ratio: 4 / 5;
       overflow: hidden;
       border-radius: var(--radius);
@@ -699,7 +708,9 @@
 
     @media (max-width: 820px) {
       .prof { grid-template-columns: 1fr; }
-      .prof__photo { max-width: 360px; box-shadow: none; }
+      .prof__figure { max-width: 360px; }
+      .prof__photo { box-shadow: none; }
+      .prof__caption { margin-top: 14px; }
       .prof__text { padding-left: 20px; }
     }
 
@@ -1286,9 +1297,12 @@
     <!-- ============ PROFESSOR ============ -->
     <section class="section section--rule">
       <div class="container prof">
-        <figure class="prof__photo">
-          <img src="assets/IMG_9714.JPEG" width="1200" height="1800" loading="lazy" decoding="async"
-               alt="Alexandre Cracovsky, CFA, sentado em frente a uma janela com prédios comerciais ao fundo">
+        <figure class="prof__figure">
+          <div class="prof__photo">
+            <img src="assets/IMG_9714.JPEG" width="1200" height="1800" loading="lazy" decoding="async"
+                 alt="Alexandre Cracovsky, CFA, sentado em frente a uma janela com prédios comerciais ao fundo">
+          </div>
+          <figcaption class="prof__caption">Alexandre Cracovsky, CFA</figcaption>
         </figure>
         <div class="prof__text">
           <p>
