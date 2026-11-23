@@ -645,6 +645,64 @@
     .unique__sign strong { font-family: var(--font-head); font-weight: 700; font-size: 18px; }
     .unique__sign span { font-size: 15px; color: var(--muted); }
 
+    /* ---------- Professor ---------- */
+
+    .section--rule { border-top: 1px solid var(--line); }
+
+    .prof {
+      display: grid;
+      grid-template-columns: minmax(260px, 400px) 1fr;
+      align-items: center;
+      gap: clamp(40px, 6vw, 80px);
+    }
+
+    .prof__photo {
+      margin: 0;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--bg-tint);
+      box-shadow: 16px 16px 0 -1px var(--bg-tint), 16px 16px 0 0 var(--line);
+    }
+
+    .prof__photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 30%;
+    }
+
+    .prof__text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 640px;
+      padding-left: 28px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .prof__text p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .prof__text p:first-child {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: clamp(20px, 2vw, 23px);
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    @media (max-width: 820px) {
+      .prof { grid-template-columns: 1fr; }
+      .prof__photo { max-width: 360px; box-shadow: none; }
+      .prof__text { padding-left: 20px; }
+    }
+
     /* ---------- Programa ---------- */
 
     .program {
@@ -1220,6 +1278,30 @@
             Com ampla experiência prática no mundo das fusões e aquisições, o Professor
             Alexandre Cracovsky, CFA usa de <strong>casos práticos e didática aprofundada
             em cases que a maioria dos cursos não aprofundam</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROFESSOR ============ -->
+    <section class="section section--rule">
+      <div class="container prof">
+        <figure class="prof__photo">
+          <img src="assets/IMG_9714.JPEG" width="1200" height="1800" loading="lazy" decoding="async"
+               alt="Alexandre Cracovsky, CFA, sentado em frente a uma janela com prédios comerciais ao fundo">
+        </figure>
+        <div class="prof__text">
+          <p>
+            Com trajetória construída no mercado financeiro, Alexandre Cracovsky atua há mais de
+            10 anos em M&amp;A, valuation e finanças corporativas — assessorando empresários e
+            formando profissionais que hoje estão nos principais fundos e bancos do país.
+          </p>
+          <p>
+            É Vice-Presidente de M&amp;A na ADVISIA Investimentos com +R$ 10Bi em transações e
+            professor na Link School of Business, CFA® Charterholder, Engenheiro Civil, mestre pela
+            FGV e doutorando em Administração de Empresas (FGV), sua abordagem combina rigor técnico
+            e clareza didática — traduzindo o que acontece dentro das transações em linguagem que
+            faz sentido fora delas.
           </p>
         </div>
       </div>
