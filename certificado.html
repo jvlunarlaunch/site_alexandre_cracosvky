@@ -1110,7 +1110,44 @@
     }
     .lead-form .btn[disabled] { opacity: 0.7; cursor: progress; }
     .lead-form__note { font-size: 12px; color: var(--muted); text-align: center; }
-    @media (max-width: 600px) { .lead-modal__inner { padding: 32px 20px 24px; } }
+    html.lead-open { overflow: hidden; }
+    .lead-modal { overscroll-behavior: contain; }
+    .lead-form input, .lead-form select { touch-action: manipulation; }
+
+    /* Celular: painel que sobe de baixo (bottom sheet), compacto e rolável */
+    @media (max-width: 600px) {
+      .lead-modal {
+        width: 100%; max-width: 100%;
+        max-height: 92vh; max-height: 92dvh;
+        margin: auto 0 0;               /* encosta no rodapé da tela */
+        border-radius: 16px 16px 0 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .lead-modal[open] { animation: lead-sheet-up 0.22s ease-out; }
+      .lead-modal__inner {
+        padding: 22px 20px calc(20px + env(safe-area-inset-bottom));
+      }
+      .lead-modal__inner::before {       /* "alça" do painel */
+        content: ""; display: block;
+        width: 40px; height: 4px; margin: -8px auto 14px;
+        border-radius: 2px; background: var(--line-strong);
+      }
+      .lead-modal__close { top: 8px; right: 8px; width: 44px; height: 44px; }
+      .lead-modal__title { font-size: 21px; padding-right: 40px; }
+      .lead-modal__desc { margin-top: 4px; font-size: 14px; }
+      .lead-form { margin-top: 16px; gap: 12px; }
+      .lead-form__field { gap: 4px; }
+      .lead-form label { font-size: 13px; }
+      .lead-form input, .lead-form select, .lead-phone__country { min-height: 46px; }
+      .lead-form .btn { min-height: 52px; }
+    }
+    @media (max-width: 600px) and (max-height: 600px) {
+      .lead-modal__desc { display: none; }
+      .lead-form { margin-top: 12px; gap: 10px; }
+    }
+    @keyframes lead-sheet-up { from { transform: translateY(40px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .lead-modal[open] { animation: none; } }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -1626,7 +1663,7 @@
       <form class="lead-form" id="lead-form" novalidate>
         <div class="lead-form__field">
           <label for="lead-nome">Nome</label>
-          <input id="lead-nome" name="nome" type="text" autocomplete="name" maxlength="120" required>
+          <input id="lead-nome" name="nome" type="text" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" maxlength="120" required>
         </div>
 
         <div class="lead-form__field">
@@ -1644,7 +1681,7 @@
 
         <div class="lead-form__field" id="lead-cargo-outro-field" hidden>
           <label for="lead-cargo-outro">Qual o seu cargo?</label>
-          <input id="lead-cargo-outro" name="cargo_outro" type="text" maxlength="120">
+          <input id="lead-cargo-outro" name="cargo_outro" type="text" autocapitalize="sentences" enterkeyhint="next" maxlength="120">
         </div>
 
         <div class="lead-form__field">
@@ -1655,7 +1692,7 @@
               <svg class="lead-phone__chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
               <select id="lead-pais" name="pais" aria-label="País do número de WhatsApp"></select>
             </div>
-            <input id="lead-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" required>
+            <input id="lead-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" enterkeyhint="go" placeholder="(11) 91234-5678" required>
           </div>
         </div>
 
@@ -1697,6 +1734,7 @@
       var errorEl = document.getElementById('lead-error');
       var submitBtn = form.querySelector('button[type="submit"]');
       var checkoutUrl = '';
+      var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
       document.querySelectorAll('a[data-checkout]').forEach(function (a) {
         a.addEventListener('click', function (e) {
@@ -1704,11 +1742,31 @@
           checkoutUrl = a.href;
           hideError();
           modal.showModal();
-          nome.focus();
+          document.documentElement.classList.add('lead-open'); // trava a rolagem da página atrás
+          modal.scrollTop = 0;
+          // No celular não abre o teclado sozinho: a pessoa vê o formulário inteiro antes.
+          if (!isTouch) nome.focus();
         });
       });
 
       modal.querySelector('[data-close]').addEventListener('click', function () { modal.close(); });
+      modal.addEventListener('close', function () { document.documentElement.classList.remove('lead-open'); });
+
+      // "Próximo" no teclado do celular pula para o campo seguinte em vez de enviar.
+      [nome, cargoOutro].forEach(function (el) {
+        el.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          if (el === nome) { cargo.focus(); if (isTouch && cargo.showPicker) try { cargo.showPicker(); } catch (_) {} }
+          else whatsapp.focus();
+        });
+      });
+
+      // Mantém o campo em foco visível quando o teclado do celular abre.
+      form.addEventListener('focusin', function (e) {
+        if (!isTouch) return;
+        setTimeout(function () { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 300);
+      });
       modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
 
       cargo.addEventListener('change', function () {
@@ -1884,6 +1942,7 @@
         errorEl.textContent = msg;
         errorEl.hidden = false;
         if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+        errorEl.scrollIntoView({ block: 'nearest' });
       }
       function hideError() {
         errorEl.hidden = true;
