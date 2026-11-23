@@ -344,35 +344,79 @@
 
     .market--chart { margin-bottom: 0; }
 
-    .market__stats {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 16px 40px;
+    .kpi {
+      margin-bottom: 24px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
-    .market__stat {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
+    .kpi__head { padding: 22px 32px 0; }
+
+    .kpi__period {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .kpi__period::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .kpi__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       margin: 0;
     }
 
-    .market__stat + .market__stat {
-      padding-left: 40px;
-      border-left: 1px solid var(--line-strong);
+    .kpi__cell { padding: 20px 32px 28px; }
+    .kpi__cell + .kpi__cell { border-left: 1px solid var(--line); }
+
+    .kpi__cell dt {
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: var(--muted);
     }
 
-    .market__stat strong {
+    .kpi__cell dd {
+      margin: 0;
       font-family: var(--font-head);
-      font-weight: 800;
-      font-size: clamp(36px, 5vw, 56px);
       line-height: 1;
-      letter-spacing: -0.02em;
       color: var(--navy);
+      white-space: nowrap;
     }
 
-    .market__stat span { font-size: 17px; color: var(--muted); }
+    .kpi__cell dd strong {
+      font-weight: 800;
+      font-size: clamp(40px, 5.5vw, 64px);
+      letter-spacing: -0.025em;
+    }
+
+    .kpi__cell dd span {
+      font-weight: 700;
+      font-size: clamp(18px, 2vw, 24px);
+      letter-spacing: -0.01em;
+    }
+
+    .kpi__source {
+      margin: 0;
+      padding: 14px 32px;
+      border-top: 1px solid var(--line);
+      background: var(--bg-tint);
+      font-size: 14px;
+      color: var(--muted);
+    }
 
     .market__source {
       margin: 20px 0 0;
@@ -461,10 +505,11 @@
 
     @media (max-width: 640px) {
       .market { padding: 24px 20px; }
-      .market__stats { flex-direction: column; gap: 16px; }
-      .market__stat { flex-direction: column; gap: 4px; }
-      .market__stat strong { white-space: nowrap; font-size: clamp(32px, 10vw, 44px); }
-      .market__stat + .market__stat { padding-left: 0; border-left: 0; }
+      .kpi__head { padding: 20px 20px 0; }
+      .kpi__grid { grid-template-columns: 1fr; }
+      .kpi__cell { padding: 18px 20px 22px; }
+      .kpi__cell + .kpi__cell { border-left: 0; border-top: 1px solid var(--line); }
+      .kpi__source { padding: 14px 20px; }
       .market__chart { height: 300px; }
       .market__total { padding: 20px; }
       .market__total-label small { display: block; margin: 4px 0 0; }
@@ -1056,12 +1101,21 @@
           <h2 class="section__title">M&amp;A no Brasil em 2026</h2>
         </div>
 
-        <div class="market">
-          <div class="market__stats">
-            <p class="market__stat"><strong>968</strong><span>transações</span></p>
-            <p class="market__stat"><strong>R$ 251,6 bilhões</strong><span>transacionados</span></p>
+        <div class="kpi">
+          <div class="kpi__head">
+            <span class="kpi__period">Acumulado de janeiro a setembro · 3T26</span>
           </div>
-          <p class="market__source">Fonte: TTR Data (acumulado jan–set / 3T26).</p>
+          <dl class="kpi__grid">
+            <div class="kpi__cell">
+              <dt>Transações</dt>
+              <dd><strong>968</strong></dd>
+            </div>
+            <div class="kpi__cell">
+              <dt>Volume transacionado</dt>
+              <dd><strong>R$ 251,6</strong> <span>bilhões</span></dd>
+            </div>
+          </dl>
+          <p class="kpi__source">Fonte: TTR Data</p>
         </div>
 
         <div class="market market--chart">
