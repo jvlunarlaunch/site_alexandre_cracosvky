@@ -1132,6 +1132,23 @@
       color: var(--navy);
     }
 
+    .offer__price sup { font-size: 0.45em; vertical-align: super; margin-left: 2px; }
+
+    .offer__badge {
+      align-self: flex-start;
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .offer__note { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+
     .offer__includes { font-size: 15px; color: var(--muted); }
 
     .offer .btn { margin-top: 22px; }
@@ -1791,7 +1808,7 @@
       <div class="container pricing">
         <div class="pricing__compare">
           <p class="eyebrow eyebrow--gold">Investimento</p>
-          <h2 class="section__title">Quanto custa uma formação em valuation, estratégia e M&amp;A?</h2>
+          <h2 class="section__title">Quanto custa formação em valuation, estratégia e M&amp;A:</h2>
 
           <!-- Preços dos concorrentes -->
           <ul class="competitors">
@@ -1803,11 +1820,13 @@
 
         <div class="offer">
           <p class="offer__pre">Mas aqui:</p>
-          <p class="offer__price">R$ 1.697,00</p>
+          <p class="offer__price">R$ 1.697,00<sup>*</sup></p>
+          <p class="offer__badge">Para os 40 primeiros</p>
+          <p class="offer__note">*Para a primeira turma. Na segunda turma, o preço vai para R$&nbsp;2.497,00.</p>
           <p class="offer__includes">Formação completa + certificado + toolkit profissional</p>
 
             <a class="btn btn--navy btn--xl" href="https://pay.hotmart.com/G108434884B" data-checkout target="_blank" rel="noopener">
-            Inscrever-se
+            Inscreva-se
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
           </a>
 
