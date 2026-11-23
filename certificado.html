@@ -332,6 +332,146 @@
     .card__title { font-weight: 700; font-size: 21px; line-height: 1.25; }
     .card p { font-size: 16px; color: var(--muted); }
 
+    /* ---------- M&A no Brasil ---------- */
+
+    .market {
+      margin-bottom: 24px;
+      padding: 32px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .market--chart { margin-bottom: 0; }
+
+    .market__stats {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 16px 40px;
+    }
+
+    .market__stat {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .market__stat + .market__stat {
+      padding-left: 40px;
+      border-left: 1px solid var(--line-strong);
+    }
+
+    .market__stat strong {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .market__stat span { font-size: 17px; color: var(--muted); }
+
+    .market__source {
+      margin: 20px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .market__title {
+      margin: 0 0 16px;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(20px, 2vw, 24px);
+      color: var(--ink);
+    }
+
+    .market__legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .market__key { display: inline-flex; align-items: center; gap: 8px; }
+    .market__key::before { content: ""; display: inline-block; }
+    .market__key--bar::before { width: 12px; height: 12px; border-radius: 2px; background: var(--navy); }
+    .market__key--line::before { width: 18px; height: 3px; border-radius: 2px; background: var(--gold); }
+
+    .market__chart { height: 360px; margin: 0 -8px; }
+
+    .market__total {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: var(--navy);
+      border-radius: var(--radius);
+      color: var(--on-dark);
+    }
+
+    .market__total-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #E6CF95;
+    }
+
+    .market__total-label small {
+      margin-left: 6px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--on-dark-muted);
+    }
+
+    .market__total-figures {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 8px;
+      font-size: 16px;
+    }
+
+    .market__total-figures strong {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    .market__total-sep {
+      align-self: center;
+      width: 1px;
+      height: 22px;
+      margin: 0 12px;
+      background: var(--line-dark);
+    }
+
+    .section__head--spaced { margin-top: clamp(64px, 8vw, 96px); }
+
+    @media (max-width: 640px) {
+      .market { padding: 24px 20px; }
+      .market__stats { flex-direction: column; gap: 16px; }
+      .market__stat { flex-direction: column; gap: 4px; }
+      .market__stat strong { white-space: nowrap; font-size: clamp(32px, 10vw, 44px); }
+      .market__stat + .market__stat { padding-left: 0; border-left: 0; }
+      .market__chart { height: 300px; }
+      .market__total { padding: 20px; }
+      .market__total-label small { display: block; margin: 4px 0 0; }
+      .market__total-sep { flex-basis: 100%; height: 0; margin: 0; }
+      .market__total-figures strong { font-size: 24px; }
+    }
+
     /* ---------- Oportunidades ---------- */
 
     .salaries {
@@ -913,7 +1053,38 @@
     <section class="section section--tint">
       <div class="container">
         <div class="section__head">
-          <p class="eyebrow">Mercado</p>
+          <h2 class="section__title">M&amp;A no Brasil em 2026</h2>
+        </div>
+
+        <div class="market">
+          <div class="market__stats">
+            <p class="market__stat"><strong>968</strong><span>transações</span></p>
+            <p class="market__stat"><strong>R$ 251,6 bilhões</strong><span>transacionados</span></p>
+          </div>
+          <p class="market__source">Fonte: TTR Data (acumulado jan–set / 3T26).</p>
+        </div>
+
+        <div class="market market--chart">
+          <h3 class="market__title">M&amp;A no Brasil nos últimos 10 anos</h3>
+          <div class="market__legend" aria-hidden="true">
+            <span class="market__key market__key--bar">Volume transacionado (R$ bilhões)</span>
+            <span class="market__key market__key--line">Número de transações</span>
+          </div>
+          <div id="ma-chart" class="market__chart" role="img"
+               aria-label="Gráfico de M&amp;A no Brasil de 2016 a 2026: volume transacionado em bilhões de reais e número de transações por ano. Pico em 2021, com 1.963 transações e R$ 583,4 bilhões."></div>
+
+          <div class="market__total">
+            <span class="market__total-label">Total acumulado <small>2016 – 3T 2026</small></span>
+            <span class="market__total-figures">
+              <strong>14.212</strong> transações
+              <span class="market__total-sep" aria-hidden="true"></span>
+              <strong>R$ 3,08 trilhões</strong> transacionados
+            </span>
+          </div>
+          <p class="market__source">Fontes: KPMG (número de transações) e TTR Data (volume). *2026: acumulado jan–set (3T26), TTR Data.</p>
+        </div>
+
+        <div class="section__head section__head--spaced">
           <h2 class="section__title section__title--narrow">Quais são as oportunidades para quem entende de valuation, estratégia e M&amp;A?</h2>
         </div>
 
@@ -932,7 +1103,7 @@
             </tr>
             <tr>
               <td class="salaries__role">Diretor Financeiro<small>CFO</small></td>
-              <td>R$ 42.550 a R$ 67.650</td>
+              <td>R$ 42.500 a R$ 84.700</td>
             </tr>
             <tr>
               <td class="salaries__role">Diretor de Fusões e Aquisições<small>M&amp;A Director</small></td>
@@ -1243,6 +1414,96 @@
       <span>Alexandre Cracovsky, CFA</span>
     </div>
   </footer>
+
+  <script src="highcharts.js"></script>
+  <script>
+    (function () {
+      var el = document.getElementById('ma-chart');
+      if (!el || !window.Highcharts) return;
+
+      var years  = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026*'];
+      var volume = [196.7, 201.3, 208.1, 295.4, 256.8, 583.4, 331.2, 214.5, 263.8, 281.4, 251.6];
+      var deals  = [740, 830, 967, 1231, 1117, 1963, 1728, 1505, 1582, 1581, 968];
+
+      var NAVY = '#0A1F3D', GOLD = '#C9A961', MUTED = '#414B5C', LINE = '#E1E5EC';
+      var partial = years.length - 1;
+
+      function br(n, d) { return Highcharts.numberFormat(n, d, ',', '.'); }
+
+      Highcharts.chart(el, {
+        chart: { style: { fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif' }, spacing: [16, 8, 8, 8], backgroundColor: 'transparent' },
+        title: { text: null },
+        credits: { enabled: false },
+        legend: { enabled: false },
+        xAxis: {
+          categories: years,
+          lineColor: LINE,
+          tickLength: 0,
+          labels: { style: { color: MUTED, fontSize: '13px' } }
+        },
+        yAxis: [{
+          title: { text: null },
+          min: 0,
+          gridLineColor: LINE,
+          labels: { style: { color: MUTED, fontSize: '12px' }, formatter: function () { return 'R$ ' + this.value; } }
+        }, {
+          title: { text: null },
+          opposite: true,
+          min: 0,
+          gridLineWidth: 0,
+          labels: { style: { color: MUTED, fontSize: '12px' }, formatter: function () { return br(this.value, 0); } }
+        }],
+        tooltip: {
+          shared: true,
+          backgroundColor: '#FFFFFF',
+          borderColor: LINE,
+          borderRadius: 6,
+          shadow: false,
+          useHTML: true,
+          formatter: function () {
+            var i = this.points[0].point.index;
+            var label = i === partial ? '2026 <span style="color:' + MUTED + '">(jan–set)</span>' : years[i];
+            return '<b>' + label + '</b><br>' +
+              'Volume: <b>R$ ' + br(volume[i], 1) + ' bi</b><br>' +
+              'Transações: <b>' + br(deals[i], 0) + '</b>';
+          }
+        },
+        plotOptions: {
+          series: { animation: false, states: { inactive: { opacity: 1 } } },
+          column: { borderWidth: 0, borderRadius: 2, pointPadding: 0.12, groupPadding: 0.1 }
+        },
+        series: [{
+          type: 'column',
+          name: 'Volume transacionado (R$ bilhões)',
+          yAxis: 0,
+          data: volume.map(function (v, i) {
+            return i === partial ? { y: v, color: 'rgba(10, 31, 61, 0.45)' } : { y: v, color: NAVY };
+          })
+        }, {
+          type: 'line',
+          name: 'Número de transações',
+          yAxis: 1,
+          color: GOLD,
+          lineWidth: 3,
+          marker: { symbol: 'circle', radius: 4, fillColor: '#FFFFFF', lineColor: GOLD, lineWidth: 2 },
+          data: deals.map(function (v, i) {
+            return i === partial ? { y: v, marker: { fillColor: GOLD } } : v;
+          }),
+          zoneAxis: 'x',
+          zones: [{ value: partial - 1 }, { dashStyle: 'Dash' }]
+        }],
+        responsive: {
+          rules: [{
+            condition: { maxWidth: 520 },
+            chartOptions: {
+              xAxis: { labels: { rotation: -45, style: { fontSize: '11px' } } },
+              yAxis: [{ labels: { style: { fontSize: '11px' } } }, { labels: { style: { fontSize: '11px' } } }]
+            }
+          }]
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
