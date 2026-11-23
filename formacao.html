@@ -1135,38 +1135,17 @@
     .offer__price sup { font-size: 0.45em; vertical-align: super; margin-left: 2px; }
 
     .offer__badge {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: var(--navy);
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .offer__badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+      /* faixa de ponta a ponta no topo do card (anula o padding do .offer) */
+      margin: calc(-1 * clamp(28px, 4vw, 48px)) calc(-1 * clamp(28px, 4vw, 48px)) clamp(24px, 3vw, 32px);
+      padding: 12px 16px;
+      border-radius: var(--radius) var(--radius) 0 0;
       background: var(--gold);
-      box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.6);
-      animation: offer-pulse 1.8s ease-out infinite;
-    }
-
-    @keyframes offer-pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.6); }
-      70%  { box-shadow: 0 0 0 7px rgba(201, 169, 97, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .offer__badge-dot { animation: none; }
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: center;
     }
 
     .offer__includes {
@@ -1868,7 +1847,7 @@
         </div>
 
         <div class="offer">
-          <p class="offer__badge"><span class="offer__badge-dot" aria-hidden="true"></span>Para os 40 primeiros</p>
+          <p class="offer__badge">Para os 40 primeiros</p>
           <p class="offer__pre">Mas aqui:</p>
           <p class="offer__price">R$ 1.697,00<sup>*</sup></p>
 
