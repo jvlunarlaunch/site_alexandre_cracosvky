@@ -1087,6 +1087,27 @@
     .lead-form [aria-invalid="true"] { border-color: #B42318; }
     .lead-form__error { font-size: 13px; color: #B42318; }
     .lead-form .btn { width: 100%; margin-top: 4px; }
+    .lead-phone { display: flex; gap: 8px; }
+    .lead-phone input { flex: 1; min-width: 0; }
+    .lead-phone__country {
+      position: relative; flex: none;
+      display: flex; align-items: center; gap: 6px;
+      min-height: 48px; padding: 0 10px 0 12px;
+      border: 1px solid var(--line-strong); border-radius: var(--radius);
+      background: var(--bg); color: var(--ink);
+    }
+    .lead-phone__country:focus-within { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+    .lead-phone__display {
+      font-family: "Twemoji Country Flags", var(--font-body), "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+      font-size: 16px; white-space: nowrap;
+    }
+    .lead-phone__chev { color: var(--muted); }
+    .lead-form .lead-phone__country select {
+      position: absolute; inset: 0;
+      width: 100%; min-height: 0; height: 100%; padding: 0;
+      opacity: 0; cursor: pointer; border: 0;
+      font-family: "Twemoji Country Flags", var(--font-body), "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
     .lead-form .btn[disabled] { opacity: 0.7; cursor: progress; }
     .lead-form__note { font-size: 12px; color: var(--muted); text-align: center; }
     @media (max-width: 600px) { .lead-modal__inner { padding: 32px 20px 24px; } }
@@ -1623,7 +1644,14 @@
 
         <div class="lead-form__field">
           <label for="lead-whatsapp">Número (WhatsApp)</label>
-          <input id="lead-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 91234-5678" maxlength="20" required>
+          <div class="lead-phone">
+            <div class="lead-phone__country">
+              <span class="lead-phone__display" id="lead-pais-display" aria-hidden="true">🇧🇷 +55</span>
+              <svg class="lead-phone__chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              <select id="lead-pais" name="pais" aria-label="País do número de WhatsApp"></select>
+            </div>
+            <input id="lead-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" required>
+          </div>
         </div>
 
         <p class="lead-form__error" id="lead-error" role="alert" hidden></p>
@@ -1639,6 +1667,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="assets/supabase-client.js"></script>
+  <script type="module">
+    // Windows não desenha emojis de bandeira; este polyfill carrega uma fonte só com as bandeiras.
+    import { polyfillCountryFlagEmojis } from 'https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/index.min.js';
+    polyfillCountryFlagEmojis();
+  </script>
   <script>
     /* Formulário pré-checkout: intercepta os botões "Inscrever-se" (data-checkout),
        grava o lead no Supabase e depois redireciona para o checkout da Hotmart.
@@ -1680,16 +1713,167 @@
         if (outro) cargoOutro.focus();
       });
 
-      // Máscara simples para telefone brasileiro: (11) 91234-5678
-      whatsapp.addEventListener('input', function () {
-        var raw = whatsapp.value;
-        if (raw.trim().charAt(0) === '+') return; // número internacional: não mascara
-        var d = raw.replace(/\D/g, '').slice(0, 11);
-        var out = d;
-        if (d.length > 2) out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
-        if (d.length > 6) out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
-        whatsapp.value = out;
+      /* Países do WhatsApp, ordenados pelos mais prováveis para o público do curso.
+         [código ISO, nome, DDI, máscara do número nacional ('#' = dígito), mín. dígitos, máx. dígitos]
+         Sem máscara ('') o número é agrupado de 3 em 3. */
+      var COUNTRIES = [
+        ['BR', 'Brasil', '55', '(##) #####-####', 10, 11],
+        ['US', 'Estados Unidos', '1', '(###) ###-####', 10, 10],
+        ['PT', 'Portugal', '351', '### ### ###', 9, 9],
+        ['AR', 'Argentina', '54', '', 10, 11],
+        ['UY', 'Uruguai', '598', '#### ####', 8, 8],
+        ['PY', 'Paraguai', '595', '### ### ###', 9, 9],
+        ['CL', 'Chile', '56', '# #### ####', 9, 9],
+        ['CO', 'Colômbia', '57', '### ### ####', 10, 10],
+        ['MX', 'México', '52', '## #### ####', 10, 10],
+        ['PE', 'Peru', '51', '### ### ###', 9, 9],
+        ['BO', 'Bolívia', '591', '#### ####', 8, 8],
+        ['CA', 'Canadá', '1', '(###) ###-####', 10, 10],
+        ['GB', 'Reino Unido', '44', '#### ######', 10, 10],
+        ['ES', 'Espanha', '34', '### ### ###', 9, 9],
+        ['IT', 'Itália', '39', '', 9, 11],
+        ['FR', 'França', '33', '# ## ## ## ##', 9, 9],
+        ['DE', 'Alemanha', '49', '', 10, 12],
+        ['CH', 'Suíça', '41', '## ### ## ##', 9, 9],
+        ['AO', 'Angola', '244', '### ### ###', 9, 9],
+        ['MZ', 'Moçambique', '258', '## ### ####', 9, 9],
+        ['IE', 'Irlanda', '353', '## ### ####', 9, 9],
+        ['NL', 'Países Baixos', '31', '# ## ## ## ##', 9, 9],
+        ['BE', 'Bélgica', '32', '### ## ## ##', 9, 9],
+        ['LU', 'Luxemburgo', '352', '### ### ###', 9, 9],
+        ['AE', 'Emirados Árabes Unidos', '971', '## ### ####', 9, 9],
+        ['JP', 'Japão', '81', '## #### ####', 10, 10],
+        ['AU', 'Austrália', '61', '### ### ###', 9, 9],
+        ['CV', 'Cabo Verde', '238', '### ## ##', 7, 7],
+        ['VE', 'Venezuela', '58', '### ### ####', 10, 10],
+        ['EC', 'Equador', '593', '## ### ####', 9, 9],
+        ['PA', 'Panamá', '507', '####-####', 8, 8],
+        ['CR', 'Costa Rica', '506', '#### ####', 8, 8],
+        ['DO', 'República Dominicana', '1', '(###) ###-####', 10, 10],
+        ['GT', 'Guatemala', '502', '#### ####', 8, 8],
+        ['SV', 'El Salvador', '503', '#### ####', 8, 8],
+        ['HN', 'Honduras', '504', '####-####', 8, 8],
+        ['NI', 'Nicarágua', '505', '#### ####', 8, 8],
+        ['AT', 'Áustria', '43', '', 10, 13],
+        ['SE', 'Suécia', '46', '## ### ## ##', 9, 9],
+        ['NO', 'Noruega', '47', '### ## ###', 8, 8],
+        ['DK', 'Dinamarca', '45', '## ## ## ##', 8, 8],
+        ['PL', 'Polônia', '48', '### ### ###', 9, 9],
+        ['GR', 'Grécia', '30', '### ### ####', 10, 10],
+        ['IL', 'Israel', '972', '## ### ####', 9, 9],
+        ['CN', 'China', '86', '### #### ####', 11, 11],
+        ['HK', 'Hong Kong', '852', '#### ####', 8, 8],
+        ['SG', 'Singapura', '65', '#### ####', 8, 8],
+        ['KR', 'Coreia do Sul', '82', '', 9, 10],
+        ['IN', 'Índia', '91', '##### #####', 10, 10],
+        ['ZA', 'África do Sul', '27', '## ### ####', 9, 9],
+        ['QA', 'Catar', '974', '#### ####', 8, 8],
+        ['SA', 'Arábia Saudita', '966', '## ### ####', 9, 9],
+        ['NZ', 'Nova Zelândia', '64', '', 8, 10],
+        ['GW', 'Guiné-Bissau', '245', '### ### ###', 9, 9],
+        ['ST', 'São Tomé e Príncipe', '239', '### ####', 7, 7],
+        ['TL', 'Timor-Leste', '670', '#### ####', 8, 8],
+        ['XX', 'Outro país', '', '', 0, 0]
+      ];
+
+      function flag(iso) {
+        if (iso === 'XX') return '🌐';
+        return String.fromCodePoint.apply(null, iso.split('').map(function (c) { return 0x1F1E6 + c.charCodeAt(0) - 65; }));
+      }
+
+      var pais = form.elements.pais;
+      var paisDisplay = document.getElementById('lead-pais-display');
+      COUNTRIES.forEach(function (c, i) {
+        var opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = flag(c[0]) + ' ' + c[1] + (c[2] ? ' (+' + c[2] + ')' : '');
+        pais.appendChild(opt);
       });
+
+      function current() { return COUNTRIES[+pais.value || 0]; }
+
+      function example(c) {
+        if (c[0] === 'BR') return '(11) 91234-5678';
+        if (c[0] === 'XX') return '+00 000 000 000';
+        var n = 0, digits = '987654321098765';
+        var mask = c[3] || groups(c[5]);
+        return mask.replace(/#/g, function () { return digits.charAt(n++); });
+      }
+      function groups(len) { return '### ### ### ### ###'.slice(0, len + Math.floor((len - 1) / 3)); }
+
+      function format(d, c) {
+        if (c[0] === 'BR') {
+          if (d.length <= 2) return d;
+          return '(' + d.slice(0, 2) + ') ' + (d.length > 6 ? d.slice(2, d.length - 4) + '-' + d.slice(-4) : d.slice(2));
+        }
+        var mask = c[3] || groups(c[5]);
+        if (d.length > mask.replace(/[^#]/g, '').length) mask = groups(d.length); // número maior que a máscara
+        var out = '', n = 0;
+        for (var i = 0; i < mask.length && n < d.length; i++) {
+          out += mask.charAt(i) === '#' ? d.charAt(n++) : mask.charAt(i);
+        }
+        return out;
+      }
+
+      function nationalDigits(c) {
+        var d = whatsapp.value.replace(/\D/g, '');
+        if (c[0] !== 'IT') d = d.replace(/^0+/, ''); // tira o 0 de tronco (ex.: 07700 no Reino Unido)
+        return d.slice(0, c[5]);
+      }
+
+      function onCountryChange() {
+        var c = current();
+        paisDisplay.textContent = flag(c[0]) + (c[2] ? ' +' + c[2] : '');
+        whatsapp.placeholder = example(c);
+        whatsapp.autocomplete = c[0] === 'XX' ? 'tel' : 'tel-national';
+        if (c[0] === 'XX') {
+          if (whatsapp.value && whatsapp.value.charAt(0) !== '+') whatsapp.value = '+' + whatsapp.value.replace(/\D/g, '');
+        } else {
+          whatsapp.value = format(nationalDigits(c), c);
+        }
+      }
+      pais.addEventListener('change', function () { onCountryChange(); whatsapp.focus(); });
+
+      // Número com DDI (+55..., 0055...): acha o país pelo prefixo e deixa só o número nacional.
+      function detectCountry() {
+        var raw = whatsapp.value.trim();
+        if (!/^(\+|00)/.test(raw)) return;
+        var all = raw.replace(/^00/, '').replace(/\D/g, '');
+        if (all.length < 8) return;
+        var hit = -1;
+        COUNTRIES.forEach(function (k, i) {
+          if (k[2] && all.indexOf(k[2]) === 0 && (hit === -1 || k[2].length > COUNTRIES[hit][2].length)) hit = i;
+        });
+        // DDI compartilhado (+1 = EUA, Canadá, Rep. Dominicana): mantém o país já escolhido.
+        if (hit !== -1 && COUNTRIES[hit][2] === current()[2]) hit = +pais.value;
+        if (hit === -1) {
+          pais.value = String(COUNTRIES.length - 1); // Outro país
+          whatsapp.value = '+' + all;
+        } else {
+          pais.value = String(hit);
+          whatsapp.value = all.slice(COUNTRIES[hit][2].length);
+        }
+        onCountryChange();
+      }
+
+      whatsapp.addEventListener('input', function (e) {
+        var c = current();
+        var raw = whatsapp.value.trim();
+        var pasted = !e.inputType || e.inputType === 'insertFromPaste' || e.inputType === 'insertReplacementText';
+        if (/^(\+|00)/.test(raw) && c[0] !== 'XX') {
+          if (pasted) detectCountry();
+          else whatsapp.value = '+' + raw.replace(/\D/g, '').slice(0, 15); // digitando o DDI: resolve ao sair do campo
+          return;
+        }
+        if (c[0] === 'XX') {
+          whatsapp.value = raw.replace(/\D/g, '') ? '+' + raw.replace(/\D/g, '').slice(0, 15) : '';
+          return;
+        }
+        whatsapp.value = format(nationalDigits(c), c);
+      });
+      whatsapp.addEventListener('blur', detectCountry);
+
+      onCountryChange();
 
       function showError(msg, field) {
         errorEl.textContent = msg;
@@ -1711,12 +1895,18 @@
         var vNome = nome.value.trim();
         var vCargo = cargo.value;
         var vOutro = cargoOutro.value.trim();
-        var digits = whatsapp.value.replace(/\D/g, '');
+        detectCountry();
+        var pc = current();
+        var nat = pc[0] === 'XX' ? '' : nationalDigits(pc);
+        // Gravado no formato internacional só com dígitos (E.164 sem o "+"), ex.: 5511912345678
+        var digits = pc[0] === 'XX' ? whatsapp.value.replace(/\D/g, '') : pc[2] + nat;
 
         if (vNome.length < 2) return showError('Informe seu nome.', nome);
         if (!vCargo) return showError('Selecione seu cargo.', cargo);
         if (vCargo === 'Outro' && vOutro.length < 2) return showError('Informe qual é o seu cargo.', cargoOutro);
-        if (digits.length < 10 || digits.length > 15) return showError('Informe um WhatsApp válido com DDD.', whatsapp);
+        if (pc[0] === 'BR' && nat.length < 10) return showError('Informe um WhatsApp válido com DDD.', whatsapp);
+        if (pc[0] !== 'XX' && nat.length < pc[4]) return showError('Número incompleto para ' + pc[1] + '.', whatsapp);
+        if (digits.length < 10 || digits.length > 15) return showError(pc[0] === 'XX' ? 'Informe o número com o código do país (ex.: +44 7700 900123).' : 'Informe um WhatsApp válido.', whatsapp);
 
         submitBtn.disabled = true;
 
