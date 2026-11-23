@@ -1136,20 +1136,69 @@
 
     .offer__badge {
       align-self: flex-start;
-      margin-top: 6px;
-      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 7px 14px;
       border-radius: 999px;
       background: var(--navy);
       color: var(--gold);
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
-    .offer__note { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .offer__badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.6);
+      animation: offer-pulse 1.8s ease-out infinite;
+    }
 
-    .offer__includes { font-size: 15px; color: var(--muted); }
+    @keyframes offer-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.6); }
+      70%  { box-shadow: 0 0 0 7px rgba(201, 169, 97, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .offer__badge-dot { animation: none; }
+    }
+
+    .offer__includes {
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 18px 0 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 10px;
+    }
+
+    .offer__includes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .offer__includes svg { flex: none; color: var(--gold-dark); }
+
+    .offer__note {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .offer__note strong { color: var(--ink); font-weight: 600; }
 
     .offer .btn { margin-top: 22px; }
 
@@ -1819,16 +1868,22 @@
         </div>
 
         <div class="offer">
+          <p class="offer__badge"><span class="offer__badge-dot" aria-hidden="true"></span>Para os 40 primeiros</p>
           <p class="offer__pre">Mas aqui:</p>
           <p class="offer__price">R$ 1.697,00<sup>*</sup></p>
-          <p class="offer__badge">Para os 40 primeiros</p>
-          <p class="offer__note">*Para a primeira turma. Na segunda turma, o preço vai para R$&nbsp;2.497,00.</p>
-          <p class="offer__includes">Formação completa + certificado + toolkit profissional</p>
+
+          <ul class="offer__includes">
+            <li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Formação completa</span></li>
+            <li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Certificado</span></li>
+            <li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Toolkit profissional</span></li>
+          </ul>
 
             <a class="btn btn--navy btn--xl" href="https://pay.hotmart.com/G108434884B" data-checkout target="_blank" rel="noopener">
             Inscreva-se
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
           </a>
+
+          <p class="offer__note">*Para a primeira turma. Na segunda turma, o preço vai para <strong>R$&nbsp;2.497,00</strong>.</p>
 
           <div class="guarantee">
             <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-2.9 8.2-7 9.5-4.1-1.3-7-5.1-7-9.5V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
