@@ -905,29 +905,6 @@
       gap: 14px;
     }
 
-    .program__count {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 18px;
-      border-top: 2px solid var(--navy);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .program__count strong {
-      font-family: var(--font-head);
-      font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      color: var(--navy);
-    }
-
     .program {
       display: flex;
       flex-direction: column;
@@ -1112,7 +1089,6 @@
     @media (max-width: 960px) {
       .program-wrap { grid-template-columns: 1fr; gap: 36px; }
       .program__head { position: static; }
-      .program__count { margin-top: 4px; }
     }
 
     /* ---------- Certificado + Bônus ---------- */
@@ -1975,9 +1951,7 @@
     <section class="section section--tint" id="programa">
       <div class="container program-wrap">
         <div class="program__head">
-          <p class="eyebrow">Programa</p>
           <h2 class="section__title">O que você vai aprender</h2>
-          <p class="program__count"><strong>4</strong> módulos</p>
         </div>
 
         <div class="program">
