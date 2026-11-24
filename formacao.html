@@ -310,6 +310,74 @@
 
     .facts__item span { font-size: 15px; color: var(--on-dark-muted); }
 
+    /* ---------- Depoimentos do livro ---------- */
+
+    .reviews__book { font-style: italic; }
+
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: 24px;
+    }
+
+    .review {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin: 0;
+      padding: 32px 28px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .review__stars { display: flex; gap: 4px; color: var(--gold); }
+
+    .review__quote { flex: 1; margin: 0; }
+    .review__quote p { font-size: 18px; line-height: 1.6; color: var(--text); }
+
+    .review__author {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .review__author strong { font-family: var(--font-head); font-size: 16px; color: var(--ink); }
+
+    /* ---------- Valuation (destaque) ---------- */
+
+    .valuation-note {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: clamp(24px, 5vw, 64px);
+      align-items: center;
+      margin-top: clamp(48px, 6vw, 72px);
+      padding: clamp(28px, 4vw, 48px);
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius);
+    }
+
+    .valuation-note__title {
+      font-weight: 800;
+      font-size: clamp(24px, 2.6vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+
+    .valuation-note__body { display: flex; flex-direction: column; gap: 14px; }
+    .valuation-note__body p { color: var(--muted); }
+
+    @media (max-width: 860px) {
+      .valuation-note { grid-template-columns: 1fr; }
+    }
+
     /* ---------- Para quem é ---------- */
 
     .audience {
@@ -1693,7 +1761,7 @@
           <li class="facts__item">
             <svg class="facts__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
             <strong>Casos reais</strong>
-            <span>Ensino prático, com a experiência de quem atua em M&amp;A</span>
+            <span>Ensino prático, com a experiência de quem atua em Valuation e M&amp;A</span>
           </li>
           <li class="facts__item">
             <svg class="facts__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 13.9L7 22l5-3 5 3-1.5-8.1"/></svg>
@@ -1703,9 +1771,35 @@
           <li class="facts__item">
             <svg class="facts__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             <strong>Toolkit profissional</strong>
-            <span>Ferramentas de modelagem financeira e processos</span>
+            <span>Documentos, planilhas e modelos editáveis usados por profissionais</span>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ============ DEPOIMENTOS DO LIVRO ============ -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title section__title--narrow">Veja o que alguns falaram do livro <em class="reviews__book">Valuation, Estratégia e M&amp;A</em>, que motivou a criação da Formação:</h2>
+        </div>
+        <div class="reviews">
+          <figure class="review">
+            <div class="review__stars" role="img" aria-label="5 de 5 estrelas"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg></div>
+            <blockquote class="review__quote"><p>“O mercado financeiro nacional precisava de uma referência assim, Cracovsky entregou.”</p></blockquote>
+            <figcaption class="review__author"><strong>Diogo Aragão</strong><span>Managing Director do Bank of America Investment</span></figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" role="img" aria-label="5 de 5 estrelas"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg></div>
+            <blockquote class="review__quote"><p>“Alê é o que mais perto temos de um Damodaran brasileiro: traz valuation para a realidade de quem empreende. Leitura obrigatória para todo empresário.”</p></blockquote>
+            <figcaption class="review__author"><strong>Álvaro Schocair</strong><span>Sócio-fundador da Link School of Business</span></figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" role="img" aria-label="5 de 5 estrelas"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg></div>
+            <blockquote class="review__quote"><p>“Todo conselho deveria ter esse livro na mesa antes da próxima decisão estratégica.”</p></blockquote>
+            <figcaption class="review__author"><strong>Besaliel Botelho</strong><span>Ex-presidente da Bosch América Latina e conselheiro de empresas</span></figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -1720,27 +1814,27 @@
           <article class="card">
             <span class="card__num">01</span>
             <h3 class="card__title">Empresários</h3>
-            <p>Que querem construir uma empresa altamente avaliada e que o mercado queira comprar.</p>
+            <p>Que querem entender como construir uma empresa que o mercado queira comprar e/ou maximizar valor através de aquisições.</p>
           </article>
           <article class="card">
             <span class="card__num">02</span>
             <h3 class="card__title">Executivos de Companhias e Bancos</h3>
-            <p>Que querem dominar a técnica e a estratégia de M&amp;A para identificar oportunidades, liderar negociações de sucesso e se tornar uma referência no mercado.</p>
+            <p>Que querem dominar a técnica do Valuation e a estratégia de M&amp;A para planejar decisões, identificar oportunidades, liderar negociações de sucesso e se tornar uma referência no mercado.</p>
           </article>
           <article class="card">
             <span class="card__num">03</span>
             <h3 class="card__title">Advogados</h3>
-            <p>Que atuam em fusões e aquisições de empresas e precisam entender sobre processos de due diligence, riscos, contratos bem-sucedidos e garantir negociações sem riscos.</p>
+            <p>Que atuam em fusões e aquisições de empresas e precisam entender além de processos de due diligence, riscos, contratos bem-sucedidos, também adquirir todo conhecimento da parte financeira para melhores negociações.</p>
           </article>
           <article class="card">
             <span class="card__num">04</span>
             <h3 class="card__title">Consultores</h3>
-            <p>Que querem entender sobre cases reais de M&amp;A, entender os principais erros e as principais soluções que resultam em sucesso.</p>
+            <p>Que querem ampliar seus conhecimentos Financeiros e Jurídicos, entender sobre cases reais de M&amp;A, erros e soluções que resultam em sucesso.</p>
           </article>
           <article class="card">
             <span class="card__num">05</span>
             <h3 class="card__title">Analistas e Estudantes</h3>
-            <p>Que querem aprender M&amp;A do básico ao avançado, aprimorar o currículo e ter acesso a vagas altamente remuneradas no mercado financeiro.</p>
+            <p>Que querem aprender Valuation e M&amp;A do básico ao avançado, aprimorar o currículo e ter acesso a vagas altamente remuneradas no mercado financeiro.</p>
           </article>
         </div>
       </div>
@@ -1787,8 +1881,16 @@
           <p class="market__source">Fontes: KPMG e TTR Data</p>
         </div>
 
+        <div class="valuation-note">
+          <h3 class="valuation-note__title">No mercado, existe uma área de importância universal: <span class="underline">valuation</span>.</h3>
+          <div class="valuation-note__body">
+            <p>Saber como calcular e avaliar negócios é uma habilidade de necessidade universal para todo empreendedor ou atuante do mercado financeiro.</p>
+            <p>Na Formação, Valuation é ensinado de forma precisa e com diversas ferramentas utilizadas por profissionais.</p>
+          </div>
+        </div>
+
         <div class="section__head section__head--spaced">
-          <h2 class="section__title">Vagas em M&amp;A</h2>
+          <h2 class="section__title section__title--narrow">Quais são as oportunidades para quem entende de valuation, estratégia e M&amp;A?</h2>
         </div>
 
         <div class="salaries">
@@ -1849,7 +1951,7 @@
             </div>
             <div class="ps__solution">
               <span class="ps__label ps__label--gold"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg> Solução</span>
-              <p>Com M&amp;A diretamente no seu currículo, você vai ter vantagem competitiva e conseguir disputar pelas melhores vagas.</p>
+              <p>Com Valuation e M&amp;A diretamente no seu currículo, você vai ter vantagem competitiva e conseguir disputar pelas melhores vagas.</p>
             </div>
           </li>
           <li class="ps__card">
@@ -1863,7 +1965,7 @@
             </div>
             <div class="ps__solution">
               <span class="ps__label ps__label--gold"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg> Solução</span>
-              <p>A formação aborda de forma prática, com casos reais, como mitigar riscos e fazer boas negociações livres de passivos ocultos e problemas.</p>
+              <p>A formação aborda estudos de casos reais, como calcular valor, identificar e mitigar riscos e melhorar negociações.</p>
             </div>
           </li>
           <li class="ps__card">
@@ -1877,7 +1979,7 @@
             </div>
             <div class="ps__solution">
               <span class="ps__label ps__label--gold"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg> Solução</span>
-              <p>A formação ensina de forma prática e aprofundada tópicos críticos e importantes de um M&amp;A com diversos estudos de casos.</p>
+              <p>A formação foi preparada com materiais reais de investment banking até escritórios de advocacia e ensina de forma aprofundada o que vai para as reuniões de conselho.</p>
             </div>
           </li>
         </ul>
@@ -1924,8 +2026,10 @@
             formando profissionais que hoje estão nos principais fundos e bancos do país.
           </p>
           <p>
-            É Vice-Presidente de M&amp;A na ADVISIA Investimentos com +R$ 10Bi em transações e
-            professor na Link School of Business, CFA® Charterholder, Engenheiro Civil, mestre pela
+            É Vice-Presidente sênior de M&amp;A na ADVISIA Investimentos com +R$ 10Bi em transações,
+            conselheiro e professor na Link School of Business, CFA® Charterholder, além de autor do
+            livro “Valuation, Estratégia e M&amp;A - Construa uma empresa que o mercado queira comprar”.
+            Engenheiro Civil, mestre pela
             FGV e doutorando em Administração de Empresas (FGV), sua abordagem combina rigor técnico
             e clareza didática — traduzindo o que acontece dentro das transações em linguagem que
             faz sentido fora delas.
@@ -1933,7 +2037,7 @@
           <dl class="prof__stats">
             <div><dt>anos em M&amp;A, valuation e finanças corporativas</dt><dd>+10</dd></div>
             <div><dt>em transações como VP de M&amp;A na ADVISIA</dt><dd>+R$ 10 bi</dd></div>
-            <div><dt>professor de Finanças da Link School of Business</dt><dd>LBS</dd></div>
+            <div><dt>professor de Valuation da Link School of Business</dt><dd>MBA</dd></div>
           </dl>
         </div>
       </div>
@@ -2113,7 +2217,6 @@
           </figure>
         </div>
 
-        <h3 class="toolkit__subhead">Os materiais à sua disposição incluem:</h3>
         <div class="toolkit__grid">
           <article class="kit">
             <header class="kit__head">
@@ -2148,7 +2251,6 @@
               <li>Modelo de cálculo de ágio</li>
               <li>Modelo de cálculo de sinergias</li>
               <li>Modelo de LBO (leverage buyout)</li>
-              <li>Modelo de cálculo de ROIC</li>
             </ul>
           </article>
           <article class="kit">
@@ -2191,7 +2293,7 @@
           <div class="extra__body">
             <p class="eyebrow">Incluso</p>
             <h2 class="extra__title">Certificado de Conclusão</h2>
-            <p>Após a conclusão do curso, você receberá um certificado pronto para colocar no seu currículo.</p>
+            <p>Após a conclusão do curso, você receberá um certificado e a designação de Certificado Valuation M&amp;A Analyst (CVMA) pronto para colocar no seu currículo.</p>
           </div>
         </article>
       </div>
@@ -2234,7 +2336,7 @@
             <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-2.9 8.2-7 9.5-4.1-1.3-7-5.1-7-9.5V6l7-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
             <div>
               <strong>Se não gostar, seu dinheiro de volta.</strong>
-              <span>Dentro de 7 dias, se você não gostar, poderá pedir reembolso.</span>
+              <span>Dentro de 7 dias, se você não gostar, você poderá pedir reembolso.</span>
             </div>
           </div>
         </div>
