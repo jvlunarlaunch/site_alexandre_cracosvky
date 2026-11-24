@@ -890,29 +890,81 @@
 
     /* ---------- Programa ---------- */
 
+    .program-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+      gap: clamp(40px, 6vw, 88px);
+      align-items: start;
+    }
+
+    .program__head {
+      position: sticky;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .program__count {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 18px;
+      border-top: 2px solid var(--navy);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .program__count strong {
+      font-family: var(--font-head);
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--navy);
+    }
+
     .program {
-      max-width: 880px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
     .acc {
+      position: relative;
       background: #FFFFFF;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      transition: border-color 0.2s ease;
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .acc:hover,
-    .acc[open] { border-color: var(--navy); }
+    .acc::before {                   /* barra de destaque do módulo aberto */
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.25s ease;
+    }
+
+    .acc:hover { border-color: var(--line-strong); box-shadow: 0 6px 20px rgba(10, 31, 61, 0.06); }
+    .acc[open] { border-color: var(--line-strong); box-shadow: 0 12px 32px rgba(10, 31, 61, 0.08); }
+    .acc[open]::before { transform: scaleY(1); }
 
     .acc__summary {
       display: flex;
       align-items: center;
-      gap: 16px;
-      min-height: 72px;
-      padding: 18px 28px;
+      gap: 22px;
+      padding: 24px 28px;
       cursor: pointer;
       list-style: none;
     }
@@ -921,59 +973,87 @@
 
     .acc__summary:focus-visible {
       outline: 3px solid var(--gold);
-      outline-offset: 2px;
+      outline-offset: -3px;
       border-radius: var(--radius);
     }
 
-    .acc__title {
-      flex: 1;
+    .acc__num {
+      flex: none;
+      width: 56px;
+      font-family: var(--font-head);
+      font-size: 34px;
       font-weight: 800;
-      font-size: 21px;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--line-strong);
+      transition: color 0.2s ease;
     }
 
-    .acc__chev { flex: none; color: var(--navy); transition: transform 0.2s ease; }
-    .acc[open] .acc__chev { transform: rotate(180deg); }
+    .acc:hover .acc__num,
+    .acc[open] .acc__num { color: var(--gold-dark); }
 
-    /* árvore de tópicos */
-    .tree { padding: 6px 28px 10px 36px; }
-
-    .tree__node {
-      position: relative;
-      padding: 0 0 22px 30px;
+    .acc__head {
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    .tree__node::before {            /* ramo horizontal */
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 12px;
-      width: 18px;
-      height: 2px;
-      background: var(--line-strong);
+    .acc__title {
+      font-weight: 800;
+      font-size: 21px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--ink);
     }
 
-    .tree__node::after {             /* tronco vertical */
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--line-strong);
+    .acc__meta {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    .tree__node:last-child::after { bottom: auto; height: 14px; }
+    .acc__chev {
+      flex: none;
+      box-sizing: content-box;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--navy);
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .acc[open] .acc__chev {
+      transform: rotate(180deg);
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    /* tópicos do módulo */
+    .tree {
+      margin: 0 28px 0 106px;
+      padding: 0 0 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .tree__node {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 22px 0;
+    }
+
+    .tree__node + .tree__node { border-top: 1px solid var(--line); }
 
     .tree__title {
       font-family: var(--font-head);
       font-weight: 700;
       font-size: 17px;
-      line-height: 1.45;
+      line-height: 1.4;
       color: var(--ink);
     }
 
@@ -983,30 +1063,57 @@
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      margin-top: 2px;
       font-size: 15px;
       font-weight: 500;
       line-height: 1.5;
       color: var(--navy);
     }
 
-    .tree--sub { padding: 0; margin-top: 10px; }
+    .tree__benefit svg { flex: none; margin-top: 3px; color: var(--gold-dark); }
+
+    .tree--sub {
+      margin: 8px 0 0;
+      padding: 14px 18px;
+      border: 0;
+      background: var(--bg-tint);
+      border-radius: var(--radius);
+      display: grid;
+      gap: 8px;
+    }
 
     .tree--sub .tree__node {
-      padding: 0 0 10px 26px;
+      position: relative;
+      display: block;
+      padding: 0 0 0 18px;
+      border: 0;
       font-size: 15px;
       line-height: 1.5;
       color: var(--muted);
     }
 
-    .tree--sub .tree__node:last-child { padding-bottom: 0; }
-    .tree--sub .tree__node::before { top: 11px; width: 16px; height: 1px; }
-    .tree--sub .tree__node::after { width: 1px; }
-    .tree--sub .tree__node:last-child::after { height: 12px; }
+    .tree--sub .tree__node::before {   /* traço fino como marcador */
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 8px;
+      height: 2px;
+      background: var(--gold);
+    }
 
-    .tree__benefit--lead { margin: 0; padding: 0 28px 14px; }
+    .tree__benefit--lead {
+      margin: 0 28px 0 106px;
+      padding: 18px 0 4px;
+      border-top: 1px solid var(--line);
+    }
 
-    .tree__benefit svg { flex: none; margin-top: 3px; color: var(--gold-dark); }
+    .tree__benefit--lead + .tree { border-top: 0; }
+
+    @media (max-width: 960px) {
+      .program-wrap { grid-template-columns: 1fr; gap: 36px; }
+      .program__head { position: static; }
+      .program__count { margin-top: 4px; }
+    }
 
     /* ---------- Certificado + Bônus ---------- */
 
@@ -1439,10 +1546,12 @@
       .ps__problem { padding: 24px 22px 36px; }
       .ps__solution { padding: 36px 22px 26px; }
       .ps__arrow { left: 22px; }
-      .acc__summary { padding: 16px 18px; gap: 12px; }
-      .acc__title { font-size: 19px; }
-      .tree { padding: 4px 18px 6px 22px; }
-      .tree__node { padding-left: 26px; }
+      .acc__summary { padding: 18px 18px; gap: 14px; }
+      .acc__num { width: auto; font-size: 26px; }
+      .acc__title { font-size: 18px; }
+      .acc__chev { padding: 6px; }
+      .tree:not(.tree--sub), .tree__benefit--lead { margin-left: 18px; margin-right: 18px; }
+      .tree--sub { padding: 12px 14px; }
       .salaries { position: relative; border-top: 3px solid var(--navy); }
       .salaries__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .salaries__table th { display: block; width: 1px; padding: 0; overflow: hidden; white-space: nowrap; }
@@ -1863,16 +1972,22 @@
     </section>
 
     <!-- ============ PROGRAMA ============ -->
-    <section class="section section--tint">
-      <div class="container">
-        <div class="section__head">
+    <section class="section section--tint" id="programa">
+      <div class="container program-wrap">
+        <div class="program__head">
+          <p class="eyebrow">Programa</p>
           <h2 class="section__title">O que você vai aprender</h2>
+          <p class="program__count"><strong>4</strong> módulos</p>
         </div>
 
         <div class="program">
           <details class="acc">
             <summary class="acc__summary">
-              <h3 class="acc__title">Nivelamento</h3>
+              <span class="acc__num">01</span>
+              <span class="acc__head">
+                <h3 class="acc__title">Nivelamento</h3>
+                <span class="acc__meta">3 tópicos</span>
+              </span>
               <svg class="acc__chev" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </summary>
             <p class="tree__benefit tree__benefit--lead"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Você chega às próximas partes com a base alinhada.</span></p>
@@ -1890,7 +2005,11 @@
           </details>
           <details class="acc" open>
             <summary class="acc__summary">
-              <h3 class="acc__title">Mentalidade, equity e estratégia</h3>
+              <span class="acc__num">02</span>
+              <span class="acc__head">
+                <h3 class="acc__title">Conceitos, equity e estratégia</h3>
+                <span class="acc__meta">3 tópicos</span>
+              </span>
               <svg class="acc__chev" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </summary>
             <ul class="tree">
@@ -1923,7 +2042,11 @@
           </details>
           <details class="acc">
             <summary class="acc__summary">
-              <h3 class="acc__title">Construindo valor antes da venda</h3>
+              <span class="acc__num">03</span>
+              <span class="acc__head">
+                <h3 class="acc__title">Construindo valor antes da venda</h3>
+                <span class="acc__meta">4 tópicos</span>
+              </span>
               <svg class="acc__chev" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </summary>
             <ul class="tree">
@@ -1940,7 +2063,6 @@
                 <p class="tree__benefit"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Você constrói e revisa um DCF com segurança.</span></p>
                 <ul class="tree tree--sub">
                   <li class="tree__node">FCFF, valor terminal, WACC build-up, sensibilidade e os 8 erros do DCF</li>
-                  <li class="tree__node">Prática: exercício de Beta/WACC</li>
                 </ul>
               </li>
               <li class="tree__node">
@@ -1957,14 +2079,17 @@
                 <ul class="tree tree--sub">
                   <li class="tree__node">Matriz de 5 alternativas, comprador estratégico × financeiro e LBO</li>
                   <li class="tree__node">Abordagem (one-on-one ou leilão), tiers de compradores, teaser, CIM e NBOs</li>
-                  <li class="tree__node">Case: Extrafarma</li>
                 </ul>
               </li>
             </ul>
           </details>
           <details class="acc">
             <summary class="acc__summary">
-              <h3 class="acc__title">A execução do deal</h3>
+              <span class="acc__num">04</span>
+              <span class="acc__head">
+                <h3 class="acc__title">A execução do deal</h3>
+                <span class="acc__meta">3 tópicos</span>
+              </span>
               <svg class="acc__chev" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </summary>
             <ul class="tree">
@@ -1974,7 +2099,6 @@
                 <ul class="tree tree--sub">
                   <li class="tree__node">Frentes de DD, matriz de achados e VDR</li>
                   <li class="tree__node">As “3 avaliações”, preço máximo e mínimo, BATNA/ZOPA, Voss e Magna</li>
-                  <li class="tree__node">Dinâmica: role-play do conselho com fatos novos</li>
                 </ul>
               </li>
               <li class="tree__node">
